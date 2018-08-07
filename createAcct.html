@@ -12,31 +12,31 @@
     <h2>Create Account</h2>
 
     <form action= "createAcct.php" method="POST">
-        <br><input type = "email" value= "Email" name="email" required="required"/></br>
-        <br><input type = "password" value= "Password" name="password" required="required"/></br>
-        <br><input type = "text" value= "First Name" name="fname" required="required"/></br>
+        <br><input type = "email" placeholder= "Email" name="email" required="required"/></br>
+        <br><input type = "password" placeholder= "Password" name="password" required="required"/></br>
+        <br><input type = "text" placeholder= "First Name" name="fname" required="required"/></br>
 
-        <br><input type = "text" value= "Last Name" name="lname" required="required"/></br>
-        <br><input type = "number" value= "Phone Number" name="phone" required="required"/></br>
+        <br><input type = "text" placeholder= "Last Name" name="lname" required="required"/></br>
+        <br><input type = "tel" placeholder= '123-456-7890' name="phone" required="required"/></br>
        
         <br><select name="carriers">
             <option value="carrier">Select a Carrier</option>
-            <option value="verizon">Verizon</option>
-            <option value="tmobile">T-Mobile</option>
-            <option value="sprint">Sprint</option>
-            <option value="cricket">Cricket</option>
-            <option value="att">AT&T</option>
+            <option value="Verizon">Verizon</option>
+            <option value="T-Mobile">T-Mobile</option>
+            <option value="Sprint">Sprint</option>
+            <option value="Cricket">Cricket</option>
+            <option value="AT&amp;T">AT&T</option>
         </select></br>
 
          <br><select name="departments">
             <option value="departments">Select a Department</option>
-            <option value="hr">HR</option>
-            <option value="sales">Sales</option>
-            <option value="ops">Operations</option>
-            <option value="garage">Garage</option>
-            <option value="fb">Food & Beverages</option>
-            <option value="prod">Production</option>
-            <option value="admin">Administration</option>
+            <option value=1 >HR</option>
+            <option value=2 >Sales</option>
+            <option value=3 >Operations</option>
+            <option value=4 >Garage</option>
+            <option value=5 >Food & Beverages</option>
+            <option value=6 >Production</option>
+            <option value=7 >Administration</option>
         </select></br>
 
         <br><input type = "submit" value= "Request Creation"/></br>
