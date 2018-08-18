@@ -1,0 +1,53 @@
+// ------- Styling specifically for Login Page -------
+
+//Import global styling
+@import 'styles';
+
+body {
+    background: url(../../assets/images/background-image.jpg);
+    background-size: 100%;
+}
+
+#title {
+    margin-top: pxToRem(336);
+    font-size: pxToEm(56);
+    line-height: pxToRem(70);
+    color: white;
+}
+
+#forgot, #signup {
+    display: block;
+    color: white;
+}
+
+#formContainer {
+    margin-bottom: pxToEm(85);
+    position: absolute;
+    bottom: 0;
+    padding: 0 pxToRem(120);
+    width: 100%;
+    box-sizing: border-box;
+    
+    #password {
+        margin-top: pxToRem(46);
+    }
+    
+    #forgot {
+        font-family: 'HelveticaNeue-Light';
+        font-size: pxToEm(25);
+        margin-top: pxToRem(40);
+        text-align: right;
+        letter-spacing: .25px;
+    }
+    
+    #login {
+        width: pxToRem(520);
+        height: pxToRem(90);
+        margin-top: pxToRem(60);
+    }
+    
+    #signup {
+        margin-top: pxToRem(40);
+        text-align: center;
+    }
+}

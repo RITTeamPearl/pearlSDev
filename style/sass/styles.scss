@@ -1,0 +1,109 @@
+// Global Variables
+$bgColor: #ffffff;                         //Global Background Color
+$pinkForm: #c92e5f;                         //Form buttons pink
+$baseFont: 'Helvetica Neue', sans-serif;    //Global Font
+$baseFontSize: 16;                          //Default Font Size
+
+//Set Base Font Families & Weights
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url(../../assets/fonts/HelveticaNeue-Medium.ttf) format('truetype');
+    font-weight: lighter;
+}
+@font-face {
+    font-family: 'Helvetica Neue Bold';
+    src: url(../../assets/fonts/HelveticaNeue-Bold.ttf) format('truetype');
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Helvetica Neue Light';
+    src: url(../../assets/fonts/HelveticaNeue-Light.ttf) format('truetype');
+    font-weight: lighter;
+}
+@font-face {
+    font-family: 'Helvetica Neue Thin';
+    src: url(../../assets/fonts/HelveticaNeue-Thin.ttf) format('truetype');
+    font-weight: lighter;
+}
+@font-face {
+    font-family: 'Helvetica Neue Italic';
+    src: url(../../assets/fonts/HelveticaNeue-It.ttf) format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+//Helper Functions
+@function pxToEm($pixels, $context: $baseFontSize) {
+    @return #{($pixels/2)/$context}em; //Divide 2 since mockup retina
+}
+
+@function pxToRem($pixels, $context: $baseFontSize) {
+    @return #{($pixels/2)/$context}rem; //Divide 2 since mockup retina
+}
+
+//Global Styling (Do not put an individual page's styling here)
+body {
+    font-family: $baseFont;
+    font-weight: normal;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+h2 {
+    font-weight: lighter;
+    letter-spacing: pxToEm(1);
+}
+
+a {
+    text-decoration: none;
+    color:black;
+}
+
+i {
+    font-size: pxToEm(40);
+}
+
+.centered {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.block {
+    display: block;
+}
+
+.formSubmit {
+    background-color: $pinkForm;
+    border-radius: 30px;
+    border-width: 0;
+    color: white;
+    font-size: pxToEm(34);
+    letter-spacing: 1px;
+}
+
+.inputWithIcon {
+    position: relative;
+    i {
+        position: absolute;
+        left: pxToEm(22);
+        top: pxToEm(18);
+        font-size: pxToEm(40);
+    }
+    input {
+        padding-left: pxToRem(90);
+        box-sizing: border-box;
+        width: 100%;
+        height: pxToRem(80);
+        box-shadow: inset 0 0 1px #666;
+        border: none;
+    }
+    ::placeholder {
+        color: 6A6A6A;
+        letter-spacing: .5px;
+    }
+}

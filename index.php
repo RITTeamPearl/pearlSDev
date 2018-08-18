@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>S Dev Functionality Testing Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="/style/styles.css">
-    <script src="main.js"></script>
+    <title>Rochester Riverside Convention Center</title>
+    <meta charset='utf-8'/>
+    <meta name='viewport' content='width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 5.0' />
+    <link rel='stylesheet' type='text/css' media='screen' href='/style/css/login.css'>
+    <link href='assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
-<body>
-    <h2>Rochester Riverside Convention Center</h2>
+    
+<body id='loginPage'>
+    <!-- Header -->
+    <h2 id='title' class='centered'>Rochester Riverside Convention Center</h2>
 
-    <form action="login.php" method="POST">
-        <br><input type = "email" value= "Email" name="email" required="required"/></br>
-        <br><input type = "password" value= "Password" name="password" required="required"/></br>
-
-        <br><input type = "submit" value= "Log in"/></br>
+    <!-- Login Form -->
+    <form id='formContainer' action='login.php' method='POST'>
+        <div class='inputWithIcon'>
+            <input class='block' id='email' type = 'email' placeholder= 'E-mail Address' name='email' required="required" autofocus>
+            <i class='fas fa-user' aria-hidden='true'></i>
+        </div>
+        <div class='inputWithIcon'>
+            <input class='block' id='password' type = 'password' placeholder= 'Password' name='password' required='required'/>
+            <i class="fas fa-lock" aria-hidden='true'></i>
+        </div>
+        <a id='forgot' href='forgotPwd.php'> Forgot password?</a>
+        <input class='block formSubmit centered' id='login' type = 'submit' value= 'Log in'/>
+        <a id='signup' href='createAcct.php'> Sign Up</a>
     </form>
-
-    <br><a href= "forgotPwd.php"> Forgot Password</a></br>
-    <br><a href= "createAcct.php"> Sign Up</a></br>
     
 </body>
 </html>
