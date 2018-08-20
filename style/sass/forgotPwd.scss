@@ -1,0 +1,62 @@
+// ------- Styling specifically for forgotPwd Page -------
+
+//Import global styling
+@import 'styles';
+
+body {
+    background: url(../../assets/images/background-image.jpg);
+    background-repeat:no-repeat;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    background-position:center;
+}
+
+.container {
+    padding-top: pxToRem(260);
+}
+
+.header {
+    text-align: center;
+    .fa-lock {
+        font-size: pxToEm(120);
+        color: white;
+    }
+    
+    #title {
+        font-size: pxToEm(56);
+        line-height: pxToRem(70);
+        margin-top: pxToRem(70);
+        color: white;
+    }
+
+    .subtitle {
+        font-family: "Helvetica Neue-Thin", sans-serif;
+        font-size: pxToEm(29);
+        line-height: pxToEm(40);
+        margin-top: pxToRem(60);
+        color: white;
+    }
+}
+
+#formContainer {
+    margin-top: pxToRem(160);
+    padding: 0 pxToRem(120);
+    width: 100%;
+    box-sizing: border-box;
+
+    .formSubmit {
+        width: 100%;
+        height: pxToRem(90);
+        margin-top: pxToRem(60);
+    }
+    
+    #login {
+        display: block;
+        color: white;
+        margin-top: pxToRem(40);
+        text-align: center;
+        letter-spacing: 1px;
+    }
+}

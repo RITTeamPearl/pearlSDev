@@ -22,7 +22,7 @@
             <input class='block' id='password' type = 'password' placeholder= 'Password' name='password' required='required'/>
             <i class="fas fa-lock" aria-hidden='true'></i>
         </div>
-        <a id='forgot' href='forgotPwd.php'> Forgot password?</a>
+        <a id='forgot' href='/views/forgotPwd.php'>Forgot password?</a>
         <input class='block formSubmit centered' id='login' type = 'submit' value= 'Log in'/>
         <a id='signup' href='createAcct.php'> Sign Up</a>
     </form>
