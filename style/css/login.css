@@ -75,7 +75,12 @@ i {
 
 body {
   background: url(../../assets/images/background-image.jpg);
-  background-size: 100%; }
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center; }
 
 #title {
   margin-top: 10.5rem;
@@ -103,7 +108,7 @@ body {
     text-align: right;
     letter-spacing: .25px; }
   #formContainer #login {
-    width: 16.25rem;
+    width: 100%;
     height: 2.8125rem;
     margin-top: 1.875rem; }
   #formContainer #signup {
