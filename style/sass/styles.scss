@@ -1,6 +1,7 @@
 // Global Variables
 $bgColor: #ffffff;                         //Global Background Color
 $pinkForm: #c92e5f;                         //Form buttons pink
+$green: #2ac656;                            //Green Color
 $baseFont: 'Helvetica Neue', sans-serif;    //Global Font
 $baseFontSize: 16;                          //Default Font Size
 
@@ -77,7 +78,7 @@ i {
     display: block;
 }
 
-.formSubmit {
+.submit {
     background-color: $pinkForm;
     border-radius: 30px;
     border-width: 0;

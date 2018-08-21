@@ -23,7 +23,7 @@
             <i class="fas fa-lock" aria-hidden='true'></i>
         </div>
         <a id='forgot' href='/views/forgotPwd.php'>Forgot password?</a>
-        <input class='block formSubmit centered' id='login' type = 'submit' value= 'Log in'/>
+        <input class='block submit centered' id='login' type = 'submit' value= 'Log in'/>
         <a id='signup' href='createAcct.php'> Sign Up</a>
     </form>
     

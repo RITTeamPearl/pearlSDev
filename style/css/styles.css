@@ -47,7 +47,7 @@ i {
 .block {
   display: block; }
 
-.formSubmit {
+.submit {
   background-color: #c92e5f;
   border-radius: 30px;
   border-width: 0;
