@@ -127,11 +127,9 @@ CREATE TABLE `user` (
   `phone` varchar(11) NOT NULL,
   `fName` varchar(26) DEFAULT NULL,
   `lName` varchar(26) DEFAULT NULL,
-  `activeYN` tinyint(4) DEFAULT NULL,
-  `temporaryYN` tinyint(4) DEFAULT NULL,
+  `tempPassYN` tinyint(4) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `carrier` varchar(25) DEFAULT NULL,
   `deptID` int(2) DEFAULT NULL,
   `authID` int(2) DEFAULT NULL,
   PRIMARY KEY (`phone`),
@@ -148,7 +146,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ("5856455810",'Testy','McAdmin',1,0,'password','email@domain.com','verizon',1,4);
+INSERT INTO `user` VALUES ("15856455810",'Testy','McAdmin',1,'password','email@domain.com',1,4);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
