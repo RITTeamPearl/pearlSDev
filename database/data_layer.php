@@ -40,14 +40,15 @@ class data_layer{
         }
     }
 
-    function signUpNewUser(){
+    function createNewUser($postData){
+        var_dump($postData);
         //TODO: get input -> validate / sanitize -> deal with temporary / deptID conversions
         //create prepared statement for INSERT
         //hard code active as true and authorization as waiting
-        if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,activeYN,temporaryYN,password,email,carrier,deptID,authID) VALUES (?,?,?,1,?,?,?,?,?,1)")){
-            $stmt->bind_param("sssisssi",$phone,$fname,$lname,$temporaryYN,$password,$email,$carrier,$deptID);
-            $stmt->execute();
-        }
+        // if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,tempPassYN,password,email,deptID,authID) VALUES (?,?,?,1,?,?,?,1)")){
+        //     $stmt->bind_param("sssssi",$phone,$fname,$lname,$password,$email,$deptID);
+        //     $stmt->execute();
+        // }
     }
 
     function selectUsers(){
