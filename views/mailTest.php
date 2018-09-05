@@ -26,13 +26,13 @@ try{
     $mail->addAddress('grd2747@g.rit.edu', 'Gavin');
 
 /* Set the subject. */
-    $mail->Subject = 'test';
+    $mail->Subject = 'test again';
 
 /* Set the mail message body. */
     $mail->Body = 'TESTING';
 
 /* Finally send the mail. */
-    $mail->send();
+    //$mail->send();
 }
 catch (\Exception $e)
 {
@@ -41,21 +41,6 @@ catch (\Exception $e)
 }
 //Set to SMTP
 //$mail->isSMTP();
-
-//Enable SMTP debugging
-// 0 = off (for production use)
-// 1 = client messages
-// 2 = client and server messages
-$mail->SMTPDebug = 2;
-
-//Fill in authentication details here
-//Either the gmail account owner, or the user that gave consent
-$email = 'grd2747@g.rit.edu';
-$clientId = '610257855588-gsa0t6it7a4lbnrnsjg96qlisn5gnr1c.apps.googleusercontent.com';
-$clientSecret = 'ver-4-zzzuGown_XomQuLl10';
-//Obtained by configuring and running get_oauth_token.php
-//after setting up an app in Google Developer Console.
-$refreshToken = 'RANDOMCHARS-----DWxgOvPT003r-yFUV49TQYag7_Aod7y0';
 ?>
 
 <!DOCTYPE html>
