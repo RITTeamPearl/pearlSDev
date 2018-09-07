@@ -25,8 +25,8 @@
                     <input class='block' id='email' type = 'email' placeholder= 'E-mail Address' name='email' required="required" autofocus>
                     <i class='fas fa-user' aria-hidden='true'></i>
                 </div>
-                <input class='block submit centered' id='login' type = 'submit' value= 'Send Password'/>
-                <a id='login' href='../index.php'>Log In</a>
+                <input class='block submit centered' id='login' type = 'submit' value= 'Send password'/>
+                <a id='login' href='../index.php'>Log in</a>
             </form>
         </section>
 

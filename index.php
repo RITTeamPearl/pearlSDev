@@ -15,8 +15,8 @@
     <!-- Login Form -->
     <form id='formContainer' action='views/login.php' method='POST'>
         <div class='inputWithIcon'>
-            <input class='block' id='email'  placeholder= 'Phone Number' name='email' required="required" autofocus>
-            <i class='fas fa-user' aria-hidden='true'></i>
+            <input class='block' id='phone'  placeholder= 'Phone Number' name='email' required="required" autofocus>
+            <i class='fas fa-phone' aria-hidden='true'></i>
         </div>
         <div class='inputWithIcon'>
             <input class='block' id='password' type = 'password' placeholder= 'Password' name='password' required='required'/>
@@ -24,7 +24,7 @@
         </div>
         <a id='forgot' href='/views/forgotPwd.php'>Forgot password?</a>
         <input class='block submit centered' id='login' type = 'submit' value= 'Log in'/>
-        <a id='signup' href='/views/createAcct.php'> Sign Up</a>
+        <a id='signup' href='/views/createAcct.php'> Sign up</a>
     </form>
 
 </body>

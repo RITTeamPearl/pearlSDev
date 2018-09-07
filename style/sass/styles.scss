@@ -1,8 +1,9 @@
 // Global Variables
-$bgColor: #ffffff;                         //Global Background Color
+$bgColor: #ffffff;                          //Global Background Color
 $pinkForm: #c92e5f;                         //Form buttons pink
 $green: #2ac656;                            //Green Color
 $baseFont: 'Helvetica Neue', sans-serif;    //Global Font
+$lighterFont: 'Helvetica Neue Light';       //Lighter Font
 $baseFontSize: 16;                          //Default Font Size
 
 //Set Base Font Families & Weights
@@ -103,8 +104,16 @@ i {
         box-shadow: inset 0 0 1px #666;
         border: none;
     }
-    ::placeholder {
-        color: 6A6A6A;
+}
+
+input::placeholder {
+    font-family: $lighterFont;
+    font-weight: lighter;
+    font-size: pxToEm(38);
+    color: 6A6A6A;
         letter-spacing: .5px;
-    }
+}
+
+.fa-phone {
+    transform: rotate(90deg);
 }
