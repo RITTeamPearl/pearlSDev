@@ -141,6 +141,8 @@ Error message and password prompt
 
 <li>$:/config/peek-stylesheets/open/--994748944$:/themes/tiddlywiki/snowwhite/base</li>
 
+<li>$:/config/RelinkOnRename</li>
+
 <li>$:/config/Toolbar/ButtonClass</li>
 
 <li>$:/config/Toolbar/Icons</li>
@@ -249,7 +251,7 @@ Error message and password prompt
 
 <li>LoginScreen</li>
 
-<li>LPUserPage</li>
+<li>LPUserManual</li>
 
 <li>LSUserManual</li>
 
@@ -310,6 +312,9 @@ Error message and password prompt
 </div>
 <div created="20180830174254199" modified="20180830174306738" title="$:/config/peek-stylesheets/open/--994748944$:/themes/tiddlywiki/snowwhite/base">
 <pre>no</pre>
+</div>
+<div created="20180911225648708" modified="20180911225648708" title="$:/config/RelinkOnRename">
+<pre>yes</pre>
 </div>
 <div created="20180830175521698" modified="20180830175532581" title="$:/config/Toolbar/ButtonClass">
 <pre>tc-btn-rounded</pre>
@@ -8888,7 +8893,7 @@ Error message and password prompt
 <div created="20180830175206759" modified="20180905200612856" title="$:/state/tab/moresidebar-401116514">
 <pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
-<div created="20180830174853696" modified="20180911030744359" title="$:/state/tab/sidebar--1835078512">
+<div created="20180830174853696" modified="20180911230000509" title="$:/state/tab/sidebar--1835078512">
 <pre>TableOfContents</pre>
 </div>
 <div created="20180830174332043" modified="20180830175406614" title="$:/state/tabs/controlpanel/toolbars-1345989671">
@@ -8900,8 +8905,8 @@ Error message and password prompt
 <div created="20180905195006862" modified="20180905201108781" title="$:/state/toc/TableOfContents-Pages--81657105">
 <pre>close</pre>
 </div>
-<div created="20180911033808921" modified="20180911033808921" title="$:/state/toc/TableOfContents-SystemArchitecture--81657105">
-<pre>open</pre>
+<div created="20180911033808921" modified="20180911230003181" title="$:/state/toc/TableOfContents-SystemArchitecture--81657105">
+<pre>close</pre>
 </div>
 <div created="20180830180440506" modified="20180830180440506" title="$:/state/toc/TableOfContents-TestHeading1--81657105">
 <pre>open</pre>
@@ -8921,7 +8926,7 @@ Error message and password prompt
 <div created="20180905195725406" modified="20180905195725406" title="$:/state/toc/TableOfContents/Pages-ProfilePage--81657105">
 <pre>open</pre>
 </div>
-<div list="" title="$:/StoryList">
+<div list="Contents LSUserManual AdminConsole" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -8978,8 +8983,8 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20180905200913205" modified="20180905200914059" title="$:/temp/search">
-<pre>table</pre>
+<div created="20180905200913205" modified="20180911225607774" title="$:/temp/search">
+<pre></pre>
 </div>
 <div created="20180905194238221" modified="20180905194256508" title="$:/temp/toc/selectedTiddler">
 <pre>TestHeading1</pre>
@@ -9108,7 +9113,7 @@ Error message and password prompt
 <div created="20180911031636098" modified="20180911031654711" tags="AdminConsole" title="ACUserManual">
 <pre></pre>
 </div>
-<div created="20180905194726887" modified="20180905194734162" tags="Pages" title="AdminConsole">
+<div created="20180905194726887" list="ACUsermanual" modified="20180911230050215" tags="Pages" title="AdminConsole">
 <pre></pre>
 </div>
 <div created="20180905195247644" modified="20180905195310730" tags="LandingPage" title="AdminLanding">
@@ -9154,19 +9159,19 @@ Error message and password prompt
 <div created="20180905195337151" modified="20180905195350224" tags="LandingPage" title="IndividualNotification">
 <pre></pre>
 </div>
-<div created="20180905194708765" modified="20180905195123358" tags="Pages" title="LandingPage">
+<div created="20180905194708765" list="LPUserManual" modified="20180911225837430" tags="Pages" title="LandingPage">
 <pre></pre>
 </div>
 <div created="20180905195549655" modified="20180905195556471" tags="LoginScreen" title="Login">
 <pre></pre>
 </div>
-<div created="20180905194544069" modified="20180905194707099" tags="Pages" title="LoginScreen">
+<div created="20180905194544069" list="LSUserManual" modified="20180911225856452" tags="Pages" title="LoginScreen">
 <pre></pre>
 </div>
-<div created="20180911031707963" modified="20180911031726731" tags="LandingPage" title="LPUserPage">
+<div created="20180911031707963" modified="20180911225650648" tags="LandingPage" title="LPUserManual">
 <pre></pre>
 </div>
-<div created="20180911031730864" modified="20180911031744981" tags="LoginScreen" title="LSUserManual">
+<div created="20180911031730864" modified="20180911230110923" tags="LoginScreen" title="LSUserManual">
 <pre></pre>
 </div>
 <div created="20180905195658647" modified="20180905195721075" tags="ProfilePage" title="ModifyOwnAccount">
@@ -9192,7 +9197,7 @@ Error message and password prompt
 <div created="20180911031751126" modified="20180911031801870" tags="ProfilePage" title="PPUserManual">
 <pre></pre>
 </div>
-<div created="20180905194740525" modified="20180905194748769" tags="Pages" title="ProfilePage">
+<div created="20180905194740525" list="PPUserManual" modified="20180911225918913" tags="Pages" title="ProfilePage">
 <pre></pre>
 </div>
 <div created="20180911034535489" modified="20180911034543692" tags="TableOfContents" title="Requirements">
@@ -9220,7 +9225,7 @@ Error message and password prompt
 
 &lt;/div&gt;</pre>
 </div>
-<div created="20180905194752213" modified="20180905195005398" tags="Pages" title="TrainingVideos">
+<div created="20180905194752213" list="TVUserManual" modified="20180911225936594" tags="Pages" title="TrainingVideos">
 <pre></pre>
 </div>
 <div created="20180911031803339" modified="20180911031827295" tags="TrainingVideos" title="TVUserManual">
