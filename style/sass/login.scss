@@ -25,13 +25,10 @@ body {
     color: white;
 }
 
-#formContainer {
+.formContainer {
     margin-bottom: pxToEm(85);
     position: absolute;
     bottom: 0;
-    padding: 0 pxToRem(120);
-    width: 100%;
-    box-sizing: border-box;
     
     #password {
         margin-top: pxToRem(46);

@@ -10,10 +10,10 @@
 
 <body id='loginPage'>
     <!-- Header -->
-    <h2 id='title' class='centered'>Rochester Riverside Convention Center</h2>
+    <h1 id='title' class='centered'>Rochester Riverside Convention Center</h1>
 
     <!-- Login Form -->
-    <form id='formContainer' action='views/login.php' method='POST'>
+    <form class='formContainer' action='views/login.php' method='POST'>
         <div class='inputWithIcon'>
             <input class='block' id='phone'  placeholder= 'Phone Number' name='email' required="required" autofocus>
             <i class='fas fa-phone' aria-hidden='true'></i>

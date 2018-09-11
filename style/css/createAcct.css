@@ -107,4 +107,16 @@ i {
     text-align: center;
     letter-spacing: 1px; }
 
-/*# sourceMappingURL=styles.css.map */
+#createAcctPage .title {
+  color: white;
+  margin-top: 6.40625rem; }
+#createAcctPage .subtitle {
+  font-size: 0.90625em;
+  line-height: 1.40625em;
+  color: white;
+  margin-top: 1.875rem;
+  margin-bottom: 3.125rem; }
+#createAcctPage .inputWithIcon {
+  margin-bottom: 1.40625rem; }
+
+/*# sourceMappingURL=createAcct.css.map */

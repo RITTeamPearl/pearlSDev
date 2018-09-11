@@ -3,16 +3,8 @@
 //Import global styling
 @import 'styles';
 
-body {
-    background: url(../../assets/images/background-image.jpg);
-    background-repeat:no-repeat;
-    -webkit-background-size:cover;
-    -moz-background-size:cover;
-    -o-background-size:cover;
-    background-size:cover;
-    background-position:center;
-}
-
+#forgotPwdPage {
+    
 #section-success {
     display: none;
 }
@@ -54,24 +46,4 @@ body {
         line-height: pxToEm(90);
     }
 }
-
-#formContainer {
-    margin-top: pxToRem(160);
-    padding: 0 pxToRem(120);
-    width: 100%;
-    box-sizing: border-box;
-
-    .submit {
-        width: 100%;
-        height: pxToRem(90);
-        margin-top: pxToRem(60);
-    }
-    
-    #login {
-        display: block;
-        color: white;
-        margin-top: pxToRem(40);
-        text-align: center;
-        letter-spacing: 1px;
-    }
 }
