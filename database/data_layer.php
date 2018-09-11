@@ -51,18 +51,29 @@ class data_layer{
         // }
     }
 
-    function selectUsers(){
-        if ($stmt = $this->connection->prepare("select phone from user")){
+    function checkEmailExists($email){
+        if ($stmt = $this->connection->prepare("select * from user where email = ?")){
+            $stmt->bind_param("s",$email);
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($phoneNum);
             if ($stmt->num_rows > 0){
-                while($stmt->fetch()){
-                    //loop through all results. use vars from bind
-                    echo $phoneNum;
-                }
+                return true;
             }
         }
+        return false;
+    }
+
+    function setUserTempPass($email, $newPass){
+
+        if ($stmt = $this->connection->prepare("UPDATE user SET tempPassYN = 1, password = ? WHERE email = ?")){
+            $stmt->bind_param("ss",$newPass,$email);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0){
+                return true;
+            }
+        }
+        return false;
     }
 
 
