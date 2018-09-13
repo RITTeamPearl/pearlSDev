@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                         <input onkeyup="confirmPassword()" class='block' id='passwordConfirm' type = 'text' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
                         <i class='fas fa-lock pwIcon' aria-hidden='true'></i>
                     </div>
-                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep()"/>
+                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep(1)"/>
                     <a id='login' href='../index.php'>Log In</a>
                 </div>
 
@@ -65,7 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                         <input class='block' id='lName' type = 'text' placeholder= 'Last Name' name='lName' required="required" autofocus>
                         <i class='fas fa-address-card' aria-hidden='true'></i>
                     </div>
+                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep(2)"/>
+                    <a id='login' href='../index.php'>Log In</a>
+                </div>
 
+                <div class="formStep" id="formStep3" style="display: none;">
                     <div class='inputWithIcon'>
                         <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
                         <i class='fas fa-user' aria-hidden='true'></i>
@@ -87,6 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <input class='block submit centered' id='submit' type = 'submit' value= 'Send Request'/>
                     <a id='login' href='../index.php'>Log In</a>
                 </div>
+
             </form>
         </section>
     </div>
