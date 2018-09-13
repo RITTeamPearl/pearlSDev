@@ -31,70 +31,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
 
             <!-- Send Password Form -->
             <form class='formContainer' action='createAcct.php' method='POST'>
-                
-                <!-- Create Screen 1 -->
-                <div class='inputWithIcon'>
-                    <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
-                    <i class='fas fa-user' aria-hidden='true'></i>
-                </div>
 
-                <div class='inputWithIcon'>
-                    <input class='block' id='password' type = 'password' placeholder= 'Password' name='password' required="required">
-                    <i class='fas fa-key' aria-hidden='true'></i>
-                </div>
+                <!-- Create Screen 1. Outer div is for JS -->
+                <div id="formStep1">
+                    <div class='inputWithIcon'>
+                        <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' required="required">
+                        <i class='fas fa-phone' aria-hidden='true'></i>
+                    </div>
 
-                <div class='inputWithIcon'>
-                    <input class='block' id='passwordConfirm' type = 'text' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
-                    <i class='fas fa-lock' aria-hidden='true'></i>
+                    <div class='inputWithIcon'>
+                        <input class='block' id='password' type = 'password' placeholder= 'Password' name='password' required="required">
+                        <i class='fas fa-key' aria-hidden='true'></i>
+                    </div>
+
+                    <div class='inputWithIcon'>
+                        <input class='block' id='passwordConfirm' type = 'text' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
+                        <i class='fas fa-lock' aria-hidden='true'></i>
+                    </div>
+                    <input class='block submit centered' id='next' type = 'button' value= 'Continue'/>
+                    <a id='login' href='../index.php'>Log In</a>
                 </div>
 
                 <!-- Create Screen 2 -->
-                <!--
-                <div class='inputWithIcon'>
-                    <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required" autofocus>
-                    <i class='fas fa-address-card' aria-hidden='true'></i>
+                <div id="formStep2">
+                    <div class='inputWithIcon'>
+                        <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required" autofocus>
+                        <i class='fas fa-address-card' aria-hidden='true'></i>
+                    </div>
+                    <div class='inputWithIcon'>
+                        <input class='block' id='lName' type = 'text' placeholder= 'Last Name' name='lName' required="required" autofocus>
+                        <i class='fas fa-address-card' aria-hidden='true'></i>
+                    </div>
+
+                    <div class='inputWithIcon'>
+                        <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
+                        <i class='fas fa-user' aria-hidden='true'></i>
+                    </div>
+                    
+                    <div class='inputWithIcon'>
+                        <select class='block inputWithIcon' id='dept' name='dept' required="required">
+                            <option value="" disabled selected>Department</option>
+                            <option value="1">HR</option>
+                            <option value="2">Admin</option>
+                            <option value="3">Sales</option>
+                            <option value="4">Production</option>
+                            <option value="5">Operations</option>
+                            <option value="6">Food and Beverage</option>
+                            <option value="7">Garage</option>
+                        </select>
+                        <i class='fas fa-building' aria-hidden='true'></i>
+                    </div>
+                    <input class='block submit centered' id='submit' type = 'submit' value= 'Send Request'/>
+                    <a id='login' href='../index.php'>Log In</a>
                 </div>
-                <div class='inputWithIcon'>
-                    <input class='block' id='lName' type = 'text' placeholder= 'Last Name' name='lName' required="required" autofocus>
-                    <i class='fas fa-address-card' aria-hidden='true'></i>
-                </div>
-                <div class='inputWithIcon'>
-                    <select class='block inputWithIcon' id='dept' name='dept' required="required">
-                        <option value="" disabled selected>Department</option>
-                        <option value="1">HR</option>
-                        <option value="2">Admin</option>
-                        <option value="3">Sales</option>
-                        <option value="4">Production</option>
-                        <option value="5">Operations</option>
-                        <option value="6">Food and Beverage</option>
-                        <option value="7">Garage</option>
-                    </select>
-                    <i class='fas fa-building' aria-hidden='true'></i>
-                </div>
-                -->
-                
-                <!-- Create Screen 3 
-                <div class='inputWithIcon'>
-                    <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' required="required">
-                    <i class='fas fa-phone' aria-hidden='true'></i>
-                </div>
-                
-                <div class='inputWithIcon'>
-                    <select class='block inputWithIcon' id='carrier' name='carrier' required="required">
-                        <option value="" disabled selected>Carrier</option>
-                        <option value="1">Verizon Wireless</option>
-                        <option value="2">AT&amp;T</option>
-                        <option value="3">T-Mobile</option>
-                        <option value="4">Sprint</option>
-                    </select>
-                    <i class='fas fa-phone' aria-hidden='true'></i>
-                </div>
-                -->
-                
+
                 <!-- This needs to be changed to 'Send request' when on screen 3 -->
-                <input class='block submit centered' id='submit' type = 'submit' value= 'Continue'/>
-                <a id='login' href='../index.php'>Log In</a>
-                
+
+
             </form>
         </section>
     </div>
