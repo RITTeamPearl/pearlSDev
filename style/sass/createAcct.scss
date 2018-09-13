@@ -8,7 +8,7 @@
         color: white;
         margin-top: pxToRem(205);
     }
-    
+
     .subtitle {
         font-size: pxToEm(29);
         line-height: pxToEm(45);
@@ -16,9 +16,13 @@
         margin-top: pxToRem(60);
         margin-bottom: pxToRem(100);
     }
-    
+
     .inputWithIcon {
         margin-bottom: pxToRem(45);
     }
-    
+
+    #formStep2{
+        display: none;
+    }
+
 }

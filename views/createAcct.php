@@ -16,6 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
     <meta charset='utf-8'/>
     <meta name='viewport' content='width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 5.0' />
     <link rel='stylesheet' type='text/css' media='screen' href='/style/css/createAcct.css'>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script type='text/javascript' src='/js/scripts.js'></script>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
@@ -33,27 +35,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
             <form class='formContainer' action='createAcct.php' method='POST'>
 
                 <!-- Create Screen 1. Outer div is for JS -->
-                <div id="formStep1">
+                <div class="formStep" id="formStep1">
                     <div class='inputWithIcon'>
                         <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' required="required">
                         <i class='fas fa-phone' aria-hidden='true'></i>
                     </div>
 
                     <div class='inputWithIcon'>
-                        <input class='block' id='password' type = 'password' placeholder= 'Password' name='password' required="required">
-                        <i class='fas fa-key' aria-hidden='true'></i>
+                        <input onkeyup="confirmPassword()" class='block' id='password' type = 'password' placeholder= 'Password' name='password' required="required">
+                        <i class='fas fa-key pwIcon' aria-hidden='true'></i>
                     </div>
 
                     <div class='inputWithIcon'>
-                        <input class='block' id='passwordConfirm' type = 'text' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
-                        <i class='fas fa-lock' aria-hidden='true'></i>
+                        <input onkeyup="confirmPassword()" class='block' id='passwordConfirm' type = 'text' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
+                        <i class='fas fa-lock pwIcon' aria-hidden='true'></i>
                     </div>
-                    <input class='block submit centered' id='next' type = 'button' value= 'Continue'/>
+                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep()"/>
                     <a id='login' href='../index.php'>Log In</a>
                 </div>
 
                 <!-- Create Screen 2 -->
-                <div id="formStep2">
+                <div class="formStep" id="formStep2" style="display: none;">
                     <div class='inputWithIcon'>
                         <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required" autofocus>
                         <i class='fas fa-address-card' aria-hidden='true'></i>
@@ -67,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                         <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
                         <i class='fas fa-user' aria-hidden='true'></i>
                     </div>
-                    
+
                     <div class='inputWithIcon'>
                         <select class='block inputWithIcon' id='dept' name='dept' required="required">
                             <option value="" disabled selected>Department</option>
@@ -84,10 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <input class='block submit centered' id='submit' type = 'submit' value= 'Send Request'/>
                     <a id='login' href='../index.php'>Log In</a>
                 </div>
-
-                <!-- This needs to be changed to 'Send request' when on screen 3 -->
-
-
             </form>
         </section>
     </div>
