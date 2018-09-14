@@ -32,6 +32,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                 <h2 class='subtitle centered'>We just need a little information for the<br/>HR department to activate your account.</h2>
             </div>
 
+            <!-- Screen Identifier Visual Graphic -->
+            <div id='screenIdentifier' class='block centered'>
+                <div id='screenContainer'>
+                    <div class='dotCont' id='dotCont1'>
+                        <i class='fas fa-circle inline' id='dot1'></i>
+                        <i class='far fa-dot-circle inline' id='circle1'></i>
+                        <hr class='whiteLine inline'>
+                    </div>
+                    
+                    <div class='dotCont' id='dotCont2'>
+                        <i class='fas fa-circle inline' id='dot2'></i>
+                        <i class='far fa-dot-circle inline' id='circle2'></i>
+                        <hr class='whiteLine inline'>
+                    </div>
+                    
+                    <div class='dotCont' id='dotCont3'>
+                        <i class='fas fa-circle inline' id='dot3'></i>
+                        <i class='far fa-dot-circle inline' id='circle3'></i>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Send Password Form -->
             <form class='formContainer' action='createAcct.php' method='POST'>
 

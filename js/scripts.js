@@ -8,12 +8,24 @@ function nextStep(num){
             $("#formStep1").hide(1000);
             $("#formStep2").show(1000);
         }
+        
+        //Hide current circle-dot, show next
+        $("#circle1").hide();
+        $("#circle2").show();
+        $("#dot1").show();
+        $("#dot2").hide();
     }
 
     if (num==2){
         //check to make sure names are valid
         $("#formStep2").hide(1000);
         $("#formStep3").show(1000);
+        
+        //Hide current circle-dot, show next
+        $("#circle2").hide();
+        $("#circle3").show();
+        $("#dot2").show();
+        $("#dot3").hide();
     }
 }
 

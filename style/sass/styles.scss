@@ -80,8 +80,26 @@ i {
     margin: 0 auto;
 }
 
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
 .block {
     display: block;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.vertCenter {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .submit {
