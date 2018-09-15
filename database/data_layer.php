@@ -20,33 +20,30 @@ class data_layer{
      * @return Bool Tells if username and password are correct
      */
     function checkLogin($phone,$password){
-        //escape vars before checking. This should do more validation.
-        $phone = mysqli_real_escape_string($this->connection, $phone);
-        $password = mysqli_real_escape_string($this->connection, $password);
-        //create prepared statement for SELECT
-        if ($stmt = $this->connection->prepare("select phone, password from user where phone = ? and password = ?")){
-            $stmt->bind_param("ss",$phone,$password);
+        if ($stmt = $this->connection->prepare("select password from user where phone = ?")){
+            $stmt->bind_param("s",$phone);
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($username,$password);
-            //found a row with that UN and password
-            if ($stmt->num_rows > 0){
-                return true;
-            }
-            //Did not find
-            else {
-                return false;
+            $stmt->bind_result($hashedPassword);
+            while ($stmt->fetch()) {
+                if (password_verify($password,$hashedPassword)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         }
     }
 
     function createNewUser($postData){
         var_dump($postData);
+        $hashedPassword = password_hash($postData["password"],PASSWORD_DEFAULT);
         //TODO: get input -> validate / sanitize
         //create prepared statement for INSERT
         //hard code active as true and authorization as waiting
         if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,tempPassYN,password,email,deptID,authID) VALUES (?,?,?,0,?,?,?,1)")){
-            $stmt->bind_param("sssssi",str_replace("-","", $postData["phoneNumber"]),$postData["fName"],$postData["lName"],$postData["password"],$postData["email"],intval($postData["dept"]));
+            $stmt->bind_param("sssssi",str_replace("-","", $postData["phoneNumber"]),$postData["fName"],$postData["lName"],$hashedPassword,$postData["email"],intval($postData["dept"]));
             $stmt->execute();
             echo $stmt->affected_rows . " rows inserted";
         }
@@ -65,7 +62,6 @@ class data_layer{
     }
 
     function setUserTempPass($email, $newPass){
-
         if ($stmt = $this->connection->prepare("UPDATE user SET tempPassYN = 1, password = ? WHERE email = ?")){
             $stmt->bind_param("ss",$newPass,$email);
             $stmt->execute();

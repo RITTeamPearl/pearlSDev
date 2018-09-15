@@ -128,7 +128,7 @@ CREATE TABLE `user` (
   `fName` varchar(26) DEFAULT NULL,
   `lName` varchar(26) DEFAULT NULL,
   `tempPassYN` tinyint(4) DEFAULT NULL,
-  `password` varchar(50) DEFAULT NULL,
+  `password` varchar(60) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `deptID` int(2) DEFAULT NULL,
   `authID` int(2) DEFAULT NULL,

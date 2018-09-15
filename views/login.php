@@ -5,13 +5,13 @@
     //$connection = mysqli_connect("localhost", "root", "student", "rrcc_pearl_db") or die (mysqli_error()); //Connect to server
     //$email = mysqli_real_escape_string($connection, $_POST['email']);
     //$password = mysqli_real_escape_string($connection, $_POST['password']);
-    $loginSuccess = $dataLayer->checkLogin($_POST['email'], $_POST['password']);
+    $loginSuccess = $dataLayer->checkLogin($_POST['phone'],$_POST['password']);
 
     if ($loginSuccess) {
-        echo "correct Phone and Pass";
+        header("Location: demoHomepage.php");
     }
     else {
-        echo "WRONG";
+        header("Location: ../index.php");
     }
 
 ?>
