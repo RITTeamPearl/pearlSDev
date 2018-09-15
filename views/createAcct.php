@@ -3,7 +3,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
     require_once '../database/data_layer.php';
     $dataLayer = new data_layer();
 
-    if (count($_POST) == 6) {
+    if (count($_POST) == 7) {
+        //business layer validation / sanitization of $_POST
         $dataLayer->createNewUser($_POST);
     }
 }
@@ -40,20 +41,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                         <i class='far fa-dot-circle inline' id='circle1'></i>
                         <hr class='whiteLine inline'>
                     </div>
-                    
+
                     <div class='dotCont' id='dotCont2'>
                         <i class='fas fa-circle inline' id='dot2'></i>
                         <i class='far fa-dot-circle inline' id='circle2'></i>
                         <hr class='whiteLine inline'>
                     </div>
-                    
+
                     <div class='dotCont' id='dotCont3'>
                         <i class='fas fa-circle inline' id='dot3'></i>
                         <i class='far fa-dot-circle inline' id='circle3'></i>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Send Password Form -->
             <form class='formContainer' action='createAcct.php' method='POST'>
 

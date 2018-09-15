@@ -42,13 +42,14 @@ class data_layer{
 
     function createNewUser($postData){
         var_dump($postData);
-        //TODO: get input -> validate / sanitize -> deal with temporary / deptID conversions
+        //TODO: get input -> validate / sanitize
         //create prepared statement for INSERT
         //hard code active as true and authorization as waiting
-        // if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,tempPassYN,password,email,deptID,authID) VALUES (?,?,?,1,?,?,?,1)")){
-        //     $stmt->bind_param("sssssi",$phone,$fname,$lname,$password,$email,$deptID);
-        //     $stmt->execute();
-        // }
+        if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,tempPassYN,password,email,deptID,authID) VALUES (?,?,?,0,?,?,?,1)")){
+            $stmt->bind_param("sssssi",str_replace("-","", $postData["phoneNumber"]),$postData["fName"],$postData["lName"],$postData["password"],$postData["email"],intval($postData["dept"]));
+            $stmt->execute();
+            echo $stmt->affected_rows . " rows inserted";
+        }
     }
 
     function checkEmailExists($email){
