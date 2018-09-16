@@ -1,10 +1,11 @@
 <?php
-require_once '../database/data_layer.php';
+// require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
-$dataLayer = new data_layer();
+// $dataLayer = new data_layer();
 $bizLayer = new business_layer();
 
-if (isset($_POST)) {
+$bizLayer->passwordReset("email");
+
     //validate and sanitize input
     //check if email exists
         //Yes
@@ -14,24 +15,6 @@ if (isset($_POST)) {
             //route to send page
         //NO
             //Put error message on screen saying email could not be found
-    if($dataLayer->checkEmailExists($_POST['email'])){
-        //Make a random string character using md5 with time. Substing it so its only 10 chars
-        $genPass = substr(md5(microtime()),rand(0,26),10);
-
-        //address , subject line, body
-        if($bizLayer->sendEmail($_POST['email'], 'Password Reset test', "Your New Password is $genPass")){
-
-            //database call to set new password and update temp password flag
-            $dataLayer->setUserTempPass($_POST['email'],$genPass);
-
-            echo "<h1>Password has been reset, email link sent</h1>";
-        };
-    }
-    else {
-        echo "<h1>Email doesnt exist</h1>";
-    }
-
-}
 
 
  ?>
@@ -45,7 +28,7 @@ if (isset($_POST)) {
     <link rel='stylesheet' type='text/css' media='screen' href='/style/css/forgotPwd.css'>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
-    
+
 <body id='forgotPwdPage'>
     <div class='container'>
         <!-- Landing Section -->

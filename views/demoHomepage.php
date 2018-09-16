@@ -4,12 +4,10 @@ $bizLayer = new business_layer();
 
 if (isset($_POST['phone'])) {
     $bizLayer->sendText();
-    echo "send text to phone";
 }
 
 if (isset($_POST['email'])) {
     $bizLayer->sendEmail($_POST['email'], "Demo Email", "Yay! It works");
-    echo "send email";
 }
 
  ?>
@@ -27,6 +25,7 @@ if (isset($_POST['email'])) {
 <body id='loginPage'>
     <!-- Header -->
     <h1 id='title' class='centered'>New Tech Demo</h1>
+    <br><br>
 
     <!-- Login Form -->
     <form class='' action='demoHomepage.php' method='POST'>
@@ -34,12 +33,13 @@ if (isset($_POST['email'])) {
             <i class='fas fa-phone' aria-hidden='true'></i>
         <input class='block submit centered' id='sendText' type = 'submit' value= 'Send Test Text'/>
     </form>
-
+    <br>
     <form class='' action='demoHomepage.php' method='POST'>
             <input style="width: 20%; margin-left: 40%" class='block' id='email'  placeholder= 'Email Address' name='email'>
             <i class='fas fa-person' aria-hidden='true'></i>
         <input class='block submit centered' id='sendEmail' type = 'submit' value= 'Send Test email'/>
     </form>
+    <br>
 
 </body>
 </html>
