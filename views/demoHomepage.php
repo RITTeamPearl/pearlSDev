@@ -1,9 +1,14 @@
 <?php
+require_once '../business/business_layer.php';
+$bizLayer = new business_layer();
+
 if (isset($_POST['phone'])) {
+    $bizLayer->sendText();
     echo "send text to phone";
 }
 
 if (isset($_POST['email'])) {
+    $bizLayer->sendEmail($_POST['email'], "Demo Email", "Yay! It works");
     echo "send email";
 }
 
