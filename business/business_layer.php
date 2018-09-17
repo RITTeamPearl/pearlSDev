@@ -7,7 +7,7 @@ class business_layer{
 
     function sendEmail($address,$subject, $body){
         //need to set time for smtp purposes
-        date_default_timezone_set('Etc/EST');
+        date_default_timezone_set('America/New_York');
 
         //new instance, set to google smtp settings standards
         $mail = new PHPMailer(TRUE);
@@ -18,9 +18,9 @@ class business_layer{
         $mail->SMTPSecure = 'tls';
 
         //email address to send from
-        $mail->Username = 'teampearlrit@gmail.com';
+        $mail->Username = $_SERVER['EMAIL_ADDR'];
         //password.....in plain text
-        $mail->Password = 'T3@mP3@rl!';
+        $mail->Password = $_SERVER['EMAIL_PASSWORD'];
 
         try{
             //set attributes to passed in
@@ -42,8 +42,8 @@ class business_layer{
 
     function sendText(){
         // Your Account SID and Auth Token from twilio.com/console
-        $account_sid = 'AC03cb27728fb0055b67a9fe7bd9e2d826';
-        $auth_token = '131fffeed54d706660bd6f36f774c19b';
+        $account_sid = $_SERVER['TWILIO_SID'];
+        $auth_token = $_SERVER['TWILIO_TOKEN'];
         // In production, these should be environment variables. E.g.:
         // $auth_token = $_ENV["TWILIO_ACCOUNT_SID"]
 

@@ -1,0 +1,18 @@
+# supress php errors
+php_flag display_startup_errors off
+#
+# you can set display_errors off if you like
+php_flag display_errors on
+#
+# you can set html_errors off if you like
+php_flag html_errors on
+#
+# this is the same as E_ALL
+php_value error_reporting 32767
+# enable PHP error logging
+#
+
+SetEnv EMAIL_ADDR teampearlrit@gmail.com
+SetEnv EMAIL_PASSWORD T3@mP3@rl!
+SetEnv TWILIO_SID AC03cb27728fb0055b67a9fe7bd9e2d826
+SetEnv TWILIO_TOKEN 131fffeed54d706660bd6f36f774c19b
