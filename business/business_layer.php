@@ -19,7 +19,7 @@ class business_layer{
 
         //email address to send from
         $mail->Username = $_SERVER['EMAIL_ADDR'];
-        //password.....in plain text
+        //password
         $mail->Password = $_SERVER['EMAIL_PASSWORD'];
 
         try{
@@ -33,7 +33,7 @@ class business_layer{
             $mail->send();
             return true;
         }
-        catch (\Exception $e)
+        catch (\Exception $e)//Slash is for generic exception class
         {
            echo $e->getMessage();
            return false;
@@ -41,14 +41,14 @@ class business_layer{
     }
 
     function sendText(){
-        // Your Account SID and Auth Token from twilio.com/console
+        // Twilio credentials
         $account_sid = $_SERVER['TWILIO_SID'];
         $auth_token = $_SERVER['TWILIO_TOKEN'];
-
-        // A Twilio number you own with SMS capabilities
         $twilio_number = $_SERVER['TWILIO_PHONE'];;
 
+        //Create twilio client using our credentials
         $client = new Client($account_sid, $auth_token);
+        //send message
         $client->messages->create(
             // Where to send a text message (your cell phone?)
             '+15856455810',//should be a passed in $phoneNumber but free version doesnt allow it.
@@ -65,7 +65,7 @@ class business_layer{
         //confirm email that is being reset
         //if input matches $_GET as well as some unique identifier then reset the password
         $dataLayer = new data_layer();
-        //generate a random 10 character string
+        //generate a random 10 character string.
         $genPass = substr(md5(microtime()),rand(0,26),10);
         //database call to set new password and update temp password flag
         $dataLayer->setUserTempPass($email,$genPass);
@@ -74,8 +74,6 @@ class business_layer{
         //address , subject line, body
         //if($bizLayer->sendEmail($_POST['email'], 'Password Reset test', "Your New Password is $genPass")){
         //};
-
-
     }
 
 

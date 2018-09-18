@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     </div>
 
                     <div class='inputWithIcon'>
-                        <input onkeyup="confirmPassword()" class='block' id='passwordConfirm' type = 'text' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
+                        <input onkeyup="confirmPassword()" class='block' id='passwordConfirm' type = 'password' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
                         <i class='fas fa-lock pwIcon' aria-hidden='true'></i>
                     </div>
                     <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep(1)"/>
