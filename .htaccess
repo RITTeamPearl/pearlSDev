@@ -14,5 +14,6 @@ php_value error_reporting 32767
 
 SetEnv EMAIL_ADDR teampearlrit@gmail.com
 SetEnv EMAIL_PASSWORD T3@mP3@rl!
+SetEnv TWILIO_PHONE +18572145309
 SetEnv TWILIO_SID AC03cb27728fb0055b67a9fe7bd9e2d826
 SetEnv TWILIO_TOKEN 131fffeed54d706660bd6f36f774c19b
