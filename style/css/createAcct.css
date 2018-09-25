@@ -60,6 +60,9 @@ i {
 .inline {
   display: inline-block; }
 
+.hidden {
+  display: none; }
+
 .vertCenter {
   position: absolute;
   top: 50%;

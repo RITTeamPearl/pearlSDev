@@ -124,4 +124,46 @@ i {
     text-align: center;
     letter-spacing: 1px; }
 
-/*# sourceMappingURL=styles.css.map */
+#adminConsole {
+  background-color: #eaeaea; }
+  #adminConsole .header {
+    width: 100%;
+    height: 4.84375rem;
+    background-color: #5b8ec5;
+    position: relative; }
+    #adminConsole .header #title {
+      font-family: "Helvetica Neue Light";
+      font-size: 1.25em;
+      color: white;
+      position: absolute;
+      bottom: 0.78125rem;
+      left: 0;
+      right: 0;
+      margin: auto; }
+  #adminConsole #navigation {
+    position: relative;
+    font-size: 0.8125em;
+    color: #999999;
+    padding: 0 0 0.46875rem;
+    margin: 1.875rem 0.46875rem 0rem;
+    white-space: nowrap; }
+    #adminConsole #navigation li {
+      margin-right: 0.625rem;
+      padding-bottom: 0.5rem; }
+    #adminConsole #navigation li.active {
+      color: #757575;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #5b8ec5;
+      background-color: transparent;
+      z-index: 1; }
+    #adminConsole #navigation hr {
+      border-bottom: 1px solid #999999;
+      margin: 0;
+      position: absolute;
+      z-index: -1;
+      bottom: 7px;
+      width: 100%; }
+  #adminConsole #news {
+    padding: 1.25rem 0.46875rem 2.1875rem 0.46875rem; }
+
+/*# sourceMappingURL=adminConsole.css.map */

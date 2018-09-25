@@ -1,0 +1,68 @@
+// ------- Styling specifically for adminConsole Page -------
+
+//Import global styling
+@import 'styles';
+
+#adminConsole {
+    
+    background-color: #eaeaea;
+    
+    //Top header (blue)
+    .header {
+        width: 100%;
+        height: pxToRem(155);
+        background-color: #5b8ec5;
+        position: relative;
+        
+        #title {
+            font-family: $lighterFont;
+            font-size: pxToEm(40);
+            color: white;
+            position: absolute;
+            bottom: pxToRem(25);
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+    
+    //Container for Navigation Bar
+    #navigation {
+        position: relative;
+        font-size: ptToEm(13);
+        color: $lightGray;
+        padding: 0 0 pxToRem(15);
+        margin: pxToRem(60) pxToRem(15) pxToRem(0);
+        white-space: nowrap;
+        
+        //Section headers
+        li {
+            margin-right: pxToRem(20);
+            padding-bottom: pxToRem(16);
+        }
+        
+        //The ativated section header
+        li.active {
+            color: $darkGray;
+            padding-bottom: pxToRem(16);
+            border-bottom: 2px solid $blue;
+            background-color: transparent;
+            z-index: 1;
+        }
+        
+        //Horizontal line indicator for selected section
+        hr {
+            border-bottom: 1px solid $lightGray;
+            margin: 0;
+            position: absolute;
+            z-index: -1;
+            bottom: 7px;
+            width: 100%;
+        }
+    }
+    
+    //News Section
+    #news {
+        padding: pxToRem(40) pxToRem(15) pxToRem(70) pxToRem(15);
+    }
+}

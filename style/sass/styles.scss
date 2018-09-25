@@ -2,6 +2,9 @@
 $bgColor: #ffffff;                          //Global Background Color
 $pinkForm: #c92e5f;                         //Form buttons pink
 $green: #2ac656;                            //Green Color
+$blue: #5b8ec5;                             //Blue Color
+$lightGray: #999999;                        //Light-Gray Color
+$darkGray: #757575;                         //Dark-Gray Color
 $baseFont: 'Helvetica Neue', sans-serif;    //Global Font
 $lighterFont: 'Helvetica Neue Light';       //Lighter Font
 $baseFontSize: 16;                          //Default Font Size
@@ -35,12 +38,20 @@ $baseFontSize: 16;                          //Default Font Size
 }
 
 //Helper Functions
+
+//Converts pixels to Em units
 @function pxToEm($pixels, $context: $baseFontSize) {
     @return #{($pixels/2)/$context}em; //Divide 2 since mockup retina
 }
 
+//Converts pixels to Rem units
 @function pxToRem($pixels, $context: $baseFontSize) {
     @return #{($pixels/2)/$context}rem; //Divide 2 since mockup retina
+}
+
+//Converts point font to Em units
+@function ptToEm($pt, $context: $baseFontSize) {
+    @return #{($pt/16)}em;
 }
 
 //Global Styling (Do not put an individual page's styling here)
@@ -94,6 +105,10 @@ i {
 
 .inline {
     display: inline-block;
+}
+
+.hidden {
+    display: none;
 }
 
 .vertCenter {
