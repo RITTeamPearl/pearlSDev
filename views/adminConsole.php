@@ -5,7 +5,7 @@
     <meta charset='utf-8'/>
     <meta name='viewport' content='width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 5.0' />
     <link rel='stylesheet' type='text/css' media='screen' href='/style/css/adminConsole.css'>
-    <link href='assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
+    <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
 <body id='adminConsole'>    
@@ -30,9 +30,9 @@
     <!-- News Section of Admin Console -->
     <section id='news'>
         
-        <div class='searchBar'>
-            <i></i>
+        <div class='searchBar inputWithIcon'>
             <input type='text' placeholder='Search'>
+            <i class="fas fa-search"></i>
         </div>
 
         <!-- Table that appends database entries of news articles into rows -->
@@ -48,12 +48,12 @@
             <!-- Begin PHP Iterative process to dynamically create News -->
 
             <!-- Row that is collapsed -->
-            <tr>
-                <td><i></i><i display='none'></i></td> <!-- Onclick this icon needs to be updated -->
+            <tr class='collapsed'>
+                <td><i class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>Heavy Rain to delay bla bla bla bla bla</td>
                 <td>Yes</td>
-                <td><i></i>Modify</td>
-                <td><i></i>Delete</td>
+                <td><i class='fas fa-pencil-alt'></i></td>
+                <td><i class='fas fa-trash-alt'></i></td>
             </tr>
 
         </table>

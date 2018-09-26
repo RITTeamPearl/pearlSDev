@@ -65,4 +65,67 @@
     #news {
         padding: pxToRem(40) pxToRem(15) pxToRem(70) pxToRem(15);
     }
+    
+    .searchBar {
+        margin-bottom: pxToRem(35);
+        
+        i, ::placeholder {
+            
+            color: $lightGray;
+        }
+        
+    }
+    
+    //Table display entries from database
+    table {
+        font-family: $lighterFont;
+        border-collapse: collapse;
+        text-align: left;
+        width: 100%;
+        
+        //Table Row
+        tr {
+            //Table Header
+            th {
+                font-size: ptToEm(14);
+                color: $lightGray;
+                padding-bottom: pxToRem(10);
+            }
+            //Table data
+            td {
+                max-width: pxToRem(225);
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                padding-left: pxToRem(10);
+            }
+        }
+        
+        //Table row that is collapsed
+        .collapsed {
+            font-size: ptToEm(14);
+            background-color: white;
+            box-shadow: inset 0 0 1px #666;
+            border: none;
+            height: pxToRem(110);
+            margin-top: pxToRem(10);
+
+            //Icons
+            i {
+                font-size: pxToEm(50) !important;
+                color: $blue;
+            }
+            
+            .fa-trash-alt {
+                color: $red;
+            }
+            
+            //First td (Icon to un-collapse)
+            td:first-child{
+                width: pxToRem(65);
+                border-right: 2px solid #eaeaea;
+                text-align: center;
+            }
+        }
+    }
 }

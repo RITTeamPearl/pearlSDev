@@ -165,5 +165,40 @@ i {
       width: 100%; }
   #adminConsole #news {
     padding: 1.25rem 0.46875rem 2.1875rem 0.46875rem; }
+  #adminConsole .searchBar {
+    margin-bottom: 1.09375rem; }
+    #adminConsole .searchBar i, #adminConsole .searchBar ::placeholder {
+      color: #999999; }
+  #adminConsole table {
+    font-family: "Helvetica Neue Light";
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%; }
+    #adminConsole table tr th {
+      font-size: 0.875em;
+      color: #999999;
+      padding-bottom: 0.3125rem; }
+    #adminConsole table tr td {
+      max-width: 7.03125rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-left: 0.3125rem; }
+    #adminConsole table .collapsed {
+      font-size: 0.875em;
+      background-color: white;
+      box-shadow: inset 0 0 1px #666;
+      border: none;
+      height: 3.4375rem;
+      margin-top: 0.3125rem; }
+      #adminConsole table .collapsed i {
+        font-size: 1.5625em !important;
+        color: #5b8ec5; }
+      #adminConsole table .collapsed .fa-trash-alt {
+        color: #f24949; }
+      #adminConsole table .collapsed td:first-child {
+        width: 2.03125rem;
+        border-right: 2px solid #eaeaea;
+        text-align: center; }
 
 /*# sourceMappingURL=adminConsole.css.map */
