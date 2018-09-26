@@ -164,13 +164,13 @@ i {
       bottom: 7px;
       width: 100%; }
   #adminConsole #news {
+    font-family: "Helvetica Neue Light";
     padding: 1.25rem 0.46875rem 2.1875rem 0.46875rem; }
   #adminConsole .searchBar {
     margin-bottom: 1.09375rem; }
     #adminConsole .searchBar i, #adminConsole .searchBar ::placeholder {
       color: #999999; }
   #adminConsole table {
-    font-family: "Helvetica Neue Light";
     border-collapse: collapse;
     text-align: left;
     width: 100%; }
@@ -189,16 +189,41 @@ i {
       background-color: white;
       box-shadow: inset 0 0 1px #666;
       border: none;
-      height: 3.4375rem;
-      margin-top: 0.3125rem; }
+      height: 3.4375rem; }
       #adminConsole table .collapsed i {
         font-size: 1.5625em !important;
         color: #5b8ec5; }
       #adminConsole table .collapsed .fa-trash-alt {
         color: #f24949; }
+      #adminConsole table .collapsed .fa-plus-circle {
+        color: #2ac656; }
       #adminConsole table .collapsed td:first-child {
         width: 2.03125rem;
         border-right: 2px solid #eaeaea;
         text-align: center; }
+    #adminConsole table .un-collapsed {
+      background-color: white; }
+    #adminConsole table .spacer {
+      height: 0.3125rem; }
+  #adminConsole .pagination {
+    text-align: right;
+    font-size: 0.9375em;
+    margin-top: 0.78125rem;
+    color: #999999; }
+    #adminConsole .pagination span {
+      vertical-align: top; }
+    #adminConsole .pagination .number {
+      color: black;
+      vertical-align: top; }
+    #adminConsole .pagination .next {
+      margin-left: 1.25rem; }
+      #adminConsole .pagination .next i {
+        margin-left: 0.3125rem; }
+    #adminConsole .pagination .back {
+      margin-left: 1.25rem; }
+      #adminConsole .pagination .back i {
+        margin-right: 0.3125rem; }
+    #adminConsole .pagination .clickable {
+      color: #5b8ec5; }
 
 /*# sourceMappingURL=adminConsole.css.map */
