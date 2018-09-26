@@ -118,8 +118,17 @@
                 <span>Next</span><i class='fas fa-chevron-right'></i>
             </div>
         </div>
-        
     </section>
+    
+    <div class='footer block'>
+        <ul class='iconContainer'>
+            <li class='inline'><i class="fas fa-newspaper"></i></li>
+            <li class='inline'><i class="fas fa-video"></i></li>
+            <li class='inline'><i class="fas fa-user"></i></li>
+            <li class='inline'><i class="fas fa-bell"></i></li>
+            <li class='inline'><i class="fas fa-toolbox"></i></li>
+        </ul>
         
+    </div>
 </body>
 </html>

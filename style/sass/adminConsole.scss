@@ -67,6 +67,7 @@
         padding: pxToRem(40) pxToRem(15) pxToRem(70) pxToRem(15);
     }
     
+    //Search bar input
     .searchBar {
         margin-bottom: pxToRem(35);
         
@@ -74,7 +75,6 @@
             
             color: $lightGray;
         }
-        
     }
     
     //Table display entries from database
@@ -85,7 +85,6 @@
         
         //Table Row
         tr {
-           
             //Table Header
             th {
                 font-size: ptToEm(14);
@@ -132,30 +131,36 @@
             }
         }
         
+        //Row that is expanded
         .un-collapsed {
             background-color: white;
         }
         
+        //Space in-between rows
         .spacer {
             height: pxToRem(10);
         }
     }
     
+    //Footer of table that handles changing pages of entries
     .pagination {
         text-align: right;
         font-size: pxToEm(30);
         margin-top: pxToRem(25);
         color: $lightGray;
         
+        //Text
         span {
             vertical-align: top;
         }
         
+        //Entries of 'x'
         .number {
             color: black;
             vertical-align: top;
         }
         
+        //Next Button
         .next {
             margin-left: pxToRem(40);
             
@@ -164,6 +169,7 @@
             }
         }
         
+        //Back button
         .back {
             margin-left: pxToRem(40);
             
@@ -172,8 +178,13 @@
             }
         }
         
+        //Clickable button
         .clickable {
             color: $blue;
         }
+    }
+    
+    .footer {
+        background-color: #eaeaea;
     }
 }
