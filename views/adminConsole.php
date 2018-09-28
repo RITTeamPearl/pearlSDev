@@ -127,7 +127,7 @@
     </section>
 
     <!-- Employees section of Admin Console -->
-    <section id='employees' class='hidden'>
+    <section id='employees' >
     
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
@@ -224,7 +224,7 @@
     </section>
     
     <!-- Pending Users waiting for authorization -->
-    <section id='pending'>
+    <section id='pending' class='hidden'>
         
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>

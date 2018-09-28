@@ -208,7 +208,8 @@ i {
     #adminConsole table tr td {
       max-width: 7.03125rem;
       overflow: hidden;
-      white-space: nowrap; }
+      white-space: nowrap;
+      padding-left: 0.3125rem; }
     #adminConsole table .collapsed {
       font-size: 0.875em;
       background-color: white;
@@ -226,6 +227,8 @@ i {
         width: 2.03125rem;
         border-right: 2px solid #eaeaea;
         text-align: center; }
+      #adminConsole table .collapsed td {
+        text-overflow: ellipsis; }
     #adminConsole table .un-collapsed {
       background-color: white; }
       #adminConsole table .un-collapsed .leftUnCollapsed {
