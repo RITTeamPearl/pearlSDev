@@ -28,6 +28,7 @@ class business_layer{
             $mail->addAddress($address);
             $mail->Subject = $subject;
             $mail->Body = $body;
+            $mail->IsHTML(true);
 
             //Send it
             $mail->send();
@@ -60,10 +61,17 @@ class business_layer{
     }
 
     function passwordReset($email){
+        $hashedEmail = password_hash($email,PASSWORD_DEFAULT);
+
+        $subject = "RRCC Account Password Reset";
+        $body = "<h1>Please click the link below to reset your password</h1>";
+        $body .= "<h2 href='localhost/views/resetConfirm.php?email=$hashedEmail' >Reset</h2>";
         //generate url to send in email. ../resetPassword.php?emailToReset
         //send email
         //confirm email that is being reset
         //if input matches $_GET as well as some unique identifier then reset the password
+
+
         $dataLayer = new data_layer();
         //generate a random 10 character string.
         $genPass = substr(md5(microtime()),rand(0,26),10);

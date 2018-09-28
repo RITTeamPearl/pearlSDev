@@ -4,7 +4,7 @@ require_once '../business/business_layer.php';
 // $dataLayer = new data_layer();
 $bizLayer = new business_layer();
 
-$bizLayer->passwordReset("email");
+//$bizLayer->passwordReset("email");
 
     //validate and sanitize input
     //check if email exists

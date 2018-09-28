@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if(isset($_SESSION['phone'])){
-    //alredy logged in redirect to admin console
-    header("Location: views/adminConsole.php");
-}
+// if(isset($_SESSION['phone'])){
+//     //alredy logged in redirect to admin console
+//     header("Location: views/adminConsole.php");
+// }
  ?>
 
 <!DOCTYPE html>

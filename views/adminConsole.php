@@ -64,7 +64,7 @@
 
             <tr class='spacer'><td></td></tr>
 
-            <tr id = "row-12"class='collapsed'>
+            <tr id = "row-10"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>Heavy Rain to delay bla bla bla bla bla</td>
                 <td>Yes</td>
@@ -76,7 +76,7 @@
 
             <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
 
-            <tr id = "row-13" class='un-collapsed'>
+            <tr id = "row-11" class='un-collapsed'>
                 <td colspan='3' class='leftUnCollapsed'>
                     <h2>Body</h2>
                     <span>Lorem ipsum dolor sit amet, consecteur adiposing elit. Sed autor ligula quis ante pretium lacreet.Nuno semper erat dignissim placerate feugiat.
@@ -125,16 +125,16 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Employees section of Admin Console -->
     <section id='employees'>
-    
+
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
             <input type='text' placeholder='Search'>
             <i class="fas fa-search"></i>
         </div>
-        
+
         <!-- Table that appends database entries of employees into rows -->
         <table>
             <tr>
@@ -162,7 +162,7 @@
             <tr class='spacer'><td></td></tr>
 
             <tr id = "row-12"class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> 
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                 <td>Mason</td>
                 <td>Santora</td>
                  <td>555-555-5555</td>
@@ -178,10 +178,10 @@
                 <td colspan='3' class='leftUnCollapsed'>
                     <h2>Active</h2>
                     <span>Yes</span>
-                    
+
                     <h2>Department</h2>
                     <span>Finance</span>
-                    
+
                     <h2>Email</h2>
                     <span>masonsantora@gmail.com</span>
                 </td>
@@ -205,7 +205,7 @@
             </tr>
 
         </table>
-        
+
     </section>
 
     <!-- Footer -->
