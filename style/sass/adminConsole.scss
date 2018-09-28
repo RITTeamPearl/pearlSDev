@@ -63,7 +63,7 @@
     }
     
     //Sections
-    #news, #employees {
+    #news, #employees, #pending {
         font-family: $lighterFont;
         padding: pxToRem(40) pxToRem(15) pxToRem(130) pxToRem(15);
     }
@@ -97,7 +97,6 @@
                 max-width: pxToRem(225);
                 overflow: hidden;
                 white-space: nowrap;
-                padding-left: pxToRem(10);
             }
         }
         
@@ -115,11 +114,11 @@
                 color: $blue;
             }
             
-            .fa-trash-alt {
+            .fa-trash-alt, .fa-minus-circle {
                 color: $red;
             }
             
-            .fa-plus-circle {
+            .fa-plus-circle, .fa-check-circle {
                 color: $green;
             }
             

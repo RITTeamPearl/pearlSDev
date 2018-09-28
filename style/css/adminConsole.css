@@ -190,7 +190,7 @@ i {
       z-index: -1;
       bottom: 7px;
       width: 100%; }
-  #adminConsole #news, #adminConsole #employees {
+  #adminConsole #news, #adminConsole #employees, #adminConsole #pending {
     font-family: "Helvetica Neue Light";
     padding: 1.25rem 0.46875rem 4.0625rem 0.46875rem; }
   #adminConsole .searchBar {
@@ -208,8 +208,7 @@ i {
     #adminConsole table tr td {
       max-width: 7.03125rem;
       overflow: hidden;
-      white-space: nowrap;
-      padding-left: 0.3125rem; }
+      white-space: nowrap; }
     #adminConsole table .collapsed {
       font-size: 0.875em;
       background-color: white;
@@ -219,9 +218,9 @@ i {
       #adminConsole table .collapsed i {
         font-size: 1.5625em !important;
         color: #5b8ec5; }
-      #adminConsole table .collapsed .fa-trash-alt {
+      #adminConsole table .collapsed .fa-trash-alt, #adminConsole table .collapsed .fa-minus-circle {
         color: #f24949; }
-      #adminConsole table .collapsed .fa-plus-circle {
+      #adminConsole table .collapsed .fa-plus-circle, #adminConsole table .collapsed .fa-check-circle {
         color: #2ac656; }
       #adminConsole table .collapsed td:first-child {
         width: 2.03125rem;

@@ -127,7 +127,7 @@
     </section>
     
     <!-- Employees section of Admin Console -->
-    <section id='employees'>
+    <section id='employees' class='hidden'>
     
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
@@ -205,6 +205,86 @@
             </tr>
 
         </table>
+        
+        <!-- Pagination -->
+        <div class='pagination block'>
+            <div class='number inline'>
+                <span>1-5 of 13</span>
+            </div>
+
+            <div class='back inline'>
+                <i class='fas fa-chevron-left'></i><span>Back</span>
+            </div>
+
+            <div class='next inline'>
+                <span>Next</span><i class='fas fa-chevron-right'></i>
+            </div>
+        </div>
+        
+    </section>
+    
+    <!-- Pending Users waiting for authorization -->
+    <section id='pending'>
+        
+        <!-- Search Bar -->
+        <div class='searchBar inputWithIcon'>
+            <input type='text' placeholder='Search'>
+            <i class="fas fa-search"></i>
+        </div>
+        
+        <!-- Table that appends database entries of unauthorized employees into rows -->
+        <table>
+            <tr>
+                <th></th>
+                <th>First</th>
+                <th>Last</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+
+            <!-- Begin PHP Iterative process to dynamically create employees -->
+
+            <!-- Row that is collapsed -->
+            <tr class='collapsed'>
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
+                <td>Amanda</td>
+                <td>Ho</td>
+                <td>555-555-5555</td>
+                <td><i class='fas fa-check-circle'></i></td>
+                <td><i class='fas fa-minus-circle'></i></td>
+            </tr>
+
+            <!-- Spacer puts padding in-between table rows -->
+
+            <tr class='spacer'><td></td></tr>
+
+            <tr id = "row-12"class='collapsed'>
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> 
+                <td>Mason</td>
+                <td>Santora</td>
+                 <td>555-555-5555</td>
+                <td><i class='fas fa-check-circle'></i></td>
+                <td><i class='fas fa-minus-circle'></i></td>
+            </tr>
+
+            <tr class='spacer'><td></td></tr>
+            
+        </table>
+        
+        <!-- Pagination -->
+        <div class='pagination block'>
+            <div class='number inline'>
+                <span>1-5 of 13</span>
+            </div>
+
+            <div class='back inline'>
+                <i class='fas fa-chevron-left'></i><span>Back</span>
+            </div>
+
+            <div class='next inline'>
+                <span>Next</span><i class='fas fa-chevron-right'></i>
+            </div>
+        </div>
         
     </section>
 
