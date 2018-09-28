@@ -16,6 +16,7 @@
         <h1 id='title' class='centered'>Administrator Console</h1>
     </div>
 
+    <!-- Navigation -->
     <ul class='block' id='navigation'>
         <!-- 1. Add Total amount of entries to these 3 top li elements
              2. Onclick show/hide other sections
@@ -30,8 +31,9 @@
     </ul>
 
     <!-- News Section of Admin Console -->
-    <section id='news'>
+    <section id='news' class='hidden'>
 
+        <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
             <input type='text' placeholder='Search'>
             <i class="fas fa-search"></i>
@@ -123,7 +125,90 @@
             </div>
         </div>
     </section>
+    
+    <!-- Employees section of Admin Console -->
+    <section id='employees'>
+    
+        <!-- Search Bar -->
+        <div class='searchBar inputWithIcon'>
+            <input type='text' placeholder='Search'>
+            <i class="fas fa-search"></i>
+        </div>
+        
+        <!-- Table that appends database entries of employees into rows -->
+        <table>
+            <tr>
+                <th></th>
+                <th>First</th>
+                <th>Last</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
 
+            <!-- Begin PHP Iterative process to dynamically create employees -->
+
+            <!-- Row that is collapsed -->
+            <tr class='collapsed'>
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
+                <td>Amanda</td>
+                <td>Ho</td>
+                <td>555-555-5555</td>
+                <td><i class='fas fa-pencil-alt'></i></td>
+                <td><i class='fas fa-trash-alt'></i></td>
+            </tr>
+
+            <!-- Spacer puts padding in-between table rows -->
+
+            <tr class='spacer'><td></td></tr>
+
+            <tr id = "row-12"class='collapsed'>
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> 
+                <td>Mason</td>
+                <td>Santora</td>
+                 <td>555-555-5555</td>
+                <td><i class='fas fa-pencil-alt'></i></td>
+                <td><i class='fas fa-trash-alt'></i></td>
+            </tr>
+
+            <tr class='spacer'><td></td></tr>
+
+            <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
+
+            <tr id = "row-13" class='un-collapsed'>
+                <td colspan='3' class='leftUnCollapsed'>
+                    <h2>Active</h2>
+                    <span>Yes</span>
+                    
+                    <h2>Department</h2>
+                    <span>Finance</span>
+                    
+                    <h2>Email</h2>
+                    <span>masonsantora@gmail.com</span>
+                </td>
+                <td colspan='3' class='rightUnCollapsed'>
+                    <h2>Authorization</h2>
+                    <span>Employee</span>
+
+                    <h2>Password</h2>
+                    <span>Shetland</span>
+                </td>
+            </tr>
+
+            <tr class='spacer'><td></td></tr>
+
+            <!-- Begin next dynamically added rows here -->
+
+            <!-- Add New Notification -->
+            <tr class='collapsed'>
+                <td><i class='fas fa-plus-circle'></i></td>
+                <td colspan='6'>Add New Employee</td>
+            </tr>
+
+        </table>
+        
+    </section>
+
+    <!-- Footer -->
     <div class='footer block'>
         <ul class='iconContainer'>
             <li class='inline'><i class="fas fa-newspaper"></i></li>

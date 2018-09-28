@@ -62,8 +62,8 @@
         }
     }
     
-    //News Section
-    #news {
+    //Sections
+    #news, #employees {
         font-family: $lighterFont;
         padding: pxToRem(40) pxToRem(15) pxToRem(130) pxToRem(15);
     }
@@ -97,7 +97,6 @@
                 max-width: pxToRem(225);
                 overflow: hidden;
                 white-space: nowrap;
-                text-overflow: ellipsis;
                 padding-left: pxToRem(10);
             }
         }
@@ -144,6 +143,8 @@
             
             .rightUnCollapsed {
                 vertical-align: top;
+                padding-bottom: pxToRem(40);
+                text-overflow: ellipsis;
             }
             
             h2 {
