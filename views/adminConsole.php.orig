@@ -127,8 +127,13 @@
     </section>
 
     <!-- Employees section of Admin Console -->
+<<<<<<< HEAD
     <section id='employees' class='hidden'>
     
+=======
+    <section id='employees'>
+
+>>>>>>> ac2418891cce222d0d588f9155bcaade65d5f093
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
             <input type='text' placeholder='Search'>
@@ -205,6 +210,7 @@
             </tr>
 
         </table>
+<<<<<<< HEAD
         
         <!-- Pagination -->
         <div class='pagination block'>
@@ -286,6 +292,9 @@
             </div>
         </div>
         
+=======
+
+>>>>>>> ac2418891cce222d0d588f9155bcaade65d5f093
     </section>
 
     <!-- Footer -->
