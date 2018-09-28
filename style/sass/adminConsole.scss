@@ -34,6 +34,7 @@
         padding: 0 0 pxToRem(15);
         margin: pxToRem(60) pxToRem(15) pxToRem(0);
         white-space: nowrap;
+        text-align: center;
         
         //Section headers
         li {
@@ -134,6 +135,37 @@
         //Row that is expanded
         .un-collapsed {
             background-color: white;
+            
+            .leftUnCollapsed {
+                vertical-align: top;
+                padding-left: pxToRem(30);
+                padding-bottom: pxToRem(40);
+            }
+            
+            .rightUnCollapsed {
+                vertical-align: top;
+            }
+            
+            h2 {
+                color: $lightGray;
+                font-size: ptToEm(16);
+                white-space: normal;
+            }
+            
+            span {
+                font-size: ptToEm(14);
+                white-space: normal;
+            }
+            
+            .fa-times-circle {
+                color: $red;
+                margin-right: pxToRem(20);
+            }
+            
+            .fa-download {
+                color: $blue;
+                margin-right: pxToRem(20);
+            }
         }
         
         //Space in-between rows

@@ -75,16 +75,18 @@
             <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
 
             <tr id = "row-13" class='un-collapsed'>
-                <td colspan='5'>
-                <h2>Body</h2>
-                <p>Lorem ipsum dolor sit amet, consecteur adiposing elit. Sed autor ligula quis ante pretium lacreet.Nuno semper erat dignissim placerate feugiat.
-                Aenean commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan.</p>
+                <td colspan='3' class='leftUnCollapsed'>
+                    <h2>Body</h2>
+                    <span>Lorem ipsum dolor sit amet, consecteur adiposing elit. Sed autor ligula quis ante pretium lacreet.Nuno semper erat dignissim placerate feugiat.
+                    Aenean commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan. commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan</span>
+                </td>
+                <td colspan='2' class='rightUnCollapsed'>
+                    <h2>Attachment</h2>
+                    <!-- Make this 'fas fa-file-upload' with blue color, if no file exists and text saying 'No attachment' Create functionality for upload -->
+                    <i class="fas fa-times-circle"></i><span>document.pdf</span>
 
-                <h2>Attachment</h2>
-                <p>document.pdf</p><i></i>
-
-                <h2>User Acknowledgements Report</h2>
-                <p>user_report.csv</p><i></i>
+                    <h2>User Ack. Report</h2>
+                    <i class="fas fa-download"></i><span>user_report.csv</span>
                 </td>
             </tr>
 

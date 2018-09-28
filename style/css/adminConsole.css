@@ -172,7 +172,8 @@ i {
     color: #999999;
     padding: 0 0 0.46875rem;
     margin: 1.875rem 0.46875rem 0rem;
-    white-space: nowrap; }
+    white-space: nowrap;
+    text-align: center; }
     #adminConsole #navigation li {
       margin-right: 0.625rem;
       padding-bottom: 0.5rem; }
@@ -229,6 +230,25 @@ i {
         text-align: center; }
     #adminConsole table .un-collapsed {
       background-color: white; }
+      #adminConsole table .un-collapsed .leftUnCollapsed {
+        vertical-align: top;
+        padding-left: 0.9375rem;
+        padding-bottom: 1.25rem; }
+      #adminConsole table .un-collapsed .rightUnCollapsed {
+        vertical-align: top; }
+      #adminConsole table .un-collapsed h2 {
+        color: #999999;
+        font-size: 1em;
+        white-space: normal; }
+      #adminConsole table .un-collapsed span {
+        font-size: 0.875em;
+        white-space: normal; }
+      #adminConsole table .un-collapsed .fa-times-circle {
+        color: #f24949;
+        margin-right: 0.625rem; }
+      #adminConsole table .un-collapsed .fa-download {
+        color: #5b8ec5;
+        margin-right: 0.625rem; }
     #adminConsole table .spacer {
       height: 0.3125rem; }
   #adminConsole .pagination {
