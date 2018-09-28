@@ -49,22 +49,31 @@ function dropDownToggle(ele){
     //get ele class.
     var eleClass = $(ele).attr("class").valueOf().split("-")[3];
 
+
     if (eleClass === "up") {
+        //the circle was up so switch it to down
         $(ele).removeClass("fa-chevron-circle-up");
         $(ele).addClass("fa-chevron-circle-down");
 
+        //get the current and next row based on IDs
         var rowNum = $(ele).parent().parent().attr("id");
         rowNum = parseInt(rowNum.split("-")[1]);
         nextRow = "#row-" + parseInt(rowNum+1);
+
+        //show the next row because it has the data for this header
         $(nextRow).show();
     }
     if (eleClass === "down") {
+        //the circle was down so switch it to up
         $(ele).removeClass("fa-chevron-circle-down");
         $(ele).addClass("fa-chevron-circle-up");
 
+        //get the current and next row based on IDs
         var rowNum = $(ele).parent().parent().attr("id");
         rowNum = parseInt(rowNum.split("-")[1]);
         nextRow = "#row-" + parseInt(rowNum+1);
+
+        //hide the next row because it has the data for this header
         $(nextRow).hide();
 
     }

@@ -20,14 +20,14 @@ class data_layer{
      * @return Bool Tells if username and password are correct
      */
     function checkLogin($phone,$password){
-        if ($stmt = $this->connection->prepare("select password from user where phone = ?")){
+        if ($stmt = $this->connection->prepare("select password, authID from user where phone = ?")){
             $stmt->bind_param("s",$phone);
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($hashedPassword);
+            $stmt->bind_result($hashedPassword,$authLevel);
             while ($stmt->fetch()) {
                 if (password_verify($password,$hashedPassword)){
-                    return true;
+                    return ($authLevel > 1) ? (true) : (false);
                 }
                 else {
                     return false;

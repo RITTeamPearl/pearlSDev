@@ -8,7 +8,8 @@
     $loginSuccess = $dataLayer->checkLogin($_POST['phone'],$_POST['password']);
 
     if ($loginSuccess) {
-        header("Location: demoHomepage.php");
+        $_SESSION['phone'] = $_POST['phone'];
+        header("Location: adminConsole.php");
     }
     else {
         header("Location: ../index.php");
