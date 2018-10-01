@@ -12,22 +12,22 @@
 <body>
     <?php
         session_start(); //starts the session
-        
-        if($_SESSION['user']){ // checks if the user is logged in  
+
+        if($_SESSION['user']){ // checks if the user is logged in
             Print
             '<h2>Welcome <?php Print $user ?> to Your RRCC Home</h2>
-    
+
             <form action="logout.php" method="POST">
                 <input type = "submit" value= "Log out"/>
             </form>
-        
+
             <p>Be sure to read through all the post!</p>';
         }
         else{
-        header("location: index.php"); // redirects if user is not logged in
+        header("location: ../index.php"); // redirects if user is not logged in
         }
         $user = $_SESSION['user']; //assigns user value
-    ?>    
+    ?>
 
 </body>
 </html>

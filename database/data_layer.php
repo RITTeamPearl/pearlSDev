@@ -45,6 +45,14 @@ class data_layer{
         }
     }
 
+    function createNotification($postData){
+        if ($stmt = $this->connection->prepare("INSERT INTO notification (notificationID,title,body,attachment,activeYN) VALUES (?,?,?,1)")){
+            $stmt->bind_param("sss", "title", "body", "attachmentLink");
+            $stmt->execute();
+            echo $stmt->affected_rows . " rows inserted";
+        }
+    }
+
     function checkEmailExists($email){
         if ($stmt = $this->connection->prepare("select * from user where email = ?")){
             $stmt->bind_param("s",$email);
