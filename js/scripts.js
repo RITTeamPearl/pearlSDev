@@ -45,6 +45,14 @@ function addMask(){
 }
 
 function dropDownToggle(ele){
+    //word == up means it was closed now its being opened
+        //change chevron to down
+        //get next table row (will have class of un-collapsed with data for the clicked header)
+        //change to display = true. (roll down animation?fade over time?)
+    //word == down means it was open and now its being closed
+        //change chevron to up
+        //Get next table rows
+        //change to display = false. (roll up animation? fade over time?)
 
     //get ele class.
     var eleClass = $(ele).attr("class").valueOf().split("-")[3];
@@ -77,47 +85,35 @@ function dropDownToggle(ele){
         $(nextRow).hide();
 
     }
-    else {
+}
+
+function updateAdminView(ele){
+    var whichButton = $(ele).attr("id").valueOf().split("_")[0];
+    //find current active and remove it
+    $(".active").removeClass("active");
+    //add it to the clicked button
+    $(ele).addClass("active");
+
+    //show news hide others
+    if (whichButton === "news"){
+        $("#employees").hide();
+        $("#pending").hide();
+        $("#news").show();
+    }
+
+    //show employee hide others
+    if (whichButton === "employee"){
+        $("#pending").hide();
+        $("#news").hide();
+        $("#employees").show();
 
     }
-    //word == up means it was closed now its being opened
-        //change chevron to down
-        //get next table row (will have class of un-collapsed with data for the clicked header)
-        //change to display = true. (roll down animation?fade over time?)
-    //word == down means it was open and now its being closed
-        //change chevron to up
-        //Get next table rows
-        //change to display = false. (roll up animation? fade over time?)
 
+    //show pending hide others
+    if (whichButton === "pending"){
+        $("#news").hide();
+        $("#employees").hide();
+        $("#pending").show();
 
-
-
-
-
-    // <tr id= 'row#' class='collapsed'>
-    //     <td><i class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-    //     <td>Heavy Rain to delay bla bla bla bla bla</td>
-    //     <td>Yes</td>
-    //     <td><i class='fas fa-pencil-alt'></i></td>
-    //     <td><i class='fas fa-trash-alt'></i></td>
-    // </tr>
-    //
-    // <tr class='spacer'><td></td></tr>
-    //
-    // <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
-    //
-    // <tr id= 'row#'>
-    //     <td colspan='5' class='un-collapsed'>
-    //     <h2>Body</h2>
-    //     <p>Lorem ipsum dolor sit amet, consecteur adiposing elit. Sed autor ligula quis ante pretium lacreet.Nuno semper erat dignissim placerate feugiat.
-    //     Aenean commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan.</p>
-    //
-    //     <h2>Attachment</h2>
-    //     <p>document.pdf</p><i></i>
-    //
-    //     <h2>User Acknowledgements Report</h2>
-    //     <p>user_report.csv</p><i></i>
-    //     </td>
-    // </tr>
-
+    }
 }

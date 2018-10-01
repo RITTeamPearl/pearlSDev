@@ -23,15 +23,15 @@
              3. Currently displayed section navigation title should be active
              4. Disable Compare on mobile, Enable on desktop
         -->
-        <li class='inline active'>News(13)</li>
-        <li class='inline'>Employees(231)</li>
-        <li class='inline'>Pending(3)</li>
-        <li class='inline hidden'>Compare</li>
+        <li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News(13)</li>
+        <li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees(231)</li>
+        <li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending(3)</li>
+        <li onclick="updateAdminView(this)" id="compare_Button" class='inline hidden'>Compare</li>
         <hr>
     </ul>
 
     <!-- News Section of Admin Console -->
-    <section id='news' class='hidden'>
+    <section id='news'>
 
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
@@ -127,8 +127,8 @@
     </section>
 
     <!-- Employees section of Admin Console -->
-    <section id='employees' >
-    
+    <section id='employees' class='hidden'>
+
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
             <input type='text' placeholder='Search'>
@@ -205,7 +205,7 @@
             </tr>
 
         </table>
-        
+
         <!-- Pagination -->
         <div class='pagination block'>
             <div class='number inline'>
@@ -220,18 +220,18 @@
                 <span>Next</span><i class='fas fa-chevron-right'></i>
             </div>
         </div>
-        
+
     </section>
-    
+
     <!-- Pending Users waiting for authorization -->
     <section id='pending' class='hidden'>
-        
+
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
             <input type='text' placeholder='Search'>
             <i class="fas fa-search"></i>
         </div>
-        
+
         <!-- Table that appends database entries of unauthorized employees into rows -->
         <table>
             <tr>
@@ -259,7 +259,7 @@
             <tr class='spacer'><td></td></tr>
 
             <tr id = "row-12"class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> 
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                 <td>Mason</td>
                 <td>Santora</td>
                  <td>555-555-5555</td>
@@ -268,9 +268,9 @@
             </tr>
 
             <tr class='spacer'><td></td></tr>
-            
+
         </table>
-        
+
         <!-- Pagination -->
         <div class='pagination block'>
             <div class='number inline'>
@@ -285,7 +285,7 @@
                 <span>Next</span><i class='fas fa-chevron-right'></i>
             </div>
         </div>
-        
+
     </section>
 
     <!-- Footer -->
