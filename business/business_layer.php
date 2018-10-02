@@ -84,5 +84,12 @@ class business_layer{
         //};
     }
 
+    function validateAndSanitize($postData){
+
+        $validatedPOST = array();
+        $validatedPOST['phone'] = $postData['phone'];// this should be validated and sanitized
+        return $validatedPOST;
+    }
+
 
 }

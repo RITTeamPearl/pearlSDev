@@ -1,5 +1,3 @@
-
-
 function nextStep(num){
     //first check to make sure (with javascript) that all fields are valid
     if (num==1){
@@ -45,15 +43,6 @@ function addMask(){
 }
 
 function dropDownToggle(ele){
-    //word == up means it was closed now its being opened
-        //change chevron to down
-        //get next table row (will have class of un-collapsed with data for the clicked header)
-        //change to display = true. (roll down animation?fade over time?)
-    //word == down means it was open and now its being closed
-        //change chevron to up
-        //Get next table rows
-        //change to display = false. (roll up animation? fade over time?)
-
     //get ele class.
     var eleClass = $(ele).attr("class").valueOf().split("-")[3];
 

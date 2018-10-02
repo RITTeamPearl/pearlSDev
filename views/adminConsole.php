@@ -75,7 +75,7 @@
             <tr class='spacer'><td></td></tr>
 
             <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
-
+            <!-- JQUERY Animate function does not work on TR so eventually we might want to convert this to a ul? -->
             <tr id = "row-11" class='un-collapsed'>
                 <td colspan='3' class='leftUnCollapsed'>
                     <h2>Body</h2>
