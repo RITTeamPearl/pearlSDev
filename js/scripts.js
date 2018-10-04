@@ -64,21 +64,7 @@ function dropDownToggle(ele){
 }
 
 function dropDownModify(ele){
-    //get the current and next row based on IDs
-    rowNum = $(ele).parent().parent().attr("id");
-    rowNum = parseInt(rowNum.split("-")[1]);
-    //format so it works with ID
-    nextRow = "#row-" + parseInt(rowNum+1);
-    //Jquery Element vars
-    currRowEle = $("#row-"+rowNum);
-    nextRowEle = $(nextRow)[0];
-    //If the notification information is not displayed drop it down
-    var eleClass = $(ele).attr("class").valueOf().split("-")[3];
-    arrowIndicator = $(currRowEle.find('td')[0]).children()[0];
-    upOrDown= $(arrowIndicator).attr("class").valueOf().split("-")[3];
-    if (upOrDown === "up"){dropDownToggle(arrowIndicator)}
 
-    //Insert a form right below the TR
     currRowEle.append("<form id='form'></form>");
     $("#form").append(currRowEle.children());
 

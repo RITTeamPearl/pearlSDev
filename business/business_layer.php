@@ -108,8 +108,8 @@ class business_layer{
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>{$currTitle}</td>
                 <td>{$currActiveYN}</td>
-                <td><i onclick="dropDownToggle(this);" class='fas fa-pencil-alt'></i></td>
-                <td><i class='fas fa-trash-alt'></i></td>
+                <td><i onclick="dropDownModify(this);" class='fas fa-pencil-alt'></i></td>
+                <td><form action="delete.php?id={$currNotiID}" method="post"> <button style="background-color: transparent; border-color:transparent" type="submit"><i class='fas fa-trash-alt'></i></button></form></td>
             </tr>
 
             <tr class='spacer'><td></td></tr>

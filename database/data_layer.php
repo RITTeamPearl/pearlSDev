@@ -66,6 +66,14 @@ class data_layer{
         }
     }
 
+    function deleteNotification($id){
+        if ($stmt = $this->connection->prepare("DELETE FROM notification WHERE notificationID = ?")){
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            echo $stmt->affected_rows . " rows deleted";
+        }
+    }
+
     function getAllNotifcations(){
         if ($stmt = $this->connection->prepare("select * from notification")){
             $stmt->execute();
