@@ -84,12 +84,77 @@ class business_layer{
         //};
     }
 
-    function validateAndSanitize($postData){
+    function validateAndSanitize(){
 
         //$validatedPOST = array();
         //$validatedPOST['phone'] = $postData['phone'];// this should be validated and sanitized
         //return $validatedPOST;
+
+       //variables for error message
+        $phoneErr = $pwdErr = $pwdConfirmErr = $fnameErr = $lnameErr = $emailErr = "";
+        //variables for val and san checks
+        $phone = $pwd = $pwdconfirm = $fname = $lname = $email = "";
+        
+        //check if form was submitted with POST 
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //checks for createAcct page
+            //check phoneNumber, password, passwordConfirm, fName, lName, and email
+            if(empty($_POST['phone'])){
+                $phoneErr = "Phone Number is required";
+            }
+            else{
+                $phone = test_input($_POST['phone']);
+                if(!preg_match("^1?([1-9])(\\d{9})", $phone)){
+                    $phoneErr = "Invalid phone number";
+                }
+                //filter_var($postData['phone'],FILTER_SANITIZE_NUMBER_INT);
+                //filter_var($postData['phone'], FILTER_VALIDATE_INT);
+            }
+
+            //checks password
+            //checks passwordConfirm
+            //checks fname
+            if(empty($_POST['fName'])){
+                $fnameErr = "First name is required";
+            }
+            else{
+                $fname = test_input($_POST['fName']);
+                if(!preg_match("/^[A-Za-z]+$/", $fname)){
+                    $fnameErr = "First name can only contain letters with no spaces";
+                }
+                //filter_var($postData['fName'],FILTER_SANITIZE_STRING);
+            }
+            //checks lname
+            if(empty($_POST['lName'])){
+                $lnameErr = "Last name is required";
+            }
+            else{
+                $lname = test_input($_POST['lName']);
+                if(!preg_match("/^[A-Za-z]+$/", $lname)){
+                    $lnameErr = "Last name can only contain letters with no spaces";
+                }
+                //filter_var($postData['fName'],FILTER_SANITIZE_STRING);
+            }
+            //checks email
+            if(empty($_POST['email'])){
+                $emailErr = "Email is required";
+            }
+            else{
+                $email = test_input($_POST['email']);
+                $email = filter_var($postData['email'],FILTER_SANITIZE_EMAIL);
+                if(!filter_var($postData['email'], FILTER_VALIDATE_EMAIL)){
+                    $emailErr = "Invalid format for email";
+                }
+             }
+       }
     }
+
+    function test_input($info) {
+        $info = trim($info);
+        $info = stripslashes($info);
+        $info = htmlspecialchars($info);
+        return $info;
+      }
 
     function createNewsTable($notificationArray){
         $string = "";

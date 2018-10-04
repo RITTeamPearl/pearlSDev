@@ -7,7 +7,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
         //business layer validation / sanitization of $_POST
         $dataLayer->createNewUser($_POST);
     }
+    require_once '../business/business_layer.php';
+$businessLayer = new business_layer();
+$validatedPOST = $businessLayer->validateAndSanitize();
 }
+
  ?>
 
 <!DOCTYPE html>
@@ -16,9 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
     <title>Rochester Riverside Convention Center</title>
     <meta charset='utf-8'/>
     <meta name='viewport' content='width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 5.0' />
-    <link rel='stylesheet' type='text/css' media='screen' href='/style/css/createAcct.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../style/css/createAcct.css'>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script type='text/javascript' src='/js/scripts.js'></script>
+    <script type='text/javascript' src='../js/scripts.js'></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
@@ -63,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <div class='inputWithIcon'>
                         <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' required="required">
                         <i class='fas fa-phone' aria-hidden='true'></i>
+                        <span class='error'><? $phoneErr ?></span>
                     </div>
 
                     <div class='inputWithIcon'>
@@ -74,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                         <input onkeyup="confirmPassword()" class='block' id='passwordConfirm' type = 'password' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
                         <i class='fas fa-lock pwIcon' aria-hidden='true'></i>
                     </div>
-                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep(1)"/>
+                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="validateAndSanitize(); nextStep(1);"/>
                     <a id='login' href='../index.php'>Log In</a>
                 </div>
 
@@ -83,10 +88,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <div class='inputWithIcon'>
                         <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required" autofocus>
                         <i class='fas fa-address-card' aria-hidden='true'></i>
+                        <span class='error'><? $fnameErr ?></span>
                     </div>
                     <div class='inputWithIcon'>
                         <input class='block' id='lName' type = 'text' placeholder= 'Last Name' name='lName' required="required" autofocus>
                         <i class='fas fa-address-card' aria-hidden='true'></i>
+                        <span class='error'><? $lnameErr ?></span>
                     </div>
                     <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep(2)"/>
                     <a id='login' href='../index.php'>Log In</a>
@@ -96,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <div class='inputWithIcon'>
                         <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
                         <i class='fas fa-user' aria-hidden='true'></i>
+                        <span class='error'><? $emailErr ?></span>
                     </div>
 
                     <div class='inputWithIcon'>
