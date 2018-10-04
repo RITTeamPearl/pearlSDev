@@ -43,37 +43,45 @@ function addMask(){
 }
 
 function dropDownToggle(ele){
-    //get ele class.
+    var rowNum = $(ele).parent().parent().attr("id");
+    rowNum = parseInt(rowNum.split("-")[1]);
+    thisRow = "#row-" + rowNum;
+    nextRow = "#row-" + parseInt(rowNum+1);
+
+    //get class of next row
+        //collapsed (hidden)
+            //change circle to be up
+    if ($(nextRow).attr('class').valueOf() === 'collapsed'){
+        console.log("here");
+        $(ele).removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
+        $(nextRow).removeClass('collapsed').addClass('un-collapsed').show();
+    }
+
+    else if ($(nextRow).attr('class').valueOf() === 'un-collapsed'){
+        $(ele).removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
+        $(nextRow).removeClass('un-collapsed').addClass('collapsed').hide();
+    }
+}
+
+function dropDownModify(ele){
+    //get the current and next row based on IDs
+    rowNum = $(ele).parent().parent().attr("id");
+    rowNum = parseInt(rowNum.split("-")[1]);
+    //format so it works with ID
+    nextRow = "#row-" + parseInt(rowNum+1);
+    //Jquery Element vars
+    currRowEle = $("#row-"+rowNum);
+    nextRowEle = $(nextRow)[0];
+    //If the notification information is not displayed drop it down
     var eleClass = $(ele).attr("class").valueOf().split("-")[3];
+    arrowIndicator = $(currRowEle.find('td')[0]).children()[0];
+    upOrDown= $(arrowIndicator).attr("class").valueOf().split("-")[3];
+    if (upOrDown === "up"){dropDownToggle(arrowIndicator)}
 
+    //Insert a form right below the TR
+    currRowEle.append("<form id='form'></form>");
+    $("#form").append(currRowEle.children());
 
-    if (eleClass === "up") {
-        //the circle was up so switch it to down
-        $(ele).removeClass("fa-chevron-circle-up");
-        $(ele).addClass("fa-chevron-circle-down");
-
-        //get the current and next row based on IDs
-        var rowNum = $(ele).parent().parent().attr("id");
-        rowNum = parseInt(rowNum.split("-")[1]);
-        nextRow = "#row-" + parseInt(rowNum+1);
-
-        //show the next row because it has the data for this header
-        $(nextRow).show();
-    }
-    if (eleClass === "down") {
-        //the circle was down so switch it to up
-        $(ele).removeClass("fa-chevron-circle-down");
-        $(ele).addClass("fa-chevron-circle-up");
-
-        //get the current and next row based on IDs
-        var rowNum = $(ele).parent().parent().attr("id");
-        rowNum = parseInt(rowNum.split("-")[1]);
-        nextRow = "#row-" + parseInt(rowNum+1);
-
-        //hide the next row because it has the data for this header
-        $(nextRow).hide();
-
-    }
 }
 
 function updateAdminView(ele){

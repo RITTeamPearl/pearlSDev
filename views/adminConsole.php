@@ -1,3 +1,16 @@
+<?php
+session_start();
+require_once '../database/data_layer.php';
+require_once '../business/business_layer.php';
+// $dataLayer = new data_layer();
+$dataLayer = new data_layer();
+$bizLayer = new business_layer();
+if (count($_POST) === 3) {
+    $dataLayer->createNotification($_POST);
+}
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,6 +64,10 @@
 
             <!-- Begin PHP Iterative process to dynamically create News -->
 
+            <?php
+                echo $bizLayer->createNewsTable($dataLayer->getAllNotifcations())
+             ?>
+
             <!-- Row that is collapsed -->
             <tr class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
@@ -64,11 +81,12 @@
 
             <tr class='spacer'><td></td></tr>
 
+        <form class="" action="index.html" method="post">
             <tr id = "row-10"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>Heavy Rain to delay bla bla bla bla bla</td>
                 <td>Yes</td>
-                <td><i class='fas fa-pencil-alt'></i></td>
+                <td><i onclick="dropDownToggle(this);" class='fas fa-pencil-alt'></i></td>
                 <td><i class='fas fa-trash-alt'></i></td>
             </tr>
 
@@ -91,15 +109,25 @@
                     <i class="fas fa-download"></i><span>user_report.csv</span>
                 </td>
             </tr>
-
             <tr class='spacer'><td></td></tr>
+        </form>
 
             <!-- Begin next dynamically added rows here -->
 
             <!-- Add New Notification -->
-            <tr class='collapsed'>
-                <td><i class='fas fa-plus-circle'></i></td>
+            <tr id = "row-12" class='collapsed'>
+                <td><i onclick="dropDownToggle(this)" class='fas fa-plus-circle'></i></td>
                 <td colspan='4'>Add New Notification</td>
+            </tr>
+            <tr id = "row-13" class='collapsed'>
+                <td colspan='3' class='leftUnCollapsed'>
+                    <form class="" action="adminConsole.php" method="post">
+                        <input type="text" name="title" value="Title">
+                        <input type="text" name="body" value="Body">
+                        <input type="text" name="attachment" value="AttachmentLink">
+                        <input type="submit" value="submit">
+                    </form>
+                </td>
             </tr>
 
         </table>

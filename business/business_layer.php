@@ -91,5 +91,54 @@ class business_layer{
         //return $validatedPOST;
     }
 
+    function createNewsTable($notificationArray){
+        $string = "";
+        $rowCount = 1;
+        $nextRowCount = 2;
+        foreach ($notificationArray as $rowArray) {
+            //var_dump($rowArray);
+            $currNotiID = $rowArray['notificationID'];
+            $currTitle = $rowArray['title'];
+            $currBody = $rowArray['body'];
+            $currAttachment = $rowArray['attachment'];
+            $currActiveYN = ($rowArray['active']) ? ('yes') : ('no');
+
+            $string .= <<<END
+            <tr id = "row-{$rowCount}"class='collapsed'>
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
+                <td>{$currTitle}</td>
+                <td>{$currActiveYN}</td>
+                <td><i onclick="dropDownToggle(this);" class='fas fa-pencil-alt'></i></td>
+                <td><i class='fas fa-trash-alt'></i></td>
+            </tr>
+
+            <tr class='spacer'><td></td></tr>
+
+            <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
+            <!-- JQUERY Animate function does not work on TR so eventually we might want to convert this to a ul? -->
+            <tr id = "row-{$nextRowCount}" class='un-collapsed'>
+                <td colspan='3' class='leftUnCollapsed'>
+                    <h2>Body</h2>
+                    <span>{$currBody}</span>
+                </td>
+                <td colspan='2' class='rightUnCollapsed'>
+                    <h2>Attachment</h2>
+                    <!-- Make this 'fas fa-file-upload' with blue color, if no file exists and text saying 'No attachment' Create functionality for upload -->
+                    <i class="fas fa-times-circle"></i><span>{$currAttachment}</span>
+
+                    <h2>User Ack. Report</h2>
+                    <i class="fas fa-download"></i><span>user_report.csv</span>
+                </td>
+            </tr>
+            <tr class='spacer'><td></td></tr>
+END;
+        $rowCount++;
+        $nextRowCount++;
+        }
+
+        return $string;
+        //var_dump($notificationArray);
+    }
+
 
 }

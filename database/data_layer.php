@@ -36,23 +36,6 @@ class data_layer{
         }
     }
 
-    function createNewUser($postData){
-        $hashedPassword = password_hash($postData["password"],PASSWORD_DEFAULT);
-        if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,tempPassYN,password,email,deptID,authID) VALUES (?,?,?,0,?,?,?,1)")){
-            $stmt->bind_param("sssssi",str_replace("-","", $postData["phoneNumber"]),$postData["fName"],$postData["lName"],$hashedPassword,$postData["email"],intval($postData["dept"]));
-            $stmt->execute();
-            echo $stmt->affected_rows . " rows inserted";
-        }
-    }
-
-    function createNotification($postData){
-        if ($stmt = $this->connection->prepare("INSERT INTO notification (notificationID,title,body,attachment,activeYN) VALUES (?,?,?,1)")){
-            $stmt->bind_param("sss", "title", "body", "attachmentLink");
-            $stmt->execute();
-            echo $stmt->affected_rows . " rows inserted";
-        }
-    }
-
     function checkEmailExists($email){
         if ($stmt = $this->connection->prepare("select * from user where email = ?")){
             $stmt->bind_param("s",$email);
@@ -63,6 +46,39 @@ class data_layer{
             }
         }
         return false;
+    }
+
+
+    function createNewUser($postData){
+        $hashedPassword = password_hash($postData["password"],PASSWORD_DEFAULT);
+        if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,tempPassYN,password,email,deptID,authID) VALUES (?,?,?,0,?,?,?,1)")){
+            $stmt->bind_param("sssssi",str_replace("-","", $postData["phoneNumber"]),$postData["fName"],$postData["lName"],$hashedPassword,$postData["email"],intval($postData["dept"]));
+            $stmt->execute();
+            echo $stmt->affected_rows . " rows inserted";
+        }
+    }
+
+    function createNotification($postData){
+        if ($stmt = $this->connection->prepare("INSERT INTO notification (title,body,attachment,activeYN) VALUES (?,?,?,1)")){
+            $stmt->bind_param("sss", $postData['title'], $postData['body'], $postData['attachment']);
+            $stmt->execute();
+            echo $stmt->affected_rows . " rows inserted";
+        }
+    }
+
+    function getAllNotifcations(){
+        if ($stmt = $this->connection->prepare("select * from notification")){
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($notificationID,$title,$body,$attachment,$active);
+            $returnArray = array();
+            while ($stmt->fetch()) {
+                $currRowArray = array('notificationID' => $notificationID, 'title' => $title,
+                'body'=> $body, 'attachment'=> $attachment, 'active'=>$active);
+                array_push($returnArray,$currRowArray);
+            }
+            return $returnArray;
+        }
     }
 
     function setUserTempPass($email, $newPass){
