@@ -150,6 +150,20 @@ i {
     }
 }
 
+.inputNoIcon {
+    box-sizing: border-box;
+    padding-left: pxToRem(15);
+    width: 100%;
+    height: pxToRem(80);
+    box-shadow: inset 0 0 1px #666;
+    border: none;
+    font-family: $lighterFont;
+    font-weight: lighter;
+    font-size: pxToEm(26);
+    color: #6A6A6A;
+    letter-spacing: .5px;
+}
+
 .fa-phone {
     transform: rotate(90deg);
 }

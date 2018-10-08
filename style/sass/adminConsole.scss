@@ -171,6 +171,73 @@
                 color: $blue;
                 margin-right: pxToRem(20);
             }
+            
+            //Form for adding new entry
+            .addNewForm {
+                padding: pxToRem(20);
+                
+                //Adding attachment
+                .addAttachment {
+                    
+                    .fa-file-upload {
+                        color: $blue
+                    }
+                    
+                    input {
+                        padding-top: 10px;
+                    }
+                }
+                
+                //Notify checkboxes
+                .checkBox {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0 pxToRem(30);
+                    
+                    input[type='checkbox'] {
+                        //visibility: hidden;
+                        display: none;
+                    }
+                    
+                    label {
+                        cursor: pointer;
+                        font-size: ptToEm(14);
+                    }
+                    
+                    //Fake checkbox
+                    input[type='checkbox'] + label:before {
+                        border: 1px solid #333;
+                        content: '\00a0'; //non-breaking space 
+                        display: inline-block;
+                        height: 16px;
+                        margin: 0 .25em 0 0;
+                        padding: 0;
+                        vertical-align: top;
+                        width: 16px;
+                    }
+                    
+                    //When checked indicate it
+                    input[type="checkbox"]:checked + label:before {
+                        background: #fff;
+                        color: $green;
+                        content: "\2713";
+                        text-align: center;
+                    }
+                    
+                    //Make it clickable
+                    input[type="checkbox"]:focus + label::before {
+                        outline: rgb(59, 153, 252) auto 5px;
+                    }
+                }
+                
+                .addSubmit {
+                    margin-top: pxToRem(60);
+                    margin: pxToRem(60) auto 0;
+                    background-color: $green;
+                    color: white;
+                    font-size: ptToEm(16);
+                }
+            }
         }
         
         //Space in-between rows

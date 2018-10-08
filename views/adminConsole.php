@@ -2,13 +2,11 @@
 session_start();
 require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
-// $dataLayer = new data_layer();
 $dataLayer = new data_layer();
 $bizLayer = new business_layer();
 if (count($_POST) === 3) {
     $dataLayer->createNotification($_POST);
 }
-
  ?>
 
 <!DOCTYPE html>
@@ -119,13 +117,31 @@ if (count($_POST) === 3) {
                 <td><i onclick="dropDownToggle(this)" class='fas fa-plus-circle'></i></td>
                 <td colspan='4'>Add New Notification</td>
             </tr>
-            <tr id = "row-13" class='collapsed'>
-                <td colspan='3' class='leftUnCollapsed'>
-                    <form class="" action="adminConsole.php" method="post">
-                        <input type="text" name="title" value="Title">
-                        <input type="text" name="body" value="Body">
-                        <input type="text" name="attachment" value="AttachmentLink">
-                        <input type="submit" value="submit">
+            <tr class='spacer'><td></td></tr>
+            <tr id = "row-13" class='un-collapsed'>
+                <td colspan='5'>
+                    <!-- Form that takes user input to add a new notification -->
+                    <form class="addNewForm" action="adminConsole.php" method="post">
+                        <h2>Title</h2>
+                        <input type="text" class='block inputNoIcon' name="title" required>
+                        <h2>Body</h2>
+                        <input type="text" class='block inputNoIcon' name="body" required>
+                        <h2>Attachment</h2>
+                        <!-- input type="file" class='block addAttachment' name="attachment"> -->
+                        <div class='inputWithIcon addAttachment'>
+                            <input class='block' type='file' name='attachment'/>
+                            <i class="fas fa-file-upload" aria-hidden='true'></i>
+                        </div>
+                        <h2>Notify</h2>
+                        <div class='checkBox'>
+                            <input id='cbPhone' type='checkbox'>
+                            <label for='cbPhone' class='checkBoxContainer'>Phone</label>
+                            <input id='cbEmail' type='checkbox'>
+                            <label for='cbEmail' class='checkBoxContainer'>Email</label>
+                            <input id='cbWebApp' type='checkbox'>
+                            <label for='cbWebApp' class='checkBoxContainer'>Web App</label>
+                        </div>
+                        <input type="submit" class='block addSubmit inputNoIcon' value="Submit">
                     </form>
                 </td>
             </tr>
