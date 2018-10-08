@@ -29,7 +29,7 @@ $bizLayer = new business_layer();
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='forgotPwdPage'>
+<body id='forgotPwdPage' class='backgroundImage'>
     <div class='container'>
         <!-- Landing Section -->
         <section id='section-landing'>
