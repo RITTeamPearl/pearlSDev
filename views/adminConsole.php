@@ -68,26 +68,25 @@ if (count($_POST) === 3) {
                 echo $bizLayer->createNewsTable($dataLayer->getAllNotifcations())
              ?>
 
-            <!-- Row that is collapsed -->
-            <tr class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-                <td>Heavy Rain to delay bla bla bla bla bla</td>
-                <td>Yes</td>
-                <td><i class='fas fa-pencil-alt'></i></td>
-                <td><i class='fas fa-trash-alt'></i></td>
-            </tr>
 
-            <!-- Spacer puts padding in-between table rows -->
-
-            <tr class='spacer'><td></td></tr>
-
-        <form class="" action="index.html" method="post">
+        <form class="" action="editNotification.php?id=30" method="post">
             <tr id = "row-10"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-                <td>Heavy Rain to delay bla bla bla bla bla</td>
-                <td>Yes</td>
-                <td><i onclick="dropDownToggle(this);" class='fas fa-pencil-alt'></i></td>
-                <td><i class='fas fa-trash-alt'></i></td>
+                <td>
+                    <span>Heavy Rain to delay bla bla bla bla bla</span>
+                    <input type="text" name="" value="Heavy Rain to delay bla bla bla bla bla">
+                </td>
+                <td>
+                    Yes <!-- This will display the toggle value when its not being edited -->
+                    <input type="checkbox" name="" value=""> <!-- This will become a toggle, filled in with current info -->
+                </td>
+                <td>
+                    <i onclick="dropDownToggle(this);" class='fas fa-pencil-alt'></i>
+                    <button style="background-color: transparent; border-color:transparent" type="submit" name= "modify" value="modify"><i class="fas fa-save"></i></button>
+                </td>
+                <td>
+                    <button style="background-color: transparent; border-color:transparent" type="submit" name= "delete" value="delete"><i class="fas fa-trash-alt"></i></button>
+                </td>
             </tr>
 
             <tr class='spacer'><td></td></tr>
