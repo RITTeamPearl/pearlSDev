@@ -183,7 +183,6 @@ if (count($_POST) === 3) {
                 <th></th>
                 <th>First</th>
                 <th>Last</th>
-                <th>Phone</th>
                 <th>Action</th>
             </tr>
 
@@ -194,7 +193,6 @@ if (count($_POST) === 3) {
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>Amanda</td>
                 <td>Ho</td>
-                <td>555-555-5555</td>
                 <td><i class='fas fa-pencil-alt'></i></td>
                 <td><i class='fas fa-trash-alt'></i></td>
             </tr>
@@ -207,7 +205,6 @@ if (count($_POST) === 3) {
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                 <td>Mason</td>
                 <td>Santora</td>
-                 <td>555-555-5555</td>
                 <td><i class='fas fa-pencil-alt'></i></td>
                 <td><i class='fas fa-trash-alt'></i></td>
             </tr>
@@ -230,9 +227,9 @@ if (count($_POST) === 3) {
                 <td colspan='3' class='rightUnCollapsed'>
                     <h2>Authorization</h2>
                     <span>Employee</span>
-
-                    <h2>Password</h2>
-                    <span>Shetland</span>
+                    
+                    <h2>Phone Number</h2>
+                    <span>555-555-5555</span>
                 </td>
             </tr>
 
@@ -250,19 +247,19 @@ if (count($_POST) === 3) {
             <tr id = "row-14" class='un-collapsed'>
                 <td colspan='6'>
                     <!-- Form that takes user input to add a new employee 
-                         -- Make sure to automatically set a temporary password and send via phone # and email
+                        * Make sure to automatically set a temporary password and send via phone # and email
                     -->
                     <form class="addNewForm" action="adminConsole.php" method="post">
                         
                         <!-- Input Fields -->
                         <h2>First Name</h2>
                         <div class='inputWithIcon'>
-                            <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required" autofocus>
+                            <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required">
                             <i class='fas fa-address-card' aria-hidden='true'></i>
                         </div>
                         <h2>Last Name</h2>
                         <div class='inputWithIcon'>
-                            <input class='block' id='fName' type = 'text' placeholder= 'Last Name' name='lName' required="required" autofocus>
+                            <input class='block' id='fName' type = 'text' placeholder= 'Last Name' name='lName' required="required">
                             <i class='fas fa-address-card' aria-hidden='true'></i>
                         </div>
                         <!-- Add phone mask -->
@@ -273,7 +270,7 @@ if (count($_POST) === 3) {
                         </div>
                         <h2>Email</h2>
                         <div class='inputWithIcon'>
-                            <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
+                            <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required">
                             <i class='fas fa-user' aria-hidden='true'></i>
                         </div>
                         <h2>Active</h2>
@@ -348,7 +345,6 @@ if (count($_POST) === 3) {
                 <th></th>
                 <th>First</th>
                 <th>Last</th>
-                <th>Phone</th>
                 <th>Action</th>
             </tr>
 
@@ -359,7 +355,6 @@ if (count($_POST) === 3) {
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                 <td>Amanda</td>
                 <td>Ho</td>
-                <td>555-555-5555</td>
                 <td><i class='fas fa-check-circle'></i></td>
                 <td><i class='fas fa-minus-circle'></i></td>
             </tr>
@@ -372,7 +367,6 @@ if (count($_POST) === 3) {
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                 <td>Mason</td>
                 <td>Santora</td>
-                 <td>555-555-5555</td>
                 <td><i class='fas fa-check-circle'></i></td>
                 <td><i class='fas fa-minus-circle'></i></td>
             </tr>
