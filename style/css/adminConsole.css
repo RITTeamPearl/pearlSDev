@@ -137,6 +137,19 @@ i {
     text-align: center;
     letter-spacing: 1px; }
 
+.disabledDrop {
+  color: black;
+  font-family: "Helvetica Neue Light";
+  font-size: 1em;
+  box-shadow: inset 0 0 1px #666;
+  border: none;
+  box-sizing: border-box;
+  height: 2.5rem;
+  background-color: white;
+  border-radius: unset; }
+  .disabledDrop:disabled {
+    box-shadow: none; }
+
 .footer {
   height: 2.8125rem;
   border-top: 2px solid #cacaca;
@@ -242,49 +255,48 @@ i {
         text-align: center; }
       #adminConsole table .collapsed td {
         text-overflow: ellipsis; }
-        #adminConsole table .collapsed td input[placeholder] {
+        #adminConsole table .collapsed td input {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
           font-size: 1em;
           color: black;
-          width: 100%; }
-        #adminConsole table .collapsed td input[disabled]::placeholder, #adminConsole table .collapsed td input::placeholder, #adminConsole table .collapsed td input[disabled] {
-          color: black;
-          font-family: "Helvetica Neue Light";
-          box-shadow: none; }
-        #adminConsole table .collapsed td input:focus::placeholder {
-          color: transparent; }
-        #adminConsole table .collapsed td input {
+          width: 100%;
           box-shadow: inset 0 0 1px #666;
           border: none;
           box-sizing: border-box;
           height: 2.5rem;
-          padding-left: 0.46875rem; }
-        #adminConsole table .collapsed td select {
-          color: black;
-          font-family: "Helvetica Neue Light";
-          font-size: 1em;
-          box-shadow: inset 0 0 1px #666;
-          border: none;
-          box-sizing: border-box;
-          height: 2.5rem;
-          background-color: white;
-          border-radius: unset; }
-        #adminConsole table .collapsed td select:disabled {
-          box-shadow: none; }
+          padding-left: 0.46875rem;
+          font-family: "Helvetica Neue Light"; }
+        #adminConsole table .collapsed td input[disabled] {
+          box-shadow: none;
+          padding: 0; }
     #adminConsole table .un-collapsed {
       background-color: white; }
       #adminConsole table .un-collapsed .leftUnCollapsed {
         vertical-align: top;
         padding-left: 0.9375rem;
         padding-bottom: 1.25rem; }
+        #adminConsole table .un-collapsed .leftUnCollapsed select, #adminConsole table .un-collapsed .leftUnCollapsed input {
+          margin-left: -4px;
+          padding-left: 5px; }
       #adminConsole table .un-collapsed .rightUnCollapsed {
         vertical-align: top;
-        padding-bottom: 1.25rem;
+        padding: 0 0.3125rem 1.25rem 0;
         text-overflow: ellipsis; }
-      #adminConsole table .un-collapsed .full {
-        padding: 0.9375rem; }
+        #adminConsole table .un-collapsed .rightUnCollapsed select, #adminConsole table .un-collapsed .rightUnCollapsed input:disabled {
+          margin-left: 0; }
+      #adminConsole table .un-collapsed select, #adminConsole table .un-collapsed input {
+        font-size: 0.875em;
+        font-family: "Helvetica Neue Light";
+        box-shadow: inset 0 0 1px #666;
+        border: none;
+        box-sizing: border-box;
+        height: 2.5rem; }
+      #adminConsole table .un-collapsed select:disabled, #adminConsole table .un-collapsed input:disabled {
+        margin-left: -4px;
+        box-shadow: none;
+        padding: 0; }
       #adminConsole table .un-collapsed h2 {
         color: #999999;
         font-size: 1em;
@@ -292,6 +304,11 @@ i {
       #adminConsole table .un-collapsed span {
         font-size: 0.875em;
         white-space: normal; }
+      #adminConsole table .un-collapsed .full {
+        padding: 0.9375rem; }
+      #adminConsole table .un-collapsed .email {
+        width: 100%;
+        margin-left: 0 !important; }
       #adminConsole table .un-collapsed textarea {
         resize: none;
         width: 100%;

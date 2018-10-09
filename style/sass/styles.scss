@@ -199,6 +199,24 @@ i {
     }
 }
 
+.disabledDrop {
+    //Active Drop down
+    color: black;
+    font-family: $lighterFont;
+    font-size: ptToEm(16);
+    box-shadow: inset 0 0 1px #666;
+    border: none;
+    box-sizing: border-box;
+    height: pxToRem(80);
+    background-color: white;
+    border-radius: unset;
+
+    //Hide border
+    &:disabled {
+        box-shadow: none;
+    }
+}
+
 .footer {
     height: pxToRem(90);
     border-top: 2px solid #cacaca;

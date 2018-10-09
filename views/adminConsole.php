@@ -71,10 +71,10 @@ if (count($_POST) === 3) {
             <tr id = "row-10"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>
-                    <input type="text" name="title" disabled placeholder="Heavy Rain to delay bla bla bla bla bla">
+                    <input type="text" name="title" disabled value="Heavy Rain to delay bla bla bla bla bla">
                 </td>
                 <td>
-                    <select disabled name='active'>
+                    <select disabled name='active' class='disabledDrop'>
                         <option value='1'>Yes</option>
                         <option value='2'>No</option>
                     </select>
@@ -195,8 +195,8 @@ if (count($_POST) === 3) {
             <!-- Row that is collapsed -->
             <tr class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-                <td>Amanda</td>
-                <td>Ho</td>
+                <td><input type="text" name="fName" disabled value="Amanda"></td>
+                <td><input type="text" name="lName" disabled value="Ho"></td>
                 <td><i class='fas fa-pencil-alt'></i></td>
                 <td><i class='fas fa-trash-alt'></i></td>
             </tr>
@@ -207,8 +207,8 @@ if (count($_POST) === 3) {
 
             <tr id = "row-12"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
-                <td>Mason</td>
-                <td>Santora</td>
+                <td><input type="text" name="fName" disabled value="Mason"></td>
+                <td><input type="text" name="lName" disabled value="Santora"></td>
                 <td><i class='fas fa-pencil-alt'></i></td>
                 <td><i class='fas fa-trash-alt'></i></td>
             </tr>
@@ -220,20 +220,35 @@ if (count($_POST) === 3) {
             <tr id = "row-13" class='un-collapsed'>
                 <td colspan='3' class='leftUnCollapsed'>
                     <h2>Active</h2>
-                    <span>Yes</span>
+                    <select disabled name='active' class='disabledDrop'>
+                        <option value='1'>Yes</option>
+                        <option value='2'>No</option>
+                    </select>
 
                     <h2>Department</h2>
-                    <span>Finance</span>
+                    <select disabled name='department' class='disabledDrop'>
+                        <option value='1'>HR</option>
+                        <option value='2'>Admin</option>
+                        <option value="3">Sales</option>
+                        <option value="4">Production</option>
+                        <option value="5">Operations</option>
+                        <option value="6">Food and Beverage</option>
+                        <option value="7">Garage</option>
+                    </select>
 
                     <h2>Email</h2>
-                    <span>masonsantora@gmail.com</span>
+                    <input type="text" name="email" class='email' disabled value="masonsantora@gmail.com">
                 </td>
-                <td colspan='3' class='rightUnCollapsed'>
+                <td colspan='2' class='rightUnCollapsed'>
                     <h2>Authorization</h2>
-                    <span>Employee</span>
+                    <select disabled name='authorization' class='disabledDrop fullWidth'>
+                        <option value='1'>Employee</option>
+                        <option value='2'>Depart. Head</option>
+                        <option value='2'>Administrator</option>
+                    </select>
                     
                     <h2>Phone Number</h2>
-                    <span>555-555-5555</span>
+                    <input type="text" name="phone" disabled value="555-555-5555">
                 </td>
             </tr>
 

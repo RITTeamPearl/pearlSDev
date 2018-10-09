@@ -133,54 +133,29 @@
             td {
                 text-overflow: ellipsis;
                 
-                //Basic input placeholder
-                input[placeholder] {
+                //Basic input
+                input {
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     font-size: ptToEm(16);
                     color: black;
                     width: 100%;
-                }
-                
-                //Input placeholder when disabled & not
-                input[disabled]::placeholder,input::placeholder,input[disabled] {
-                    color: black;
-                    font-family: $lighterFont;
-                    box-shadow: none;
-                }
-                
-                //When focused hide placeholder text
-                input:focus::placeholder {
-                    color: transparent;
-                }
-                
-                //Basic input
-                input {
                     box-shadow: inset 0 0 1px #666;
                     border: none;
                     box-sizing: border-box;
                     height: pxToRem(80);
                     padding-left: pxToRem(15);
-                }
-                
-                //Active Drop down
-                select {
-                    color: black;
                     font-family: $lighterFont;
-                    font-size: ptToEm(16);
-                    box-shadow: inset 0 0 1px #666;
-                    border: none;
-                    box-sizing: border-box;
-                    height: pxToRem(80);
-                    background-color: white;
-                    border-radius: unset;
                 }
                 
-                //Hide border
-                select:disabled {
+                //Input  when disabled
+                input[disabled] {
                     box-shadow: none;
+                    padding: 0;
                 }
+                                    
+                
             }
         }
         
@@ -192,16 +167,37 @@
                 vertical-align: top;
                 padding-left: pxToRem(30);
                 padding-bottom: pxToRem(40);
+                
+                select, input {
+                    margin-left: -4px;
+                    padding-left: 5px;
+                }
             }
             
             .rightUnCollapsed {
                 vertical-align: top;
-                padding-bottom: pxToRem(40);
+
+                padding: 0 pxToRem(10) pxToRem(40) 0;
                 text-overflow: ellipsis;
+                
+                select, input:disabled {
+                    margin-left: 0;
+                }
             }
             
-            .full {
-                padding: pxToRem(30);
+            select, input {
+                font-size: ptToEm(14);
+                font-family: $lighterFont;
+                box-shadow: inset 0 0 1px #666;
+                border: none;
+                box-sizing: border-box;
+                height: pxToRem(80);
+            }
+            
+            select:disabled, input:disabled {
+                margin-left: -4px;
+                box-shadow: none;
+                padding: 0;
             }
             
             h2 {
@@ -213,6 +209,15 @@
             span {
                 font-size: ptToEm(14);
                 white-space: normal;
+            }
+            
+            .full {
+                padding: pxToRem(30);
+            }
+            
+            .email {
+                width: 100%;
+                margin-left: 0 !important;
             }
             
             textarea {
