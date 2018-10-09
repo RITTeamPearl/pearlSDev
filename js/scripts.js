@@ -64,9 +64,21 @@ function dropDownToggle(ele){
 }
 
 function dropDownModify(ele){
+    var rowNum = $(ele).parent().parent().attr("id");
+    rowNum = parseInt(rowNum.split("-")[1]);
+    thisRow = "#row-" + rowNum;
+    nextRow = "#row-" + parseInt(rowNum+1);
 
-    currRowEle.append("<form id='form'></form>");
-    $("#form").append(currRowEle.children());
+    //only toggle the next row if it needs to be
+    if($(nextRow).attr('class').valueOf() === 'collapsed'){
+        //Need to pass in the circle element instead of the pencil so it gets changed
+        dropDownToggle($(ele).parent().parent().find('i')[0]);
+    }
+    //switch to the save button
+    $('#editButton').hide();
+    $('#saveEditButton').show();
+
+
 
 }
 

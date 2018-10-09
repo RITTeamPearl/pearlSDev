@@ -80,10 +80,10 @@ if (count($_POST) === 3) {
                     </select>
                 </td>
                 <td>
-                    <i onclick="dropDownToggle(this);" class='fas fa-pencil-alt'></i>
-                    <!--
-                    *Make this appear when edit is clicked, hide pencil...vice versa*
-                    <button "type="submit" name="modify"><i class="fas fa-save" onclick=''></i></button>-->
+                    <i id='editButton' onclick="dropDownModify(this);" class='fas fa-pencil-alt'></i>
+
+                    <!--*Make this appear when edit is clicked, hide pencil...vice versa*-->
+                    <button class="hidden" id='saveEditButton' type= "submit" name="modify"><i class="fas fa-save" onclick=''></i></button>
                 </td>
                 <td>
                     <button type="submit" name= "delete" value="delete"><i class="fas fa-trash-alt"></i></button>
@@ -98,9 +98,9 @@ if (count($_POST) === 3) {
                 <td colspan='5' class='full'>
                     <h2>Body</h2>
                     <textarea id='bodyContent' name="body" disabled>Lorem ipsum dolor sit amet, consecteur adiposing elit. Sed autor ligula quis ante pretium lacreet.Nuno semper erat dignissim placerate feugiat.
-                        
+
                     Aenean commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan. commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan</textarea>
-                    
+
                     <h2>Attachment</h2>
                     <!-- Make this 'fas fa-file-upload' with blue color, if no file exists and text saying 'No attachment' Create functionality for upload -->
                     <i class="fas fa-times-circle"></i><span>document.pdf</span>
@@ -246,7 +246,7 @@ if (count($_POST) === 3) {
                         <option value='2'>Depart. Head</option>
                         <option value='2'>Administrator</option>
                     </select>
-                    
+
                     <h2>Phone Number</h2>
                     <input type="text" name="phone" disabled value="555-555-5555">
                 </td>
@@ -261,15 +261,15 @@ if (count($_POST) === 3) {
                 <td><i class='fas fa-plus-circle'></i></td>
                 <td colspan='6'>Add New Employee</td>
             </tr>
-            
+
             <tr class='spacer'><td></td></tr>
             <tr id = "row-14" class='un-collapsed'>
                 <td colspan='6'>
-                    <!-- Form that takes user input to add a new employee 
+                    <!-- Form that takes user input to add a new employee
                         * Make sure to automatically set a temporary password and send via phone # and email
                     -->
                     <form class="addNewForm" action="adminConsole.php" method="post">
-                        
+
                         <!-- Input Fields -->
                         <h2>First Name</h2>
                         <div class='inputWithIcon'>
@@ -323,7 +323,7 @@ if (count($_POST) === 3) {
                             </select>
                             <i class='fas fa-building' aria-hidden='true'></i>
                         </div>
-                        
+
                         <!-- Form submit -->
                         <input type="submit" class='block addSubmit inputNoIcon' value="Add Employee">
                     </form>
