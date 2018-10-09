@@ -296,6 +296,8 @@ i {
             text-align: center; }
           #adminConsole table .un-collapsed .addNewForm .checkBox input[type="checkbox"]:focus + label::before {
             outline: #3b99fc auto 5px; }
+        #adminConsole table .un-collapsed .addNewForm .inputWithIcon i {
+          color: #5b8ec5; }
         #adminConsole table .un-collapsed .addNewForm .addSubmit {
           margin-top: 1.875rem;
           margin: 1.875rem auto 0;

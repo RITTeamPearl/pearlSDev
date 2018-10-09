@@ -7,7 +7,7 @@ $bizLayer = new business_layer();
 if (count($_POST) === 3) {
     $dataLayer->createNotification($_POST);
 }
- ?>
+?>
 
 <!DOCTYPE html>
 <html>
@@ -126,7 +126,6 @@ if (count($_POST) === 3) {
                         <h2>Body</h2>
                         <input type="text" class='block inputNoIcon' name="body" required>
                         <h2>Attachment</h2>
-                        <!-- input type="file" class='block addAttachment' name="attachment"> -->
                         <div class='inputWithIcon addAttachment'>
                             <input class='block' type='file' name='attachment'/>
                             <i class="fas fa-file-upload" aria-hidden='true'></i>
@@ -140,7 +139,7 @@ if (count($_POST) === 3) {
                             <input id='cbWebApp' type='checkbox'>
                             <label for='cbWebApp' class='checkBoxContainer'>Web App</label>
                         </div>
-                        <input type="submit" class='block addSubmit inputNoIcon' value="Submit">
+                        <input type="submit" class='block addSubmit inputNoIcon' value="Send Notification">
                     </form>
                 </td>
             </tr>
@@ -241,10 +240,78 @@ if (count($_POST) === 3) {
 
             <!-- Begin next dynamically added rows here -->
 
-            <!-- Add New Notification -->
+            <!-- Add New Employee -->
             <tr class='collapsed'>
                 <td><i class='fas fa-plus-circle'></i></td>
                 <td colspan='6'>Add New Employee</td>
+            </tr>
+            
+            <tr class='spacer'><td></td></tr>
+            <tr id = "row-14" class='un-collapsed'>
+                <td colspan='6'>
+                    <!-- Form that takes user input to add a new employee 
+                         -- Make sure to automatically set a temporary password and send via phone # and email
+                    -->
+                    <form class="addNewForm" action="adminConsole.php" method="post">
+                        
+                        <!-- Input Fields -->
+                        <h2>First Name</h2>
+                        <div class='inputWithIcon'>
+                            <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required" autofocus>
+                            <i class='fas fa-address-card' aria-hidden='true'></i>
+                        </div>
+                        <h2>Last Name</h2>
+                        <div class='inputWithIcon'>
+                            <input class='block' id='fName' type = 'text' placeholder= 'Last Name' name='lName' required="required" autofocus>
+                            <i class='fas fa-address-card' aria-hidden='true'></i>
+                        </div>
+                        <!-- Add phone mask -->
+                        <h2>Phone</h2>
+                        <div class='inputWithIcon'>
+                            <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' required="required">
+                            <i class='fas fa-phone' aria-hidden='true'></i>
+                        </div>
+                        <h2>Email</h2>
+                        <div class='inputWithIcon'>
+                            <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
+                            <i class='fas fa-user' aria-hidden='true'></i>
+                        </div>
+                        <h2>Active</h2>
+                        <div class='inputWithIcon'>
+                            <select class='block inputWithIcon' id='active' name='active' required="required">
+                                <option value="1">Yes</option>
+                                <option value="2">No</option>
+                            </select>
+                            <i class='fas fa-flag' aria-hidden='true'></i>
+                        </div>
+                        <h2>Authorization</h2>
+                        <div class='inputWithIcon'>
+                            <select class='block inputWithIcon' id='active' name='active' required="required">
+                                <option value="1">Employee</option>
+                                <option value="2">Department Head</option>
+                                <option value="3">Administrator</option>
+                            </select>
+                            <i class='fas fa-users' aria-hidden='true'></i>
+                        </div>
+                        <h2>Department</h2>
+                        <div class='inputWithIcon'>
+                            <select class='block inputWithIcon' id='dept' name='dept' required="required">
+                                <option value="" disabled selected>Department</option>
+                                <option value="1">HR</option>
+                                <option value="2">Admin</option>
+                                <option value="3">Sales</option>
+                                <option value="4">Production</option>
+                                <option value="5">Operations</option>
+                                <option value="6">Food and Beverage</option>
+                                <option value="7">Garage</option>
+                            </select>
+                            <i class='fas fa-building' aria-hidden='true'></i>
+                        </div>
+                        
+                        <!-- Form submit -->
+                        <input type="submit" class='block addSubmit inputNoIcon' value="Add Employee">
+                    </form>
+                </td>
             </tr>
 
         </table>

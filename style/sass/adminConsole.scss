@@ -180,7 +180,7 @@
                 .addAttachment {
                     
                     .fa-file-upload {
-                        color: $blue
+                        color: $blue;
                     }
                     
                     input {
@@ -227,6 +227,13 @@
                     //Make it clickable
                     input[type="checkbox"]:focus + label::before {
                         outline: rgb(59, 153, 252) auto 5px;
+                    }
+                }
+                
+                //Input icons
+                .inputWithIcon {
+                    i {
+                        color: $blue;
                     }
                 }
                 
