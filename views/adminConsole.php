@@ -21,7 +21,7 @@ if (count($_POST) === 3) {
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='adminConsole'>
+<body id='adminConsole' onload="resizeTextArea(bodyContent)">
     <!-- Header -->
     <div class='header'>
         <h1 id='title' class='centered'>Administrator Console</h1>
@@ -71,19 +71,22 @@ if (count($_POST) === 3) {
             <tr id = "row-10"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>
-                    <span>Heavy Rain to delay bla bla bla bla bla</span>
-                    <input type="text" name="" value="Heavy Rain to delay bla bla bla bla bla">
+                    <input type="text" name="title" disabled placeholder="Heavy Rain to delay bla bla bla bla bla">
                 </td>
                 <td>
-                    Yes <!-- This will display the toggle value when its not being edited -->
-                    <input type="checkbox" name="" value=""> <!-- This will become a toggle, filled in with current info -->
+                    <select disabled name='active'>
+                        <option value='1'>Yes</option>
+                        <option value='2'>No</option>
+                    </select>
                 </td>
                 <td>
                     <i onclick="dropDownToggle(this);" class='fas fa-pencil-alt'></i>
-                    <button style="background-color: transparent; border-color:transparent" type="submit" name= "modify" value="modify"><i class="fas fa-save"></i></button>
+                    <!--
+                    *Make this appear when edit is clicked, hide pencil...vice versa*
+                    <button "type="submit" name="modify"><i class="fas fa-save" onclick=''></i></button>-->
                 </td>
                 <td>
-                    <button style="background-color: transparent; border-color:transparent" type="submit" name= "delete" value="delete"><i class="fas fa-trash-alt"></i></button>
+                    <button type="submit" name= "delete" value="delete"><i class="fas fa-trash-alt"></i></button>
                 </td>
             </tr>
 
@@ -92,12 +95,12 @@ if (count($_POST) === 3) {
             <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
             <!-- JQUERY Animate function does not work on TR so eventually we might want to convert this to a ul? -->
             <tr id = "row-11" class='un-collapsed'>
-                <td colspan='3' class='leftUnCollapsed'>
+                <td colspan='5' class='full'>
                     <h2>Body</h2>
-                    <span>Lorem ipsum dolor sit amet, consecteur adiposing elit. Sed autor ligula quis ante pretium lacreet.Nuno semper erat dignissim placerate feugiat.
-                    Aenean commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan. commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan</span>
-                </td>
-                <td colspan='2' class='rightUnCollapsed'>
+                    <textarea id='bodyContent' name="body" disabled>Lorem ipsum dolor sit amet, consecteur adiposing elit. Sed autor ligula quis ante pretium lacreet.Nuno semper erat dignissim placerate feugiat.
+                        
+                    Aenean commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan. commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan</textarea>
+                    
                     <h2>Attachment</h2>
                     <!-- Make this 'fas fa-file-upload' with blue color, if no file exists and text saying 'No attachment' Create functionality for upload -->
                     <i class="fas fa-times-circle"></i><span>document.pdf</span>
@@ -105,6 +108,7 @@ if (count($_POST) === 3) {
                     <h2>User Ack. Report</h2>
                     <i class="fas fa-download"></i><span>user_report.csv</span>
                 </td>
+
             </tr>
             <tr class='spacer'><td></td></tr>
         </form>

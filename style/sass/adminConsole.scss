@@ -132,6 +132,55 @@
             
             td {
                 text-overflow: ellipsis;
+                
+                //Basic input placeholder
+                input[placeholder] {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    font-size: ptToEm(16);
+                    color: black;
+                    width: 100%;
+                }
+                
+                //Input placeholder when disabled & not
+                input[disabled]::placeholder,input::placeholder,input[disabled] {
+                    color: black;
+                    font-family: $lighterFont;
+                    box-shadow: none;
+                }
+                
+                //When focused hide placeholder text
+                input:focus::placeholder {
+                    color: transparent;
+                }
+                
+                //Basic input
+                input {
+                    box-shadow: inset 0 0 1px #666;
+                    border: none;
+                    box-sizing: border-box;
+                    height: pxToRem(80);
+                    padding-left: pxToRem(15);
+                }
+                
+                //Active Drop down
+                select {
+                    color: black;
+                    font-family: $lighterFont;
+                    font-size: ptToEm(16);
+                    box-shadow: inset 0 0 1px #666;
+                    border: none;
+                    box-sizing: border-box;
+                    height: pxToRem(80);
+                    background-color: white;
+                    border-radius: unset;
+                }
+                
+                //Hide border
+                select:disabled {
+                    box-shadow: none;
+                }
             }
         }
         
@@ -151,6 +200,10 @@
                 text-overflow: ellipsis;
             }
             
+            .full {
+                padding: pxToRem(30);
+            }
+            
             h2 {
                 color: $lightGray;
                 font-size: ptToEm(16);
@@ -160,6 +213,24 @@
             span {
                 font-size: ptToEm(14);
                 white-space: normal;
+            }
+            
+            textarea {
+                resize: none;
+                width: 100%;
+                box-shadow: inset 0 0 1px #666;
+                border: none;
+                box-sizing: border-box;
+                font-size: ptToEm(12);
+                white-space: pre-line;
+                padding: pxToRem(20);
+            }
+            
+            textarea:disabled {
+                box-shadow: none;
+                border: none;
+                box-sizing: border-box;
+                padding: 0;
             }
             
             .fa-times-circle {
@@ -295,6 +366,7 @@
         }
     }
     
+    //Footer navigation background
     .footer {
         background-color: #eaeaea;
     }

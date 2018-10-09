@@ -1,6 +1,6 @@
-function nextStep(num){
+function nextStep(num) {
     //first check to make sure (with javascript) that all fields are valid
-    if (num==1){
+    if (num == 1) {
         //check to make sure phone number is valid
         if (confirmPassword()){
             $("#formStep1").hide(1000);
@@ -99,4 +99,14 @@ function updateAdminView(ele){
         $("#pending").show();
 
     }
+}
+
+//Resizes the text area to fit content
+function resizeTextArea(id) {
+
+    //Get the JQuery element of the JavaScript Element
+    var textArea = $('#'+String(id.id));
+
+    //Set the DOM element styling height to match the height of the ScrollHeight
+    textArea.attr('style', 'height:' + id.scrollHeight + 'px');
 }
