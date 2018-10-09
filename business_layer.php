@@ -84,12 +84,110 @@ class business_layer{
         //};
     }
 
-    function validateAndSanitize($postData){
+    function validateAndSanitize(){
 
         //$validatedPOST = array();
         //$validatedPOST['phone'] = $postData['phone'];// this should be validated and sanitized
         //return $validatedPOST;
+
+        //variables for error message
+        $phoneErr = $pwdErr = $pwdConfirmErr = $fnameErr = $lnameErr = $emailErr = "";
+        //variables for val and san checks
+        $phone = $pwd = $pwdConfirm = $fname = $lname = $email = "";
+        
+        //check if form was submitted with POST 
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //checks for createAcct page
+            //check phoneNumber, password, passwordConfirm, fName, lName, and email
+            //check phone number
+            if(empty($_POST['phone'])){
+                $phoneErr = "Phone Number is required";
+            }
+            else{
+                $phone = test_input($_POST['phone']);
+                if(!preg_match("^1?([1-9])(\\d{9})", $phone)){
+                    $phoneErr = "Invalid phone number";
+                }
+                //built in php functions that i think could work as well, if needed
+                //filter_var($postData['phone'],FILTER_SANITIZE_NUMBER_INT);
+                //filter_var($postData['phone'], FILTER_VALIDATE_INT);
+            }
+
+            //checks password
+            if(empty($_POST['password'] && empty($_POST['passwordConfirm']))){
+                $pwdErr = "Password is required";
+                $pwdConfirmErr = "Confirmation Password is required";
+            }
+            else{
+                $pwd = test_input($_POST['password']);
+                $pwdConfirm = test_input($_POST['passwordConfirm']);
+                //check that password and passwordConfirm match
+                if($pwdConfirm == $pwd){
+                    //check for length of at least 8
+                    if(!strlen($pwd >= 8)){
+                        $pwdErr = "Password contain 8 characters";
+                    }
+                    //check for one upper case
+                    if(!preg_match("/[A-Z]/", $pwd)){
+                        $pwdErr = "Password must contain at least 1 uppercase letter";
+                    }
+                    //check for one lower case
+                    if(!preg_match("/[a-z]/", $pwd)){
+                        $pwdErr = "Password must contain at least one lowercase letter";
+                    }
+                    //check for one number
+                    if(!preg_match("/[1-9]/",$pwd)){
+                        $pwdErr = "Password must contain at least one digit";
+                    }
+                }
+            }
+
+            //checks fname
+            if(empty($_POST['fName'])){
+                $fnameErr = "First name is required";
+            }
+            else{
+                $fname = test_input($_POST['fName']);
+                if(!preg_match("/^[A-Za-z]+$/", $fname)){
+                    $fnameErr = "First name can only contain letters with no spaces";
+                }
+                //filter_var($postData['fName'],FILTER_SANITIZE_STRING);
+            }
+            //checks lname
+            if(empty($_POST['lName'])){
+                $lnameErr = "Last name is required";
+            }
+            else{
+                $lname = test_input($_POST['lName']);
+                if(!preg_match("/^[A-Za-z]+$/", $lname)){
+                    $lnameErr = "Last name can only contain letters with no spaces";
+                }
+                //filter_var($postData['fName'],FILTER_SANITIZE_STRING);
+            }
+
+            //checks email
+            if(empty($_POST['email'])){
+                $emailErr = "Email is required";
+            }
+            else{
+                $email = test_input($_POST['email']);
+                $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+                if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+                    $emailErr = "Invalid format for email";
+                }
+             }
+
+             //checks for adminConsole
+        }
     }
+
+    //test to see if the user input has extra whitespaces, slashes, or special characters. Removes them if so.
+    function test_input($info) {
+        $info = trim($info);
+        $info = stripslashes($info);
+        $info = htmlspecialchars($info);
+        return $info;
+      }
 
     function createNewsTable($notificationArray){
         $string = "";
