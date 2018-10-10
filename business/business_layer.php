@@ -136,8 +136,6 @@ END;
                 <td colspan='5' class='full'>
                     <h2>Body</h2>
                     <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
-                </td>
-                <td colspan='2' class='rightUnCollapsed'>
                     <h2>Attachment</h2>
                     <i class="fas fa-times-circle"></i><span>{$currAttachment}</span>
 
