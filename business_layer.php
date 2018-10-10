@@ -109,7 +109,7 @@ class business_layer{
                     $phoneErr = "Invalid phone number";
                 }
                 //built in php functions that i think could work as well, if needed
-                //filter_var($postData['phone'],FILTER_SANITIZE_NUMBER_INT);
+                $phone = filter_var($_POST['phone'],FILTER_SANITIZE_NUMBER_INT);
                 //filter_var($postData['phone'], FILTER_VALIDATE_INT);
             }
             //checks password
@@ -149,7 +149,7 @@ class business_layer{
                 if(!preg_match("/^[A-Za-z]+$/", $fname)){
                     $fnameErr = "First name can only contain letters with no spaces";
                 }
-                //filter_var($postData['fName'],FILTER_SANITIZE_STRING);
+                $fname = filter_var($_POST['fName'],FILTER_SANITIZE_STRING);
             }
             //checks lname
             if(empty($_POST['lName'])){
@@ -160,7 +160,7 @@ class business_layer{
                 if(!preg_match("/^[A-Za-z]+$/", $lname)){
                     $lnameErr = "Last name can only contain letters with no spaces";
                 }
-                //filter_var($postData['fName'],FILTER_SANITIZE_STRING);
+                $lname = filter_var($_POST['lName'],FILTER_SANITIZE_STRING);
             }
             //checks email
             if(empty($_POST['email'])){
@@ -175,17 +175,27 @@ class business_layer{
              }
 
              //checks for adminConsole
-             //variable for a good tile 
-             $title = "";
-             //variable for a bad title error message
-             $titleErr = "";
+             //variables for a good user input 
+             $title = $body = "";
+             //variables for error message
+             $titleErr = $bodyErr = "";
              
-             //check title. Not checking the body because the admin should be able to enter whatever they want.
+             //check title
              if(empty($_POST['title'])){
                  $titleErr = "A title is required";
              }
              else{
                  $title = test_input($_POST['title']);
+                 $title = filter_var($title, FILTER_SANITIZE_STRING);
+ 
+             }
+             //check body
+             if(empty($_POST['body'])){
+                 $bodyErr = "The body of your notification cannot be empty";
+             }
+             else{
+                 $body = test_input($_POST['body']);
+                 $body = filter_var($body, FILTER_SANITIZE_STRING);
              }
         }
     }
