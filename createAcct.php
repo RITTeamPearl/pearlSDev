@@ -1,13 +1,17 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
     require_once '../database/data_layer.php';
+    require_once '../business/business_layer.php';
     $dataLayer = new data_layer();
+    $businessLayer = new business_layer();
 
     if (count($_POST) == 7) {
         //business layer validation / sanitization of $_POST
+        $businessLayer->validateAndSanitize();
         $dataLayer->createNewUser($_POST);
     }
 }
+
  ?>
 
 <!DOCTYPE html>
