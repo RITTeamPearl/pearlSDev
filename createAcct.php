@@ -67,16 +67,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <div class='inputWithIcon'>
                         <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' required="required">
                         <i class='fas fa-phone' aria-hidden='true'></i>
+                        <span class='error'><? $phoneErr ?></span>
                     </div>
 
                     <div class='inputWithIcon'>
                         <input onkeyup="confirmPassword()" class='block' id='password' type = 'password' placeholder= 'Password' name='password' required="required">
                         <i class='fas fa-key pwIcon' aria-hidden='true'></i>
+                        <span class='error'><? $pwdErr ?></span>
                     </div>
 
                     <div class='inputWithIcon'>
                         <input onkeyup="confirmPassword()" class='block' id='passwordConfirm' type = 'password' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
                         <i class='fas fa-lock pwIcon' aria-hidden='true'></i>
+                        <span class='error'><? $pwdConfirmErr ?></span>
                     </div>
                     <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep(1)"/>
                     <a id='login' href='../index.php'>Log In</a>
