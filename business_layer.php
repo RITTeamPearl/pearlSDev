@@ -92,7 +92,7 @@ class business_layer{
 
         //variables for error message
         $phoneErr = $pwdErr = $pwdConfirmErr = $fnameErr = $lnameErr = $emailErr = "";
-        //variables for val and san checks
+        //variables for good user input (val and san checks)
         $phone = $pwd = $pwdConfirm = $fname = $lname = $email = "";
         
         //check if form was submitted with POST 
@@ -112,7 +112,6 @@ class business_layer{
                 //filter_var($postData['phone'],FILTER_SANITIZE_NUMBER_INT);
                 //filter_var($postData['phone'], FILTER_VALIDATE_INT);
             }
-
             //checks password
             if(empty($_POST['password'] && empty($_POST['passwordConfirm']))){
                 $pwdErr = "Password is required";
@@ -141,7 +140,6 @@ class business_layer{
                     }
                 }
             }
-
             //checks fname
             if(empty($_POST['fName'])){
                 $fnameErr = "First name is required";
@@ -164,7 +162,6 @@ class business_layer{
                 }
                 //filter_var($postData['fName'],FILTER_SANITIZE_STRING);
             }
-
             //checks email
             if(empty($_POST['email'])){
                 $emailErr = "Email is required";
@@ -178,6 +175,18 @@ class business_layer{
              }
 
              //checks for adminConsole
+             //variable for a good tile 
+             $title = "";
+             //variable for a bad title error message
+             $titleErr = "";
+             
+             //check title. Not checking the body because the admin should be able to enter whatever they want.
+             if(empty($_POST['title'])){
+                 $titleErr = "A title is required";
+             }
+             else{
+                 $title = test_input($_POST['title']);
+             }
         }
     }
 
