@@ -6,7 +6,7 @@ class data_layer{
      * Data Layer Constructor, will automatically connect to DB.
      */
     function __construct(){
-        $this->connection = new mysqli("localhost","root", "student", "rrcc_pearl_db");
+        $this->connection = new mysqli("127.0.0.1","root", "student", "rrcc_pearl_db");
         if ($this->connection->connect_error){
             echo "connection failed: ".mysqli_connect_error();
             die();
@@ -77,13 +77,13 @@ class data_layer{
         if ($stmt = $this->connection->prepare("INSERT INTO notification (title,body,attachment,activeYN) VALUES (?,?,?,1)")){
             $stmt->bind_param("sss", $postData['title'], $postData['body'], $postData['attachment']);
             $stmt->execute();
-            echo $stmt->affected_rows . " rows inserted";
+            //echo $stmt->affected_rows . " rows inserted";
         }
     }
 
     function updateNotification($notificationID, $postData){
         if ($stmt = $this->connection->prepare("UPDATE notification SET title = ?,body = ?, activeYN = ? WHERE notificationID = ?")){
-            $stmt->bind_param("ssii",$postData['title'],$postData['body'],intval($postData['active']), intval($notificationID));
+            $stmt->bind_param("ssii",$postData['title'],$postData['body'],intval($postData['active']),intval($notificationID));
             $stmt->execute();
             $stmt->store_result();
             if ($stmt->num_rows > 0){
@@ -93,12 +93,11 @@ class data_layer{
         return false;
     }
 
-
     function deleteNotification($id){
         if ($stmt = $this->connection->prepare("DELETE FROM notification WHERE notificationID = ?")){
             $stmt->bind_param("i", $id);
             $stmt->execute();
-            echo $stmt->affected_rows . " rows deleted";
+            //echo $stmt->affected_rows . " rows deleted";
         }
     }
 
@@ -117,7 +116,4 @@ class data_layer{
         }
         return false;
     }
-
-
-
 }
