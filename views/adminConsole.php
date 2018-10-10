@@ -108,7 +108,6 @@ if (count($_POST) === 3) {
                     <h2>User Ack. Report</h2>
                     <i class="fas fa-download"></i><span>user_report.csv</span>
                 </td>
-
             </tr>
             <tr class='spacer'><td></td></tr>
         </form>

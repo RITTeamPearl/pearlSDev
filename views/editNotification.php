@@ -11,7 +11,8 @@ if ($_POST['delete']) {
     header("Location: adminConsole.php");
 }
 
-if ($_POST['modify']) {
+if ($_POST['modify'] === "") {
+    $dataLayer->updateNotification($_GET['id'], $_POST);
     header("Location: adminConsole.php");
 }
 

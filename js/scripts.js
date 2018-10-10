@@ -78,6 +78,16 @@ function dropDownModify(ele){
     $('#editButton').hide();
     $('#saveEditButton').show();
 
+    //find all of the disabled inputs and enable them
+    //$(thisRow).find(':disabled').each().attr('disabled',false);
+    $(thisRow).find(':disabled').each(function(i,ele){
+        $(ele).attr('disabled', false);
+    });
+    
+    $(nextRow).find(':disabled').each(function(i,ele){
+        $(ele).attr('disabled', false);
+    });
+
 
 
 }

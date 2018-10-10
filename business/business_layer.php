@@ -101,29 +101,44 @@ class business_layer{
             $currTitle = $rowArray['title'];
             $currBody = $rowArray['body'];
             $currAttachment = $rowArray['attachment'];
-            $currActiveYN = ($rowArray['active']) ? ('yes') : ('no');
+            $currActiveYN = (intval($rowArray['active'])) ? ('yes') : ('no');
 
             $string .= <<<END
+            <form class="" action="editNotification.php?id={$currNotiID}" method="post">
             <tr id = "row-{$rowCount}"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-                <td>{$currTitle}</td>
-                <td>{$currActiveYN}</td>
-                <td><i onclick="dropDownModify(this);" class='fas fa-pencil-alt'></i></td>
-                <td><form action="delete.php?id={$currNotiID}" method="post"> <button style="background-color: transparent; border-color:transparent" type="submit"><i class='fas fa-trash-alt'></i></button></form></td>
+                <td>
+                    <input type="text" name="title" disabled value="{$currTitle}">
+                </td>
+                <td>
+                    <select disabled name='active' class='disabledDrop'>
+                        <option value='1'>Yes</option>
+                        <option
+END;
+            if ($currActiveYN === 'no') $string .= " selected ";
+            $string .= <<<END
+
+                         value='0'>No</option>
+                    </select>
+                </td>
+                <td>
+                    <i id='editButton' onclick="dropDownModify(this);" class='fas fa-pencil-alt'></i>
+                    <button class="hidden" id='saveEditButton' type= "submit" name="modify"><i class="fas fa-save"></i></button>
+                </td>
+                <td>
+                    <button type="submit" name= "delete" value="delete"><i class="fas fa-trash-alt"></i></button>
+                </td>
             </tr>
 
             <tr class='spacer'><td></td></tr>
 
-            <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
-            <!-- JQUERY Animate function does not work on TR so eventually we might want to convert this to a ul? -->
             <tr id = "row-{$nextRowCount}" class='un-collapsed'>
-                <td colspan='3' class='leftUnCollapsed'>
+                <td colspan='5' class='full'>
                     <h2>Body</h2>
-                    <span>{$currBody}</span>
+                    <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
                 </td>
                 <td colspan='2' class='rightUnCollapsed'>
                     <h2>Attachment</h2>
-                    <!-- Make this 'fas fa-file-upload' with blue color, if no file exists and text saying 'No attachment' Create functionality for upload -->
                     <i class="fas fa-times-circle"></i><span>{$currAttachment}</span>
 
                     <h2>User Ack. Report</h2>
@@ -131,6 +146,7 @@ class business_layer{
                 </td>
             </tr>
             <tr class='spacer'><td></td></tr>
+        </form>
 END;
         $rowCount++;
         $nextRowCount++;

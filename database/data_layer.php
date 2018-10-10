@@ -58,22 +58,6 @@ class data_layer{
         }
     }
 
-    function createNotification($postData){
-        if ($stmt = $this->connection->prepare("INSERT INTO notification (title,body,attachment,activeYN) VALUES (?,?,?,1)")){
-            $stmt->bind_param("sss", $postData['title'], $postData['body'], $postData['attachment']);
-            $stmt->execute();
-            echo $stmt->affected_rows . " rows inserted";
-        }
-    }
-
-    function deleteNotification($id){
-        if ($stmt = $this->connection->prepare("DELETE FROM notification WHERE notificationID = ?")){
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-            echo $stmt->affected_rows . " rows deleted";
-        }
-    }
-
     function getAllNotifcations(){
         if ($stmt = $this->connection->prepare("select * from notification")){
             $stmt->execute();
@@ -88,6 +72,36 @@ class data_layer{
             return $returnArray;
         }
     }
+
+    function createNotification($postData){
+        if ($stmt = $this->connection->prepare("INSERT INTO notification (title,body,attachment,activeYN) VALUES (?,?,?,1)")){
+            $stmt->bind_param("sss", $postData['title'], $postData['body'], $postData['attachment']);
+            $stmt->execute();
+            echo $stmt->affected_rows . " rows inserted";
+        }
+    }
+
+    function updateNotification($notificationID, $postData){
+        if ($stmt = $this->connection->prepare("UPDATE notification SET title = ?,body = ?, activeYN = ? WHERE notificationID = ?")){
+            $stmt->bind_param("ssii",$postData['title'],$postData['body'],intval($postData['active']), intval($notificationID));
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    function deleteNotification($id){
+        if ($stmt = $this->connection->prepare("DELETE FROM notification WHERE notificationID = ?")){
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            echo $stmt->affected_rows . " rows deleted";
+        }
+    }
+
 
     function setUserTempPass($email, $newPass){
         //hash the new password first
