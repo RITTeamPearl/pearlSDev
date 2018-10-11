@@ -53,12 +53,12 @@ function dropDownToggle(ele){
             //change circle to be up
     if ($(nextRow).attr('class').valueOf() === 'collapsed'){
         console.log("here");
-        $(ele).removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
+        $(ele).removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
         $(nextRow).removeClass('collapsed').addClass('un-collapsed').show();
     }
 
     else if ($(nextRow).attr('class').valueOf() === 'un-collapsed'){
-        $(ele).removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
+        $(ele).removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
         $(nextRow).removeClass('un-collapsed').addClass('collapsed').hide();
     }
 }
@@ -83,7 +83,7 @@ function dropDownModify(ele){
     $(thisRow).find(':disabled').each(function(i,ele){
         $(ele).attr('disabled', false);
     });
-    
+
     $(nextRow).find(':disabled').each(function(i,ele){
         $(ele).attr('disabled', false);
     });

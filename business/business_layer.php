@@ -106,7 +106,7 @@ class business_layer{
             $string .= <<<END
             <form class="" action="editNotification.php?id={$currNotiID}" method="post">
             <tr id = "row-{$rowCount}"class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-up'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>
                     <input type="text" name="title" disabled value="{$currTitle}">
                 </td>

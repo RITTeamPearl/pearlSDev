@@ -204,7 +204,7 @@ if (count($_POST) === 3) {
 
             <tr class='spacer'><td></td></tr>
 
-            <tr id = "row-12"class='collapsed'>
+            <tr id = "row-96"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                 <td><input type="text" name="fName" disabled value="Mason"></td>
                 <td><input type="text" name="lName" disabled value="Santora"></td>
@@ -216,7 +216,7 @@ if (count($_POST) === 3) {
 
             <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
 
-            <tr id = "row-13" class='un-collapsed'>
+            <tr id = "row-97" class='un-collapsed'>
                 <td colspan='3' class='leftUnCollapsed'>
                     <h2>Active</h2>
                     <select disabled name='active' class='disabledDrop'>
