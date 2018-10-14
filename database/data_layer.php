@@ -130,6 +130,21 @@ class data_layer{
         //$postData;
     }
 
+    function getAllUsers(){
+        if ($stmt = $this->connection->prepare("select * from user")){
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($phone,$fName,$lName,$tempPassYN,$password, $email, $deptID, $authID, $userID, $activeYN);
+            $returnArray = array();
+            while ($stmt->fetch()) {
+                $currRowArray = array('phone' => $phone, 'fName' => $fName, 'lName' => $fName,'tempPassYN' => $tempPassYN,
+                'password'=> $password, 'email'=> $email, 'deptID'=>$deptID, 'authID' => $authID, 'userID' => $userID, 'activeYN' => $activeYN);
+                array_push($returnArray,$currRowArray);
+            }
+            return $returnArray;
+        }
+    }
+
     function getData($table, $fields, $id){
 
     }

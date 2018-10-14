@@ -153,13 +153,74 @@ END;
         return $string;
     }
 
-    function createEmployeeTable($employeeArray){
+    function createUserTable($allUserArray){
+        //$phone,$fName,$lName,$tempPassYN,$password, $email, $deptID, $authID, $userID, $activeYN
         $string = '';
-        foreach ($employeeArray as $currEmployee) {
+        foreach ($allUserArray as $thisUserArray) {
+            $currID = $thisUserArray['userID'];
+            $currFName = $thisUserArray['fName'];
+            $currLName = $thisUserArray['lName'];
+            $currActiveYN = $thisUserArray['activeYN'];
+            $currDeptID = $thisUserArray['deptID'];
+
             $string .= <<<END
-            employee table stuff
+            <form class="" action="adminAction.php?id={$currID}" method="post">
+                <tr class='collapsed'>
+                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
+                    <td><input type="text" name="fName" disabled value="{$currFName}"></td>
+                    <td><input type="text" name="lName" disabled value="{$currLName}"></td>
+                    <td>
+                        <i id='empEditButton' onclick="dropDownModify(this,'emp');" class='fas fa-pencil-alt'></i>
+                        <button class="hidden" id='empSaveEditButton' type= "submit" name="modifyEmp" value="modifyEmp"><i class="fas fa-save" onclick=''></i></button>
+                    </td>
+                    <td>
+                        <button type="submit" name= "deleteEmp" value="deleteEmp"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+
+                <tr class='spacer'><td></td></tr>
+
+                <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
+
+                <tr id = "row-97" class='un-collapsed'>
+                    <td colspan='3' class='leftUnCollapsed'>
+                        <h2>Active</h2>
+                        <select disabled name='activeYN' class='disabledDrop'>
+                            <option value='1'>Yes</option>
+                            <option value='2'>No</option>
+                        </select>
+
+                        <h2>Department</h2>
+                        <select disabled name='department' class='disabledDrop'>
+                            <option value='1'>HR</option>
+                            <option value='2'>Admin</option>
+                            <option value="3">Sales</option>
+                            <option value="4">Production</option>
+                            <option value="5">Operations</option>
+                            <option value="6">Food and Beverage</option>
+                            <option value="7">Garage</option>
+                        </select>
+
+                        <h2>Email</h2>
+                        <input type="text" name="email" class='email' disabled value="masonsantora@gmail.com">
+                    </td>
+                    <td colspan='2' class='rightUnCollapsed'>
+                        <h2>Authorization</h2>
+                        <select disabled name='authorization' class='disabledDrop fullWidth'>
+                            <option value='1'>Employee</option>
+                            <option value='2'>Depart. Head</option>
+                            <option value='2'>Administrator</option>
+                        </select>
+
+                        <h2>Phone Number</h2>
+                        <input type="text" name="phone" disabled value="555-555-5555">
+                    </td>
+                </tr>
+            </form>
 END;
         }
+
+        return $string;
     }
 
 

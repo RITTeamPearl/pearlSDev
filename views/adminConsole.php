@@ -187,6 +187,9 @@ $bizLayer = new business_layer();
             </tr>
 
             <!-- Begin PHP Iterative process to dynamically create employees -->
+            <?php
+                echo $bizLayer->createUserTable($dataLayer->getAllUsers());
+             ?>
 
         <form class="" action="adminAction.php?id=31" method="post">
             <tr id = "row-96"class='collapsed'>
