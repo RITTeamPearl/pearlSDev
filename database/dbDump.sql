@@ -1,8 +1,10 @@
--- MySQL dump 10.14  Distrib 5.5.56-MariaDB, for Linux (x86_64)
+CREATE DATABASE  IF NOT EXISTS `rrcc_pearl_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `rrcc_pearl_db`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: rrcc_pearl_db
 -- ------------------------------------------------------
--- Server version	5.5.56-MariaDB
+-- Server version	5.7.20-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,35 +16,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-DROP SCHEMA IF EXISTS `rrcc_pearl_db`;
-CREATE SCHEMA `rrcc_pearl_db` ;
-USE `rrcc_pearl_db` ;
 
---
--- Table structure for table `notification`
---
-
-DROP TABLE IF EXISTS `notification`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `notification` (
-  `notificationID` int(15) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) DEFAULT NULL,
-  `body` varchar(2500) DEFAULT NULL,
-  `attachment` varchar(45) DEFAULT NULL,
-  `activeYN` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`notificationID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `notification`
---
-
-LOCK TABLES `notification` WRITE;
-/*!40000 ALTER TABLE `notification` DISABLE KEYS */;
-/*!40000 ALTER TABLE `notification` ENABLE KEYS */;
-UNLOCK TABLES;
 --
 -- Table structure for table `acknowledgement`
 --
@@ -119,6 +93,33 @@ INSERT INTO `department` VALUES (1,'HR'),(2,'admin'),(3,'sales'),(4,'production'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `notification`
+--
+
+DROP TABLE IF EXISTS `notification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notification` (
+  `notificationID` int(15) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `body` varchar(2500) DEFAULT NULL,
+  `attachment` varchar(45) DEFAULT NULL,
+  `activeYN` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`notificationID`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notification`
+--
+
+LOCK TABLES `notification` WRITE;
+/*!40000 ALTER TABLE `notification` DISABLE KEYS */;
+INSERT INTO `notification` VALUES (18,'test title','blah','',1);
+/*!40000 ALTER TABLE `notification` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -134,12 +135,15 @@ CREATE TABLE `user` (
   `email` varchar(50) DEFAULT NULL,
   `deptID` int(2) DEFAULT NULL,
   `authID` int(2) DEFAULT NULL,
+  `userID` int(11) NOT NULL AUTO_INCREMENT,
+  `activeYN` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`phone`),
+  UNIQUE KEY `userID_UNIQUE` (`userID`),
   KEY `user_dept_fk_idx` (`deptID`),
   KEY `user_auth_fk_idx` (`authID`),
   CONSTRAINT `user_auth_fk` FOREIGN KEY (`authID`) REFERENCES `authorization` (`authID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_dept_fk` FOREIGN KEY (`deptID`) REFERENCES `department` (`deptID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +152,6 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ("1234567890",'Testy','McAdmin',1,'password','email@domain.com',1,4);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -161,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-30 14:06:01
+-- Dump completed on 2018-10-14 13:02:48

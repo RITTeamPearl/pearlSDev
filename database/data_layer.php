@@ -48,11 +48,11 @@ class data_layer{
         return false;
     }
 
-
-    function createNewUser($postData){
+    //default values are when a user create their own account
+    function createNewUser($postData, $tempPassYN = 0, $authID = 1, $activeYN = 1){
         $hashedPassword = password_hash($postData["password"],PASSWORD_DEFAULT);
-        if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,tempPassYN,password,email,deptID,authID) VALUES (?,?,?,0,?,?,?,1)")){
-            $stmt->bind_param("sssssi",str_replace("-","", $postData["phoneNumber"]),$postData["fName"],$postData["lName"],$hashedPassword,$postData["email"],intval($postData["dept"]));
+        if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,tempPassYN,password,email,deptID,authID,activeYN) VALUES (?,?,?,$tempPassYN,?,?,?,$authID,$activeYN)")){
+            $stmt->bind_param("sssssi",str_replace("-","", $postData["phoneNumber"]),$postData["fName"],$postData["lName"],$hashedPassword,$postData["email"],intval($postData["deptID"]));
             $stmt->execute();
             echo $stmt->affected_rows . " rows inserted";
         }
@@ -117,9 +117,24 @@ class data_layer{
         return false;
     }
 
-    function updateUser($id,$postData){
-        echo "update $id with: ";
-        $postData;
+    function updateUser($postData, $idField, $id){
+        $query = "UPDATE user SET";
+        foreach ($postData as $key => $value) {
+            if ($value != null) $query .= " $key = ?, ";
+        }
+        //get rid of extra ,
+        $query = substr($query,0,-2);
+        $query .= " WHERE {$idField} = ?";
+        echo $query;
+        //var_dump($postData);
+        //$postData;
+    }
+
+    function getData($table, $fields, $id){
+
+    }
+
+    function deleteData ($table, $id){
 
     }
 }

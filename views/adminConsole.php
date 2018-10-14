@@ -71,7 +71,7 @@ $bizLayer = new business_layer();
                     <input type="text" name="title" disabled value="Heavy Rain to delay bla bla bla bla bla">
                 </td>
                 <td>
-                    <select disabled name='active' class='disabledDrop'>
+                    <select disabled name='activeYN' class='disabledDrop'>
                         <option value='1'>Yes</option>
                         <option value='2'>No</option>
                     </select>
@@ -209,7 +209,7 @@ $bizLayer = new business_layer();
             <tr id = "row-97" class='un-collapsed'>
                 <td colspan='3' class='leftUnCollapsed'>
                     <h2>Active</h2>
-                    <select disabled name='active' class='disabledDrop'>
+                    <select disabled name='activeYN' class='disabledDrop'>
                         <option value='1'>Yes</option>
                         <option value='2'>No</option>
                     </select>
@@ -258,7 +258,7 @@ $bizLayer = new business_layer();
                     <!-- Form that takes user input to add a new employee
                         * Make sure to automatically set a temporary password and send via phone # and email
                     -->
-                    <form class="addNewForm" action="adminConsole.php" method="post">
+                    <form class="addNewForm" action="adminAction.php" method="post">
 
                         <!-- Input Fields -->
                         <h2>First Name</h2>
@@ -284,24 +284,24 @@ $bizLayer = new business_layer();
                         </div>
                         <h2>Active</h2>
                         <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='active' name='active' required="required">
+                            <select class='block inputWithIcon' id='active' name='activeYN' required="required">
                                 <option value="1">Yes</option>
-                                <option value="2">No</option>
+                                <option value="0">No</option>
                             </select>
                             <i class='fas fa-flag' aria-hidden='true'></i>
                         </div>
                         <h2>Authorization</h2>
                         <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='active' name='active' required="required">
-                                <option value="1">Employee</option>
-                                <option value="2">Department Head</option>
-                                <option value="3">Administrator</option>
+                            <select class='block inputWithIcon' id='auth' name='authID' required="required">
+                                <option value="2">Employee</option>
+                                <option value="3">Department Head</option>
+                                <option value="4">Administrator</option>
                             </select>
                             <i class='fas fa-users' aria-hidden='true'></i>
                         </div>
                         <h2>Department</h2>
                         <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='dept' name='dept' required="required">
+                            <select class='block inputWithIcon' id='dept' name='deptID' required="required">
                                 <option value="" disabled selected>Department</option>
                                 <option value="1">HR</option>
                                 <option value="2">Admin</option>

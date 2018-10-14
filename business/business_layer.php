@@ -111,7 +111,7 @@ class business_layer{
                     <input type="text" name="title" disabled value="{$currTitle}">
                 </td>
                 <td>
-                    <select disabled name='active' class='disabledDrop'>
+                    <select disabled name='activeYN' class='disabledDrop'>
                         <option value='1'>Yes</option>
                         <option
 END;

@@ -19,7 +19,7 @@ if (isset($_POST['deleteNoti'])) {
     header("Location: adminConsole.php");
 }
 
-else if (isset($_POST['modifyNoti'])) {
+if (isset($_POST['modifyNoti'])) {
     $dataLayer->updateNotification($_GET['id'],$_POST);
     header("Location: adminConsole.php");
 }
@@ -29,21 +29,25 @@ if (isset($_POST['addEmp'])){
     $genPass = substr(md5(microtime()),rand(0,26),10);
     $_POST['password'] = $genPass;
     //pass in 1 becaue it is a temp pass.
-    //$dataLayer->createNewUser($_POST, 1);
-    header("Location: adminConsole.php");
+    //Also pass in the auth value individually to make things easier
+    $dataLayer->createNewUser($_POST, 1, $_POST['authID'], $_POST['activeYN']);
+    //header("Location: adminConsole.php");
 
 }
 
-else if (isset($_POST['deleteEmp'])) {
+if (isset($_POST['deleteEmp'])) {
     //$dataLayer->updateNotification($_GET['id'],$_POST);
     //header("Location: adminConsole.php");
     var_dump($_POST);
 }
 
-else if (isset($_POST['modifyEmp'])) {
-    $dataLayer->updateUser($_GET['id'],$_POST);
+if (isset($_POST['modifyEmp'])) {
+    //During validation and sanitization the button value should be removed from post data
+    //Im going to set it to null for now
+    $_POST['modifyEmp'] = null;
+    $dataLayer->updateUser($_POST,'userID',$_GET['id']);
     //header("Location: adminConsole.php");
-    var_dump($_POST);
+    //var_dump($_POST);
 }
 
 

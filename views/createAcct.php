@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     </div>
 
                     <div class='inputWithIcon'>
-                        <select class='block inputWithIcon' id='dept' name='dept' required="required">
+                        <select class='block inputWithIcon' id='dept' name='deptID' required="required">
                             <option value="" disabled selected>Department</option>
                             <option value="1">HR</option>
                             <option value="2">Admin</option>
