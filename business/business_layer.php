@@ -104,8 +104,8 @@ class business_layer{
             $currActiveYN = (intval($rowArray['active'])) ? ('yes') : ('no');
 
             $string .= <<<END
-            <form class="" action="editNotification.php?id={$currNotiID}" method="post">
-            <tr id = "row-{$rowCount}"class='collapsed'>
+            <form class="" action="adminAction.php?id={$currNotiID}" method="post">
+            <tr class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-up'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>
                     <input type="text" name="title" disabled value="{$currTitle}">
@@ -122,17 +122,17 @@ END;
                     </select>
                 </td>
                 <td>
-                    <i id='editButton' onclick="dropDownModify(this);" class='fas fa-pencil-alt'></i>
-                    <button class="hidden" id='saveEditButton' type= "submit" name="modify"><i class="fas fa-save"></i></button>
+                    <i id='notiEditButton' onclick="dropDownModify(this,'noti');" class='fas fa-pencil-alt'></i>
+                    <button class="hidden" id='notiSaveEditButton' type= "submit" name="modifyNoti" value="modifyNoti"><i class="fas fa-save"></i></button>
                 </td>
                 <td>
-                    <button type="submit" name= "delete" value="delete"><i class="fas fa-trash-alt"></i></button>
+                    <button type="submit" name= "deleteNoti" value="deleteNoti"><i class="fas fa-trash-alt"></i></button>
                 </td>
             </tr>
 
             <tr class='spacer'><td></td></tr>
 
-            <tr id = "row-{$nextRowCount}" class='un-collapsed'>
+            <tr class='un-collapsed'>
                 <td colspan='5' class='full'>
                     <h2>Body</h2>
                     <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
@@ -151,7 +151,15 @@ END;
         }
 
         return $string;
-        //var_dump($notificationArray);
+    }
+
+    function createEmployeeTable($employeeArray){
+        $string = '';
+        foreach ($employeeArray as $currEmployee) {
+            $string .= <<<END
+            employee table stuff
+END;
+        }
     }
 
 

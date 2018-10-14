@@ -1,0 +1,51 @@
+<?php
+ob_start();
+session_start();
+require_once '../database/data_layer.php';
+require_once '../business/business_layer.php';
+$businessLayer = new business_layer();
+$dataLayer = new data_layer();
+
+
+if (isset($_POST['sendNoti'])){
+    //business layer stuff to ACTUALLY SEND THE NOTIFICATION
+    $dataLayer->createNotification($_POST);
+    header("Location: adminConsole.php");
+
+}
+//var_dump($_POST);
+if (isset($_POST['deleteNoti'])) {
+    $dataLayer->deleteNotification($_GET['id']);
+    header("Location: adminConsole.php");
+}
+
+else if (isset($_POST['modifyNoti'])) {
+    $dataLayer->updateNotification($_GET['id'],$_POST);
+    header("Location: adminConsole.php");
+}
+
+if (isset($_POST['addEmp'])){
+    //Generate a random 10 character password
+    $genPass = substr(md5(microtime()),rand(0,26),10);
+    $_POST['password'] = $genPass;
+    //pass in 1 becaue it is a temp pass.
+    //$dataLayer->createNewUser($_POST, 1);
+    header("Location: adminConsole.php");
+
+}
+
+else if (isset($_POST['deleteEmp'])) {
+    //$dataLayer->updateNotification($_GET['id'],$_POST);
+    //header("Location: adminConsole.php");
+    var_dump($_POST);
+}
+
+else if (isset($_POST['modifyEmp'])) {
+    $dataLayer->updateUser($_GET['id'],$_POST);
+    //header("Location: adminConsole.php");
+    var_dump($_POST);
+}
+
+
+ob_end_flush();
+?>

@@ -4,9 +4,6 @@ require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
 $dataLayer = new data_layer();
 $bizLayer = new business_layer();
-if (count($_POST) === 3) {
-    $dataLayer->createNotification($_POST);
-}
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +64,7 @@ if (count($_POST) === 3) {
              ?>
 
 
-        <form class="" action="editNotification.php?id=30" method="post">
+        <form class="" action="adminAction.php?id=30" method="post">
             <tr id = "row-10"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>
@@ -80,10 +77,10 @@ if (count($_POST) === 3) {
                     </select>
                 </td>
                 <td>
-                    <i id='editButton' onclick="dropDownModify(this);" class='fas fa-pencil-alt'></i>
+                    <i id='notiEditButton' onclick="dropDownModify(this,'noti');" class='fas fa-pencil-alt'></i>
 
                     <!--*Make this appear when edit is clicked, hide pencil...vice versa*-->
-                    <button class="hidden" id='saveEditButton' type= "submit" name="modify"><i class="fas fa-save" onclick=''></i></button>
+                    <button class="hidden" id='notiSaveEditButton' type= "submit" name="modify"><i class="fas fa-save" onclick=''></i></button>
                 </td>
                 <td>
                     <button type="submit" name= "delete" value="delete"><i class="fas fa-trash-alt"></i></button>
@@ -123,7 +120,7 @@ if (count($_POST) === 3) {
             <tr id = "row-13" class='un-collapsed'>
                 <td colspan='5'>
                     <!-- Form that takes user input to add a new notification -->
-                    <form class="addNewForm" action="adminConsole.php" method="post">
+                    <form class="addNewForm" action="adminAction.php" method="post">
                         <h2>Title</h2>
                         <input type="text" class='block inputNoIcon' name="title" required>
                         <h2>Body</h2>
@@ -142,7 +139,7 @@ if (count($_POST) === 3) {
                             <input id='cbWebApp' type='checkbox'>
                             <label for='cbWebApp' class='checkBoxContainer'>Web App</label>
                         </div>
-                        <input type="submit" class='block addSubmit inputNoIcon' value="Send Notification">
+                        <input type="submit" class='block addSubmit inputNoIcon' name="sendNoti" value="Send Notification">
                     </form>
                 </td>
             </tr>
@@ -191,25 +188,18 @@ if (count($_POST) === 3) {
 
             <!-- Begin PHP Iterative process to dynamically create employees -->
 
-            <!-- Row that is collapsed -->
-            <tr class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-                <td><input type="text" name="fName" disabled value="Amanda"></td>
-                <td><input type="text" name="lName" disabled value="Ho"></td>
-                <td><i class='fas fa-pencil-alt'></i></td>
-                <td><i class='fas fa-trash-alt'></i></td>
-            </tr>
-
-            <!-- Spacer puts padding in-between table rows -->
-
-            <tr class='spacer'><td></td></tr>
-
+        <form class="" action="adminAction.php?id=31" method="post">
             <tr id = "row-96"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                 <td><input type="text" name="fName" disabled value="Mason"></td>
                 <td><input type="text" name="lName" disabled value="Santora"></td>
-                <td><i class='fas fa-pencil-alt'></i></td>
-                <td><i class='fas fa-trash-alt'></i></td>
+                <td>
+                    <i id='empEditButton' onclick="dropDownModify(this,'emp');" class='fas fa-pencil-alt'></i>
+                    <button class="hidden" id='empSaveEditButton' type= "submit" name="modifyEmp" value="modifyEmp"><i class="fas fa-save" onclick=''></i></button>
+                </td>
+                <td>
+                    <button type="submit" name= "deleteEmp" value="deleteEmp"><i class="fas fa-trash-alt"></i></button>
+                </td>
             </tr>
 
             <tr class='spacer'><td></td></tr>
@@ -250,6 +240,7 @@ if (count($_POST) === 3) {
                     <input type="text" name="phone" disabled value="555-555-5555">
                 </td>
             </tr>
+        </form>
 
             <tr class='spacer'><td></td></tr>
 
@@ -324,7 +315,7 @@ if (count($_POST) === 3) {
                         </div>
 
                         <!-- Form submit -->
-                        <input type="submit" class='block addSubmit inputNoIcon' value="Add Employee">
+                        <input type="submit" class='block addSubmit inputNoIcon' name="addEmp" value="Add Employee">
                     </form>
                 </td>
             </tr>

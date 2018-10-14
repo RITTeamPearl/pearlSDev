@@ -43,14 +43,11 @@ function addMask(){
 }
 
 function dropDownToggle(ele){
-    var rowNum = $(ele).parent().parent().attr("id");
-    rowNum = parseInt(rowNum.split("-")[1]);
-    thisRow = "#row-" + rowNum;
-    nextRow = "#row-" + parseInt(rowNum+1);
+    //this row is the parent of the parent (icon -> td -> tr)
+    thisRow = $(ele).parent().parent();
+    //Use jquery to find the closest tr. Next is a spacer need to do it twice.
+    nextRow = $(thisRow).closest('tr').next('tr').next('tr');
 
-    //get class of next row
-        //collapsed (hidden)
-            //change circle to be up
     if ($(nextRow).attr('class').valueOf() === 'collapsed'){
         console.log("here");
         $(ele).removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
@@ -63,11 +60,11 @@ function dropDownToggle(ele){
     }
 }
 
-function dropDownModify(ele){
-    var rowNum = $(ele).parent().parent().attr("id");
-    rowNum = parseInt(rowNum.split("-")[1]);
-    thisRow = "#row-" + rowNum;
-    nextRow = "#row-" + parseInt(rowNum+1);
+function dropDownModify(ele,page){
+    //this row is the parent of the parent (icon -> td -> tr)
+    thisRow = $(ele).parent().parent();
+    //Use jquery to find the closest tr. Next is a spacer need to do it twice.
+    nextRow = $(thisRow).closest('tr').next('tr').next('tr');
 
     //only toggle the next row if it needs to be
     if($(nextRow).attr('class').valueOf() === 'collapsed'){
@@ -75,8 +72,14 @@ function dropDownModify(ele){
         dropDownToggle($(ele).parent().parent().find('i')[0]);
     }
     //switch to the save button
-    $('#editButton').hide();
-    $('#saveEditButton').show();
+    if (page == 'emp') {
+        $('#empEditButton').hide();
+        $('#empSaveEditButton').show();
+    }
+    if (page == 'noti') {
+        $('#notiEditButton').hide();
+        $('#notiSaveEditButton').show();
+    }
 
     //find all of the disabled inputs and enable them
     //$(thisRow).find(':disabled').each().attr('disabled',false);
@@ -87,8 +90,6 @@ function dropDownModify(ele){
     $(nextRow).find(':disabled').each(function(i,ele){
         $(ele).attr('disabled', false);
     });
-
-
 
 }
 

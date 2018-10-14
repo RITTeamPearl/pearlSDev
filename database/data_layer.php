@@ -116,4 +116,10 @@ class data_layer{
         }
         return false;
     }
+
+    function updateUser($id,$postData){
+        echo "update $id with: ";
+        $postData;
+
+    }
 }
