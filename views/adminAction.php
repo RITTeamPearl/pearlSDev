@@ -31,7 +31,7 @@ if (isset($_POST['addEmp'])){
     //pass in 1 becaue it is a temp pass.
     //Also pass in the auth value individually to make things easier
     $dataLayer->createNewUser($_POST, 1, $_POST['authID'], $_POST['activeYN']);
-    header("Location: adminConsole.php");
+    //header("Location: adminConsole.php");
 
 }
 
@@ -46,7 +46,7 @@ if (isset($_POST['modifyEmp'])) {
     //Im going to set it to null for now
     $_POST['modifyEmp'] = null;
     $dataLayer->updateUser($_POST,'userID',$_GET['id']);
-    //header("Location: adminConsole.php");
+    header("Location: adminConsole.php");
     //var_dump($_POST);
 }
 

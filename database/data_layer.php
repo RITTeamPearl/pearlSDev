@@ -119,15 +119,44 @@ class data_layer{
 
     function updateUser($postData, $idField, $id){
         $query = "UPDATE user SET";
+        $bindParamTypes = '';
+        $bindParamArray = array();
         foreach ($postData as $key => $value) {
-            if ($value != null) $query .= " $key = ?, ";
+            if ($value != null){
+                //add it to the query string
+                $query .= " $key = ?, ";
+                //add value to binding array for prepared statement
+                if (is_numeric($value) && $key != "phone"){
+                    $bindParamTypes .= "i";
+                    array_push($bindParamArray,intval($value));
+                }
+                else {
+                    $bindParamTypes .= "s";
+                    array_push($bindParamArray,$value);
+                }
+            }
+            //if it is a password then hash it
+            if ($key === "password") {
+                $postData[$key] = password_hash($value,PASSWORD_DEFAULT);
+            }
         }
+        //add letter for id based on string or int
+        $bindParamTypes .= (is_numeric($id)) ? ("i"):("s");
+        //add value to binding array for prepared statement
+        array_push($bindParamArray,(is_numeric($id)) ? (intval($id)):($id));
         //get rid of extra ,
         $query = substr($query,0,-2);
         $query .= " WHERE {$idField} = ?";
-        echo $query;
-        //var_dump($postData);
-        //$postData;
+
+        if ($stmt = $this->connection->prepare($query)){
+            $stmt->bind_param($bindParamTypes,...$bindParamArray);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->affected_rows > 0){
+                echo "it worked";
+                return true;
+            }
+        }
     }
 
     function getAllUsers(){
@@ -137,7 +166,7 @@ class data_layer{
             $stmt->bind_result($phone,$fName,$lName,$tempPassYN,$password, $email, $deptID, $authID, $userID, $activeYN);
             $returnArray = array();
             while ($stmt->fetch()) {
-                $currRowArray = array('phone' => $phone, 'fName' => $fName, 'lName' => $fName,'tempPassYN' => $tempPassYN,
+                $currRowArray = array('phone' => $phone, 'fName' => $fName, 'lName' => $lName,'tempPassYN' => $tempPassYN,
                 'password'=> $password, 'email'=> $email, 'deptID'=>$deptID, 'authID' => $authID, 'userID' => $userID, 'activeYN' => $activeYN);
                 array_push($returnArray,$currRowArray);
             }

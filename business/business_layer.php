@@ -162,6 +162,7 @@ END;
             $currLName = $thisUserArray['lName'];
             $currActiveYN = $thisUserArray['activeYN'];
             $currDeptID = $thisUserArray['deptID'];
+            $currPhone = $thisUserArray['phone'];
 
             $string .= <<<END
             <form class="" action="adminAction.php?id={$currID}" method="post">
@@ -186,34 +187,34 @@ END;
                     <td colspan='3' class='leftUnCollapsed'>
                         <h2>Active</h2>
                         <select disabled name='activeYN' class='disabledDrop'>
-                            <option value='1'>Yes</option>
-                            <option value='2'>No</option>
+                            <option value=1>Yes</option>
+                            <option value=2>No</option>
                         </select>
 
                         <h2>Department</h2>
-                        <select disabled name='department' class='disabledDrop'>
-                            <option value='1'>HR</option>
-                            <option value='2'>Admin</option>
-                            <option value="3">Sales</option>
-                            <option value="4">Production</option>
-                            <option value="5">Operations</option>
-                            <option value="6">Food and Beverage</option>
-                            <option value="7">Garage</option>
+                        <select disabled name='deptID' class='disabledDrop'>
+                            <option value=1>HR</option>
+                            <option value=2>Admin</option>
+                            <option value=3>Sales</option>
+                            <option value=4>Production</option>
+                            <option value=5>Operations</option>
+                            <option value=6>Food and Beverage</option>
+                            <option value=7>Garage</option>
                         </select>
 
                         <h2>Email</h2>
-                        <input type="text" name="email" class='email' disabled value="masonsantora@gmail.com">
+                        <input type="text" name="email" class='email' disabled value="antora@gmail.com">
                     </td>
                     <td colspan='2' class='rightUnCollapsed'>
                         <h2>Authorization</h2>
-                        <select disabled name='authorization' class='disabledDrop fullWidth'>
-                            <option value='1'>Employee</option>
-                            <option value='2'>Depart. Head</option>
-                            <option value='2'>Administrator</option>
+                        <select disabled name='authID' class='disabledDrop fullWidth'>
+                            <option value=2>Employee</option>
+                            <option value=3>Depart. Head</option>
+                            <option value=4>Administrator</option>
                         </select>
 
                         <h2>Phone Number</h2>
-                        <input type="text" name="phone" disabled value="555-555-5555">
+                        <input type="text" name="phone" disabled value="{$currPhone}">
                     </td>
                 </tr>
             </form>

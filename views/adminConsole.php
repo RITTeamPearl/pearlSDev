@@ -213,19 +213,19 @@ $bizLayer = new business_layer();
                 <td colspan='3' class='leftUnCollapsed'>
                     <h2>Active</h2>
                     <select disabled name='activeYN' class='disabledDrop'>
-                        <option value='1'>Yes</option>
-                        <option value='2'>No</option>
+                        <option value=1>Yes</option>
+                        <option value=2>No</option>
                     </select>
 
                     <h2>Department</h2>
                     <select disabled name='department' class='disabledDrop'>
-                        <option value='1'>HR</option>
-                        <option value='2'>Admin</option>
-                        <option value="3">Sales</option>
-                        <option value="4">Production</option>
-                        <option value="5">Operations</option>
-                        <option value="6">Food and Beverage</option>
-                        <option value="7">Garage</option>
+                        <option value=1>HR</option>
+                        <option value=2>Admin</option>
+                        <option value=3>Sales</option>
+                        <option value=4>Production</option>
+                        <option value=5>Operations</option>
+                        <option value=6>Food and Beverage</option>
+                        <option value=7>Garage</option>
                     </select>
 
                     <h2>Email</h2>
@@ -234,9 +234,9 @@ $bizLayer = new business_layer();
                 <td colspan='2' class='rightUnCollapsed'>
                     <h2>Authorization</h2>
                     <select disabled name='authorization' class='disabledDrop fullWidth'>
-                        <option value='1'>Employee</option>
-                        <option value='2'>Depart. Head</option>
-                        <option value='2'>Administrator</option>
+                        <option value=1>Employee</option>
+                        <option value=2>Depart. Head</option>
+                        <option value=3>Administrator</option>
                     </select>
 
                     <h2>Phone Number</h2>
