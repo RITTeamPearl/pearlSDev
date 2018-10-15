@@ -3,6 +3,20 @@ require '../vendor/autoload.php';
 //require '../database/data_layer.php';
 use Twilio\Rest\Client;
 use PHPMailer\PHPMailer\PHPMailer;
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
+    $busLayer = new business_layer();
+
+    switch ($_POST['action']) {    
+        case 'validateForm':
+            echo json_encode($busLayer->validateAndSanitize());
+            break;
+        case 'createUser':
+            echo('user created');
+            break;
+    }
+}
+
 class business_layer{
 
     function sendEmail($address,$subject, $body){
@@ -86,7 +100,8 @@ class business_layer{
 
     function validateAndSanitize(){
 
-        //$validatedPOST = array();
+        $validatedPOST = [];
+        $formErrors  = [];
         //$validatedPOST['phone'] = $postData['phone'];// this should be validated and sanitized
         //return $validatedPOST;
 
@@ -96,108 +111,120 @@ class business_layer{
         $phone = $pwd = $pwdConfirm = $fname = $lname = $email = "";
         
         //check if form was submitted with POST 
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if($_POST['formSection'] == 'screen1'){
             //checks for createAcct page
             //check phoneNumber, password, passwordConfirm, fName, lName, and email
             //check phone number
-            if(empty($_POST['phone'])){
+            if(empty($_POST['formData']['phoneNumber'])){
                 $phoneErr = "Phone Number is required";
+                array_push($formErrors, [
+                    'location' => '#phoneSpan',
+                    'msg' => $phoneErr
+                ]);
             }
             else{
-                $phone = test_input($_POST['phone']);
+                $phone = test_input($_POST['formData']['phoneNumber']);
                 if(!preg_match("^1?([1-9])(\\d{9})", $phone)){
                     $phoneErr = "Invalid phone number";
                 }
                 //built in php functions that i think could work as well, if needed
-                $phone = filter_var($_POST['phone'],FILTER_SANITIZE_NUMBER_INT);
+                $phone = filter_var($_POST['formData']['phoneNumber'],FILTER_SANITIZE_NUMBER_INT);
                 //filter_var($postData['phone'], FILTER_VALIDATE_INT);
             }
-            //checks password
-            if(empty($_POST['password'] && empty($_POST['passwordConfirm']))){
-                $pwdErr = "Password is required";
-                $pwdConfirmErr = "Confirmation Password is required";
-            }
-            else{
-                $pwd = test_input($_POST['password']);
-                $pwdConfirm = test_input($_POST['passwordConfirm']);
-                //check that password and passwordConfirm match
-                if($pwdConfirm == $pwd){
-                    //check for length of at least 8
-                    if(!strlen($pwd >= 8)){
-                        $pwdErr = "Password contain 8 characters";
-                    }
-                    //check for one upper case
-                    if(!preg_match("/[A-Z]/", $pwd)){
-                        $pwdErr = "Password must contain at least 1 uppercase letter";
-                    }
-                    //check for one lower case
-                    if(!preg_match("/[a-z]/", $pwd)){
-                        $pwdErr = "Password must contain at least one lowercase letter";
-                    }
-                    //check for one number
-                    if(!preg_match("/[1-9]/",$pwd)){
-                        $pwdErr = "Password must contain at least one digit";
-                    }
-                }
-            }
-            //checks fname
-            if(empty($_POST['fName'])){
-                $fnameErr = "First name is required";
-            }
-            else{
-                $fname = test_input($_POST['fName']);
-                if(!preg_match("/^[A-Za-z]+$/", $fname)){
-                    $fnameErr = "First name can only contain letters with no spaces";
-                }
-                $fname = filter_var($_POST['fName'],FILTER_SANITIZE_STRING);
-            }
-            //checks lname
-            if(empty($_POST['lName'])){
-                $lnameErr = "Last name is required";
-            }
-            else{
-                $lname = test_input($_POST['lName']);
-                if(!preg_match("/^[A-Za-z]+$/", $lname)){
-                    $lnameErr = "Last name can only contain letters with no spaces";
-                }
-                $lname = filter_var($_POST['lName'],FILTER_SANITIZE_STRING);
-            }
-            //checks email
-            if(empty($_POST['email'])){
-                $emailErr = "Email is required";
-            }
-            else{
-                $email = test_input($_POST['email']);
-                $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
-                if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-                    $emailErr = "Invalid format for email";
-                }
-             }
 
-             //checks for adminConsole
-             //variables for a good user input 
-             $title = $body = "";
-             //variables for error message
-             $titleErr = $bodyErr = "";
-             
-             //check title
-             if(empty($_POST['title'])){
-                 $titleErr = "A title is required";
-             }
-             else{
-                 $title = test_input($_POST['title']);
-                 $title = filter_var($title, FILTER_SANITIZE_STRING);
- 
-             }
-             //check body
-             if(empty($_POST['body'])){
-                 $bodyErr = "The body of your notification cannot be empty";
-             }
-             else{
-                 $body = test_input($_POST['body']);
-                 $body = filter_var($body, FILTER_SANITIZE_STRING);
-             }
         }
+
+
+        //     //checks password
+        //     if(empty($_POST['password'] && empty($_POST['passwordConfirm']))){
+        //         $pwdErr = "Password is required";
+        //         $pwdConfirmErr = "Confirmation Password is required";
+        //     }
+        //     else{
+        //         $pwd = test_input($_POST['password']);
+        //         $pwdConfirm = test_input($_POST['passwordConfirm']);
+        //         //check that password and passwordConfirm match
+        //         if($pwdConfirm == $pwd){
+        //             //check for length of at least 8
+        //             if(!strlen($pwd >= 8)){
+        //                 $pwdErr = "Password contain 8 characters";
+        //             }
+        //             //check for one upper case
+        //             if(!preg_match("/[A-Z]/", $pwd)){
+        //                 $pwdErr = "Password must contain at least 1 uppercase letter";
+        //             }
+        //             //check for one lower case
+        //             if(!preg_match("/[a-z]/", $pwd)){
+        //                 $pwdErr = "Password must contain at least one lowercase letter";
+        //             }
+        //             //check for one number
+        //             if(!preg_match("/[1-9]/",$pwd)){
+        //                 $pwdErr = "Password must contain at least one digit";
+        //             }
+        //         }
+        //     }
+        //     //checks fname
+        //     if(empty($_POST['fName'])){
+        //         $fnameErr = "First name is required";
+        //     }
+        //     else{
+        //         $fname = test_input($_POST['fName']);
+        //         if(!preg_match("/^[A-Za-z]+$/", $fname)){
+        //             $fnameErr = "First name can only contain letters with no spaces";
+        //         }
+        //         $fname = filter_var($_POST['fName'],FILTER_SANITIZE_STRING);
+        //     }
+        //     //checks lname
+        //     if(empty($_POST['lName'])){
+        //         $lnameErr = "Last name is required";
+        //     }
+        //     else{
+        //         $lname = test_input($_POST['lName']);
+        //         if(!preg_match("/^[A-Za-z]+$/", $lname)){
+        //             $lnameErr = "Last name can only contain letters with no spaces";
+        //         }
+        //         $lname = filter_var($_POST['lName'],FILTER_SANITIZE_STRING);
+        //     }
+        //     //checks email
+        //     if(empty($_POST['email'])){
+        //         $emailErr = "Email is required";
+        //     }
+        //     else{
+        //         $email = test_input($_POST['email']);
+        //         $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+        //         if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+        //             $emailErr = "Invalid format for email";
+        //         }
+        //      }
+
+        //      //checks for adminConsole
+        //      //variables for a good user input 
+        //      $title = $body = "";
+        //      //variables for error message
+        //      $titleErr = $bodyErr = "";
+             
+        //      //check title
+        //      if(empty($_POST['title'])){
+        //          $titleErr = "A title is required";
+        //      }
+        //      else{
+        //          $title = test_input($_POST['title']);
+        //          $title = filter_var($title, FILTER_SANITIZE_STRING);
+ 
+        //      }
+        //      //check body
+        //      if(empty($_POST['body'])){
+        //          $bodyErr = "The body of your notification cannot be empty";
+        //      }
+        //      else{
+        //          $body = test_input($_POST['body']);
+        //          $body = filter_var($body, FILTER_SANITIZE_STRING);
+        //      }
+        // }
+        if (empty($formErrors)) {
+            return ['isValidForm' => true];
+        }
+        return $formErrors;
     }
 
     //test to see if the user input has extra whitespaces, slashes, or special characters. Removes them if so.
@@ -259,3 +286,5 @@ END;
 
 
 }
+
+?>

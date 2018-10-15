@@ -20,9 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
     <title>Rochester Riverside Convention Center</title>
     <meta charset='utf-8'/>
     <meta name='viewport' content='width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 5.0' />
-    <link rel='stylesheet' type='text/css' media='screen' href='/style/css/createAcct.css'>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script type='text/javascript' src='/js/scripts.js'></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='../style/css/createAcct.css'>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type='text/javascript' src='../js/scripts.js'></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <div class='inputWithIcon'>
                         <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' required="required">
                         <i class='fas fa-phone' aria-hidden='true'></i>
-                        <span class='error'><? $phoneErr ?></span>
+                        <span class='error' id='phoneSpan'></span>
                     </div>
 
                     <div class='inputWithIcon'>
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                         <i class='fas fa-lock pwIcon' aria-hidden='true'></i>
                         <span class='error'><? $pwdConfirmErr ?></span>
                     </div>
-                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep(1)"/>
+                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStepTwo(1)"/>
                     <a id='login' href='../index.php'>Log In</a>
                 </div>
 
