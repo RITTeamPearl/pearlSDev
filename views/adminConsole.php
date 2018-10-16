@@ -120,7 +120,7 @@ $bizLayer = new business_layer();
             <tr id = "row-13" class='un-collapsed'>
                 <td colspan='5'>
                     <!-- Form that takes user input to add a new notification -->
-                    <form class="addNewForm" action="adminAction.php" method="post">
+                    <form class="addNewForm" action="adminAction.php" method="post" enctype="multipart/form-data">
                         <h2>Title</h2>
                         <input type="text" class='block inputNoIcon' name="title" required>
                         <h2>Body</h2>
