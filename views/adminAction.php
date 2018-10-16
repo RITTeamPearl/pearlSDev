@@ -10,18 +10,18 @@ $dataLayer = new data_layer();
 if (isset($_POST['sendNoti'])){
     //business layer stuff to ACTUALLY SEND THE NOTIFICATION
     $dataLayer->createNotification($_POST);
-    header("Location: adminConsole.php");
+    header("Location: adminConsole.php#noti");
 
 }
 //var_dump($_POST);
 if (isset($_POST['deleteNoti'])) {
     $dataLayer->deleteNotification($_GET['id']);
-    header("Location: adminConsole.php");
+    header("Location: adminConsole.php#noti");
 }
 
 if (isset($_POST['modifyNoti'])) {
     $dataLayer->updateNotification($_GET['id'],$_POST);
-    header("Location: adminConsole.php");
+    header("Location: adminConsole.php#noti");
 }
 
 if (isset($_POST['addEmp'])){
@@ -31,14 +31,14 @@ if (isset($_POST['addEmp'])){
     //pass in 1 becaue it is a temp pass.
     //Also pass in the auth value individually to make things easier
     $dataLayer->createNewUser($_POST, 1, $_POST['authID'], $_POST['activeYN']);
-    //header("Location: adminConsole.php");
+    header("Location: adminConsole.php#emp");
 
 }
 
 if (isset($_POST['deleteEmp'])) {
-    //$dataLayer->updateNotification($_GET['id'],$_POST);
-    //header("Location: adminConsole.php");
-    var_dump($_POST);
+    $dataLayer->deleteUser($_GET['id']);
+    header("Location: adminConsole.php#emp");
+    //var_dump($_POST);
 }
 
 if (isset($_POST['modifyEmp'])) {
@@ -46,7 +46,7 @@ if (isset($_POST['modifyEmp'])) {
     //Im going to set it to null for now
     $_POST['modifyEmp'] = null;
     $dataLayer->updateUser($_POST,'userID',$_GET['id']);
-    header("Location: adminConsole.php");
+    header("Location: adminConsole.php#emp");
     //var_dump($_POST);
 }
 

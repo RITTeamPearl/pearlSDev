@@ -161,7 +161,9 @@ END;
             $currFName = $thisUserArray['fName'];
             $currLName = $thisUserArray['lName'];
             $currActiveYN = $thisUserArray['activeYN'];
+            $currEmail = $thisUserArray['email'];
             $currDeptID = $thisUserArray['deptID'];
+            $currAuthID = $thisUserArray['authID'];
             $currPhone = $thisUserArray['phone'];
 
             $string .= <<<END
@@ -183,34 +185,79 @@ END;
 
                 <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
 
-                <tr id = "row-97" class='un-collapsed'>
+                <tr class='un-collapsed'>
                     <td colspan='3' class='leftUnCollapsed'>
                         <h2>Active</h2>
                         <select disabled name='activeYN' class='disabledDrop'>
                             <option value=1>Yes</option>
-                            <option value=2>No</option>
+                            <option
+END;
+            if (!$currActiveYN) $string .= " selected ";
+            $string .= <<<END
+                        value=0>No</option>
+
                         </select>
 
                         <h2>Department</h2>
                         <select disabled name='deptID' class='disabledDrop'>
-                            <option value=1>HR</option>
-                            <option value=2>Admin</option>
-                            <option value=3>Sales</option>
-                            <option value=4>Production</option>
-                            <option value=5>Operations</option>
-                            <option value=6>Food and Beverage</option>
-                            <option value=7>Garage</option>
+                            <option
+END;
+            if ($currDeptID == 1) $string .= " selected ";
+            $string .= <<<END
+                            value=1>HR</option>
+                            <option
+END;
+            if ($currDeptID == 2) $string .= " selected ";
+            $string .= <<<END
+                            value=2>Admin</option>
+                            <option
+END;
+            if ($currDeptID == 3) $string .= " selected ";
+            $string .= <<<END
+                            value=3>Sales</option>
+                            <option
+END;
+            if ($currDeptID == 4) $string .= " selected ";
+            $string .= <<<END
+                            value=4>Production</option>
+                            <option
+END;
+            if ($currDeptID == 5) $string .= " selected ";
+            $string .= <<<END
+                            value=5>Operations</option>
+                            <option
+END;
+            if ($currDeptID == 6) $string .= " selected ";
+            $string .= <<<END
+                            value=6>Food and Beverage</option>
+                            <option
+END;
+            if ($currDeptID == 7) $string .= " selected ";
+            $string .= <<<END
+                            value=7>Garage</option>
                         </select>
 
                         <h2>Email</h2>
-                        <input type="text" name="email" class='email' disabled value="antora@gmail.com">
+                        <input type="text" name="email" class='email' disabled value="{$currEmail}">
                     </td>
                     <td colspan='2' class='rightUnCollapsed'>
                         <h2>Authorization</h2>
                         <select disabled name='authID' class='disabledDrop fullWidth'>
-                            <option value=2>Employee</option>
-                            <option value=3>Depart. Head</option>
-                            <option value=4>Administrator</option>
+                            <option
+END;
+            if ($currAuthID == 2) $string .= " selected ";
+            $string .= <<<END
+                            value=2>Employee</option>
+                            <option
+END;
+            if ($currAuthID == 3) $string .= " selected ";
+            $string .= <<<END
+                            value=3>Depart. Head</option>
+                            <option
+END;
+            if ($currAuthID == 4) $string .= " selected ";
+            $string .= <<<END
+                            value=4>Administrator</option>
                         </select>
 
                         <h2>Phone Number</h2>
