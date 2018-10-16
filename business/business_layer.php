@@ -60,6 +60,34 @@ class business_layer{
         );
     }
 
+    function uploadFile($fileArray){
+        //Passed in name of the file with extension
+        $name = $fileArray['name'];
+        //Temp file stored from upload. Full path
+        $tempFile = $fileArray['tmp_name'];
+        //targetFile
+        $targetFile = "../assets/uploads/" . $name;
+        //File type
+        $type = strtolower(end(explode('.',$name)));
+        //Allowed File Types
+        $allowedTypes = array("pdf","txt");
+
+        //only go forward if the file type is allowed
+        if(in_array($type,$allowedTypes)){
+            //only go forward if it doesnt exst
+            if (!file_exists($targetFile)) {
+                move_uploaded_file($tempFile,$targetFile);
+                return true;
+            }
+            //File already exists
+            return false;
+        }
+        else {
+            //Not correct file type
+            return false;
+        }
+    }
+
     function passwordReset($email){
         $hashedEmail = password_hash($email,PASSWORD_DEFAULT);
 
@@ -96,15 +124,16 @@ class business_layer{
         $rowCount = 1;
         $nextRowCount = 2;
         foreach ($notificationArray as $rowArray) {
-            //var_dump($rowArray);
             $currNotiID = $rowArray['notificationID'];
             $currTitle = $rowArray['title'];
             $currBody = $rowArray['body'];
-            $currAttachment = $rowArray['attachment'];
+            //split file path using /
+            //Take the end of the array becuse it is the name of the file
+            $currAttachmentName = end(explode("/",$rowArray['attachment']));
             $currActiveYN = (intval($rowArray['active'])) ? ('yes') : ('no');
 
             $string .= <<<END
-            <form class="" action="adminAction.php?id={$currNotiID}" method="post">
+            <form class="" action="adminAction.php?id={$currNotiID}" method="post" enctype="multipart/form-data">
             <tr class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-up'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>
@@ -137,8 +166,7 @@ END;
                     <h2>Body</h2>
                     <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
                     <h2>Attachment</h2>
-                    <i class="fas fa-times-circle"></i><span>{$currAttachment}</span>
-
+                    <i class="fas fa-times-circle"></i><span>{$currAttachmentName}</span>
                     <h2>User Ack. Report</h2>
                     <i class="fas fa-download"></i><span>user_report.csv</span>
                 </td>

@@ -8,6 +8,19 @@ $dataLayer = new data_layer();
 
 
 if (isset($_POST['sendNoti'])){
+    //business layer stuff to deal with the attachment ($_FILES)
+    if (isset($_FILES['attachment']) && $_FILES['attachment']['size'] > 0 ){
+        if ($businessLayer->uploadFile($_FILES['attachment'])){
+            //file successfully uploaded
+            //set the post var for the attachment. This will be the path to the uploaded file
+            //Putting it in POST will upload it to the DB
+            $_POST['attachment'] = "assets/uploads/".$_FILES['attachment']['name'];
+        }
+        else {
+            echo "Error uploading file";
+        }
+
+    }
     //business layer stuff to ACTUALLY SEND THE NOTIFICATION
     $dataLayer->createNotification($_POST);
     header("Location: adminConsole.php#noti");
