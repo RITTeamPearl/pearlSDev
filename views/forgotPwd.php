@@ -8,14 +8,17 @@ $bizLayer = new business_layer();
 
     //validate and sanitize input
     //check if email exists
+    //if($dataLayer->checkEmailExists()){
         //Yes
             //Generate temp Password
             //Set DB Flag to temp pass
             //Send email with temp pass
             //route to send page
-        //NO
+    //}   else { //NO
             //Put error message on screen saying email could not be found
-
+            //$emailError = "<h2 color='red'>Error: Email Address Not Found.</h2>";
+            //echo "<script type='text/javascript'>alert('$emailError');</script>";
+    //}
 
  ?>
 
