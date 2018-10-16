@@ -72,14 +72,15 @@ function dropDownModify(ele,page){
         dropDownToggle($(ele).parent().parent().find('i')[0]);
     }
     //switch to the save button
-    if (page == 'emp') {
-        $('#empEditButton').hide();
-        $('#empSaveEditButton').show();
-    }
     if (page == 'noti') {
-        $('#notiEditButton').hide();
-        $('#notiSaveEditButton').show();
+        $(thisRow).find('#notiEditButton').hide();
+        $(thisRow).find('#notiSaveEditButton').show();
     }
+    if (page == 'emp') {
+        $(thisRow).find('#empEditButton').hide();
+        $(thisRow).find('#empSaveEditButton').show();
+    }
+
 
     //find all of the disabled inputs and enable them
     //$(thisRow).find(':disabled').each().attr('disabled',false);

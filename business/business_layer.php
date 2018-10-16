@@ -69,18 +69,18 @@ class business_layer{
         $targetFile = "../assets/uploads/" . $name;
         //File type
         $type = strtolower(end(explode('.',$name)));
-        //Allowed File Types
-        $allowedTypes = array("pdf","txt");
+
+        $notAllowedTypes = array("exe", "js", "sql", "php");
 
         //only go forward if the file type is allowed
-        if(in_array($type,$allowedTypes)){
             //only go forward if it doesnt exst
+        if( !in_array($type,$notAllowedTypes)){
+            //if it already exists overwrite it
             if (!file_exists($targetFile)) {
                 move_uploaded_file($tempFile,$targetFile);
                 return true;
             }
-            //File already exists
-            return false;
+
         }
         else {
             //Not correct file type
@@ -130,7 +130,7 @@ class business_layer{
             //split file path using /
             //Take the end of the array becuse it is the name of the file
             $currAttachmentName = end(explode("/",$rowArray['attachment']));
-            $currActiveYN = (intval($rowArray['active'])) ? ('yes') : ('no');
+            $currActiveYN = (intval($rowArray['active']));
 
             $string .= <<<END
             <form class="" action="adminAction.php?id={$currNotiID}" method="post" enctype="multipart/form-data">
@@ -144,7 +144,7 @@ class business_layer{
                         <option value='1'>Yes</option>
                         <option
 END;
-            if ($currActiveYN === 'no') $string .= " selected ";
+            if (!$currActiveYN) $string .= " selected ";
             $string .= <<<END
 
                          value='0'>No</option>
