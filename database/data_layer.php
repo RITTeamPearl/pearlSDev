@@ -165,11 +165,14 @@ class data_layer{
         $bindParamTypes .= (is_numeric($id)) ? ("i"):("s");
         //add value to binding array for prepared statement
         array_push($bindParamArray,(is_numeric($id)) ? (intval($id)):($id));
-        //get rid of extra ,
+        //get rid of extra space and ,
         $query = substr($query,0,-2);
+        //Add where field
         $query .= " WHERE {$idField} = ?";
 
+        //Execute the query
         if ($stmt = $this->connection->prepare($query)){
+            //bind params based on vars in $postData
             $stmt->bind_param($bindParamTypes,...$bindParamArray);
             $stmt->execute();
             $stmt->store_result();
@@ -195,8 +198,22 @@ class data_layer{
         }
     }
 
-    function getData($table, $fields, $id){
+    function getData($table, $fields, $idField="" ,$id= 0){
+        //inital select query
+        $query = "Select ";
+        //each passed in field
+        foreach ($fields as $fieldName) {
+            $query .= "{$fieldName}, ";
+        }
+        //remove extra space and ,
+        $query = substr($query,0,-2);
 
+        $query .= " FROM {$table} ";
+        if($idField != "" && $id){
+            $query .= "WHERE {$idField} = ?";
+        }
+
+        echo "$query";
     }
 
     function deleteData ($table, $id){

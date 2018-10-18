@@ -361,26 +361,58 @@ $bizLayer = new business_layer();
             </tr>
 
             <!-- Begin PHP Iterative process to dynamically create employees -->
+            <form class="" action="adminAction.php?id=1" method="post">
 
             <!-- Row that is collapsed -->
-            <tr class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
-                <td>Amanda</td>
-                <td>Ho</td>
-                <td><i class='fas fa-check-circle'></i></td>
-                <td><i class='fas fa-minus-circle'></i></td>
-            </tr>
+                <tr class='collapsed'>
+                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
+                    <td>Amanda</td>
+                    <td>Ho</td>
+                    <td>
+                        <button type="submit" name= "confirmPendEmp" value="confirmPendEmp"><i class="fas fa-check-circle"></i></button>
+                    </td>
+                    <td>
+                        <button type="submit" name= "denyPendEmp" value="denyPendEmp"><i class="fas fa-minus-circle"></i></button>
+                    </td>
+                </tr>
+                <tr class='spacer'><td></td></tr>
+                <tr class='un-collapsed'>
+                    <td colspan="2">
+                        <div class='inputWithIcon'>
+                            <select class='block inputWithIcon' id='auth' name='authID' required="required">
+                                <option value="2">Employee</option>
+                                <option value="3">Department Head</option>
+                                <option value="4">Administrator</option>
+                            </select>
+                            <i class='fas fa-users' aria-hidden='true'></i>
+                        </div>
+                    </td>
+                </tr>
+            </form>
 
             <!-- Spacer puts padding in-between table rows -->
 
-            <tr class='spacer'><td></td></tr>
 
             <tr id = "row-12"class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                 <td>Mason</td>
                 <td>Santora</td>
-                <td><i class='fas fa-check-circle'></i></td>
-                <td><i class='fas fa-minus-circle'></i></td>
+                <td>
+                    <div class='inputWithIcon'>
+                        <select class='block inputWithIcon' id='auth' name='authID' required="required">
+                            <option value="2">Employee</option>
+                            <option value="3">Department Head</option>
+                            <option value="4">Administrator</option>
+                        </select>
+                        <i class='fas fa-users' aria-hidden='true'></i>
+                    </div>
+                </td>
+                <td>
+                    <button type="submit" name= "confirmPendEmp" value="confirmPendEmp"><i class="fas fa-check-circle"></i></button>
+                </td>
+                <td>
+                    <button type="submit" name= "denyPendEmp" value="denyPendEmp"><i class="fas fa-minus-circle"></i></button>
+                </td>
             </tr>
 
             <tr class='spacer'><td></td></tr>
@@ -403,21 +435,21 @@ $bizLayer = new business_layer();
         </div>
 
     </section>
-    
+
     <!-- Compare Employees to Payroll section -->
     <section id='compare'>
         <div class='centered'>
             <h2 class='title'>Upload CSV file to compare Active Employee List<br>with the Payroll Employee List</h2>
-            
+
             <div class='uploadContainer'>
                 <i class='fas fa-upload' onclick="fileUploadClick(this)"></i><span class='fileName'>No file selected</span>
                 <input type='file' id='fileUpload' class='hidden'>
             </div>
-            
-            
+
+
         </div>
-        
-        
+
+
     </section>
 
     <!-- Footer -->

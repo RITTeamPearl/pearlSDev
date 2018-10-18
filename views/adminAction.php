@@ -1,12 +1,12 @@
 <?php
-ob_start();
+//This file will look at what button was clicked (form submission) in the admin console and act accordingly
 session_start();
 require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
 $businessLayer = new business_layer();
 $dataLayer = new data_layer();
 
-
+//Sending a new notification was clicked
 if (isset($_POST['sendNoti'])){
     //business layer stuff to deal with the attachment ($_FILES)
     if (isset($_FILES['attachment']) && $_FILES['attachment']['size'] > 0 ){
@@ -26,17 +26,19 @@ if (isset($_POST['sendNoti'])){
     header("Location: adminConsole.php#noti");
 
 }
-//var_dump($_POST);
+//Delete notification button was clicked
 if (isset($_POST['deleteNoti'])) {
     $dataLayer->deleteNotification($_GET['id']);
     header("Location: adminConsole.php#noti");
 }
 
+//Delete notification button was clicked
 if (isset($_POST['modifyNoti'])) {
     $dataLayer->updateNotification($_GET['id'],$_POST);
     header("Location: adminConsole.php#noti");
 }
 
+//add new employee button was clicked
 if (isset($_POST['addEmp'])){
     //Generate a random 10 character password
     $genPass = substr(md5(microtime()),rand(0,26),10);
@@ -48,12 +50,14 @@ if (isset($_POST['addEmp'])){
 
 }
 
+//delete employee button was clicked
 if (isset($_POST['deleteEmp'])) {
     $dataLayer->deleteUser($_GET['id']);
     header("Location: adminConsole.php#emp");
     //var_dump($_POST);
 }
 
+//Modify employee was clicked
 if (isset($_POST['modifyEmp'])) {
     //During validation and sanitization the button value should be removed from post data
     //Im going to set it to null for now
@@ -61,6 +65,22 @@ if (isset($_POST['modifyEmp'])) {
     $dataLayer->updateUser($_POST,'userID',$_GET['id']);
     header("Location: adminConsole.php#emp");
     //var_dump($_POST);
+}
+
+if(isset($_POST['confirmPendEmp'])){
+    //send text / email saying you have been confirmed
+    //datalayer set authID
+    //$getAuthID = $dataLayer->getData('user', array('deptID'),'userID',$_GET['id']);
+    //$dataLayer->updateUser(array('authID' => , ),'userID',$_GET['id']);
+    //echo "confirm userID {$_GET['id']} \n";
+    echo "Confirm User";
+    echo "In progress, go back to admin console via URL";
+}
+
+if(isset($_POST['denyPendEmp'])){
+    echo "deny User";
+    echo "In progress, go back to admin console via URL";
+
 }
 
 
