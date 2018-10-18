@@ -216,7 +216,7 @@ i {
       z-index: -1;
       bottom: 7px;
       width: 100%; }
-  #adminConsole #news, #adminConsole #employees, #adminConsole #pending {
+  #adminConsole #news, #adminConsole #employees, #adminConsole #pending, #adminConsole #compare {
     font-family: "Helvetica Neue Light";
     padding: 1.25rem 0.46875rem 4.0625rem 0.46875rem; }
   #adminConsole .searchBar {
@@ -390,6 +390,12 @@ i {
         margin-right: 0.3125rem; }
     #adminConsole .pagination .clickable {
       color: #5b8ec5; }
+  #adminConsole #compare .title {
+    color: #999999; }
+  #adminConsole #compare .fa-upload {
+    color: #5b8ec5;
+    font-size: 3.125em;
+    margin-top: 0.625em; }
   #adminConsole .footer {
     background-color: #eaeaea; }
 

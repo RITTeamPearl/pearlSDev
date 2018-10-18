@@ -63,7 +63,7 @@
     }
     
     //Sections
-    #news, #employees, #pending {
+    #news, #employees, #pending, #compare {
         font-family: $lighterFont;
         padding: pxToRem(40) pxToRem(15) pxToRem(130) pxToRem(15);
     }
@@ -369,6 +369,21 @@
         .clickable {
             color: $blue;
         }
+    }
+    
+    //Compare Section
+    #compare {
+        
+        .title {
+            color: $lightGray;
+        }
+        
+        .fa-upload {
+            color: $blue;
+            font-size: ptToEm(50);
+            margin-top: pxToEm(20);
+        }
+        
     }
     
     //Footer navigation background

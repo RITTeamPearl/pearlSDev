@@ -34,7 +34,7 @@ $bizLayer = new business_layer();
         <li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News(13)</li>
         <li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees(231)</li>
         <li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending(3)</li>
-        <li onclick="updateAdminView(this)" id="compare_Button" class='inline hidden'>Compare</li>
+        <li onclick="updateAdminView(this)" id="compare_Button" class='inline hidden '>Compare Employee Lists</li>
         <hr>
     </ul>
 
@@ -402,6 +402,22 @@ $bizLayer = new business_layer();
             </div>
         </div>
 
+    </section>
+    
+    <!-- Compare Employees to Payroll section -->
+    <section id='compare'>
+        <div class='centered'>
+            <h2 class='title'>Upload CSV file to compare Active Employee List<br>with the Payroll Employee List</h2>
+            
+            <div class='uploadContainer'>
+                <i class='fas fa-upload' onclick="fileUploadClick(this)"></i><span class='fileName'>No file selected</span>
+                <input type='file' id='fileUpload' class='hidden'>
+            </div>
+            
+            
+        </div>
+        
+        
     </section>
 
     <!-- Footer -->

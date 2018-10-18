@@ -106,6 +106,7 @@ function updateAdminView(ele){
         $("#employees").hide();
         $("#pending").hide();
         $("#news").show();
+        $("#compare").hide();
     }
 
     //show employee hide others
@@ -113,7 +114,7 @@ function updateAdminView(ele){
         $("#pending").hide();
         $("#news").hide();
         $("#employees").show();
-
+        $("#compare").hide();
     }
 
     //show pending hide others
@@ -121,7 +122,15 @@ function updateAdminView(ele){
         $("#news").hide();
         $("#employees").hide();
         $("#pending").show();
-
+        $("#compare").hide();
+    }
+    
+    //show compare hide others
+    if (whichButton === "compare"){
+        $("#news").hide();
+        $("#employees").hide();
+        $("#pending").hide();
+        $("#compare").show();
     }
 }
 
@@ -133,4 +142,23 @@ function resizeTextArea(id) {
 
     //Set the DOM element styling height to match the height of the ScrollHeight
     textArea.attr('style', 'height:' + id.scrollHeight + 'px');
+}
+
+//Handles file upload in Admin Console
+function fileUploadClick(ele) {
+
+    $(ele).click(function() {
+        console.log(String($('#fileUpload')[0]));
+        $('#fileUpload').trigger('click');
+        
+    });
+    
+    $("#fileUpload").on('change', function() {
+        var val = $(this).val();
+        if(val.length > 0) {
+           $(this).siblings('span').text(val); 
+        } else {
+            $(this).siblings('span').text('No file selected');
+        }
+    });
 }
