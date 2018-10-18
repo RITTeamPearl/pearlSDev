@@ -207,13 +207,45 @@ class data_layer{
         }
         //remove extra space and ,
         $query = substr($query,0,-2);
-
+        //add table
         $query .= " FROM {$table} ";
+        //If there is a where then add it
         if($idField != "" && $id){
             $query .= "WHERE {$idField} = ?";
         }
 
-        echo "$query";
+        if ($stmt = $this->connection->prepare($query)){
+            //bind $idField if it exists
+            if($idField != "" && $id){
+                if(is_numeric($id)){
+                    $stmt->bind_param("i", intval($id));
+                }
+                else{
+                    $stmt->bind_param("s", strval($id));
+                }
+            }
+            $stmt->execute();
+            $metaData = $stmt->result_metadata();
+            $bindFieldArray = array();
+            //Array of variables named using fields.
+            while ($field = $metaData->fetch_field()) {
+                $var = $field->name;
+                $$var = null;
+                $bindFieldArray[$var] = &$$var;
+            }
+            //bind query results to fieldArray
+            call_user_func_array(array($stmt,'bind_result'),$bindFieldArray);
+            //initalize return array (this will be 2d with each row as an internal array)
+            $returnArray = array();
+            //loop through each row returned, make an array for that row, push to 2d return array
+            while ($stmt->fetch()) {
+                foreach($bindFieldArray as $k => $v){
+                    $currRowArray[$k] = $v;
+                }
+                array_push($returnArray,$currRowArray);
+            }
+        }
+        return $returnArray;
     }
 
     function deleteData ($table, $idField, $id){
