@@ -216,7 +216,17 @@ class data_layer{
         echo "$query";
     }
 
-    function deleteData ($table, $id){
-
+    function deleteData ($table, $idField, $id){
+        $query = "DELETE FROM {$table} WHERE {$idField} = ?";
+        if ($stmt = $this->connection->prepare($query)){
+            //look at type of id and bind with correct type
+            if(is_numeric($id)){
+                $stmt->bind_param("i", intval($id));
+            }
+            else{
+                $stmt->bind_param("s", strval($id));
+            }
+            $stmt->execute();
+        }
     }
 }

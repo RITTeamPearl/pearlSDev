@@ -71,15 +71,17 @@ if(isset($_POST['confirmPendEmp'])){
     //send text / email saying you have been confirmed
     //datalayer set authID
     //$getAuthID = $dataLayer->getData('user', array('deptID'),'userID',$_GET['id']);
-    //$dataLayer->updateUser(array('authID' => , ),'userID',$_GET['id']);
+    //$dataLayer->updateUser(array('authID' => intval($_POST['pendingAuthID']) ),'userID',17);
+    //$dataLayer->updateUser(array('authID' => intval($_POST['pendingAuthID']) ),'userID',$_GET['id']);
     //echo "confirm userID {$_GET['id']} \n";
-    echo "Confirm User";
-    echo "In progress, go back to admin console via URL";
+    echo "Confirm User with authID {$_POST['pendingAuthID']}";
+    echo "</br>In progress, go back to admin console via URL";
 }
 
 if(isset($_POST['denyPendEmp'])){
-    echo "deny User";
-    echo "In progress, go back to admin console via URL";
+    //delete from  user where id = $_GET['id']
+    //$dataLayer->deleteData('user','userID',$_GET['id']);
+    echo "</br>In progress, go back to admin console via URL";
 
 }
 

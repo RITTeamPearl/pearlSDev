@@ -378,9 +378,11 @@ $bizLayer = new business_layer();
                 <tr class='spacer'><td></td></tr>
                 <tr class='un-collapsed'>
                     <td colspan="2">
+                        <span>Authorization Level: </span>
+
                         <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='auth' name='authID' required="required">
-                                <option value="2">Employee</option>
+                            <select class='block inputWithIcon' id='auth' name='pendingAuthID' required="required">
+                                <option selected value="2">Employee</option>
                                 <option value="3">Department Head</option>
                                 <option value="4">Administrator</option>
                             </select>
@@ -398,6 +400,7 @@ $bizLayer = new business_layer();
                 <td>Mason</td>
                 <td>Santora</td>
                 <td>
+                    <span>Authorization Level: </span>
                     <div class='inputWithIcon'>
                         <select class='block inputWithIcon' id='auth' name='authID' required="required">
                             <option value="2">Employee</option>
