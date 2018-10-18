@@ -109,12 +109,25 @@ class data_layer{
         }
     }
 
-
     function setUserTempPass($email, $newPass){
         //hash the new password first
         $hashedPassword = password_hash($newPass,PASSWORD_DEFAULT);
         //put it into the DB
         if ($stmt = $this->connection->prepare("UPDATE user SET tempPassYN = 1, password = ? WHERE email = ?")){
+            $stmt->bind_param("ss",$hashedPassword,$email);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //works like setUserTempPass, but closes the temp flag.
+    function setUserPassword($email, $newPass) {
+        $hashedPassword = password_hash($newPass, PASSWORD_DEFAULT);
+        if ($stmt = $this->connection->prepare("UPDATE user SET tempPassYN = 0, password = ? WHERE email = ?")){
             $stmt->bind_param("ss",$hashedPassword,$email);
             $stmt->execute();
             $stmt->store_result();
