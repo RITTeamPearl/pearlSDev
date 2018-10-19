@@ -2,8 +2,8 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
     require_once '../database/data_layer.php';
     require_once '../business/business_layer.php';
-    $dataLayer = new data_layer();
     $businessLayer = new business_layer();
+    $dataLayer = new data_layer();
 
     if (count($_POST) == 7) {
         //business layer validation / sanitization of $_POST
@@ -11,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
         $dataLayer->createNewUser($_POST);
     }
 }
-
  ?>
 
 <!DOCTYPE html>
@@ -73,13 +72,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <div class='inputWithIcon'>
                         <input onkeyup="confirmPassword()" class='block' id='password' type = 'password' placeholder= 'Password' name='password' required="required">
                         <i class='fas fa-key pwIcon' aria-hidden='true'></i>
-                        <span class='error'><? $pwdErr ?></span>
                     </div>
 
                     <div class='inputWithIcon'>
                         <input onkeyup="confirmPassword()" class='block' id='passwordConfirm' type = 'password' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
                         <i class='fas fa-lock pwIcon' aria-hidden='true'></i>
-                        <span class='error'><? $pwdConfirmErr ?></span>
                     </div>
                     <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStepTwo(1)"/>
                     <a id='login' href='../index.php'>Log In</a>
@@ -106,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     </div>
 
                     <div class='inputWithIcon'>
-                        <select class='block inputWithIcon' id='dept' name='dept' required="required">
+                        <select class='block inputWithIcon' id='dept' name='deptID' required="required">
                             <option value="" disabled selected>Department</option>
                             <option value="1">HR</option>
                             <option value="2">Admin</option>

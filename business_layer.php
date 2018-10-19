@@ -245,29 +245,42 @@ class business_layer{
             $currTitle = $rowArray['title'];
             $currBody = $rowArray['body'];
             $currAttachment = $rowArray['attachment'];
-            $currActiveYN = ($rowArray['active']) ? ('yes') : ('no');
+            $currActiveYN = (intval($rowArray['active'])) ? ('yes') : ('no');
 
             $string .= <<<END
-            <tr id = "row-{$rowCount}"class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-                <td>{$currTitle}</td>
-                <td>{$currActiveYN}</td>
-                <td><i onclick="dropDownModify(this);" class='fas fa-pencil-alt'></i></td>
-                <td><form action="delete.php?id={$currNotiID}" method="post"> <button style="background-color: transparent; border-color:transparent" type="submit"><i class='fas fa-trash-alt'></i></button></form></td>
+            <form class="" action="adminAction.php?id={$currNotiID}" method="post">
+            <tr class='collapsed'>
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-up'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
+                <td>
+                    <input type="text" name="title" disabled value="{$currTitle}">
+                </td>
+                <td>
+                    <select disabled name='activeYN' class='disabledDrop'>
+                        <option value='1'>Yes</option>
+                        <option
+END;
+            if ($currActiveYN === 'no') $string .= " selected ";
+            $string .= <<<END
+
+                         value='0'>No</option>
+                    </select>
+                </td>
+                <td>
+                    <i id='notiEditButton' onclick="dropDownModify(this,'noti');" class='fas fa-pencil-alt'></i>
+                    <button class="hidden" id='notiSaveEditButton' type= "submit" name="modifyNoti" value="modifyNoti"><i class="fas fa-save"></i></button>
+                </td>
+                <td>
+                    <button type="submit" name= "deleteNoti" value="deleteNoti"><i class="fas fa-trash-alt"></i></button>
+                </td>
             </tr>
 
             <tr class='spacer'><td></td></tr>
 
-            <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
-            <!-- JQUERY Animate function does not work on TR so eventually we might want to convert this to a ul? -->
-            <tr id = "row-{$nextRowCount}" class='un-collapsed'>
-                <td colspan='3' class='leftUnCollapsed'>
+            <tr class='un-collapsed'>
+                <td colspan='5' class='full'>
                     <h2>Body</h2>
-                    <span>{$currBody}</span>
-                </td>
-                <td colspan='2' class='rightUnCollapsed'>
+                    <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
                     <h2>Attachment</h2>
-                    <!-- Make this 'fas fa-file-upload' with blue color, if no file exists and text saying 'No attachment' Create functionality for upload -->
                     <i class="fas fa-times-circle"></i><span>{$currAttachment}</span>
 
                     <h2>User Ack. Report</h2>
@@ -275,16 +288,132 @@ class business_layer{
                 </td>
             </tr>
             <tr class='spacer'><td></td></tr>
+        </form>
 END;
         $rowCount++;
         $nextRowCount++;
         }
 
         return $string;
-        //var_dump($notificationArray);
+    }
+
+    function createUserTable($allUserArray){
+        //$phone,$fName,$lName,$tempPassYN,$password, $email, $deptID, $authID, $userID, $activeYN
+        $string = '';
+        foreach ($allUserArray as $thisUserArray) {
+            $currID = $thisUserArray['userID'];
+            $currFName = $thisUserArray['fName'];
+            $currLName = $thisUserArray['lName'];
+            $currActiveYN = $thisUserArray['activeYN'];
+            $currEmail = $thisUserArray['email'];
+            $currDeptID = $thisUserArray['deptID'];
+            $currAuthID = $thisUserArray['authID'];
+            $currPhone = $thisUserArray['phone'];
+
+            $string .= <<<END
+            <form class="" action="adminAction.php?id={$currID}" method="post">
+                <tr class='collapsed'>
+                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
+                    <td><input type="text" name="fName" disabled value="{$currFName}"></td>
+                    <td><input type="text" name="lName" disabled value="{$currLName}"></td>
+                    <td>
+                        <i id='empEditButton' onclick="dropDownModify(this,'emp');" class='fas fa-pencil-alt'></i>
+                        <button class="hidden" id='empSaveEditButton' type= "submit" name="modifyEmp" value="modifyEmp"><i class="fas fa-save" onclick=''></i></button>
+                    </td>
+                    <td>
+                        <button type="submit" name= "deleteEmp" value="deleteEmp"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+
+                <tr class='spacer'><td></td></tr>
+
+                <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
+
+                <tr class='un-collapsed'>
+                    <td colspan='3' class='leftUnCollapsed'>
+                        <h2>Active</h2>
+                        <select disabled name='activeYN' class='disabledDrop'>
+                            <option value=1>Yes</option>
+                            <option
+END;
+            if (!$currActiveYN) $string .= " selected ";
+            $string .= <<<END
+                        value=0>No</option>
+
+                        </select>
+
+                        <h2>Department</h2>
+                        <select disabled name='deptID' class='disabledDrop'>
+                            <option
+END;
+            if ($currDeptID == 1) $string .= " selected ";
+            $string .= <<<END
+                            value=1>HR</option>
+                            <option
+END;
+            if ($currDeptID == 2) $string .= " selected ";
+            $string .= <<<END
+                            value=2>Admin</option>
+                            <option
+END;
+            if ($currDeptID == 3) $string .= " selected ";
+            $string .= <<<END
+                            value=3>Sales</option>
+                            <option
+END;
+            if ($currDeptID == 4) $string .= " selected ";
+            $string .= <<<END
+                            value=4>Production</option>
+                            <option
+END;
+            if ($currDeptID == 5) $string .= " selected ";
+            $string .= <<<END
+                            value=5>Operations</option>
+                            <option
+END;
+            if ($currDeptID == 6) $string .= " selected ";
+            $string .= <<<END
+                            value=6>Food and Beverage</option>
+                            <option
+END;
+            if ($currDeptID == 7) $string .= " selected ";
+            $string .= <<<END
+                            value=7>Garage</option>
+                        </select>
+
+                        <h2>Email</h2>
+                        <input type="text" name="email" class='email' disabled value="{$currEmail}">
+                    </td>
+                    <td colspan='2' class='rightUnCollapsed'>
+                        <h2>Authorization</h2>
+                        <select disabled name='authID' class='disabledDrop fullWidth'>
+                            <option
+END;
+            if ($currAuthID == 2) $string .= " selected ";
+            $string .= <<<END
+                            value=2>Employee</option>
+                            <option
+END;
+            if ($currAuthID == 3) $string .= " selected ";
+            $string .= <<<END
+                            value=3>Depart. Head</option>
+                            <option
+END;
+            if ($currAuthID == 4) $string .= " selected ";
+            $string .= <<<END
+                            value=4>Administrator</option>
+                        </select>
+
+                        <h2>Phone Number</h2>
+                        <input type="text" name="phone" disabled value="{$currPhone}">
+                    </td>
+                </tr>
+            </form>
+END;
+        }
+
+        return $string;
     }
 
 
 }
-
-?>
