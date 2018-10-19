@@ -377,19 +377,16 @@ $bizLayer = new business_layer();
                 </tr>
                 <tr class='spacer'><td></td></tr>
                 <tr class='un-collapsed'>
-                    <td colspan="2">
-                        <span>Authorization Level: </span>
-
-                        <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='auth' name='pendingAuthID' required="required">
-                                <option selected value="2">Employee</option>
-                                <option value="3">Department Head</option>
-                                <option value="4">Administrator</option>
-                            </select>
-                            <i class='fas fa-users' aria-hidden='true'></i>
-                        </div>
+                    <td colspan="5">
+                        <h2>Authorization Level</h2>
+                        <select name='department' id='authLevel'>
+                            <option value=1>Employee</option>
+                            <option value=2>Department Head</option>
+                            <option value=3>Admin</option>
+                        </select>
                     </td>
                 </tr>
+                <tr class='spacer'><td></td></tr>
             </form>
 
             <!-- Spacer puts padding in-between table rows -->
@@ -399,17 +396,6 @@ $bizLayer = new business_layer();
                 <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                 <td>Mason</td>
                 <td>Santora</td>
-                <td>
-                    <span>Authorization Level: </span>
-                    <div class='inputWithIcon'>
-                        <select class='block inputWithIcon' id='auth' name='authID' required="required">
-                            <option value="2">Employee</option>
-                            <option value="3">Department Head</option>
-                            <option value="4">Administrator</option>
-                        </select>
-                        <i class='fas fa-users' aria-hidden='true'></i>
-                    </div>
-                </td>
                 <td>
                     <button type="submit" name= "confirmPendEmp" value="confirmPendEmp"><i class="fas fa-check-circle"></i></button>
                 </td>
