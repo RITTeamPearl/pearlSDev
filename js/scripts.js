@@ -146,26 +146,38 @@ function resizeTextArea(id) {
 
 //Handles file upload in Admin Console
 function initCsvListener() {
-
-    console.log("Starting");
-    //console.log("clicked on "+ String($(ele)[0]));
-
+    //make button open file upload
     $("#csvFileUploadButton").click(function() {
-        console.log("Clicked this: ");
-        console.log(String($('#fileUpload')[0]));
         $('#fileUpload').trigger('click');
-
     });
 
+    //update view to show selected file like file input
     $("#fileUpload").on('change', function() {
-        console.log("Updating span");
-        var val = $(this).val();
+        var val = $(this).val().split('\\').pop();//get the last one (file name)
         if(val.length > 0) {
            $(this).siblings('span').text(val);
         } else {
             $(this).siblings('span').text('No file selected');
         }
     });
+}
 
-    console.log("Done");
+function setNavBar(){
+    var url = window.location.href;
+    if (url.indexOf('#') > -1) {
+        var page = url.split("#").pop();
+        if (page == "e"){
+            $("#employee_Button").trigger('onclick');
+        }
+        else if (page == "p"){
+            $("#pending_Button").trigger('onclick');
+        }
+        else if (page == "c"){
+            $("#compare_Button").trigger('onclick');
+        }
+        else if (page == "n"){
+            $("#news_Button").trigger('onclick');
+        }
+
+    }
 }

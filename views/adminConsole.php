@@ -18,7 +18,7 @@ $bizLayer = new business_layer();
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='adminConsole' onload="resizeTextArea(bodyContent);initCsvListener();">
+<body id='adminConsole' onload="setNavBar();resizeTextArea(bodyContent);initCsvListener();">
     <!-- Header -->
     <div class='header'>
         <h1 id='title' class='centered'>Administrator Console</h1>
@@ -31,10 +31,10 @@ $bizLayer = new business_layer();
              3. Currently displayed section navigation title should be active
              4. Disable Compare on mobile, Enable on desktop
         -->
-        <li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News(13)</li>
-        <li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees(231)</li>
-        <li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending(3)</li>
-        <li onclick="updateAdminView(this)" id="compare_Button" class='inline'>Compare Employee Lists</li>
+            <a href="#n"><li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News(13)</li></a>
+            <a href="#e"><li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees(231)</li></a>
+            <a href="#p"><li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending(3)</li></a>
+            <a href="#c"><li onclick="updateAdminView(this)" id="compare_Button" class='inline'>Compare Employee Lists</li></a>
         <hr>
     </ul>
 
@@ -429,11 +429,21 @@ $bizLayer = new business_layer();
     <section id='compare'>
         <div class='centered'>
             <h2 class='title'>Upload CSV file to compare Active Employee List<br>with the Payroll Employee List</h2>
+                <form class="" action="adminAction.php" method="post" enctype="multipart/form-data">
+                    <div class='uploadContainer'>
+                        <!--
+                            this uses the javascript, but it doesnt pass any data when it submits.
+                        <i class='fas fa-upload' id="csvFileUploadButton"></i><span class='fileName' accept='.csv'>No file selected</span>
+                        <input type='file' id='fileUpload' class='hidden'>
+                        -->
+                        <div class='inputWithIcon addAttachment'>
+                            <input class='block' type='file' name='attachment'/>
+                            <i class="fas fa-file-upload" aria-hidden='true'></i>
+                        </div>
 
-            <div class='uploadContainer'>
-                <i class='fas fa-upload' id="csvFileUploadButton" onclick="fileUploadClick(this)"></i><span class='fileName' accept='.csv'>No file selected</span>
-                <input type='file' id='fileUpload' class='hidden'>
-            </div>
+                        <button id='csvUpload' type="submit" name="csvUpload" value="csvUpload">Submit</button>
+                    </div>
+                </form>
 
             <h2 class='title hidden' id='csvSuccess'>No discrepencies found</h2>
 

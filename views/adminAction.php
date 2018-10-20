@@ -10,7 +10,7 @@ $dataLayer = new data_layer();
 if (isset($_POST['sendNoti'])){
     //business layer stuff to deal with the attachment ($_FILES)
     if (isset($_FILES['attachment']) && $_FILES['attachment']['size'] > 0 ){
-        if ($businessLayer->uploadFile($_FILES['attachment'])){
+        if ($businessLayer->uploadFile($_FILES['attachment'],'noti')){
             //file successfully uploaded
             //set the post var for the attachment. This will be the path to the uploaded file
             //Putting it in POST will upload it to the DB
@@ -23,19 +23,19 @@ if (isset($_POST['sendNoti'])){
     }
     //business layer stuff to ACTUALLY SEND THE NOTIFICATION
     $dataLayer->createNotification($_POST);
-    header("Location: adminConsole.php#noti");
+    header("Location: adminConsole.php?#n");
 
 }
 //Delete notification button was clicked
 if (isset($_POST['deleteNoti'])) {
     $dataLayer->deleteNotification($_GET['id']);
-    header("Location: adminConsole.php#noti");
+    header("Location: adminConsole.php?#n");
 }
 
 //Delete notification button was clicked
 if (isset($_POST['modifyNoti'])) {
     $dataLayer->updateNotification($_GET['id'],$_POST);
-    header("Location: adminConsole.php#noti");
+    header("Location: adminConsole.php?p=n");
 }
 
 //add new employee button was clicked
@@ -46,14 +46,14 @@ if (isset($_POST['addEmp'])){
     //pass in 1 becaue it is a temp pass.
     //Also pass in the auth value individually to make things easier
     $dataLayer->createNewUser($_POST, 1, $_POST['authID'], $_POST['activeYN']);
-    header("Location: adminConsole.php#emp");
+    header("Location: adminConsole.php?#e");
 
 }
 
 //delete employee button was clicked
 if (isset($_POST['deleteEmp'])) {
     $dataLayer->deleteUser($_GET['id']);
-    header("Location: adminConsole.php#emp");
+    header("Location: adminConsole.php?#e");
     //var_dump($_POST);
 }
 
@@ -63,7 +63,7 @@ if (isset($_POST['modifyEmp'])) {
     //Im going to set it to null for now
     $_POST['modifyEmp'] = null;
     $dataLayer->updateUser($_POST,'userID',$_GET['id']);
-    header("Location: adminConsole.php#emp");
+    header("Location: adminConsole.php?#e");
     //var_dump($_POST);
 }
 
@@ -73,6 +73,8 @@ if(isset($_POST['confirmPendEmp'])){
     //$dataLayer->updateUser(array('authID' => intval($_POST['pendingAuthID']) ),'userID',$_GET['id']);
     echo "Confirm User with authID {$_POST['pendingAuthID']}";
     echo "</br>In progress, go back to admin console via URL";
+    header("Location: adminConsole.php?#p");
+
 }
 
 if(isset($_POST['denyPendEmp'])){
@@ -80,7 +82,36 @@ if(isset($_POST['denyPendEmp'])){
     //$dataLayer->deleteData('user','userID',$_GET['id']);
     echo "Delete user";
     echo "</br>In progress, go back to admin console via URL";
+    header("Location: adminConsole.php?#p");
+}
 
+if(isset($_POST['csvUpload'])){
+    //check if file is set
+    if (isset($_FILES['attachment']) && $_FILES['attachment']['size'] > 0 ){
+        //send file to business layer to upload with callback of csv (for some far checks)
+        if ($businessLayer->uploadFile($_FILES['attachment'], 'csv')){
+            //Parse the file using php to find the differences between that and the DB users
+            $fileTxt = file_get_contents('../assets/uploads/currEmpCSV.csv');
+            $fileLines = explode("\n", $fileTxt);
+            $dataLines = array();
+            foreach ($fileLines as $currLine) {
+                $good = true;
+                //split the line like a csv
+                $currLine = explode(",", $currLine);
+
+                if (count($currLine) != 8)$good = false;
+                //push last name, first name, email, phone
+                if ($good)array_push($dataLines,array($currLine[1],$currLine[2],$currLine[4],$currLine[5]));
+            }
+            echo '<pre>', var_dump($dataLines), '</pre>';
+            //echo "it worked";
+        }
+        else {
+            echo "Error uploading file";
+        }
+
+    }
+    //header("Location: adminConsole.php?#c");
 }
 
 

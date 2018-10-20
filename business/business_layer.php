@@ -60,9 +60,10 @@ class business_layer{
         );
     }
 
-    function uploadFile($fileArray){
+    function uploadFile($fileArray,$callBack){
         //Passed in name of the file with extension
         $name = $fileArray['name'];
+        if ($callBack == 'csv') $name = "currEmpCSV.csv";
         //Temp file stored from upload. Full path
         $tempFile = $fileArray['tmp_name'];
         //targetFile
@@ -74,13 +75,10 @@ class business_layer{
 
         //only go forward if the file type is allowed
             //only go forward if it doesnt exst
-        if( !in_array($type,$notAllowedTypes)){
+        if( !in_array($type,$notAllowedTypes) || ($callBack == 'csv' && $type == 'csv')){
             //if it already exists overwrite it
-            if (!file_exists($targetFile)) {
-                move_uploaded_file($tempFile,$targetFile);
-                return true;
-            }
-
+            move_uploaded_file($tempFile,$targetFile);
+            return true;
         }
         else {
             //Not correct file type
