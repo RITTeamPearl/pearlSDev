@@ -124,7 +124,7 @@ function updateAdminView(ele){
         $("#pending").show();
         $("#compare").hide();
     }
-    
+
     //show compare hide others
     if (whichButton === "compare"){
         $("#news").hide();
@@ -145,27 +145,27 @@ function resizeTextArea(id) {
 }
 
 //Handles file upload in Admin Console
-function fileUploadClick(ele) {
+function initCsvListener() {
 
     console.log("Starting");
-    console.log("clicked on "+ String($(ele)[0]));
-    
-    $(ele).click(function() {
+    //console.log("clicked on "+ String($(ele)[0]));
+
+    $("#csvFileUploadButton").click(function() {
         console.log("Clicked this: ");
         console.log(String($('#fileUpload')[0]));
         $('#fileUpload').trigger('click');
-        
+
     });
-    
+
     $("#fileUpload").on('change', function() {
         console.log("Updating span");
         var val = $(this).val();
         if(val.length > 0) {
-           $(this).siblings('span').text(val); 
+           $(this).siblings('span').text(val);
         } else {
             $(this).siblings('span').text('No file selected');
         }
     });
-    
+
     console.log("Done");
 }

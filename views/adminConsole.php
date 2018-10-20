@@ -18,7 +18,7 @@ $bizLayer = new business_layer();
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='adminConsole' onload="resizeTextArea(bodyContent)">
+<body id='adminConsole' onload="resizeTextArea(bodyContent);initCsvListener();">
     <!-- Header -->
     <div class='header'>
         <h1 id='title' class='centered'>Administrator Console</h1>
@@ -34,7 +34,7 @@ $bizLayer = new business_layer();
         <li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News(13)</li>
         <li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees(231)</li>
         <li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending(3)</li>
-        <li onclick="updateAdminView(this)" id="compare_Button" class='inline hidden'>Compare Employee Lists</li>
+        <li onclick="updateAdminView(this)" id="compare_Button" class='inline'>Compare Employee Lists</li>
         <hr>
     </ul>
 
@@ -431,12 +431,12 @@ $bizLayer = new business_layer();
             <h2 class='title'>Upload CSV file to compare Active Employee List<br>with the Payroll Employee List</h2>
 
             <div class='uploadContainer'>
-                <i class='fas fa-upload' onclick="fileUploadClick(this)"></i><span class='fileName' accept='.csv'>No file selected</span>
+                <i class='fas fa-upload' id="csvFileUploadButton" onclick="fileUploadClick(this)"></i><span class='fileName' accept='.csv'>No file selected</span>
                 <input type='file' id='fileUpload' class='hidden'>
             </div>
 
             <h2 class='title hidden' id='csvSuccess'>No discrepencies found</h2>
-            
+
             <div id='csvFailedListContainer' class='hidden'>
                 <h2 class='title' id='csvFailed'>Discrepencies found</h2>
 
@@ -495,7 +495,7 @@ $bizLayer = new business_layer();
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
     </section>
