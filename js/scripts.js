@@ -147,13 +147,18 @@ function resizeTextArea(id) {
 //Handles file upload in Admin Console
 function fileUploadClick(ele) {
 
+    console.log("Starting");
+    console.log("clicked on "+ String($(ele)[0]));
+    
     $(ele).click(function() {
+        console.log("Clicked this: ");
         console.log(String($('#fileUpload')[0]));
         $('#fileUpload').trigger('click');
         
     });
     
     $("#fileUpload").on('change', function() {
+        console.log("Updating span");
         var val = $(this).val();
         if(val.length > 0) {
            $(this).siblings('span').text(val); 
@@ -161,4 +166,6 @@ function fileUploadClick(ele) {
             $(this).siblings('span').text('No file selected');
         }
     });
+    
+    console.log("Done");
 }

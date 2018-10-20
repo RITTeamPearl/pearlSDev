@@ -34,7 +34,7 @@ $bizLayer = new business_layer();
         <li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News(13)</li>
         <li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees(231)</li>
         <li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending(3)</li>
-        <li onclick="updateAdminView(this)" id="compare_Button" class='inline hidden '>Compare Employee Lists</li>
+        <li onclick="updateAdminView(this)" id="compare_Button" class='inline hidden'>Compare Employee Lists</li>
         <hr>
     </ul>
 
@@ -431,13 +431,72 @@ $bizLayer = new business_layer();
             <h2 class='title'>Upload CSV file to compare Active Employee List<br>with the Payroll Employee List</h2>
 
             <div class='uploadContainer'>
-                <i class='fas fa-upload' onclick="fileUploadClick(this)"></i><span class='fileName'>No file selected</span>
+                <i class='fas fa-upload' onclick="fileUploadClick(this)"></i><span class='fileName' accept='.csv'>No file selected</span>
                 <input type='file' id='fileUpload' class='hidden'>
             </div>
 
+            <h2 class='title hidden' id='csvSuccess'>No discrepencies found</h2>
+            
+            <div id='csvFailedListContainer' class='hidden'>
+                <h2 class='title' id='csvFailed'>Discrepencies found</h2>
 
+                <table>
+                <tr>
+                    <th></th>
+                    <th>First</th>
+                    <th>Last</th>
+                </tr>
+
+                <form class="" action="" method="post">
+                    <tr id = "row-96"class='collapsed'>
+                        <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
+                        <td><input type="text" name="fName" disabled value="Mason"></td>
+                        <td><input type="text" name="lName" disabled value="Santora"></td>
+                    </tr>
+
+                    <tr class='spacer'><td></td></tr>
+
+                    <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
+
+                    <tr id = "row-97" class='un-collapsed'>
+                        <td colspan='2' class='leftUnCollapsed'>
+                            <h2>Active</h2>
+                            <span>Yes</span>
+
+                            <h2>Department</h2>
+                            <span>HR</span>
+
+                            <h2>Email</h2>
+                            <span>masonsantora@gmail.com</span>
+                        </td>
+                        <td colspan='1' class='rightUnCollapsed'>
+                            <h2>Authorization</h2>
+                            <span>Employee</span>
+
+                            <h2>Phone Number</h2>
+                            <span>555-555-5555</span>
+                        </td>
+                    </tr>
+                </form>
+                </table>
+
+                <!-- Pagination -->
+                <div class='pagination block'>
+                    <div class='number inline'>
+                        <span>1-5 of 13</span>
+                    </div>
+
+                    <div class='back inline'>
+                        <i class='fas fa-chevron-left'></i><span>Back</span>
+                    </div>
+
+                    <div class='next inline'>
+                        <span>Next</span><i class='fas fa-chevron-right'></i>
+                    </div>
+                </div>
+            </div>
+            
         </div>
-
 
     </section>
 

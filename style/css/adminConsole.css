@@ -398,6 +398,12 @@ i {
     color: #5b8ec5;
     font-size: 3.125em;
     margin-top: 0.625em; }
+  #adminConsole #compare .fileName {
+    margin-left: 1.25rem; }
+  #adminConsole #compare #csvSuccess, #adminConsole #compare #csvFailed {
+    margin-top: 3.125rem; }
+  #adminConsole #compare table {
+    margin-top: 2.5rem; }
   #adminConsole .footer {
     background-color: #eaeaea; }
 

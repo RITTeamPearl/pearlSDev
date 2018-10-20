@@ -388,6 +388,17 @@
             margin-top: pxToEm(20);
         }
         
+        .fileName {
+            margin-left: pxToRem(40);
+        }
+        
+        #csvSuccess, #csvFailed {
+            margin-top: pxToRem(100);
+        }
+        
+        table {
+            margin-top: pxToRem(80);
+        }
     }
     
     //Footer navigation background
