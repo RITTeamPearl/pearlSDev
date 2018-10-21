@@ -61,7 +61,7 @@ function nextStepTwo(num) {
     );
     // console.log(JSON.stringify(formData));
 
-    // console.log(formData);
+    console.log(formData);
     if (num == 1) {
         formData.push(['pageNumber', num]);
         console.log('starting ajax request');   
@@ -96,7 +96,7 @@ function nextStepTwo(num) {
                 //    $(data[index]['location']).html(data[index]['msg']);
                 //}
                 console.log(data);
-                console.log(JSON.parse(data)[0]['location']);
+                //console.log(JSON.parse(data));
                 //Below may need to be updated. I may not be grabbing the isValidForm
                 //correctly 
                 
@@ -109,12 +109,22 @@ function nextStepTwo(num) {
                     $("#dot2").hide(); 
                     //return;
                 }
+                //lines below prints the error message to the page
                 //loop through data, get location, change the message 
                 //$('#phoneSpan').val('Phone Number is required');
-                var phone = JSON.parse(data)[0]['location'];
-                $(phone).html(JSON.parse(data)[0]['msg']);
-                $(data[0]['location']).html(data[0]['msg']);
 
+                //below 2 lines work (manual)
+                //var phone = JSON.parse(data)[0]['location'];
+                //$(phone).html(JSON.parse(data)[0]['msg']);
+                
+                //below line not working
+                //$(data[0]['location']).html(data[0]['msg']);
+
+                //dynamically shows data on page. Works!
+                $.each(JSON.parse(data), function(i){
+                    var info = JSON.parse(data)[i]['location']
+                    $(info).html(JSON.parse(data)[i]['msg'])
+                });
             }
         });
 

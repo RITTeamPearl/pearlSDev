@@ -4,6 +4,13 @@ require '../vendor/autoload.php';
 use Twilio\Rest\Client;
 use PHPMailer\PHPMailer\PHPMailer;
 
+function test_input($info) {
+    $info = trim($info);
+    $info = stripslashes($info);
+    $info = htmlspecialchars($info);
+    return $info;
+}
+
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
     $busLayer = new business_layer();
 
@@ -106,9 +113,11 @@ class business_layer{
         //return $validatedPOST;
 
         //variables for error message
-        $phoneErr = $pwdErr = $pwdConfirmErr = $fnameErr = $lnameErr = $emailErr = "";
+        $phoneErr = "";
+        //$pwdErr = $pwdConfirmErr = $fnameErr = $lnameErr = $emailErr = "";
         //variables for good user input (val and san checks)
-        $phone = $pwd = $pwdConfirm = $fname = $lname = $email = "";
+        $phone = "";
+        //$pwd = $pwdConfirm = $fname = $lname = $email = "";
         
         //check if form was submitted with POST 
         if($_POST['formSection'] == 'screen1'){
@@ -121,17 +130,25 @@ class business_layer{
                     'location' => '#phoneSpan',
                     'msg' => $phoneErr
                 ]);
-            }
-            else{
-                $phone = test_input($_POST['formData']['phoneNumber']);
-                if(!preg_match("^1?([1-9])(\\d{9})", $phone)){
+            } 
+            //above works
+            else if(isset($_POST['phoneNumber'])){
+                $input = $_POST['phoneNumber'];
+                $phone = test_input($input);
+                //^1?([1-9])(\d{9}) - phone regex
+                //^\d{3}-\d{3}-\d{4}$ - another phone option
+                $pattern = '/^1?([1-9])(\d{9})/';
+                if(!preg_match($pattern, $phone)){
                     $phoneErr = "Invalid phone number";
+                    array_push($formErrors, [
+                        'location' => '#phoneSpan',
+                        'msg' => $phoneErr
+                    ]);
                 }
                 //built in php functions that i think could work as well, if needed
-                $phone = filter_var($_POST['formData']['phoneNumber'],FILTER_SANITIZE_NUMBER_INT);
+                $phone = filter_var($_POST['phoneNumber'],FILTER_SANITIZE_NUMBER_INT);
                 //filter_var($postData['phone'], FILTER_VALIDATE_INT);
             }
-
         }
 
 
@@ -228,12 +245,7 @@ class business_layer{
     }
 
     //test to see if the user input has extra whitespaces, slashes, or special characters. Removes them if so.
-    function test_input($info) {
-        $info = trim($info);
-        $info = stripslashes($info);
-        $info = htmlspecialchars($info);
-        return $info;
-      }
+    
 
     function createNewsTable($notificationArray){
         $string = "";
