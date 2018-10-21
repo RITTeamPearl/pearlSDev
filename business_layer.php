@@ -121,10 +121,26 @@ class business_layer{
         
         //check if form was submitted with POST 
         if($_POST['formSection'] == 'screen1'){
+            //echo $_POST['phoneNumber'];
             //checks for createAcct page
             //check phoneNumber, password, passwordConfirm, fName, lName, and email
             //check phone number
-            if(empty($_POST['formData']['phoneNumber'])){
+
+            //turns $_POST string into usable array called formArrary
+            $formArray = array();
+            $json = $_POST['formData'];
+            $jsonIterator = new RecursiveIteratorIterator(
+                new RecursiveArrayIterator(json_decode($json, TRUE)),
+                RecursiveIteratorIterator::SELF_FIRST);
+            foreach ($jsonIterator as $key => $val) {
+                if(is_array($val)) {
+                    //echo "$key:\n";
+                    $formArray[$val[0]] = $val[1];     
+                } else {                    
+                }
+            }
+
+            if(empty($formArray['phoneNumber'])){
                 $phoneErr = "Phone Number is required";
                 array_push($formErrors, [
                     'location' => '#phoneSpan',
@@ -132,12 +148,13 @@ class business_layer{
                 ]);
             } 
             //above works
-            else if(isset($_POST['phoneNumber'])){
-                $input = $_POST['phoneNumber'];
+
+            else if($formArray['phoneNumber'] != ""){
+                $input = $formArray['phoneNumber'];
                 $phone = test_input($input);
                 //^1?([1-9])(\d{9}) - phone regex
                 //^\d{3}-\d{3}-\d{4}$ - another phone option
-                $pattern = '/^1?([1-9])(\d{9})/';
+                $pattern = '/^\d{3}-\d{3}-\d{4}$/';
                 if(!preg_match($pattern, $phone)){
                     $phoneErr = "Invalid phone number";
                     array_push($formErrors, [
@@ -146,7 +163,7 @@ class business_layer{
                     ]);
                 }
                 //built in php functions that i think could work as well, if needed
-                $phone = filter_var($_POST['phoneNumber'],FILTER_SANITIZE_NUMBER_INT);
+                $phone = filter_var($formArray['phoneNumber'],FILTER_SANITIZE_NUMBER_INT);
                 //filter_var($postData['phone'], FILTER_VALIDATE_INT);
             }
         }
