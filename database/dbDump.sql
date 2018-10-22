@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `rrcc_pearl_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `rrcc_pearl_db`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: rrcc_pearl_db
@@ -105,8 +103,10 @@ CREATE TABLE `notification` (
   `body` varchar(2500) DEFAULT NULL,
   `attachment` varchar(45) DEFAULT NULL,
   `activeYN` tinyint(4) DEFAULT NULL,
+  `webAppYN` tinyint(4) NOT NULL DEFAULT '1',
+  `postDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`notificationID`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +115,7 @@ CREATE TABLE `notification` (
 
 LOCK TABLES `notification` WRITE;
 /*!40000 ALTER TABLE `notification` DISABLE KEYS */;
-INSERT INTO `notification` VALUES (18,'test title','blah','',1);
+INSERT INTO `notification` VALUES (1,'Test Notification','Other important info','assets/uploads/TEST.txt',1,1,'2018-10-22 23:15:22');
 /*!40000 ALTER TABLE `notification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +143,7 @@ CREATE TABLE `user` (
   KEY `user_auth_fk_idx` (`authID`),
   CONSTRAINT `user_auth_fk` FOREIGN KEY (`authID`) REFERENCES `authorization` (`authID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_dept_fk` FOREIGN KEY (`deptID`) REFERENCES `department` (`deptID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,6 +152,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('1234567890','Admin','User',0,'$2y$10$aAX8JshF2.HA6Q2rnUYhJu36J4JIa7wbtYpqcb/0DaEXd1iwCduFW','admin@admin.com',2,1,1,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -164,4 +165,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-14 13:02:48
+-- Dump completed on 2018-10-22 19:17:36

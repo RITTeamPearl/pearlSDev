@@ -21,7 +21,21 @@ if (isset($_POST['sendNoti'])){
         }
 
     }
-    //business layer stuff to ACTUALLY SEND THE NOTIFICATION
+    //business layer email functions
+    //TODO: pass in an array as the first param to email to multiple people.
+    if (isset($_POST['emailCheck'])){
+        //if it has an attachment add it to the email params
+        if (isset($_POST['attachment'])) $businessLayer->sendEmail("emailToSendTo@email.com",$_POST['title'],$_POST['body'],$_POST['attachment']);
+        //if not just send the title and body
+        else $businessLayer->sendEmail("emailToSendTo@email.com",$_POST['title'],$_POST['body']);
+    }
+    if (isset($_POST['phoneCheck'])){
+        $fullText = "\n".$_POST['title']."\n\n".$_POST['body'];
+        //$businessLayer->sendText($fullText);
+    }
+
+    //if webAppCheck is set make the post val = 1;
+    $_POST['webAppYN'] = isset($_POST['webAppCheck']) ? (1) : (0);
     $dataLayer->createNotification($_POST);
     header("Location: adminConsole.php?#n");
 

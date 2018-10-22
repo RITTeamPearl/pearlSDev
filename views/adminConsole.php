@@ -132,11 +132,11 @@ $bizLayer = new business_layer();
                         </div>
                         <h2>Notify</h2>
                         <div class='checkBox'>
-                            <input id='cbPhone' type='checkbox'>
+                            <input name= 'phoneCheck' id='cbPhone' type='checkbox'>
                             <label for='cbPhone' class='checkBoxContainer'>Phone</label>
-                            <input id='cbEmail' type='checkbox'>
+                            <input name='emailCheck' id='cbEmail' type='checkbox'>
                             <label for='cbEmail' class='checkBoxContainer'>Email</label>
-                            <input id='cbWebApp' type='checkbox'>
+                            <input name ='webAppCheck' id='cbWebApp' type='checkbox' checked>
                             <label for='cbWebApp' class='checkBoxContainer'>Web App</label>
                         </div>
                         <input type="submit" class='block addSubmit inputNoIcon' name="sendNoti" value="Send Notification">

@@ -5,7 +5,7 @@ use Twilio\Rest\Client;
 use PHPMailer\PHPMailer\PHPMailer;
 class business_layer{
 
-    function sendEmail($address,$subject, $body){
+    function sendEmail($address,$subject, $body, $attachmentPath=0){
         //need to set time for smtp purposes
         date_default_timezone_set('America/New_York');
 
@@ -29,7 +29,11 @@ class business_layer{
             $mail->Subject = $subject;
             $mail->Body = $body;
             $mail->IsHTML(true);
-
+            //add the attachment
+            if ($attachmentPath){
+                //make db path relative using ../
+                $mail->addAttachment("../".$attachmentPath);
+            }
             //Send it
             $mail->send();
             return true;
@@ -41,7 +45,7 @@ class business_layer{
         }
     }
 
-    function sendText(){
+    function sendText($text){
         // Twilio credentials
         $account_sid = $_SERVER['TWILIO_SID'];
         $auth_token = $_SERVER['TWILIO_TOKEN'];
@@ -55,7 +59,7 @@ class business_layer{
             '+15856455810',//should be a passed in $phoneNumber but free version doesnt allow it.
             array(
                 'from' => $twilio_number,
-                'body' => 'It Works!'
+                'body' => $text
             )
         );
     }
