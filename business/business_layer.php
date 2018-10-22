@@ -301,5 +301,49 @@ END;
         return $string;
     }
 
+    function createPendingUserTable($allUserArray){
+        $string = '';
+        foreach ($allUserArray as $thisUserArray) {
+            $currID = $thisUserArray['userID'];
+            $currFName = $thisUserArray['fName'];
+            $currLName = $thisUserArray['lName'];
+            $currActiveYN = $thisUserArray['activeYN'];
+            $currEmail = $thisUserArray['email'];
+            $currDeptID = $thisUserArray['deptID'];
+            $currAuthID = $thisUserArray['authID'];
+            $currPhone = $thisUserArray['phone'];
 
+            $string .= <<<END
+            <form class="" action="adminAction.php?id={$currID}" method="post">
+                <tr class='collapsed'>
+                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
+                    <td>{$currFName}</td>
+                    <td>{$currLName}</td>
+                    <td>
+                        <button type="submit" name= "confirmPendEmp" value="confirmPendEmp"><i class="fas fa-check-circle"></i></button>
+                    </td>
+                    <td>
+                        <button type="submit" name= "denyPendEmp" value="denyPendEmp"><i class="fas fa-minus-circle"></i></button>
+                    </td>
+                </tr>
+
+                <tr class='spacer'><td></td></tr>
+                <tr class='un-collapsed'>
+                    <td colspan="5">
+                        <h2>Authorization Level</h2>
+                        <select name='pendingAuthID' id='authLevel'>
+                            <option value=2>Employee</option>
+                            <option value=3>Department Head</option>
+                            <option value=4>Admin</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class='spacer'><td></td></tr>
+            </form>
+END;
+        }
+
+        return $string;
+
+    }
 }

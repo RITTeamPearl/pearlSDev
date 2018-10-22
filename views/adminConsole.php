@@ -360,6 +360,10 @@ $bizLayer = new business_layer();
                 <th>Action</th>
             </tr>
 
+            <?php
+            //getData($table, $fields, $idField="" ,$id= 0)
+            echo $bizLayer->createPendingUserTable($dataLayer->getData('user',array('*'),'authID',1));
+            ?>
             <!-- Begin PHP Iterative process to dynamically create employees -->
             <form class="" action="adminAction.php?id=1" method="post">
 
