@@ -517,7 +517,7 @@ $bizLayer = new business_layer();
         <ul class='iconContainer'>
             <li class='inline'><a href="news.php"><i class="fas fa-newspaper"></i></a></li>
             <li class='inline'><i class="fas fa-video"></i></li>
-            <li class='inline'><i class="fas fa-user"></i></li>
+            <li class='inline'><a href="profile.php"><i class="fas fa-user"></i></a></li>
             <li class='inline'><i class="fas fa-bell"></i></li>
             <li class='inline active'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
         </ul>

@@ -1,0 +1,41 @@
+// ------- Styling specifically for Profile Page -------
+
+//Import global styling
+@import 'styles';
+@import 'createAcct';
+
+#profilePage {
+    background-color: #eaeaea;
+    
+    .container {
+        padding-bottom: pxToRem(140);
+    }
+    
+    h1, h2 {
+        color: black !important;
+    }
+    
+    .subtitle {
+        padding: 0 pxToRem(40);
+    }
+    
+    #screenIdentifier {
+        color: $blue;
+        
+        .whiteLine {
+            background-color: $blue !important;
+        }
+    }
+    
+    .logoutContainer {
+        padding: 0 pxToRem(120);
+        width: auto;
+        
+        #logout {
+            background-color: $red;
+            height: pxToRem(90);
+            margin-top: pxToRem(60);
+            width: 100%;
+        } 
+    }
+}
