@@ -56,10 +56,7 @@ if (isset($_POST['modifyNoti'])) {
     header("Location: adminConsole.php?p=n");
 }
 if (isset($_POST['removeNotiAttachment'])) {
-    //$dataLayer->updateNotification($_GET['id'],$array('attachment' => ""););
-    //$dataLayer->updateNotification($_GET['id'],$array['attachment'] = ""););
-    //echo $_GET['id'];
-    //$dataLayer->removeNotiAttachment($_GET['id']);
+    $dataLayer->removeNotiAttachment($_GET['id']);
     header("Location: adminConsole.php?p=n");
 }
 

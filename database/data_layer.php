@@ -94,36 +94,11 @@ class data_layer{
     }
 
     function removeNotiAttachment($notificationID){
-        // try {
-        //     if ($stmt = $this->connection->prepare("UPDATE notification SET attachment = ? WHERE notificationID = ?")){
-        //         echo "here";
-        //         $stmt->bind_param("si","asd",$notificationID);
-        //         $stmt->execute();
-        //         $stmt->store_result();
-        //         if ($stmt->num_rows > 0){
-        //             echo "it works";
-        //             return true;
-        //         }
-        //     }
-        //
-        // } catch (\Exception $e) {
-        //     echo $stmt->error;
-        //     echo "$e";
-        // }
-
-        // if ($stmt = $this->connection->prepare("UPDATE notification SET attachment = ? WHERE notificationID = ?")){
-        //     $stmt->bind_param("si","",intval($notificationID));
-        //     $stmt->execute();
-        //     $stmt->store_result();
-        //     if ($stmt->num_rows > 0){
-        //         echo "it works";
-        //         return true;
-        //     }
-        // }
-        // else {
-        //     echo $stmt->error;
-        // }
-        return false;
+        if ($stmt = $this->connection->prepare("UPDATE notification SET attachment = '' WHERE notificationID in (?)")){
+            $stmt->bind_param("i", $notificationID);
+            $stmt->execute();
+            //echo $stmt->affected_rows . " rows deleted";
+        }
     }
 
     function deleteNotification($id){
