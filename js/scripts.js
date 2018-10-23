@@ -58,7 +58,7 @@ function dropDownToggle(ele){
         $(ele).removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
         $(nextRow).removeClass('un-collapsed').addClass('collapsed').hide();
     }
-    
+
     //resizeTextArea(thisRow.find('#bodyContent'));
 }
 
@@ -170,12 +170,17 @@ function initCsvListener() {
 function setNavBar(){
     var numNotifications = (($("#news").find('tr')).length-4)/4;
     $("#news_Button").html('News('+numNotifications+")");
+    $("#news").find(".pagination").find('div.number').html(numNotifications ? ("1-"+numNotifications+" out of " + numNotifications) : ("None"));
 
     var numEmps = (($("#employees").find('tr')).length-4)/3;
     $("#employee_Button").html('Employees('+numEmps+")");
+    $("#employees").find(".pagination").find('div.number').html(numEmps ? ("1-"+numEmps+" out of " + numEmps) : ("None"));
+
 
     var numPendEmps = (($("#pending").find('tr')).length-1)/4;
     $("#pending_Button").html('Pending('+numPendEmps+")");
+    $("#pending").find(".pagination").find('div.number').html(numPendEmps ? ("1-"+numPendEmps+" out of " + numPendEmps) : ("None"));
+
 
     if (screen.width < 700){
         $("#compare_Button").hide();
