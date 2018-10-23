@@ -7,6 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 class business_layer{
 
     function sendEmail($address,$subject, $body, $attachmentPath=0){
+
         //need to set time for smtp purposes
         date_default_timezone_set('America/New_York');
 
@@ -444,7 +445,7 @@ END;
         $days = $dateStamp->diff($now)->format("%d");
         $hours = $dateStamp->diff($now)->format("%h");
         $mins = $dateStamp->diff($now)->format("%m");
-        
+
         //less than an hour use mins
         if (intval($hours) < 1){
             $timesig = $mins."m ago";

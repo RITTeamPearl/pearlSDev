@@ -102,7 +102,11 @@ if (isset($_POST['logout'])) {
             <li class='inline'><i class="fas fa-video"></i></li>
             <li class='inline active'><a href="profile.php"><i class="fas fa-user"></i></a></li>
             <li class='inline'><i class="fas fa-bell"></i></li>
-            <li class='inline'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
+            <?php
+            if ($_SESSION['authID'] == 4) {
+                echo '<li class="inline"><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>';
+            }
+             ?>
         </ul>
     </div>
 

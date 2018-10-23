@@ -22,13 +22,16 @@ if (isset($_POST['sendNoti'])){
         }
 
     }
-    //business layer email functions
-    //TODO: pass in an array as the first param to email to multiple people.
     if (isset($_POST['emailCheck'])){
-        //if it has an attachment add it to the email params
-        if (isset($_POST['attachment'])) $businessLayer->sendEmail("emailToSendTo@email.com",$_POST['title'],$_POST['body'],$_POST['attachment']);
-        //if not just send the title and body
-        else $businessLayer->sendEmail("emailToSendTo@email.com",$_POST['title'],$_POST['body']);
+        //business layer email functions
+        //loop through each email in the DB to send
+        foreach ($dataLayer->getData('user', array('email')) as $key => $value) {
+            $currEmail = $value['email'];
+            //if it has an attachment send that
+            if (isset($_POST['attachment'])) $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body'],$_POST['attachment']);
+            //No attachment just send title and body
+            else $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body']);
+        }
     }
     if (isset($_POST['phoneCheck'])){
         $fullText = "\n".$_POST['title']."\n\n".$_POST['body'];
