@@ -60,7 +60,7 @@ $bizLayer = new business_layer();
             <!-- Begin PHP Iterative process to dynamically create News -->
 
             <?php
-                echo $bizLayer->createNewsTable($dataLayer->getAllNotifcations())
+                echo $bizLayer->createNewsTable(array_reverse($dataLayer->getAllNotifcations()));
              ?>
 
 
@@ -517,9 +517,9 @@ $bizLayer = new business_layer();
     <!-- Footer -->
     <div class='footer block'>
         <ul class='iconContainer'>
-            <li class='inline'><i class="fas fa-newspaper"></i></li>
+            <li class='inline'><a href="news.php"><i class="fas fa-newspaper"></i></a></li>
             <li class='inline'><i class="fas fa-video"></i></li>
-            <li class='inline'><i class="fas fa-user"></i></li>
+            <li class='inline'><a href="adminConsole.php"><i class="fas fa-user"></i></a></li>
             <li class='inline'><i class="fas fa-bell"></i></li>
             <li class='inline'><i class="fas fa-toolbox"></i></li>
         </ul>

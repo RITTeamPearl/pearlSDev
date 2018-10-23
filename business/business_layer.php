@@ -346,4 +346,71 @@ END;
         return $string;
 
     }
+
+    function createLandingNewsTable($notificationArray){
+        $string = "";
+        foreach ($notificationArray as $currNotiArray) {
+
+            $currNotiID = $currNotiArray['notificationID'];
+            $currTitle = $currNotiArray['title'];
+            $currBody = $currNotiArray['body'];
+            $timeStamp = $currNotiArray['time'];
+            $webAppYN = $currNotiArray['webAppYN'];
+
+            $dateStamp = new DateTime($timeStamp);
+            $now = new DateTime();
+
+            $days = $dateStamp->diff($now)->format("%d");
+            $hours = $dateStamp->diff($now)->format("%h");
+            $mins = $dateStamp->diff($now)->format("%m");
+            if (intval($hours) < 1){
+                $timesig = $mins."m ago";
+            }
+            if (intval($days) < 1) {
+                //display using hours
+                $timesig = $hours."h ago";
+            }
+            if (intval($days) >= 1 && intval($days) >= 6) {
+                //display using days
+                $timesig = $days."d ago";
+            }
+            if (intval($days) >= 7){
+                //display using weeks
+                $timesig = ($days%7)."w ago";
+
+            }
+
+            $imgNum = rand(1,4);
+            if($webAppYN){
+                $string .= <<<END
+                    <div class='notifContainer' id='{$currNotiID}'>
+                        <div class='overlay'>
+                            <img src='../assets/images/{$imgNum}.jpg'>
+                        </div>
+
+                        <h2 class='title'>{$currTitle}</h2>
+
+                        <div class='subtitle block'>
+                            <div class='posted inline'>
+                                <i class="far fa-clock"></i>
+                                <span class='inline'>{$timesig}</span>
+                            </div>
+                            <a class='inline' href=''>read more</a>
+                        </div>
+
+                        <!-- Admin Feature only -->
+                        <button type='button' class='button hidden'><i class="far fa-edit"></i></button>
+
+                        <div class='buttonOptions hidden'>
+                            <ul class='spaced'>
+                                <li>Modify<i class='fas fa-pencil-alt'></i></li>
+                                <li>Delete<i class="fas fa-trash-alt"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+END;
+            }
+        }
+        return $string;
+    }
 }

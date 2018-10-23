@@ -1,5 +1,9 @@
 <?php
 session_start();
+require_once '../database/data_layer.php';
+require_once '../business/business_layer.php';
+$dataLayer = new data_layer();
+$bizLayer = new business_layer();
  ?>
 
 <!DOCTYPE html>
@@ -16,6 +20,10 @@ session_start();
 
     <!-- News -->
     <div class='bodyContainer'>
+        <?php
+        echo $bizLayer->createLandingNewsTable($dataLayer->getAllNotifcations());
+
+        ?>
         <div class='notifContainer' id='1'>
             <div class='overlay'>
                 <img src='../assets/images/1.jpg'>
@@ -75,7 +83,7 @@ session_start();
             <ul class='iconContainer'>
                 <li class='inline'><i class="fas fa-newspaper"></i></li>
                 <li class='inline'><i class="fas fa-video"></i></li>
-                <li class='inline'><i class="fas fa-user"></i></li>
+                <li class='inline'><a href="adminConsole.php"><i class="fas fa-user"></i></a></li>
                 <li class='inline'><i class="fas fa-bell"></i></li>
                 <li class='inline'><i class="fas fa-toolbox"></i></li>
             </ul>
