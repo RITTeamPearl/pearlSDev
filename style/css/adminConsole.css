@@ -156,6 +156,7 @@ i {
   position: absolute;
   bottom: 0;
   width: 100%;
+  background-color: white;
   /*
   ul:after {
       content: '';
@@ -173,7 +174,7 @@ i {
   .footer i {
     color: #333333;
     font-size: 1.625em; }
-  .footer .active {
+  .footer .active i {
     color: #5b8ec5; }
 
 #adminConsole {
@@ -368,6 +369,8 @@ i {
           background-color: #2ac656;
           color: white;
           font-size: 1em; }
+      #adminConsole table .un-collapsed #authLevel {
+        margin-bottom: 0.9375rem; }
     #adminConsole table .spacer {
       height: 0.3125rem; }
   #adminConsole .pagination {
@@ -396,6 +399,12 @@ i {
     color: #5b8ec5;
     font-size: 3.125em;
     margin-top: 0.625em; }
+  #adminConsole #compare .fileName {
+    margin-left: 1.25rem; }
+  #adminConsole #compare #csvSuccess, #adminConsole #compare #csvFailed {
+    margin-top: 3.125rem; }
+  #adminConsole #compare table {
+    margin-top: 2.5rem; }
   #adminConsole .footer {
     background-color: #eaeaea; }
 

@@ -223,6 +223,7 @@ i {
     position: absolute;
     bottom: 0;
     width: 100%;
+    background-color: white;
     
     ul {
         padding: 0;
@@ -246,6 +247,8 @@ i {
     }
     
     .active {
-        color: $blue;
+        i {
+            color: $blue;
+        }
     }
 }

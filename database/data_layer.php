@@ -62,11 +62,11 @@ class data_layer{
         if ($stmt = $this->connection->prepare("select * from notification")){
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($notificationID,$title,$body,$attachment,$active);
+            $stmt->bind_result($notificationID,$title,$body,$attachment,$active,$webAppYN,$timestamp);
             $returnArray = array();
             while ($stmt->fetch()) {
                 $currRowArray = array('notificationID' => $notificationID, 'title' => $title,
-                'body'=> $body, 'attachment'=> $attachment, 'active'=>$active);
+                'body'=> $body, 'attachment'=> $attachment, 'active'=>$active,'webAppYN'=>$webAppYN,'time'=>$timestamp);
                 array_push($returnArray,$currRowArray);
             }
             return $returnArray;
@@ -74,8 +74,8 @@ class data_layer{
     }
 
     function createNotification($postData){
-        if ($stmt = $this->connection->prepare("INSERT INTO notification (title,body,attachment,activeYN) VALUES (?,?,?,1)")){
-            $stmt->bind_param("sss", $postData['title'], $postData['body'], $postData['attachment']);
+        if ($stmt = $this->connection->prepare("INSERT INTO notification (title,body,attachment,activeYN,webAppYN) VALUES (?,?,?,1,?)")){
+            $stmt->bind_param("sssi", $postData['title'], $postData['body'], $postData['attachment'],intval($postData['webAppYN']));
             $stmt->execute();
             //echo $stmt->affected_rows . " rows inserted";
         }
@@ -90,6 +90,39 @@ class data_layer{
                 return true;
             }
         }
+        return false;
+    }
+
+    function removeNotiAttachment($notificationID){
+        // try {
+        //     if ($stmt = $this->connection->prepare("UPDATE notification SET attachment = ? WHERE notificationID = ?")){
+        //         echo "here";
+        //         $stmt->bind_param("si","asd",$notificationID);
+        //         $stmt->execute();
+        //         $stmt->store_result();
+        //         if ($stmt->num_rows > 0){
+        //             echo "it works";
+        //             return true;
+        //         }
+        //     }
+        //
+        // } catch (\Exception $e) {
+        //     echo $stmt->error;
+        //     echo "$e";
+        // }
+
+        // if ($stmt = $this->connection->prepare("UPDATE notification SET attachment = ? WHERE notificationID = ?")){
+        //     $stmt->bind_param("si","",intval($notificationID));
+        //     $stmt->execute();
+        //     $stmt->store_result();
+        //     if ($stmt->num_rows > 0){
+        //         echo "it works";
+        //         return true;
+        //     }
+        // }
+        // else {
+        //     echo $stmt->error;
+        // }
         return false;
     }
 

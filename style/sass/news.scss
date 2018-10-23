@@ -1,0 +1,114 @@
+// ------- Styling specifically for News Page -------
+
+//Import global styling
+@import 'styles';
+
+#newsPage {
+    
+    //Container for all content
+    .bodyContainer {
+        padding-bottom: pxToRem(53);
+    }
+    
+    //Container of a notification
+    .notifContainer {
+        width: 100%;
+        height: pxToRem(560);
+        position: relative;
+        margin-bottom: pxToRem(40);
+        
+        //Black overlay of image
+        .overlay {
+            background-color: black;
+            width: inherit;
+            height: inherit; 
+        }
+        
+        //background image
+        img {
+            height: 100%;
+            opacity: 0.7;
+        }
+        
+        .title {
+            color: white;
+            position: absolute;
+            bottom: pxToRem(80);
+            font-size: ptToEm(20);
+            padding: 0 pxToRem(60);
+        }
+        
+        .subtitle {
+            position: absolute;
+            bottom: pxToRem(40);
+            font-size: ptToEm(14);
+            color: white;
+            padding: 0 pxToRem(60);
+            font-family: $lighterFont;
+            width: 45%;
+            
+            i {
+                margin-right: pxToRem(10);
+            }
+            
+            a {
+                color: white;
+                float: right;
+            }
+        }
+        
+        //admin only edit button
+        .button {
+            position: absolute;
+            color: white;
+            top: pxToRem(50);
+            right: pxToRem(50);
+            font-size: ptToEm(18);
+        }
+        
+        //admin only edit menu
+        .buttonOptions {
+            background-color: white;
+            position: absolute;
+            top: pxToRem(60);
+            right: pxToRem(150);
+            font-size: ptToEm(14);
+            width: pxToRem(170);
+            height: pxToRem(140);
+            
+            ul {
+                padding: 0;
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                margin: 0;
+                height: 100%;
+            }
+            
+            li {
+                height: 50%;
+                display: flex;
+                align-items: center;
+                position: relative;
+                padding: 0 pxToRem(10);
+            }
+            
+            li:hover {
+                background-color: #b2c9d8;
+            }
+               
+            .fa-pencil-alt {
+                color: $blue;
+                right: 5px;
+                position: absolute;
+            }
+            
+            .fa-trash-alt {
+                color: $red;
+                right: 7px;
+                position: absolute;
+            }
+        }
+    }
+}

@@ -1,11 +1,13 @@
 <?php
+session_start();
 require '../vendor/autoload.php';
 //require '../database/data_layer.php';
 use Twilio\Rest\Client;
 use PHPMailer\PHPMailer\PHPMailer;
 class business_layer{
 
-    function sendEmail($address,$subject, $body){
+    function sendEmail($address,$subject, $body, $attachmentPath=0){
+
         //need to set time for smtp purposes
         date_default_timezone_set('America/New_York');
 
@@ -29,7 +31,11 @@ class business_layer{
             $mail->Subject = $subject;
             $mail->Body = $body;
             $mail->IsHTML(true);
-
+            //add the attachment
+            if ($attachmentPath){
+                //make db path relative using ../
+                $mail->addAttachment("../".$attachmentPath);
+            }
             //Send it
             $mail->send();
             return true;
@@ -41,7 +47,7 @@ class business_layer{
         }
     }
 
-    function sendText(){
+    function sendText($text){
         // Twilio credentials
         $account_sid = $_SERVER['TWILIO_SID'];
         $auth_token = $_SERVER['TWILIO_TOKEN'];
@@ -55,14 +61,15 @@ class business_layer{
             '+15856455810',//should be a passed in $phoneNumber but free version doesnt allow it.
             array(
                 'from' => $twilio_number,
-                'body' => 'It Works!'
+                'body' => $text
             )
         );
     }
 
-    function uploadFile($fileArray){
+    function uploadFile($fileArray,$callBack){
         //Passed in name of the file with extension
         $name = $fileArray['name'];
+        if ($callBack == 'csv') $name = "currEmpCSV.csv";
         //Temp file stored from upload. Full path
         $tempFile = $fileArray['tmp_name'];
         //targetFile
@@ -74,13 +81,10 @@ class business_layer{
 
         //only go forward if the file type is allowed
             //only go forward if it doesnt exst
-        if( !in_array($type,$notAllowedTypes)){
+        if( !in_array($type,$notAllowedTypes) || ($callBack == 'csv' && $type == 'csv')){
             //if it already exists overwrite it
-            if (!file_exists($targetFile)) {
-                move_uploaded_file($tempFile,$targetFile);
-                return true;
-            }
-
+            move_uploaded_file($tempFile,$targetFile);
+            return true;
         }
         else {
             //Not correct file type
@@ -130,12 +134,16 @@ class business_layer{
             //split file path using /
             //Take the end of the array becuse it is the name of the file
             $currAttachmentName = end(explode("/",$rowArray['attachment']));
+            //echo "Attachment: $currAttachmentName";
+            if ($currAttachmentName == ""){
+                $currAttachmentName = "No Attachment";
+            }
             $currActiveYN = (intval($rowArray['active']));
 
             $string .= <<<END
             <form class="" action="adminAction.php?id={$currNotiID}" method="post" enctype="multipart/form-data">
             <tr class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-up'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>
                     <input type="text" name="title" disabled value="{$currTitle}">
                 </td>
@@ -161,12 +169,13 @@ END;
 
             <tr class='spacer'><td></td></tr>
 
-            <tr class='un-collapsed'>
+            <tr class='collapsed' style="display: none">
                 <td colspan='5' class='full'>
                     <h2>Body</h2>
                     <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
                     <h2>Attachment</h2>
-                    <i class="fas fa-times-circle"></i><span>{$currAttachmentName}</span>
+                    <button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>
+                    <span>{$currAttachmentName}</span>
                     <h2>User Ack. Report</h2>
                     <i class="fas fa-download"></i><span>user_report.csv</span>
                 </td>
@@ -193,6 +202,7 @@ END;
             $currDeptID = $thisUserArray['deptID'];
             $currAuthID = $thisUserArray['authID'];
             $currPhone = $thisUserArray['phone'];
+            if ($currAuthID != 1) {
 
             $string .= <<<END
             <form class="" action="adminAction.php?id={$currID}" method="post">
@@ -213,7 +223,7 @@ END;
 
                 <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
 
-                <tr class='un-collapsed'>
+                <tr class='collapsed' style="display: none">
                     <td colspan='3' class='leftUnCollapsed'>
                         <h2>Active</h2>
                         <select disabled name='activeYN' class='disabledDrop'>
@@ -295,9 +305,188 @@ END;
             </form>
 END;
         }
+        }
 
         return $string;
     }
 
+    function createPendingUserTable($allUserArray){
+        $string = '';
+        foreach ($allUserArray as $thisUserArray) {
+            $currID = $thisUserArray['userID'];
+            $currFName = $thisUserArray['fName'];
+            $currLName = $thisUserArray['lName'];
+            $currActiveYN = $thisUserArray['activeYN'];
+            $currEmail = $thisUserArray['email'];
+            $currDeptID = $thisUserArray['deptID'];
+            $currAuthID = $thisUserArray['authID'];
+            $currPhone = $thisUserArray['phone'];
 
+            $string .= <<<END
+            <form class="" action="adminAction.php?id={$currID}" method="post">
+                <tr class='collapsed'>
+                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
+                    <td>{$currFName}</td>
+                    <td>{$currLName}</td>
+                    <td>
+                        <button type="submit" name= "confirmPendEmp" value="confirmPendEmp"><i class="fas fa-check-circle"></i></button>
+                    </td>
+                    <td>
+                        <button type="submit" name= "denyPendEmp" value="denyPendEmp"><i class="fas fa-minus-circle"></i></button>
+                    </td>
+                </tr>
+
+                <tr class='spacer'><td></td></tr>
+                <tr class='un-collapsed'>
+                    <td colspan="5">
+                        <h2>Authorization Level</h2>
+                        <select name='pendingAuthID' id='authLevel'>
+                            <option value=2>Employee</option>
+                            <option value=3>Department Head</option>
+                            <option value=4>Admin</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class='spacer'><td></td></tr>
+            </form>
+END;
+        }
+
+        return $string;
+
+    }
+
+    function createLandingNewsTable($notificationArray){
+        $string = "";
+        $imgNum = 1;
+        foreach ($notificationArray as $currNotiArray) {
+            $currNotiID = $currNotiArray['notificationID'];
+            $currTitle = $currNotiArray['title'];
+            $currBody = $currNotiArray['body'];
+            $timeStamp = $currNotiArray['time'];
+            $webAppYN = $currNotiArray['webAppYN'];
+            $activeYN = $currNotiArray['active'];
+
+            $dateStamp = new DateTime($timeStamp);
+            $now = new DateTime();
+
+            $days = $dateStamp->diff($now)->format("%d");
+            $hours = $dateStamp->diff($now)->format("%h");
+            $mins = $dateStamp->diff($now)->format("%m");
+            if (intval($hours) < 1){
+                $timesig = $mins."m ago";
+            }
+            if (intval($days) < 1) {
+                //display using hours
+                $timesig = $hours."h ago";
+            }
+            if (intval($days) >= 1 && intval($days) >= 6) {
+                //display using days
+                $timesig = $days."d ago";
+            }
+            if (intval($days) >= 7){
+                //display using weeks
+                $timesig = ($days%7)."w ago";
+            }
+
+            if ($imgNum  <= 6){
+                $imgNum++;
+            }
+            else {
+                $imgNum = 1;
+            }
+            if($webAppYN && $activeYN){
+$string .= <<<END
+                    <div class='notifContainer' id='{$currNotiID}'>
+                        <div class='overlay'>
+                            <img src='../assets/images/{$imgNum}.jpg'>
+                        </div>
+
+                        <h2 class='title'>{$currTitle}</h2>
+
+                        <div class='subtitle block'>
+                            <div class='posted inline'>
+                                <i class="far fa-clock"></i>
+                                <span class='inline'>{$timesig}</span>
+                            </div>
+                            <a class='inline' href='notification.php?id={$currNotiID}&img={$imgNum}'>read more</a>
+                        </div>
+
+                        <!-- Admin Feature only -->
+                        <button type="button" class="button
+END;
+if ($_SESSION['authID'] < 4) $string .= " hidden";
+$string .= <<<END
+"><i class="far fa-edit"></i></button>
+                        <div class='buttonOptions' style="display:none" >
+                            <ul class='spaced'>
+                                <li>Modify<i class='fas fa-pencil-alt'></i></li>
+                                <li>Delete<i class="fas fa-trash-alt"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+END;
+            }
+        }
+        return $string;
+    }
+
+
+    function createIndividualNotification($notiArray, $imgNum){
+        $currTitle = $notiArray[0]['title'];
+        $currBody = $notiArray[0]['body'];
+        $timeStamp = $notiArray[0]['postDate'];
+        $currAttachmentName = end(explode("/",$notiArray[0]['attachment']));
+        //echo "Attachment: $currAttachmentName";
+        if ($currAttachmentName == ""){
+            $currAttachmentName = "No Attachment";
+        }
+
+        $dateStamp = new DateTime($timeStamp);
+        $now = new DateTime();
+        $days = $dateStamp->diff($now)->format("%d");
+        $hours = $dateStamp->diff($now)->format("%h");
+        $mins = $dateStamp->diff($now)->format("%m");
+
+        //less than an hour use mins
+        if (intval($hours) < 1){
+            $timesig = $mins."m ago";
+        }
+        else if (intval($days) < 1) {
+            //display using hours
+            $timesig = $hours."h ago";
+        }
+        else if (intval($days) >= 1 && intval($days) >= 6) {
+            //display using days
+            $timesig = $days."d ago";
+        }
+        else if (intval($days) >= 7){
+            //display using weeks
+            $timesig = ($days%7)."w ago";
+        }
+
+        $string = <<<END
+        <div class='imageContainer'>
+            <div class='overlay'>
+                <img src='../assets/images/{$imgNum}.jpg'> <!-- Needs to be same image as on landing page -->
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class='container'>
+
+            <h2 class='title'>{$currTitle}</h2>
+
+            <div class='subtitle block'>
+                <i class="fas fa-download inline"></i>
+                <span class='inline'>{$currAttachmentName}</span>
+                <i class="far fa-clock inline"></i>
+                <span class='inline'>{$timesig}</span>
+            </div>
+
+            <span class='copy block'>{$currBody}</span>
+        </div>
+END;
+    return $string;
+    }
 }

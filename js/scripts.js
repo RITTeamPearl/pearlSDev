@@ -58,6 +58,8 @@ function dropDownToggle(ele){
         $(ele).removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
         $(nextRow).removeClass('un-collapsed').addClass('collapsed').hide();
     }
+    
+    //resizeTextArea(thisRow.find('#bodyContent'));
 }
 
 function dropDownModify(ele,page){
@@ -124,7 +126,7 @@ function updateAdminView(ele){
         $("#pending").show();
         $("#compare").hide();
     }
-    
+
     //show compare hide others
     if (whichButton === "compare"){
         $("#news").hide();
@@ -137,28 +139,65 @@ function updateAdminView(ele){
 //Resizes the text area to fit content
 function resizeTextArea(id) {
 
+    console.log(id);
     //Get the JQuery element of the JavaScript Element
     var textArea = $('#'+String(id.id));
+    console.log(textArea);
+    console.log(textArea[0].scrollHeight);
 
     //Set the DOM element styling height to match the height of the ScrollHeight
     textArea.attr('style', 'height:' + id.scrollHeight + 'px');
 }
 
 //Handles file upload in Admin Console
-function fileUploadClick(ele) {
-
-    $(ele).click(function() {
-        console.log(String($('#fileUpload')[0]));
+function initCsvListener() {
+    //make button open file upload
+    $("#csvFileUploadButton").click(function() {
         $('#fileUpload').trigger('click');
-        
     });
-    
+
+    //update view to show selected file like file input
     $("#fileUpload").on('change', function() {
-        var val = $(this).val();
+        var val = $(this).val().split('\\').pop();//get the last one (file name)
         if(val.length > 0) {
-           $(this).siblings('span').text(val); 
+           $(this).siblings('span').text(val);
         } else {
             $(this).siblings('span').text('No file selected');
         }
     });
+}
+
+function setNavBar(){
+    var numNotifications = (($("#news").find('tr')).length-4)/4;
+    $("#news_Button").html('News('+numNotifications+")");
+
+    var numEmps = (($("#employees").find('tr')).length-4)/3;
+    $("#employee_Button").html('Employees('+numEmps+")");
+
+    var numPendEmps = (($("#pending").find('tr')).length-1)/4;
+    $("#pending_Button").html('Pending('+numPendEmps+")");
+
+    if (screen.width < 700){
+        $("#compare_Button").hide();
+    }
+    else {
+        $("#compare_Button").show();
+    }
+    var url = window.location.href;
+    if (url.indexOf('#') > -1) {
+        var page = url.split("#").pop();
+        if (page == "e"){
+            $("#employee_Button").trigger('onclick');
+        }
+        else if (page == "p"){
+            $("#pending_Button").trigger('onclick');
+        }
+        else if (page == "c"){
+            $("#compare_Button").trigger('onclick');
+        }
+        else if (page == "n"){
+            $("#news_Button").trigger('onclick');
+        }
+
+    }
 }
