@@ -8,7 +8,7 @@ class data_layer{
     function __construct(){
         $this->connection = new mysqli("127.0.0.1","root", "student", "rrcc_pearl_db");
         if ($this->connection->connect_error){
-            echo "connection failed: ".mysqli_connect_error();
+            //echo "connection failed: ".mysqli_connect_error();
             die();
         }
     }
@@ -54,7 +54,7 @@ class data_layer{
         if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,tempPassYN,password,email,deptID,authID,activeYN) VALUES (?,?,?,$tempPassYN,?,?,?,$authID,$activeYN)")){
             $stmt->bind_param("sssssi",str_replace("-","", $postData["phoneNumber"]),$postData["fName"],$postData["lName"],$hashedPassword,$postData["email"],intval($postData["deptID"]));
             $stmt->execute();
-            echo $stmt->affected_rows . " rows inserted";
+            //echo $stmt->affected_rows . " rows inserted";
         }
     }
 
@@ -210,7 +210,7 @@ class data_layer{
             $stmt->execute();
             $stmt->store_result();
             if ($stmt->affected_rows > 0){
-                echo "it worked";
+                //echo "it worked";
                 return true;
             }
         }

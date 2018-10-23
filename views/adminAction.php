@@ -18,7 +18,7 @@ if (isset($_POST['sendNoti'])){
             $_POST['attachment'] = "assets/uploads/".$_FILES['attachment']['name'];
         }
         else {
-            echo "Error uploading file";
+            //echo "Error uploading file";
         }
 
     }
@@ -128,11 +128,11 @@ if(isset($_POST['csvUpload'])){
                 //push last name, first name, email, phone
                 if ($good)array_push($dataLines,array($currLine[1],$currLine[2],$currLine[4],$currLine[5]));
             }
-            echo '<pre>', var_dump($dataLines), '</pre>';
+            //echo '<pre>', var_dump($dataLines), '</pre>';
             //echo "it worked";
         }
         else {
-            echo "Error uploading file";
+            //echo "Error uploading file";
         }
 
     }
