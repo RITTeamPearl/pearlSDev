@@ -87,8 +87,8 @@ $bizLayer = new business_layer();
                 <li class='inline'><i class="fas fa-bell"></i></li>
                 <li class='inline'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
             </ul>
-
         </div>
+        
     </div>
 </body>
 </html>

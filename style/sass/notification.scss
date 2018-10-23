@@ -1,0 +1,55 @@
+// ------- Styling specifically for a individual notification Page -------
+
+//Import global styling
+@import 'styles';
+
+
+#notifcationPage {
+    //Header Image
+    .imageContainer {
+        width: 100%;
+        height: pxToRem(500);
+
+        //Black overlay of image
+        .overlay {
+            background-color: black;
+            width: inherit;
+            height: inherit; 
+        }
+
+        img {
+            height: 100%;
+            opacity: 0.7;
+        }  
+    }
+
+    //Content
+    .container {
+        padding: 0 pxToRem(50) pxToRem(140);
+        
+        .title {
+            font-family: $baseFont;
+            margin-bottom: pxToRem(35);
+        }
+        
+        .subtitle {
+            width: 100%;
+            text-align: right;
+            font-family: $lighterFont;
+            
+            i {
+                color: $blue;
+                margin-right: pxToRem(10);
+            }
+            
+            span {
+                margin-right: pxToRem(20);
+            }
+        }
+        
+        .copy {
+            font-family: $lighterFont;
+            margin-top: pxToRem(70);
+        }
+    }
+}
