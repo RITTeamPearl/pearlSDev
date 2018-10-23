@@ -105,6 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <div class='inputWithIcon'>
                         <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
                         <i class='fas fa-user' aria-hidden='true'></i>
+                        <span class='error' id='emailSpan'></span>
                     </div>
 
                     <div class='inputWithIcon'>

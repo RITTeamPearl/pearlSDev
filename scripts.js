@@ -62,6 +62,8 @@ function nextStepTwo(num) {
     // console.log(JSON.stringify(formData));
 
     console.log(formData);
+
+    //checks it screen 1 of the create acct form is valid before going to the next screen
     if (num == 1) {
         formData.push(['pageNumber', num]);
         console.log('starting ajax request');   
@@ -128,9 +130,10 @@ function nextStepTwo(num) {
                     $(info).html(JSON.parse(data)[i]['msg'])
                 });
             }
-        });
-    }
+        });//end of ajax call for screen 1
+    }//end of checks for screen 1
 
+    //checks it screen 2 of the create acct form is valid before going to the next screen
     if (num == 2) {
         formData.push(['pageNumber', num]);
         console.log('starting ajax request');   
@@ -144,30 +147,8 @@ function nextStepTwo(num) {
                 formData: JSON.stringify(formData)
             },
             success: function (data) {
-                //Data looks like this
-                /**
-                 * [
-                 * [
-                 *  'location' = '#phoneSpan',
-                 *  'msg' = 'Message'
-                 * ],
-                 * [
-                 *  'location' = '#passwordSpan',
-                 *  'msg' = 'Message'
-                 * ]
-                 * [
-                 *  'location' = '#nameSpan',
-                 *  'msg' = 'Message'
-                 * ]
-                 * ]
-                 */
-                //data.foreach(index) {
-                //    $(data[index]['location']).html(data[index]['msg']);
-                //}
                 console.log(data);
                 //console.log(JSON.parse(data));
-                //Below may need to be updated. I may not be grabbing the isValidForm
-                //correctly 
                 
                 if (data.includes('isValidForm')){
                     //check to make sure names are valid
@@ -182,26 +163,15 @@ function nextStepTwo(num) {
                     //return;
                 }
                 //lines below prints the error message to the page
-                //loop through data, get location, change the message 
-                //$('#phoneSpan').val('Phone Number is required');
-
-                //below 2 lines work (manual)
-                //var phone = JSON.parse(data)[0]['location'];
-                //$(phone).html(JSON.parse(data)[0]['msg']);
-                
-                //below line not working
-                //$(data[0]['location']).html(data[0]['msg']);
-
-                //dynamically shows data on page. Works!
+                //dynamically shows data on page.
                 $.each(JSON.parse(data), function(i){
                     var info = JSON.parse(data)[i]['location']
                     $(info).html(JSON.parse(data)[i]['msg'])
                 });
             }
-        });
-        
-    }
-}
+        });//end of ajax call for screen 2
+    }//end of checks for screen 2
+}//end of nextStepTwo...it works
 
 function confirmPassword(){
     if ($('#password').val() == $('#passwordConfirm').val()) {

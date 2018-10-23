@@ -145,11 +145,9 @@ class business_layer{
         //return $validatedPOST;
 
         //variables for error message
-        $phoneErr = "";
-        //$pwdErr = $pwdConfirmErr = $fnameErr = $lnameErr = $emailErr = "";
+        $phoneErr = $pwdErr = $pwdConfirmErr = $fnameErr = $lnameErr = $emailErr = "";
         //variables for good user input (val and san checks)
-        $phone = "";
-        //$pwd = $pwdConfirm = $fname = $lname = $email = "";
+        $phone = $pwd = $pwdConfirm = $fname = $lname = $email = "";
         
         //check if form was submitted with POST 
         if($_POST['formSection'] == 'screen1'){
@@ -257,47 +255,64 @@ class business_layer{
                 }
             }//end of password and passwordConfirm check...this works
         }//end of checks for screen 1 on the create account page
-
-        // if($_POST['formSection'] == 'screen2'){
+        
+        //turns $_POST string into usable array called formArrary
+        if($_POST['formSection'] == 'screen2'){
             
-        //     $formArray = array();
-        //     $json = $_POST['formData'];
-        //     $jsonIterator = new RecursiveIteratorIterator(
-        //         new RecursiveArrayIterator(json_decode($json, TRUE)),
-        //         RecursiveIteratorIterator::SELF_FIRST);
-        //     foreach ($jsonIterator as $key => $val) {
-        //         if(is_array($val)) {
-        //             //echo "$key:\n";
-        //             $formArray[$val[0]] = $val[1];     
-        //         } else {                    
-        //         }
-        //     }
+            $formArray = array();
+            $json = $_POST['formData'];
+            $jsonIterator = new RecursiveIteratorIterator(
+                new RecursiveArrayIterator(json_decode($json, TRUE)),
+                RecursiveIteratorIterator::SELF_FIRST);
+            foreach ($jsonIterator as $key => $val) {
+                if(is_array($val)) {
+                    //echo "$key:\n";
+                    $formArray[$val[0]] = $val[1];     
+                } else {                    
+                }
+            }
 
-        //     //checks fname
-        //     if(empty($_POST['fName'])){
-        //         $fnameErr = "First name is required";
-        //     }
-        //     else{
-        //         $fname = test_input($_POST['fName']);
-        //         if(!preg_match("/^[A-Za-z]+$/", $fname)){
-        //             $fnameErr = "First name can only contain letters with no spaces";
-        //         }
-        //         $fname = filter_var($_POST['fName'],FILTER_SANITIZE_STRING);
-        //     }
-        // }
+            //checks fname
+            if(empty($formArray['fName'])){
+                $fnameErr = "First name is required";
+                array_push($formErrors, [
+                    'location' => '#firstNameSpan',
+                    'msg' => $fnameErr
+                ]);
+            }
+            else{
+                $fname = test_input($formArray['fName']);
+                if(!preg_match("/^[A-Za-z]+$/", $fname)){
+                    $fnameErr = "First name can only contain letters with no spaces";
+                    array_push($formErrors, [
+                        'location' => '#firstNameSpan',
+                        'msg' => $fnameErr
+                    ]);
+                }
+                $fname = filter_var($formArray['fName'],FILTER_SANITIZE_STRING);
+            }
 
+            //checks lname
+            if(empty($formArray['lName'])){
+                $lnameErr = "Last name is required";
+                array_push($formErrors, [
+                    'location' => '#lastNameSpan',
+                    'msg' => $lnameErr
+                ]);
+            }
+            else{
+                $lname = test_input($formArray['lName']);
+                if(!preg_match("/^[A-Za-z]+$/", $lname)){
+                    $lnameErr = "Last name can only contain letters with no spaces";
+                    array_push($formErrors, [
+                        'location' => '#lastNameSpan',
+                        'msg' => $lnameErr
+                    ]);
+                }
+                $lname = filter_var($formArray['lName'],FILTER_SANITIZE_STRING);
+            }
+        }
 
-        //     //checks lname
-        //     if(empty($_POST['lName'])){
-        //         $lnameErr = "Last name is required";
-        //     }
-        //     else{
-        //         $lname = test_input($_POST['lName']);
-        //         if(!preg_match("/^[A-Za-z]+$/", $lname)){
-        //             $lnameErr = "Last name can only contain letters with no spaces";
-        //         }
-        //         $lname = filter_var($_POST['lName'],FILTER_SANITIZE_STRING);
-        //     }
         //     //checks email
         //     if(empty($_POST['email'])){
         //         $emailErr = "Email is required";
