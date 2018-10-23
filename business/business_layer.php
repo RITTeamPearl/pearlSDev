@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../vendor/autoload.php';
 //require '../database/data_layer.php';
 use Twilio\Rest\Client;
@@ -137,7 +138,7 @@ class business_layer{
             $string .= <<<END
             <form class="" action="adminAction.php?id={$currNotiID}" method="post" enctype="multipart/form-data">
             <tr class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-up'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>
                     <input type="text" name="title" disabled value="{$currTitle}">
                 </td>
@@ -163,7 +164,7 @@ END;
 
             <tr class='spacer'><td></td></tr>
 
-            <tr class='un-collapsed'>
+            <tr class='collapsed' style="display: none">
                 <td colspan='5' class='full'>
                     <h2>Body</h2>
                     <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
@@ -215,7 +216,7 @@ END;
 
                 <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
 
-                <tr class='un-collapsed'>
+                <tr class='collapsed' style="display: none">
                     <td colspan='3' class='leftUnCollapsed'>
                         <h2>Active</h2>
                         <select disabled name='activeYN' class='disabledDrop'>
@@ -349,13 +350,14 @@ END;
 
     function createLandingNewsTable($notificationArray){
         $string = "";
+        $imgNum = 1;
         foreach ($notificationArray as $currNotiArray) {
-
             $currNotiID = $currNotiArray['notificationID'];
             $currTitle = $currNotiArray['title'];
             $currBody = $currNotiArray['body'];
             $timeStamp = $currNotiArray['time'];
             $webAppYN = $currNotiArray['webAppYN'];
+            $activeYN = $currNotiArray['active'];
 
             $dateStamp = new DateTime($timeStamp);
             $now = new DateTime();
@@ -377,12 +379,16 @@ END;
             if (intval($days) >= 7){
                 //display using weeks
                 $timesig = ($days%7)."w ago";
-
             }
 
-            $imgNum = rand(1,4);
-            if($webAppYN){
-                $string .= <<<END
+            if ($imgNum  <= 3){
+                $imgNum++;
+            }
+            else {
+                $imgNum = 1;
+            }
+            if($webAppYN && $activeYN){
+$string .= <<<END
                     <div class='notifContainer' id='{$currNotiID}'>
                         <div class='overlay'>
                             <img src='../assets/images/{$imgNum}.jpg'>
@@ -399,9 +405,12 @@ END;
                         </div>
 
                         <!-- Admin Feature only -->
-                        <button type='button' class='button hidden'><i class="far fa-edit"></i></button>
-
-                        <div class='buttonOptions hidden'>
+                        <button type="button" class="button
+END;
+if ($_SESSION['authID'] < 4) $string .= " hidden";
+$string .= <<<END
+"><i class="far fa-edit"></i></button>
+                        <div class='buttonOptions' style="display:none" >
                             <ul class='spaced'>
                                 <li>Modify<i class='fas fa-pencil-alt'></i></li>
                                 <li>Delete<i class="fas fa-trash-alt"></i></li>

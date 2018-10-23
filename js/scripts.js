@@ -163,6 +163,21 @@ function initCsvListener() {
 }
 
 function setNavBar(){
+    var numNotifications = (($("#news").find('tr')).length-4)/4;
+    $("#news_Button").html('News('+numNotifications+")");
+
+    var numEmps = (($("#employees").find('tr')).length-4)/3;
+    $("#employee_Button").html('Employees('+numEmps+")");
+
+    var numPendEmps = (($("#pending").find('tr')).length-1)/4;
+    $("#pending_Button").html('Pending('+numPendEmps+")");
+
+    if (screen.width < 700){
+        $("#compare_Button").hide();
+    }
+    else {
+        $("#compare_Button").show();
+    }
     var url = window.location.href;
     if (url.indexOf('#') > -1) {
         var page = url.split("#").pop();

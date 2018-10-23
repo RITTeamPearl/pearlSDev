@@ -1,5 +1,14 @@
 <?php
 session_start();
+
+var_dump($_SESSION);
+if(!isset($_SESSION['authID'])){
+    //session var is not set = they are not logged in
+}
+
+if(isset($_SESSION['authID']) && $_SESSION['authID'] != 4){
+    //logged in but dont have correct access send to news page
+}
 require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
 $dataLayer = new data_layer();
@@ -31,10 +40,10 @@ $bizLayer = new business_layer();
              3. Currently displayed section navigation title should be active
              4. Disable Compare on mobile, Enable on desktop
         -->
-            <a href="#n"><li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News(13)</li></a>
-            <a href="#e"><li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees(231)</li></a>
-            <a href="#p"><li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending(3)</li></a>
-            <a href="#c"><li onclick="updateAdminView(this)" id="compare_Button" class='inline hidden'>Compare Employee Lists</li></a>
+            <a href="#n"><li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News</li></a>
+            <a href="#e"><li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees</li></a>
+            <a href="#p"><li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending</li></a>
+            <a href="#c"><li onclick="updateAdminView(this)" id="compare_Button" class='inline'>Compare Employee Lists</li></a>
         <hr>
     </ul>
 
@@ -64,50 +73,6 @@ $bizLayer = new business_layer();
              ?>
 
 
-        <form class="" action="adminAction.php?id=30" method="post">
-            <tr id = "row-10"class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-                <td>
-                    <input type="text" name="title" disabled value="Heavy Rain to delay bla bla bla bla bla">
-                </td>
-                <td>
-                    <select disabled name='activeYN' class='disabledDrop'>
-                        <option value='1'>Yes</option>
-                        <option value='2'>No</option>
-                    </select>
-                </td>
-                <td>
-                    <i id='notiEditButton' onclick="dropDownModify(this,'noti');" class='fas fa-pencil-alt'></i>
-
-                    <!--*Make this appear when edit is clicked, hide pencil...vice versa*-->
-                    <button class="hidden" id='notiSaveEditButton' type= "submit" name="modify"><i class="fas fa-save" onclick=''></i></button>
-                </td>
-                <td>
-                    <button type="submit" name= "delete" value="delete"><i class="fas fa-trash-alt"></i></button>
-                </td>
-            </tr>
-
-            <tr class='spacer'><td></td></tr>
-
-            <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
-            <!-- JQUERY Animate function does not work on TR so eventually we might want to convert this to a ul? -->
-            <tr id = "row-11" class='un-collapsed'>
-                <td colspan='5' class='full'>
-                    <h2>Body</h2>
-                    <textarea id='bodyContent' name="body" disabled>Lorem ipsum dolor sit amet, consecteur adiposing elit. Sed autor ligula quis ante pretium lacreet.Nuno semper erat dignissim placerate feugiat.
-
-                    Aenean commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan. commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan</textarea>
-
-                    <h2>Attachment</h2>
-                    <!-- Make this 'fas fa-file-upload' with blue color, if no file exists and text saying 'No attachment' Create functionality for upload -->
-                    <i class="fas fa-times-circle"></i><span>document.pdf</span>
-
-                    <h2>User Ack. Report</h2>
-                    <i class="fas fa-download"></i><span>user_report.csv</span>
-                </td>
-            </tr>
-            <tr class='spacer'><td></td></tr>
-        </form>
 
             <!-- Begin next dynamically added rows here -->
 
@@ -117,7 +82,7 @@ $bizLayer = new business_layer();
                 <td colspan='4'>Add New Notification</td>
             </tr>
             <tr class='spacer'><td></td></tr>
-            <tr id = "row-13" class='un-collapsed'>
+            <tr class='collapsed' style="display:none">
                 <td colspan='5'>
                     <!-- Form that takes user input to add a new notification -->
                     <form class="addNewForm" action="adminAction.php" method="post" enctype="multipart/form-data">
@@ -191,72 +156,17 @@ $bizLayer = new business_layer();
                 echo $bizLayer->createUserTable($dataLayer->getAllUsers());
              ?>
 
-        <form class="" action="adminAction.php?id=31" method="post">
-            <tr id = "row-96"class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
-                <td><input type="text" name="fName" disabled value="Mason"></td>
-                <td><input type="text" name="lName" disabled value="Santora"></td>
-                <td>
-                    <i id='empEditButton' onclick="dropDownModify(this,'emp');" class='fas fa-pencil-alt'></i>
-                    <button class="hidden" id='empSaveEditButton' type= "submit" name="modifyEmp" value="modifyEmp"><i class="fas fa-save" onclick=''></i></button>
-                </td>
-                <td>
-                    <button type="submit" name= "deleteEmp" value="deleteEmp"><i class="fas fa-trash-alt"></i></button>
-                </td>
-            </tr>
-
-            <tr class='spacer'><td></td></tr>
-
-            <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
-
-            <tr id = "row-97" class='un-collapsed'>
-                <td colspan='3' class='leftUnCollapsed'>
-                    <h2>Active</h2>
-                    <select disabled name='activeYN' class='disabledDrop'>
-                        <option value=1>Yes</option>
-                        <option value=2>No</option>
-                    </select>
-
-                    <h2>Department</h2>
-                    <select disabled name='department' class='disabledDrop'>
-                        <option value=1>HR</option>
-                        <option value=2>Admin</option>
-                        <option value=3>Sales</option>
-                        <option value=4>Production</option>
-                        <option value=5>Operations</option>
-                        <option value=6>Food and Beverage</option>
-                        <option value=7>Garage</option>
-                    </select>
-
-                    <h2>Email</h2>
-                    <input type="text" name="email" class='email' disabled value="masonsantora@gmail.com">
-                </td>
-                <td colspan='2' class='rightUnCollapsed'>
-                    <h2>Authorization</h2>
-                    <select disabled name='authorization' class='disabledDrop fullWidth'>
-                        <option value=1>Employee</option>
-                        <option value=2>Depart. Head</option>
-                        <option value=3>Administrator</option>
-                    </select>
-
-                    <h2>Phone Number</h2>
-                    <input type="text" name="phone" disabled value="555-555-5555">
-                </td>
-            </tr>
-        </form>
-
-            <tr class='spacer'><td></td></tr>
 
             <!-- Begin next dynamically added rows here -->
 
             <!-- Add New Employee -->
             <tr class='collapsed'>
-                <td><i class='fas fa-plus-circle'></i></td>
+                <td><i onclick="dropDownToggle(this)" class='fas fa-plus-circle'></i></td>
                 <td colspan='6'>Add New Employee</td>
             </tr>
 
             <tr class='spacer'><td></td></tr>
-            <tr id = "row-14" class='un-collapsed'>
+            <tr class='collapsed' style="display:none">
                 <td colspan='6'>
                     <!-- Form that takes user input to add a new employee
                         * Make sure to automatically set a temporary password and send via phone # and email
@@ -365,50 +275,10 @@ $bizLayer = new business_layer();
             echo $bizLayer->createPendingUserTable($dataLayer->getData('user',array('*'),'authID',1));
             ?>
             <!-- Begin PHP Iterative process to dynamically create employees -->
-            <form class="" action="adminAction.php?id=1" method="post">
-
-            <!-- Row that is collapsed -->
-                <tr class='collapsed'>
-                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
-                    <td>Amanda</td>
-                    <td>Ho</td>
-                    <td>
-                        <button type="submit" name= "confirmPendEmp" value="confirmPendEmp"><i class="fas fa-check-circle"></i></button>
-                    </td>
-                    <td>
-                        <button type="submit" name= "denyPendEmp" value="denyPendEmp"><i class="fas fa-minus-circle"></i></button>
-                    </td>
-                </tr>
-                <tr class='spacer'><td></td></tr>
-                <tr class='un-collapsed'>
-                    <td colspan="5">
-                        <h2>Authorization Level</h2>
-                        <select name='department' id='authLevel'>
-                            <option value=1>Employee</option>
-                            <option value=2>Department Head</option>
-                            <option value=3>Admin</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr class='spacer'><td></td></tr>
-            </form>
 
             <!-- Spacer puts padding in-between table rows -->
 
 
-            <tr id = "row-12"class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
-                <td>Mason</td>
-                <td>Santora</td>
-                <td>
-                    <button type="submit" name= "confirmPendEmp" value="confirmPendEmp"><i class="fas fa-check-circle"></i></button>
-                </td>
-                <td>
-                    <button type="submit" name= "denyPendEmp" value="denyPendEmp"><i class="fas fa-minus-circle"></i></button>
-                </td>
-            </tr>
-
-            <tr class='spacer'><td></td></tr>
 
         </table>
 
@@ -522,6 +392,6 @@ $bizLayer = new business_layer();
             <li class='inline active'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
         </ul>
     </div>
-    
+
 </body>
 </html>

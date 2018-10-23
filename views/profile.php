@@ -4,6 +4,11 @@ require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
 $dataLayer = new data_layer();
 $bizLayer = new business_layer();
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("location: ../index.php");
+}
  ?>
 
 <!DOCTYPE html>
@@ -23,7 +28,7 @@ $bizLayer = new business_layer();
         <section id='create-form'>
             <!-- Header -->
             <div class='header'>
-                <h1 class='title centered'>Hello, Mason</h1>
+                <h1 class='title centered'>Hello, <?php echo $_SESSION['name'] ?></h1>
                 <h2 class='subtitle centered'>You may view/update any account<br/>information here</h2>
             </div>
 
@@ -50,7 +55,7 @@ $bizLayer = new business_layer();
             </div>
 
             <!-- Send Password Form -->
-            <form class='formContainer' action='createAcct.php' method='POST'>
+            <form class='formContainer' action='profile.php' method='POST'>
 
                 <!-- Create Screen 1. Outer div is for JS -->
                 <div class="formStep" id="formStep1">
@@ -76,18 +81,20 @@ $bizLayer = new business_layer();
                         <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
                         <i class='fas fa-user' aria-hidden='true'></i>
                     </div>
-                    
+
                     <input class='block submit centered' id='submit' type = 'submit' value= 'Send Request'/>
                 </div>
             </form>
-            
-            <div class='logoutContainer'>
-                <button class='block submit centered' id='logout'>Logout</button>
-            </div>
-            
+
+            <form class="" action="profile.php" method="post">
+                <div class='logoutContainer'>
+                    <button type= 'submit' class='block submit centered' name= "logout" id='logout'>Logout</button>
+                </div>
+            </form>
+
         </section>
     </div>
-    
+
     <!-- Footer -->
     <div class='footer block'>
         <ul class='iconContainer'>
@@ -98,6 +105,6 @@ $bizLayer = new business_layer();
             <li class='inline'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
         </ul>
     </div>
-    
+
 </body>
 </html>
