@@ -20,11 +20,10 @@ $bizLayer = new business_layer();
 
     <!-- News -->
     <div class='bodyContainer'>
-        
         <?php
-            echo $bizLayer->createLandingNewsTable($dataLayer->getAllNotifcations());
+        echo $bizLayer->createLandingNewsTable(array_reverse($dataLayer->getAllNotifcations()));
         ?>
-        
+
         <!-- Footer -->
         <div class='footer block'>
             <ul class='iconContainer'>
@@ -35,7 +34,7 @@ $bizLayer = new business_layer();
                 <li class='inline'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
             </ul>
         </div>
-        
+
     </div>
 </body>
 </html>

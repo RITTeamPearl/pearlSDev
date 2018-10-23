@@ -17,26 +17,24 @@ $bizLayer = new business_layer();
 </head>
 
 <body id='notifcationPage'>
-    
+    <?php
+        echo $bizLayer->createIndividualNotification($dataLayer->getData('notification',array('*'),'notificationID',$_GET['id']),$_GET['img']);
+     ?>
     <!-- Image -->
-    <div class='imageContainer'>
-        <div class='overlay'>
-            <img src='../assets/images/6.jpg'> <!-- Needs to be same image as on landing page -->
-        </div>
-    </div>
-    
+
+
     <!-- Content -->
-    <div class='container'>
-        
+    <!-- <div class='container'>
+
         <h2 class='title'>Convention center to be closed on August 24, 2018</h2>
-        
+
         <div class='subtitle block'>
             <i class="fas fa-download inline"></i>
             <span class='inline'>document.pdf</span>
             <i class="far fa-clock inline"></i>
             <span class='inline'>1w ago</span>
         </div>
-        
+
         <span class='copy block'>Lorem ipsum dolor sit amet, consectetur adipiscing
         elit. Sed auctor ligula quis ante pretium laoreet.
         Nunc semper erat dignissim placerat feugiat.
@@ -46,13 +44,13 @@ $bizLayer = new business_layer();
         You can signup at this link:
         https://www.spotify.com/us/<br/><br/>
 
-        Mattis massa felis accumsan. Ipsum dolor sit 
+        Mattis massa felis accumsan. Ipsum dolor sit
         amet, consectetur adipiscing elit. vitae commodo
-        mattis, massa felis. Mattis massa felis accumsan. 
+        mattis, massa felis. Mattis massa felis accumsan.
         Ipsum dolor sit amet, consectetur adipiscing elit.
         Vitae commodo mattis, massa felis.</span>
-    </div>
-    
+    </div> -->
+
     <!-- Footer -->
     <div class='footer block'>
         <ul class='iconContainer'>

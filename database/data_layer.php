@@ -93,6 +93,39 @@ class data_layer{
         return false;
     }
 
+    function removeNotiAttachment($notificationID){
+        // try {
+        //     if ($stmt = $this->connection->prepare("UPDATE notification SET attachment = ? WHERE notificationID = ?")){
+        //         echo "here";
+        //         $stmt->bind_param("si","asd",$notificationID);
+        //         $stmt->execute();
+        //         $stmt->store_result();
+        //         if ($stmt->num_rows > 0){
+        //             echo "it works";
+        //             return true;
+        //         }
+        //     }
+        //
+        // } catch (\Exception $e) {
+        //     echo $stmt->error;
+        //     echo "$e";
+        // }
+
+        // if ($stmt = $this->connection->prepare("UPDATE notification SET attachment = ? WHERE notificationID = ?")){
+        //     $stmt->bind_param("si","",intval($notificationID));
+        //     $stmt->execute();
+        //     $stmt->store_result();
+        //     if ($stmt->num_rows > 0){
+        //         echo "it works";
+        //         return true;
+        //     }
+        // }
+        // else {
+        //     echo $stmt->error;
+        // }
+        return false;
+    }
+
     function deleteNotification($id){
         if ($stmt = $this->connection->prepare("DELETE FROM notification WHERE notificationID = ?")){
             $stmt->bind_param("i", $id);

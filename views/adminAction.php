@@ -6,6 +6,7 @@ require_once '../business/business_layer.php';
 $businessLayer = new business_layer();
 $dataLayer = new data_layer();
 
+
 //Sending a new notification was clicked
 if (isset($_POST['sendNoti'])){
     //business layer stuff to deal with the attachment ($_FILES)
@@ -49,6 +50,13 @@ if (isset($_POST['deleteNoti'])) {
 //Delete notification button was clicked
 if (isset($_POST['modifyNoti'])) {
     $dataLayer->updateNotification($_GET['id'],$_POST);
+    header("Location: adminConsole.php?p=n");
+}
+if (isset($_POST['removeNotiAttachment'])) {
+    //$dataLayer->updateNotification($_GET['id'],$array('attachment' => ""););
+    //$dataLayer->updateNotification($_GET['id'],$array['attachment'] = ""););
+    //echo $_GET['id'];
+    //$dataLayer->removeNotiAttachment($_GET['id']);
     header("Location: adminConsole.php?p=n");
 }
 

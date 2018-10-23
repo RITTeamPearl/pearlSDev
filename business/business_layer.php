@@ -133,6 +133,10 @@ class business_layer{
             //split file path using /
             //Take the end of the array becuse it is the name of the file
             $currAttachmentName = end(explode("/",$rowArray['attachment']));
+            //echo "Attachment: $currAttachmentName";
+            if ($currAttachmentName == ""){
+                $currAttachmentName = "No Attachment";
+            }
             $currActiveYN = (intval($rowArray['active']));
 
             $string .= <<<END
@@ -169,7 +173,8 @@ END;
                     <h2>Body</h2>
                     <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
                     <h2>Attachment</h2>
-                    <i class="fas fa-times-circle"></i><span>{$currAttachmentName}</span>
+                    <button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>
+                    <span>{$currAttachmentName}</span>
                     <h2>User Ack. Report</h2>
                     <i class="fas fa-download"></i><span>user_report.csv</span>
                 </td>
@@ -381,7 +386,7 @@ END;
                 $timesig = ($days%7)."w ago";
             }
 
-            if ($imgNum  <= 3){
+            if ($imgNum  <= 6){
                 $imgNum++;
             }
             else {
@@ -401,7 +406,7 @@ $string .= <<<END
                                 <i class="far fa-clock"></i>
                                 <span class='inline'>{$timesig}</span>
                             </div>
-                            <a class='inline' href=''>read more</a>
+                            <a class='inline' href='notification.php?id={$currNotiID}&img={$imgNum}'>read more</a>
                         </div>
 
                         <!-- Admin Feature only -->
@@ -421,5 +426,64 @@ END;
             }
         }
         return $string;
+    }
+
+
+    function createIndividualNotification($notiArray, $imgNum){
+        $currTitle = $notiArray[0]['title'];
+        $currBody = $notiArray[0]['body'];
+        $timeStamp = $notiArray[0]['postDate'];
+        $currAttachmentName = end(explode("/",$notiArray[0]['attachment']));
+        //echo "Attachment: $currAttachmentName";
+        if ($currAttachmentName == ""){
+            $currAttachmentName = "No Attachment";
+        }
+
+        $dateStamp = new DateTime($timeStamp);
+        $now = new DateTime();
+        $days = $dateStamp->diff($now)->format("%d");
+        $hours = $dateStamp->diff($now)->format("%h");
+        $mins = $dateStamp->diff($now)->format("%m");
+        
+        //less than an hour use mins
+        if (intval($hours) < 1){
+            $timesig = $mins."m ago";
+        }
+        else if (intval($days) < 1) {
+            //display using hours
+            $timesig = $hours."h ago";
+        }
+        else if (intval($days) >= 1 && intval($days) >= 6) {
+            //display using days
+            $timesig = $days."d ago";
+        }
+        else if (intval($days) >= 7){
+            //display using weeks
+            $timesig = ($days%7)."w ago";
+        }
+
+        $string = <<<END
+        <div class='imageContainer'>
+            <div class='overlay'>
+                <img src='../assets/images/{$imgNum}.jpg'> <!-- Needs to be same image as on landing page -->
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class='container'>
+
+            <h2 class='title'>{$currTitle}</h2>
+
+            <div class='subtitle block'>
+                <i class="fas fa-download inline"></i>
+                <span class='inline'>{$currAttachmentName}</span>
+                <i class="far fa-clock inline"></i>
+                <span class='inline'>{$timesig}</span>
+            </div>
+
+            <span class='copy block'>{$currBody}</span>
+        </div>
+END;
+    return $string;
     }
 }
