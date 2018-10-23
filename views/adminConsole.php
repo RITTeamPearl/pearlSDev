@@ -34,7 +34,7 @@ $bizLayer = new business_layer();
             <a href="#n"><li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News(13)</li></a>
             <a href="#e"><li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees(231)</li></a>
             <a href="#p"><li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending(3)</li></a>
-            <a href="#c"><li onclick="updateAdminView(this)" id="compare_Button" class='inline'>Compare Employee Lists</li></a>
+            <a href="#c"><li onclick="updateAdminView(this)" id="compare_Button" class='inline hidden'>Compare Employee Lists</li></a>
         <hr>
     </ul>
 
@@ -519,9 +519,9 @@ $bizLayer = new business_layer();
         <ul class='iconContainer'>
             <li class='inline'><a href="news.php"><i class="fas fa-newspaper"></i></a></li>
             <li class='inline'><i class="fas fa-video"></i></li>
-            <li class='inline'><a href="adminConsole.php"><i class="fas fa-user"></i></a></li>
+            <li class='inline'><i class="fas fa-user"></i></li>
             <li class='inline'><i class="fas fa-bell"></i></li>
-            <li class='inline'><i class="fas fa-toolbox"></i></li>
+            <li class='inline'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
         </ul>
 
     </div>
