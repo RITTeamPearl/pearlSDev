@@ -430,7 +430,7 @@ $bizLayer = new business_layer();
     </section>
 
     <!-- Compare Employees to Payroll section -->
-    <section id='compare'>
+    <section id='compare' class='hidden'>
         <div class='centered'>
             <h2 class='title'>Upload CSV file to compare Active Employee List<br>with the Payroll Employee List</h2>
                 <form class="" action="adminAction.php" method="post" enctype="multipart/form-data">
@@ -509,9 +509,7 @@ $bizLayer = new business_layer();
                     </div>
                 </div>
             </div>
-
         </div>
-
     </section>
 
     <!-- Footer -->
@@ -521,9 +519,9 @@ $bizLayer = new business_layer();
             <li class='inline'><i class="fas fa-video"></i></li>
             <li class='inline'><i class="fas fa-user"></i></li>
             <li class='inline'><i class="fas fa-bell"></i></li>
-            <li class='inline'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
+            <li class='inline active'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
         </ul>
-
     </div>
+    
 </body>
 </html>

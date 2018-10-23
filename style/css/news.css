@@ -174,7 +174,7 @@ i {
   .footer i {
     color: #333333;
     font-size: 1.625em; }
-  .footer .active {
+  .footer .active i {
     color: #5b8ec5; }
 
 #newsPage .bodyContainer {

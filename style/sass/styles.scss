@@ -247,6 +247,8 @@ i {
     }
     
     .active {
-        color: $blue;
+        i {
+            color: $blue;
+        }
     }
 }

@@ -81,7 +81,7 @@ $bizLayer = new business_layer();
         <!-- Footer -->
         <div class='footer block'>
             <ul class='iconContainer'>
-                <li class='inline'><i class="fas fa-newspaper"></i></li>
+                <li class='inline active'><i class="fas fa-newspaper"></i></li>
                 <li class='inline'><i class="fas fa-video"></i></li>
                 <li class='inline'><i class="fas fa-user"></i></li>
                 <li class='inline'><i class="fas fa-bell"></i></li>
