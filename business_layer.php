@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../vendor/autoload.php';
 //require '../database/data_layer.php';
 use Twilio\Rest\Client;
@@ -26,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
 
 class business_layer{
 
-    function sendEmail($address,$subject, $body){
+    function sendEmail($address,$subject, $body, $attachmentPath=0){
+
         //need to set time for smtp purposes
         date_default_timezone_set('America/New_York');
 
@@ -50,7 +52,11 @@ class business_layer{
             $mail->Subject = $subject;
             $mail->Body = $body;
             $mail->IsHTML(true);
-
+            //add the attachment
+            if ($attachmentPath){
+                //make db path relative using ../
+                $mail->addAttachment("../".$attachmentPath);
+            }
             //Send it
             $mail->send();
             return true;
@@ -62,7 +68,7 @@ class business_layer{
         }
     }
 
-    function sendText(){
+    function sendText($text){
         // Twilio credentials
         $account_sid = $_SERVER['TWILIO_SID'];
         $auth_token = $_SERVER['TWILIO_TOKEN'];
@@ -76,12 +82,38 @@ class business_layer{
             '+15856455810',//should be a passed in $phoneNumber but free version doesnt allow it.
             array(
                 'from' => $twilio_number,
-                'body' => 'It Works!'
+                'body' => $text
             )
         );
     }
 
-    function passwordReset($email){
+    function uploadFile($fileArray,$callBack){
+        //Passed in name of the file with extension
+        $name = $fileArray['name'];
+        if ($callBack == 'csv') $name = "currEmpCSV.csv";
+        //Temp file stored from upload. Full path
+        $tempFile = $fileArray['tmp_name'];
+        //targetFile
+        $targetFile = "../assets/uploads/" . $name;
+        //File type
+        $type = strtolower(end(explode('.',$name)));
+
+        $notAllowedTypes = array("exe", "js", "sql", "php");
+
+        //only go forward if the file type is allowed
+            //only go forward if it doesnt exst
+        if( !in_array($type,$notAllowedTypes) || ($callBack == 'csv' && $type == 'csv')){
+            //if it already exists overwrite it
+            move_uploaded_file($tempFile,$targetFile);
+            return true;
+        }
+        else {
+            //Not correct file type
+            return false;
+        }
+    }
+
+    function sendPasswordResetEmail($email){
         $hashedEmail = password_hash($email,PASSWORD_DEFAULT);
 
         $subject = "RRCC Account Password Reset";
@@ -93,16 +125,16 @@ class business_layer{
         //if input matches $_GET as well as some unique identifier then reset the password
 
 
-        // $dataLayer = new data_layer();
-        // //generate a random 10 character string.
-        // $genPass = substr(md5(microtime()),rand(0,26),10);
-        // //database call to set new password and update temp password flag
-        // $dataLayer->setUserTempPass($email,$genPass);
-        //echo "your new password is $genPass";
+        $dataLayer = new data_layer();
+        // generate a random 10 character string.
+        $genPass = substr(md5(microtime()),rand(0,26),10);
+        // database call to set new password and update temp password flag
+        $dataLayer->setUserTempPass($email,$genPass);
+        // echo "your new password is $genPass";
 
         //address , subject line, body
-        //if($bizLayer->sendEmail($_POST['email'], 'Password Reset test', "Your New Password is $genPass")){
-        //};
+        if($bizLayer->sendEmail($_POST['email'], 'Password Reset test', "Your New Password is $genPass")){
+        };
     }
 
     function validateAndSanitize(){
@@ -147,8 +179,6 @@ class business_layer{
                     'msg' => $phoneErr
                 ]);
             } 
-            //above works
-
             else if($formArray['phoneNumber'] != ""){
                 $input = $formArray['phoneNumber'];
                 $phone = test_input($input);
@@ -165,38 +195,84 @@ class business_layer{
                 //built in php functions that i think could work as well, if needed
                 $phone = filter_var($formArray['phoneNumber'],FILTER_SANITIZE_NUMBER_INT);
                 //filter_var($postData['phone'], FILTER_VALIDATE_INT);
+            }//end of phone number checks...this works
+
+                //checks password
+            if(empty($formArray['password']) && empty($formArray['passwordConfirm'])){
+                $pwdErr = "Password is required";
+                $pwdConfirmErr = "Confirmation Password is required";
+                array_push($formErrors, [
+                    'location' => '#passwordSpan',
+                    'msg' => $pwdErr
+                ]);
+                array_push($formErrors, [
+                    'location' => '#passwordConfirmSpan',
+                    'msg' => $pwdConfirmErr
+                ]);
             }
-        }
+            else{
+                $pwd = test_input($formArray['password']);
+                $pwdConfirm = test_input($formArray['passwordConfirm']);
+                //check that password and passwordConfirm match
+                if($pwdConfirm == $pwd){
+                    //check for length of at least 8
+                    if(!(strlen($pwd) >= 8)){
+                        $pwdErr = "Password must contain at least 8 characters";
+                        array_push($formErrors, [
+                            'location' => '#passwordSpan',
+                            'msg' => $pwdErr
+                        ]);
+                    }
+                    //check for one upper case
+                    if(!preg_match("/[A-Z]/", $pwd)){
+                        $pwdErr = "Password must contain at least 1 uppercase letter";
+                        array_push($formErrors, [
+                            'location' => '#passwordSpan',
+                            'msg' => $pwdErr
+                        ]);
+                    }
+                    //check for one lower case
+                    if(!preg_match("/[a-z]/", $pwd)){
+                        $pwdErr = "Password must contain at least one lowercase letter";
+                        array_push($formErrors, [
+                            'location' => '#passwordSpan',
+                            'msg' => $pwdErr
+                        ]);
+                    }
+                    //check for one number
+                    if(!preg_match("/[1-9]/",$pwd)){
+                        $pwdErr = "Password must contain at least one digit";
+                        array_push($formErrors, [
+                            'location' => '#passwordSpan',
+                            'msg' => $pwdErr
+                        ]);
+                    }
+                }
+                else{
+                    $pwdConfirmErr = "Confirmation password must be the same as the above password";
+                    array_push($formErrors, [
+                        'location' => '#passwordConfirmSpan',
+                        'msg' => $pwdConfirmErr
+                    ]);
+                }
+            }//end of password and passwordConfirm check...this works
+        }//end of checks for screen 1 on the create account page
 
-
-        //     //checks password
-        //     if(empty($_POST['password'] && empty($_POST['passwordConfirm']))){
-        //         $pwdErr = "Password is required";
-        //         $pwdConfirmErr = "Confirmation Password is required";
-        //     }
-        //     else{
-        //         $pwd = test_input($_POST['password']);
-        //         $pwdConfirm = test_input($_POST['passwordConfirm']);
-        //         //check that password and passwordConfirm match
-        //         if($pwdConfirm == $pwd){
-        //             //check for length of at least 8
-        //             if(!strlen($pwd >= 8)){
-        //                 $pwdErr = "Password contain 8 characters";
-        //             }
-        //             //check for one upper case
-        //             if(!preg_match("/[A-Z]/", $pwd)){
-        //                 $pwdErr = "Password must contain at least 1 uppercase letter";
-        //             }
-        //             //check for one lower case
-        //             if(!preg_match("/[a-z]/", $pwd)){
-        //                 $pwdErr = "Password must contain at least one lowercase letter";
-        //             }
-        //             //check for one number
-        //             if(!preg_match("/[1-9]/",$pwd)){
-        //                 $pwdErr = "Password must contain at least one digit";
-        //             }
+        // if($_POST['formSection'] == 'screen2'){
+            
+        //     $formArray = array();
+        //     $json = $_POST['formData'];
+        //     $jsonIterator = new RecursiveIteratorIterator(
+        //         new RecursiveArrayIterator(json_decode($json, TRUE)),
+        //         RecursiveIteratorIterator::SELF_FIRST);
+        //     foreach ($jsonIterator as $key => $val) {
+        //         if(is_array($val)) {
+        //             //echo "$key:\n";
+        //             $formArray[$val[0]] = $val[1];     
+        //         } else {                    
         //         }
         //     }
+
         //     //checks fname
         //     if(empty($_POST['fName'])){
         //         $fnameErr = "First name is required";
@@ -208,6 +284,9 @@ class business_layer{
         //         }
         //         $fname = filter_var($_POST['fName'],FILTER_SANITIZE_STRING);
         //     }
+        // }
+
+
         //     //checks lname
         //     if(empty($_POST['lName'])){
         //         $lnameErr = "Last name is required";
@@ -262,24 +341,28 @@ class business_layer{
     }
 
     //test to see if the user input has extra whitespaces, slashes, or special characters. Removes them if so.
-    
 
     function createNewsTable($notificationArray){
         $string = "";
         $rowCount = 1;
         $nextRowCount = 2;
         foreach ($notificationArray as $rowArray) {
-            //var_dump($rowArray);
             $currNotiID = $rowArray['notificationID'];
             $currTitle = $rowArray['title'];
             $currBody = $rowArray['body'];
-            $currAttachment = $rowArray['attachment'];
-            $currActiveYN = (intval($rowArray['active'])) ? ('yes') : ('no');
+            //split file path using /
+            //Take the end of the array becuse it is the name of the file
+            $currAttachmentName = end(explode("/",$rowArray['attachment']));
+            //echo "Attachment: $currAttachmentName";
+            if ($currAttachmentName == ""){
+                $currAttachmentName = "No Attachment";
+            }
+            $currActiveYN = (intval($rowArray['active']));
 
             $string .= <<<END
-            <form class="" action="adminAction.php?id={$currNotiID}" method="post">
+            <form class="" action="adminAction.php?id={$currNotiID}" method="post" enctype="multipart/form-data">
             <tr class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-up'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
+                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
                 <td>
                     <input type="text" name="title" disabled value="{$currTitle}">
                 </td>
@@ -288,7 +371,7 @@ class business_layer{
                         <option value='1'>Yes</option>
                         <option
 END;
-            if ($currActiveYN === 'no') $string .= " selected ";
+            if (!$currActiveYN) $string .= " selected ";
             $string .= <<<END
 
                          value='0'>No</option>
@@ -305,13 +388,13 @@ END;
 
             <tr class='spacer'><td></td></tr>
 
-            <tr class='un-collapsed'>
+            <tr class='collapsed' style="display: none">
                 <td colspan='5' class='full'>
                     <h2>Body</h2>
                     <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
                     <h2>Attachment</h2>
-                    <i class="fas fa-times-circle"></i><span>{$currAttachment}</span>
-
+                    <button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>
+                    <span>{$currAttachmentName}</span>
                     <h2>User Ack. Report</h2>
                     <i class="fas fa-download"></i><span>user_report.csv</span>
                 </td>
@@ -338,6 +421,7 @@ END;
             $currDeptID = $thisUserArray['deptID'];
             $currAuthID = $thisUserArray['authID'];
             $currPhone = $thisUserArray['phone'];
+            if ($currAuthID != 1) {
 
             $string .= <<<END
             <form class="" action="adminAction.php?id={$currID}" method="post">
@@ -358,7 +442,7 @@ END;
 
                 <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
 
-                <tr class='un-collapsed'>
+                <tr class='collapsed' style="display: none">
                     <td colspan='3' class='leftUnCollapsed'>
                         <h2>Active</h2>
                         <select disabled name='activeYN' class='disabledDrop'>
@@ -440,9 +524,188 @@ END;
             </form>
 END;
         }
+        }
 
         return $string;
     }
 
+    function createPendingUserTable($allUserArray){
+        $string = '';
+        foreach ($allUserArray as $thisUserArray) {
+            $currID = $thisUserArray['userID'];
+            $currFName = $thisUserArray['fName'];
+            $currLName = $thisUserArray['lName'];
+            $currActiveYN = $thisUserArray['activeYN'];
+            $currEmail = $thisUserArray['email'];
+            $currDeptID = $thisUserArray['deptID'];
+            $currAuthID = $thisUserArray['authID'];
+            $currPhone = $thisUserArray['phone'];
 
+            $string .= <<<END
+            <form class="" action="adminAction.php?id={$currID}" method="post">
+                <tr class='collapsed'>
+                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
+                    <td>{$currFName}</td>
+                    <td>{$currLName}</td>
+                    <td>
+                        <button type="submit" name= "confirmPendEmp" value="confirmPendEmp"><i class="fas fa-check-circle"></i></button>
+                    </td>
+                    <td>
+                        <button type="submit" name= "denyPendEmp" value="denyPendEmp"><i class="fas fa-minus-circle"></i></button>
+                    </td>
+                </tr>
+
+                <tr class='spacer'><td></td></tr>
+                <tr class='un-collapsed'>
+                    <td colspan="5">
+                        <h2>Authorization Level</h2>
+                        <select name='pendingAuthID' id='authLevel'>
+                            <option value=2>Employee</option>
+                            <option value=3>Department Head</option>
+                            <option value=4>Admin</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class='spacer'><td></td></tr>
+            </form>
+END;
+        }
+
+        return $string;
+
+    }
+
+    function createLandingNewsTable($notificationArray){
+        $string = "";
+        $imgNum = 1;
+        foreach ($notificationArray as $currNotiArray) {
+            $currNotiID = $currNotiArray['notificationID'];
+            $currTitle = $currNotiArray['title'];
+            $currBody = $currNotiArray['body'];
+            $timeStamp = $currNotiArray['time'];
+            $webAppYN = $currNotiArray['webAppYN'];
+            $activeYN = $currNotiArray['active'];
+
+            $dateStamp = new DateTime($timeStamp);
+            $now = new DateTime();
+
+            $days = $dateStamp->diff($now)->format("%d");
+            $hours = $dateStamp->diff($now)->format("%h");
+            $mins = $dateStamp->diff($now)->format("%m");
+            if (intval($hours) < 1){
+                $timesig = $mins."m ago";
+            }
+            if (intval($days) < 1) {
+                //display using hours
+                $timesig = $hours."h ago";
+            }
+            if (intval($days) >= 1 && intval($days) >= 6) {
+                //display using days
+                $timesig = $days."d ago";
+            }
+            if (intval($days) >= 7){
+                //display using weeks
+                $timesig = ($days%7)."w ago";
+            }
+
+            if ($imgNum  <= 6){
+                $imgNum++;
+            }
+            else {
+                $imgNum = 1;
+            }
+            if($webAppYN && $activeYN){
+$string .= <<<END
+                    <div class='notifContainer' id='{$currNotiID}'>
+                        <div class='overlay'>
+                            <img src='../assets/images/{$imgNum}.jpg'>
+                        </div>
+
+                        <h2 class='title'>{$currTitle}</h2>
+
+                        <div class='subtitle block'>
+                            <div class='posted inline'>
+                                <i class="far fa-clock"></i>
+                                <span class='inline'>{$timesig}</span>
+                            </div>
+                            <a class='inline' href='notification.php?id={$currNotiID}&img={$imgNum}'>read more</a>
+                        </div>
+
+                        <!-- Admin Feature only -->
+                        <button type="button" class="button
+END;
+if ($_SESSION['authID'] < 4) $string .= " hidden";
+$string .= <<<END
+"><i class="far fa-edit"></i></button>
+                        <div class='buttonOptions' style="display:none" >
+                            <ul class='spaced'>
+                                <li>Modify<i class='fas fa-pencil-alt'></i></li>
+                                <li>Delete<i class="fas fa-trash-alt"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+END;
+            }
+        }
+        return $string;
+    }
+
+
+    function createIndividualNotification($notiArray, $imgNum){
+        $currTitle = $notiArray[0]['title'];
+        $currBody = $notiArray[0]['body'];
+        $timeStamp = $notiArray[0]['postDate'];
+        $currAttachmentName = end(explode("/",$notiArray[0]['attachment']));
+        //echo "Attachment: $currAttachmentName";
+        if ($currAttachmentName == ""){
+            $currAttachmentName = "No Attachment";
+        }
+
+        $dateStamp = new DateTime($timeStamp);
+        $now = new DateTime();
+        $days = $dateStamp->diff($now)->format("%d");
+        $hours = $dateStamp->diff($now)->format("%h");
+        $mins = $dateStamp->diff($now)->format("%m");
+
+        //less than an hour use mins
+        if (intval($hours) < 1){
+            $timesig = $mins."m ago";
+        }
+        else if (intval($days) < 1) {
+            //display using hours
+            $timesig = $hours."h ago";
+        }
+        else if (intval($days) >= 1 && intval($days) >= 6) {
+            //display using days
+            $timesig = $days."d ago";
+        }
+        else if (intval($days) >= 7){
+            //display using weeks
+            $timesig = ($days%7)."w ago";
+        }
+
+        $string = <<<END
+        <div class='imageContainer'>
+            <div class='overlay'>
+                <img src='../assets/images/{$imgNum}.jpg'> <!-- Needs to be same image as on landing page -->
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class='container'>
+
+            <h2 class='title'>{$currTitle}</h2>
+
+            <div class='subtitle block'>
+                <i class="fas fa-download inline"></i>
+                <span class='inline'>{$currAttachmentName}</span>
+                <i class="far fa-clock inline"></i>
+                <span class='inline'>{$timesig}</span>
+            </div>
+
+            <span class='copy block'>{$currBody}</span>
+        </div>
+END;
+    return $string;
+    }
 }

@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
         //business layer validation / sanitization of $_POST
         $businessLayer->validateAndSanitize();
         $dataLayer->createNewUser($_POST);
+        header('location: ../index.php');
     }
 }
  ?>
@@ -72,11 +73,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <div class='inputWithIcon'>
                         <input onkeyup="confirmPassword()" class='block' id='password' type = 'password' placeholder= 'Password' name='password' required="required">
                         <i class='fas fa-key pwIcon' aria-hidden='true'></i>
+                        <span class='error' id='passwordSpan'></span>
                     </div>
 
                     <div class='inputWithIcon'>
                         <input onkeyup="confirmPassword()" class='block' id='passwordConfirm' type = 'password' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
                         <i class='fas fa-lock pwIcon' aria-hidden='true'></i>
+                        <span class='error' id='passwordConfirmSpan'></span>
                     </div>
                     <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStepTwo(1)"/>
                     <a id='login' href='../index.php'>Log In</a>
@@ -87,12 +90,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                     <div class='inputWithIcon'>
                         <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required" autofocus>
                         <i class='fas fa-address-card' aria-hidden='true'></i>
+                        <span class='error' id='firstNameSpan'></span>
                     </div>
                     <div class='inputWithIcon'>
                         <input class='block' id='lName' type = 'text' placeholder= 'Last Name' name='lName' required="required" autofocus>
                         <i class='fas fa-address-card' aria-hidden='true'></i>
+                        <span class='error' id='lastNameSpan'></span>
                     </div>
-                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep(2)"/>
+                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStepTwo(2)"/>
                     <a id='login' href='../index.php'>Log In</a>
                 </div>
 

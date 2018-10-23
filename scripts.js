@@ -101,8 +101,10 @@ function nextStepTwo(num) {
                 //correctly 
                 
                 if (data.includes('isValidForm')){
+                    //check to make sure names are valid
                     $("#formStep1").hide(1000);
                     $("#formStep2").show(1000);
+                    //Hide current circle-dot, show next
                     $("#circle1").hide();
                     $("#circle2").show();
                     $("#dot1").show();
@@ -127,24 +129,77 @@ function nextStepTwo(num) {
                 });
             }
         });
-
-        //Hide current circle-dot, show next
-        // $("#circle1").hide();
-        // $("#circle2").show();
-        // $("#dot1").show();
-        // $("#dot2").hide();
     }
 
     if (num == 2) {
-        //check to make sure names are valid
-        $("#formStep2").hide(1000);
-        $("#formStep3").show(1000);
+        formData.push(['pageNumber', num]);
+        console.log('starting ajax request');   
 
-        //Hide current circle-dot, show next
-        $("#circle2").hide();
-        $("#circle3").show();
-        $("#dot2").show();
-        $("#dot3").hide();
+        $.ajax({
+            type: "POST",
+            url: '../business/business_layer.php',
+            data: {
+                action: 'validateForm',
+                formSection : 'screen2',
+                formData: JSON.stringify(formData)
+            },
+            success: function (data) {
+                //Data looks like this
+                /**
+                 * [
+                 * [
+                 *  'location' = '#phoneSpan',
+                 *  'msg' = 'Message'
+                 * ],
+                 * [
+                 *  'location' = '#passwordSpan',
+                 *  'msg' = 'Message'
+                 * ]
+                 * [
+                 *  'location' = '#nameSpan',
+                 *  'msg' = 'Message'
+                 * ]
+                 * ]
+                 */
+                //data.foreach(index) {
+                //    $(data[index]['location']).html(data[index]['msg']);
+                //}
+                console.log(data);
+                //console.log(JSON.parse(data));
+                //Below may need to be updated. I may not be grabbing the isValidForm
+                //correctly 
+                
+                if (data.includes('isValidForm')){
+                    //check to make sure names are valid
+                    $("#formStep2").hide(1000);
+                    $("#formStep3").show(1000);
+
+                    //Hide current circle-dot, show next
+                    $("#circle2").hide();
+                    $("#circle3").show();
+                    $("#dot2").show();
+                    $("#dot3").hide();
+                    //return;
+                }
+                //lines below prints the error message to the page
+                //loop through data, get location, change the message 
+                //$('#phoneSpan').val('Phone Number is required');
+
+                //below 2 lines work (manual)
+                //var phone = JSON.parse(data)[0]['location'];
+                //$(phone).html(JSON.parse(data)[0]['msg']);
+                
+                //below line not working
+                //$(data[0]['location']).html(data[0]['msg']);
+
+                //dynamically shows data on page. Works!
+                $.each(JSON.parse(data), function(i){
+                    var info = JSON.parse(data)[i]['location']
+                    $(info).html(JSON.parse(data)[i]['msg'])
+                });
+            }
+        });
+        
     }
 }
 
@@ -179,6 +234,8 @@ function dropDownToggle(ele){
         $(ele).removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
         $(nextRow).removeClass('un-collapsed').addClass('collapsed').hide();
     }
+    
+    //resizeTextArea(thisRow.find('#bodyContent'));
 }
 
 function dropDownModify(ele,page){
@@ -193,14 +250,15 @@ function dropDownModify(ele,page){
         dropDownToggle($(ele).parent().parent().find('i')[0]);
     }
     //switch to the save button
-    if (page == 'emp') {
-        $('#empEditButton').hide();
-        $('#empSaveEditButton').show();
-    }
     if (page == 'noti') {
-        $('#notiEditButton').hide();
-        $('#notiSaveEditButton').show();
+        $(thisRow).find('#notiEditButton').hide();
+        $(thisRow).find('#notiSaveEditButton').show();
     }
+    if (page == 'emp') {
+        $(thisRow).find('#empEditButton').hide();
+        $(thisRow).find('#empSaveEditButton').show();
+    }
+
 
     //find all of the disabled inputs and enable them
     //$(thisRow).find(':disabled').each().attr('disabled',false);
@@ -226,6 +284,7 @@ function updateAdminView(ele){
         $("#employees").hide();
         $("#pending").hide();
         $("#news").show();
+        $("#compare").hide();
     }
 
     //show employee hide others
@@ -233,7 +292,7 @@ function updateAdminView(ele){
         $("#pending").hide();
         $("#news").hide();
         $("#employees").show();
-
+        $("#compare").hide();
     }
 
     //show pending hide others
@@ -241,16 +300,80 @@ function updateAdminView(ele){
         $("#news").hide();
         $("#employees").hide();
         $("#pending").show();
+        $("#compare").hide();
+    }
 
+    //show compare hide others
+    if (whichButton === "compare"){
+        $("#news").hide();
+        $("#employees").hide();
+        $("#pending").hide();
+        $("#compare").show();
     }
 }
 
 //Resizes the text area to fit content
 function resizeTextArea(id) {
 
+    console.log(id);
     //Get the JQuery element of the JavaScript Element
     var textArea = $('#'+String(id.id));
+    console.log(textArea);
+    console.log(textArea[0].scrollHeight);
 
     //Set the DOM element styling height to match the height of the ScrollHeight
     textArea.attr('style', 'height:' + id.scrollHeight + 'px');
+}
+
+//Handles file upload in Admin Console
+function initCsvListener() {
+    //make button open file upload
+    $("#csvFileUploadButton").click(function() {
+        $('#fileUpload').trigger('click');
+    });
+
+    //update view to show selected file like file input
+    $("#fileUpload").on('change', function() {
+        var val = $(this).val().split('\\').pop();//get the last one (file name)
+        if(val.length > 0) {
+           $(this).siblings('span').text(val);
+        } else {
+            $(this).siblings('span').text('No file selected');
+        }
+    });
+}
+
+function setNavBar(){
+    var numNotifications = (($("#news").find('tr')).length-4)/4;
+    $("#news_Button").html('News('+numNotifications+")");
+
+    var numEmps = (($("#employees").find('tr')).length-4)/3;
+    $("#employee_Button").html('Employees('+numEmps+")");
+
+    var numPendEmps = (($("#pending").find('tr')).length-1)/4;
+    $("#pending_Button").html('Pending('+numPendEmps+")");
+
+    if (screen.width < 700){
+        $("#compare_Button").hide();
+    }
+    else {
+        $("#compare_Button").show();
+    }
+    var url = window.location.href;
+    if (url.indexOf('#') > -1) {
+        var page = url.split("#").pop();
+        if (page == "e"){
+            $("#employee_Button").trigger('onclick');
+        }
+        else if (page == "p"){
+            $("#pending_Button").trigger('onclick');
+        }
+        else if (page == "c"){
+            $("#compare_Button").trigger('onclick');
+        }
+        else if (page == "n"){
+            $("#news_Button").trigger('onclick');
+        }
+
+    }
 }
