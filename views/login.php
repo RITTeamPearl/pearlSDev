@@ -14,7 +14,7 @@
         $_SESSION['authID'] = $userData[0]['authID'];
         $_SESSION['phone'] = $userData[0]['phone'];
         $_SESSION['name'] = $userData[0]['fName']. " ". $userData[0]['lName'];
-        header("Location: adminConsole.php");
+        header("Location: news.php");
     }
     else {
         header("Location: ../index.php");

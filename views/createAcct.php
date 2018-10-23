@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
     if (count($_POST) == 7) {
         //business layer validation / sanitization of $_POST
         $dataLayer->createNewUser($_POST);
+        header('location: ../index.php');
     }
 }
  ?>

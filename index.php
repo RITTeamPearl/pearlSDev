@@ -1,9 +1,9 @@
 <?php
 session_start();
-// if(isset($_SESSION['phone'])){
-//     //alredy logged in redirect to admin console
-//     header("Location: views/adminConsole.php");
-// }
+//alredy logged in redirect to admin console
+if(isset($_SESSION['phone'])){
+    header("Location: views/news.php");
+}
  ?>
 
 <!DOCTYPE html>

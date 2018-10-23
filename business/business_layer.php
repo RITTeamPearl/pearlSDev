@@ -202,6 +202,7 @@ END;
             $currDeptID = $thisUserArray['deptID'];
             $currAuthID = $thisUserArray['authID'];
             $currPhone = $thisUserArray['phone'];
+            if ($currAuthID != 1) {
 
             $string .= <<<END
             <form class="" action="adminAction.php?id={$currID}" method="post">
@@ -303,6 +304,7 @@ END;
                 </tr>
             </form>
 END;
+        }
         }
 
         return $string;

@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION['phone'])){
+    //session var is not set = they are not logged in
+    header("Location: ../index.php");
+}
 require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
 $dataLayer = new data_layer();

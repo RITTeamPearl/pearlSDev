@@ -1,13 +1,14 @@
 <?php
 session_start();
 
-var_dump($_SESSION);
-if(!isset($_SESSION['authID'])){
+if(!isset($_SESSION['phone'])){
     //session var is not set = they are not logged in
+    header("Location: ../index.php");
 }
 
 if(isset($_SESSION['authID']) && $_SESSION['authID'] != 4){
     //logged in but dont have correct access send to news page
+    header("Location: news.php");
 }
 require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
@@ -71,7 +72,7 @@ $bizLayer = new business_layer();
             <?php
                 echo $bizLayer->createNewsTable(array_reverse($dataLayer->getAllNotifcations()));
              ?>
-            
+
             <!-- Begin next dynamically added rows here -->
 
             <!-- Add New Notification -->
