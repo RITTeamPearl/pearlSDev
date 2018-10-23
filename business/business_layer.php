@@ -367,24 +367,24 @@ END;
             $webAppYN = $currNotiArray['webAppYN'];
             $activeYN = $currNotiArray['active'];
 
-            $dateStamp = new DateTime($timeStamp);
-            $now = new DateTime();
+            $now = new DateTime(null, new DateTimeZone('America/New_York'));
+            $dateStamp = new DateTime($timeStamp,new DateTimeZone('America/New_York'));
 
-            $days = $dateStamp->diff($now)->format("%d");
+            $mins = $dateStamp->diff($now)->format("%i");
             $hours = $dateStamp->diff($now)->format("%h");
-            $mins = $dateStamp->diff($now)->format("%m");
+            $days = $dateStamp->diff($now)->format("%d");
             if (intval($hours) < 1){
                 $timesig = $mins."m ago";
             }
-            if (intval($days) < 1) {
+            else if (intval($days) < 1) {
                 //display using hours
                 $timesig = $hours."h ago";
             }
-            if (intval($days) >= 1 && intval($days) >= 6) {
+            else if (intval($days) >= 1 && intval($days) >= 6) {
                 //display using days
                 $timesig = $days."d ago";
             }
-            if (intval($days) >= 7){
+            else if (intval($days) >= 7){
                 //display using weeks
                 $timesig = ($days%7)."w ago";
             }
@@ -442,12 +442,11 @@ END;
             $currAttachmentName = "No Attachment";
         }
 
-        $dateStamp = new DateTime($timeStamp);
-        $now = new DateTime();
-        $days = $dateStamp->diff($now)->format("%d");
+        $now = new DateTime(null, new DateTimeZone('America/New_York'));
+        $dateStamp = new DateTime($timeStamp,new DateTimeZone('America/New_York'));
+        $mins = $dateStamp->diff($now)->format("%i");
         $hours = $dateStamp->diff($now)->format("%h");
-        $mins = $dateStamp->diff($now)->format("%m");
-
+        $days = $dateStamp->diff($now)->format("%d");
         //less than an hour use mins
         if (intval($hours) < 1){
             $timesig = $mins."m ago";
