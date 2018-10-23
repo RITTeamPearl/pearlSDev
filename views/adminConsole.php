@@ -27,7 +27,7 @@ $bizLayer = new business_layer();
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='adminConsole' onload="setNavBar();resizeTextArea(bodyContent);initCsvListener();">
+<body id='adminConsole' onload="setNavBar();initCsvListener();">
     <!-- Header -->
     <div class='header'>
         <h1 id='title' class='centered'>Administrator Console</h1>
@@ -71,9 +71,7 @@ $bizLayer = new business_layer();
             <?php
                 echo $bizLayer->createNewsTable(array_reverse($dataLayer->getAllNotifcations()));
              ?>
-
-
-
+            
             <!-- Begin next dynamically added rows here -->
 
             <!-- Add New Notification -->
@@ -155,7 +153,6 @@ $bizLayer = new business_layer();
             <?php
                 echo $bizLayer->createUserTable($dataLayer->getAllUsers());
              ?>
-
 
             <!-- Begin next dynamically added rows here -->
 

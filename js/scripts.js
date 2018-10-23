@@ -58,6 +58,8 @@ function dropDownToggle(ele){
         $(ele).removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
         $(nextRow).removeClass('un-collapsed').addClass('collapsed').hide();
     }
+    
+    //resizeTextArea(thisRow.find('#bodyContent'));
 }
 
 function dropDownModify(ele,page){
@@ -137,8 +139,11 @@ function updateAdminView(ele){
 //Resizes the text area to fit content
 function resizeTextArea(id) {
 
+    console.log(id);
     //Get the JQuery element of the JavaScript Element
     var textArea = $('#'+String(id.id));
+    console.log(textArea);
+    console.log(textArea[0].scrollHeight);
 
     //Set the DOM element styling height to match the height of the ScrollHeight
     textArea.attr('style', 'height:' + id.scrollHeight + 'px');
