@@ -88,7 +88,7 @@ class business_layer{
         }
     }
 
-    function passwordReset($email){
+    function sendPasswordResetEmail($email){
         $hashedEmail = password_hash($email,PASSWORD_DEFAULT);
 
         $subject = "RRCC Account Password Reset";
@@ -100,16 +100,16 @@ class business_layer{
         //if input matches $_GET as well as some unique identifier then reset the password
 
 
-        // $dataLayer = new data_layer();
+        $dataLayer = new data_layer();
         // generate a random 10 character string.
-        // $genPass = substr(md5(microtime()),rand(0,26),10);
+        $genPass = substr(md5(microtime()),rand(0,26),10);
         // database call to set new password and update temp password flag
-        // $dataLayer->setUserTempPass($email,$genPass);
+        $dataLayer->setUserTempPass($email,$genPass);
         // echo "your new password is $genPass";
 
         //address , subject line, body
-        //if($bizLayer->sendEmail($_POST['email'], 'Password Reset test', "Your New Password is $genPass")){
-        //};
+        if($bizLayer->sendEmail($_POST['email'], 'Password Reset test', "Your New Password is $genPass")){
+        };
     }
 
     function validateAndSanitize($postData){

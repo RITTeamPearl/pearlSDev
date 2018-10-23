@@ -4,18 +4,7 @@ require_once '../business/business_layer.php';
 // $dataLayer = new data_layer();
 $bizLayer = new business_layer();
 
-//$bizLayer->passwordReset("email");
-
     //validate and sanitize input
-    //check if email exists
-        //Yes
-            //Generate temp Password
-            //Set DB Flag to temp pass
-            //Send email with temp pass
-            //route to send page
-        //NO
-            //Put error message on screen saying email could not be found
-
 
  ?>
 
@@ -36,6 +25,7 @@ $bizLayer = new business_layer();
             //check if the hashed email that was passed into the url is the same as the user input
             if(password_verify($_POST['email'],$_GET['email'])){
                 //actually reset the password.
+                $bizLayer->sendPasswordResetEmail("email");
             }
         }
 

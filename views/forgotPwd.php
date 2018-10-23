@@ -1,19 +1,25 @@
 <?php
-// require_once '../database/data_layer.php';
+require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
-// $dataLayer = new data_layer();
+$dataLayer = new data_layer();
 $bizLayer = new business_layer();
 
-//$bizLayer->passwordReset("email");
+
+function handlePasswordResetForm(){
 
     //validate and sanitize input
     //check if email exists
-    //$inputEmail = $_POST["email"];
-    //if($dataLayer->checkEmailExists($inputEmail)){
+    $inputEmail = $_POST["email"];
+    if($dataLayer->checkEmailExists($inputEmail)){
         //Yes
+            //redirect to resetConfirm.php ignore the rest of code, it'll be done on resetConfirm.php
+            header("Location: resetConfirm.php");
+
+
             //Set DB Flag to temp pass
             //Send email with temp pass (also create temp password)
             //$bizLayer->passwordReset($inputEmail);
+            //$bizLayer->sendPasswordResetEmail("email");
             //route to send page
             //echo "<script type='text/javascript'>
             //var landing = document.getElementById('section-landing');
@@ -22,12 +28,12 @@ $bizLayer = new business_layer();
             //success.style.display == 'block';
             //</script>";
 
-    //}   else { //NO
+    }   else { //NO
             //Put error message on screen saying email could not be found
-            //$emailError = "<h2 color='red'>Error: Email Address Not Found.</h2>";
-            //echo "<script type='text/javascript'>alert('$emailError');</script>";
-    //}
-
+            $emailError = "<h2 color='red'>Error: Email Address Not Found.</h2>";
+            echo "<script type='text/javascript'>alert('$emailError');</script>";
+    }
+}
  ?>
 
 <!DOCTYPE html>
@@ -52,7 +58,7 @@ $bizLayer = new business_layer();
             </div>
 
             <!-- Send Password Form -->
-            <form class='formContainer' action='blank.php' method='POST'>
+            <form class='formContainer' action='handlePasswordResetForm().php' method='POST'>
                 <div class='inputWithIcon'>
                     <input class='block' id='email' type = 'email' placeholder= 'E-mail Address' name='email' required="required" autofocus>
                     <i class='fas fa-user' aria-hidden='true'></i>
