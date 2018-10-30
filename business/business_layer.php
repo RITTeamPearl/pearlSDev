@@ -409,10 +409,7 @@ $string .= <<<END
                                 <i class="far fa-clock"></i>
                                 <span class='inline'>{$timesig}</span>
                             </div>
-                            <form action="notiAck.php?id={$currNotiID}&img={$imgNum}" method="post">
-                                <button type="submit">read more</button>
-                                <a type='submit' class='inline' href='notification.php?id={$currNotiID}&img={$imgNum}'>read more</a>
-                            </form>
+                            <a type='submit' class='inline' href='notification.php?id={$currNotiID}&img={$imgNum}'>read more</a>
                         </div>
 
                         <!-- Admin Feature only -->
@@ -437,6 +434,7 @@ END;
 
     function createIndividualNotification($notiArray, $imgNum){
         $currTitle = $notiArray[0]['title'];
+        $currNotiID = $notiArray[0]['notificationID'];
         $currBody = $notiArray[0]['body'];
         $timeStamp = $notiArray[0]['postDate'];
         $currAttachmentName = end(explode("/",$notiArray[0]['attachment']));
@@ -484,6 +482,10 @@ END;
                 <span class='inline'>{$timesig}</span>
             </div>
             <span class='copy block'>{$currBody}</span>
+
+            <form action="notiAck.php?id={$currNotiID}&img={$imgNum}" method="post">
+                <button type="submit">I acknowledge</button>
+            </form>
         </div>
 END;
     return $string;
