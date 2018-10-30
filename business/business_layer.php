@@ -409,7 +409,10 @@ $string .= <<<END
                                 <i class="far fa-clock"></i>
                                 <span class='inline'>{$timesig}</span>
                             </div>
-                            <a class='inline' href='notification.php?id={$currNotiID}&img={$imgNum}'>read more</a>
+                            <form action="notiAck.php?id={$currNotiID}&img={$imgNum}" method="post">
+                                <button type="submit">read more</button>
+                                <a type='submit' class='inline' href='notification.php?id={$currNotiID}&img={$imgNum}'>read more</a>
+                            </form>
                         </div>
 
                         <!-- Admin Feature only -->
@@ -473,16 +476,13 @@ END;
 
         <!-- Content -->
         <div class='container'>
-
             <h2 class='title'>{$currTitle}</h2>
-
             <div class='subtitle block'>
                 <i class="fas fa-download inline"></i>
                 <span class='inline'>{$currAttachmentName}</span>
                 <i class="far fa-clock inline"></i>
                 <span class='inline'>{$timesig}</span>
             </div>
-
             <span class='copy block'>{$currBody}</span>
         </div>
 END;

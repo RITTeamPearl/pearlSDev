@@ -146,6 +146,7 @@ class data_layer{
         return false;
     }
 
+    //$postData has Key of field in the DB and value of what it should be set to ex:{"phone"=>"15856455810"}
     function updateUser($postData, $idField, $id){
         $query = "UPDATE user SET";
         $bindParamTypes = '';
@@ -267,6 +268,21 @@ class data_layer{
                 $stmt->bind_param("s", strval($id));
             }
             $stmt->execute();
+        }
+    }
+
+    function createNotiAck($phone,$notiID){
+        //get ready to update the table
+        $query = "INSERT INTO acknowledgement (notificationID,phone,viewedYN) VALUES (?,?,1)";
+        if ($stmt = $this->connection->prepare($query)){
+            //bind the phone. may have to add 1?
+            $stmt->bind_param("is",$notiID,$phone);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->affected_rows > 0){
+                echo "it worked";
+                return true;
+            }
         }
     }
 }
