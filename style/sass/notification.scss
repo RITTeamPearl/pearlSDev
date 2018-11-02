@@ -36,6 +36,7 @@
             width: 100%;
             text-align: right;
             font-family: $lighterFont;
+            white-space: nowrap;
             
             i {
                 color: $blue;
@@ -50,6 +51,29 @@
         .copy {
             font-family: $lighterFont;
             margin-top: pxToRem(70);
+        }
+        
+        .fa-link {
+            color: $blue;
+            width: 100%;
+            margin-top: pxToRem(60);
+            
+            a {
+                margin-left: pxToRem(15);
+                font-family: $lighterFont;
+                font-weight: 100;
+                font-size: ptToEm(14);
+                text-overflow: ellipsis;
+            }
+        }
+        
+        button {
+            margin: pxToRem(60) auto 0;
+            background-color: #2ac656;
+            color: white;
+            font-size: 1em;
+            width: 100%;
+            height: pxToRem(95);
         }
     }
 }

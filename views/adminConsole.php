@@ -89,6 +89,8 @@ $bizLayer = new business_layer();
                         <input type="text" class='block inputNoIcon' name="title" required>
                         <h2>Body</h2>
                         <input type="text" class='block inputNoIcon' name="body" required>
+                        <h2>Survey Link</h2>
+                        <input type="text" class='block inputNoIcon' name="body" required>
                         <h2>Attachment</h2>
                         <div class='inputWithIcon addAttachment'>
                             <input class='block' type='file' name='attachment'/>

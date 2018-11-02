@@ -482,9 +482,9 @@ END;
                 <span class='inline'>{$timesig}</span>
             </div>
             <span class='copy block'>{$currBody}</span>
-
+            <i class='fas fa-link'><a href=''> Survey Link</a></i>
             <form action="notiAck.php?id={$currNotiID}&img={$imgNum}" method="post">
-                <button type="submit">I acknowledge</button>
+                <button type="submit">I Acknowledge</button>
             </form>
         </div>
 END;
