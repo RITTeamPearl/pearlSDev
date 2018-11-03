@@ -28,7 +28,7 @@ CREATE TABLE `acknowledgement` (
   `viewedYN` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`notificationID`,`phone`),
   KEY `ack_phone_fk_idx` (`phone`),
-  CONSTRAINT `ackNotiID_notiNotiID` FOREIGN KEY (`notificationID`) REFERENCES `notification` (`notificationID`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `ackNotiID_notiNotiID` FOREIGN KEY (`notificationID`) REFERENCES `notification` (`notificationID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `ack_phone_fk` FOREIGN KEY (`phone`) REFERENCES `user` (`phone`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -105,11 +105,8 @@ CREATE TABLE `notification` (
   `activeYN` tinyint(4) DEFAULT NULL,
   `webAppYN` tinyint(4) NOT NULL DEFAULT '1',
   `postDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `surveyLink` varchar(100) DEFAULT NULL,
-  `sentBy` int(15) NOT NULL,
-  `viewableBy` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`notificationID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,6 +115,7 @@ CREATE TABLE `notification` (
 
 LOCK TABLES `notification` WRITE;
 /*!40000 ALTER TABLE `notification` DISABLE KEYS */;
+INSERT INTO `notification` VALUES (1,'Test Notification','Other important info','assets/uploads/TEST.txt',1,1,'2018-10-22 23:15:22');
 /*!40000 ALTER TABLE `notification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +152,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('1234567890','Admin','User',0,'$2y$10$ma5.dowSWAGPa.FDwBXH2uV81dgiu9HZ3NUtnoB8Dpep7hjBJ6H4i','email@email.com',3,4,1,1);
+INSERT INTO `user` VALUES ('1234567890','Admin','User',0,'$2y$10$aAX8JshF2.HA6Q2rnUYhJu36J4JIa7wbtYpqcb/0DaEXd1iwCduFW','admin@admin.com',2,1,1,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -167,4 +165,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-03 13:59:51
+-- Dump completed on 2018-10-22 19:17:36
