@@ -9,6 +9,17 @@ $dataLayer = new data_layer();
 
 //Sending a new notification was clicked
 if (isset($_POST['sendNoti'])){
+    //create viewableBy string using deptIDs
+    $viewableBy = "";
+    foreach ($_POST as $key => $value) {
+        if(explode("_",$key)[0] == "dept"){
+            $viewableBy .= strval($value);
+        }
+    }
+    $_POST["viewableBy"] = $viewableBy;
+    //store who notification is sent by using session var
+    $_POST["sentBy"] = $_SESSION['userID'];
+    //surveyLink, sentBy, viewableBy
     //business layer stuff to deal with the attachment ($_FILES)
     if (isset($_FILES['attachment']) && $_FILES['attachment']['size'] > 0 ){
         if ($businessLayer->uploadFile($_FILES['attachment'],'noti')){
@@ -22,17 +33,17 @@ if (isset($_POST['sendNoti'])){
         }
 
     }
-    if (isset($_POST['emailCheck'])){
-        //business layer email functions
-        //loop through each email in the DB to send
-        foreach ($dataLayer->getData('user', array('email')) as $key => $value) {
-            $currEmail = $value['email'];
-            //if it has an attachment send that
-            if (isset($_POST['attachment'])) $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body'],$_POST['attachment']);
-            //No attachment just send title and body
-            else $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body']);
-        }
-    }
+    // if (isset($_POST['emailCheck'])){
+    //     //business layer email functions
+    //     //loop through each email in the DB to send
+    //     foreach ($dataLayer->getData('user', array('email')) as $key => $value) {
+    //         $currEmail = $value['email'];
+    //         //if it has an attachment send that
+    //         if (isset($_POST['attachment'])) $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body'],$_POST['attachment']);
+    //         //No attachment just send title and body
+    //         else $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body']);
+    //     }
+    // }
     if (isset($_POST['phoneCheck'])){
         $fullText = "\n".$_POST['title']."\n\n".$_POST['body'];
         //$businessLayer->sendText($fullText);
@@ -44,8 +55,10 @@ if (isset($_POST['sendNoti'])){
     header("Location: adminConsole.php?#n");
 
 }
+
 //Delete notification button was clicked
 if (isset($_POST['deleteNoti'])) {
+
     $dataLayer->deleteNotification($_GET['id']);
     header("Location: adminConsole.php?#n");
 }

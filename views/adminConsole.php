@@ -88,10 +88,10 @@ $bizLayer = new business_layer();
                         <h2>Title</h2>
                         <input type="text" class='block inputNoIcon' name="title" required>
                         <h2>Body</h2>
-                        <textarea class='block inputNoIcon'></textarea>
+                        <textarea class='block inputNoIcon' name="body"></textarea>
                         <!--<input type="text" class='block inputNoIcon' name="body" required>-->
                         <h2>Survey Link</h2>
-                        <input type="text" class='block inputNoIcon' name="body" required>
+                        <input type="text" class='block inputNoIcon' name="surveyLink">
                         <h2>Attachment</h2>
                         <div class='inputWithIcon addAttachment'>
                             <input class='block' type='file' name='attachment'/>
@@ -100,22 +100,22 @@ $bizLayer = new business_layer();
                         <h2>Departments to Notify</h2>
 
                         <div class='checkBox deptChecks'>
-                            <input name= 'hr' id='cbHr' type='checkbox'>
+                            <input name= 'dept_hr' id='cbHr' value="1" type='checkbox'>
                             <label for='cbHr' class='checkBoxContainer'>HR</label>
-                            <input name='admin' id='cbAdmin' type='checkbox'>
+                            <input name='dept_admin' id='cbAdmin'value="2" type='checkbox'>
                             <label for='cbAdmin' class='checkBoxContainer'>Admin</label>
-                            <input name ='sales' id='cbSales' type='checkbox'>
+                            <input name ='dept_sales' id='cbSales' value="3" type='checkbox'>
                             <label for='cbSales' class='checkBoxContainer'>Sales</label>
-                            <input name ='production' id='cbProduction' type='checkbox'>
+                            <input name ='dept_production' id='cbProduction' value="4" type='checkbox'>
                             <label for='cbProduction' class='checkBoxContainer'>Production</label>
-                            <input name ='operations' id='cbOperations' type='checkbox'>
+                            <input name ='dept_operations' id='cbOperations' value="5" type='checkbox'>
                             <label for='cbOperations' class='checkBoxContainer'>Operations</label>
-                            <input name ='food' id='cbFood' type='checkbox'>
+                            <input name ='dept_food' id='cbFood' value="6" type='checkbox'>
                             <label for='cbFood' class='checkBoxContainer'>Food and Beverages</label>
-                            <input name ='garage' id='cbGarage' type='checkbox'>
+                            <input name ='dept_garage' id='cbGarage' value="7" type='checkbox'>
                             <label for='cbGarage' class='checkBoxContainer'>Garage</label>
                         </div>
-                        
+
                         <h2>Notify Via</h2>
                         <div class='checkBox'>
                             <input name= 'phoneCheck' id='cbPhone' type='checkbox'>

@@ -62,11 +62,12 @@ class data_layer{
         if ($stmt = $this->connection->prepare("select * from notification")){
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($notificationID,$title,$body,$attachment,$active,$webAppYN,$timestamp);
+            $stmt->bind_result($notificationID,$title,$body,$attachment,$active,$webAppYN,$timestamp,$surveyLink,$sentBy,$viewableBy);
             $returnArray = array();
             while ($stmt->fetch()) {
                 $currRowArray = array('notificationID' => $notificationID, 'title' => $title,
-                'body'=> $body, 'attachment'=> $attachment, 'active'=>$active,'webAppYN'=>$webAppYN,'time'=>$timestamp);
+                'body'=> $body, 'attachment'=> $attachment, 'active'=>$active,'webAppYN'=>$webAppYN,
+                'time'=>$timestamp,'time'=>$timestamp,'surveyLink'=>$surveyLink,'viewableBy'=>$viewableBy);
                 array_push($returnArray,$currRowArray);
             }
             return $returnArray;
@@ -74,8 +75,8 @@ class data_layer{
     }
 
     function createNotification($postData){
-        if ($stmt = $this->connection->prepare("INSERT INTO notification (title,body,attachment,activeYN,webAppYN) VALUES (?,?,?,1,?)")){
-            $stmt->bind_param("sssi", $postData['title'], $postData['body'], $postData['attachment'],intval($postData['webAppYN']));
+        if ($stmt = $this->connection->prepare("INSERT INTO notification (title,body,attachment,activeYN,webAppYN,surveyLink,sentBy,viewableBy) VALUES (?,?,?,1,?,?,?,?)")){
+            $stmt->bind_param("sssisis", $postData['title'], $postData['body'], $postData['attachment'],intval($postData['webAppYN']),$postData['surveyLink'],$postData['sentBy'],$postData['viewableBy']);
             $stmt->execute();
             //echo $stmt->affected_rows . " rows inserted";
         }

@@ -10,8 +10,10 @@
     $loginSuccess = $dataLayer->checkLogin($_POST['phone'],$_POST['password']);
 
     if ($loginSuccess) {
-        $userData = $dataLayer->getData('user',array('authID','phone','fName','lName'), 'phone', $_POST['phone']);
+        $userData = $dataLayer->getData('user',array('authID','deptID','userID','phone','fName','lName'), 'phone', $_POST['phone']);
         $_SESSION['authID'] = $userData[0]['authID'];
+        $_SESSION['deptID'] = $userData[0]['deptID'];
+        $_SESSION['userID'] = $userData[0]['userID'];
         $_SESSION['phone'] = $userData[0]['phone'];
         $_SESSION['name'] = $userData[0]['fName']. " ". $userData[0]['lName'];
         header("Location: news.php");
