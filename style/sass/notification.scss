@@ -53,6 +53,7 @@
             font-family: $lighterFont;
             margin-top: pxToRem(70);
             word-break: break-all;
+            white-space: pre-line;
         }
         
         a {

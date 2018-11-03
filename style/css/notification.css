@@ -206,7 +206,8 @@ i {
   #notifcationPage .container .copy {
     font-family: "Helvetica Neue Light";
     margin-top: 2.1875rem;
-    word-break: break-all; }
+    word-break: break-all;
+    white-space: pre-line; }
   #notifcationPage .container a {
     font-family: "Helvetica Neue Light";
     font-weight: 100;
