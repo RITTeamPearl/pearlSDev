@@ -39,6 +39,20 @@ $bizLayer = new business_layer();
             
         </div>
         
+        <!-- Section to edit a video (Admin Only) -->
+        <div class='editVideo hidden'>
+            <form>
+                <i class="fas fa-times"></i>
+                <h2>Edit Video</h2>
+                <div class='inputWithIcon'>
+                    <input class='block' type="text" name="link" placeholder='Embeded URL'/>
+                    <i class="fab fa-youtube" aria-hidden="true"></i>
+                </div>
+                <input type="submit" class='block addSubmit inputNoIcon' name="addVid" value="Save Changes">
+            </form>
+            
+        </div>
+        
         <div class='videoContainer' id=''>
             <!-- Admin Feature only -->
             <button type="button" class="button"><i class="far fa-edit"></i></button>

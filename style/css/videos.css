@@ -180,7 +180,7 @@ i {
 #videosPage .bodyContainer {
   padding-bottom: 1.65625rem;
   position: relative; }
-  #videosPage .bodyContainer .addVideo {
+  #videosPage .bodyContainer .addVideo, #videosPage .bodyContainer .editVideo {
     position: fixed;
     width: 80vw;
     height: 30vh;
@@ -188,18 +188,18 @@ i {
     z-index: 1;
     background-color: white;
     padding: 0.9375rem; }
-    #videosPage .bodyContainer .addVideo .fa-times {
+    #videosPage .bodyContainer .addVideo .fa-times, #videosPage .bodyContainer .editVideo .fa-times {
       position: absolute;
       top: 0.625rem;
       right: 0.9375rem;
       font-size: 1.5625em; }
-    #videosPage .bodyContainer .addVideo .fa-youtube {
+    #videosPage .bodyContainer .addVideo .fa-youtube, #videosPage .bodyContainer .editVideo .fa-youtube {
       color: #f24949; }
-    #videosPage .bodyContainer .addVideo .addSubmit {
+    #videosPage .bodyContainer .addVideo .addSubmit, #videosPage .bodyContainer .editVideo .addSubmit {
       margin-top: 1.25rem;
       background-color: #2ac656;
       color: white; }
-    #videosPage .bodyContainer .addVideo .cancel {
+    #videosPage .bodyContainer .addVideo .cancel, #videosPage .bodyContainer .editVideo .cancel {
       margin-top: 1.25rem;
       background-color: #f24949;
       color: white; }
