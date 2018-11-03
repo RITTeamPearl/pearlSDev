@@ -88,7 +88,8 @@ $bizLayer = new business_layer();
                         <h2>Title</h2>
                         <input type="text" class='block inputNoIcon' name="title" required>
                         <h2>Body</h2>
-                        <input type="text" class='block inputNoIcon' name="body" required>
+                        <textarea class='block inputNoIcon'></textarea>
+                        <!--<input type="text" class='block inputNoIcon' name="body" required>-->
                         <h2>Survey Link</h2>
                         <input type="text" class='block inputNoIcon' name="body" required>
                         <h2>Attachment</h2>

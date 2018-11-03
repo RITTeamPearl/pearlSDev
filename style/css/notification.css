@@ -191,7 +191,8 @@ i {
   padding: 0 1.5625rem 4.375rem; }
   #notifcationPage .container .title {
     font-family: "Helvetica Neue", sans-serif;
-    margin-bottom: 1.09375rem; }
+    margin-bottom: 1.09375rem;
+    word-break: break-all; }
   #notifcationPage .container .subtitle {
     width: 100%;
     text-align: right;
@@ -204,7 +205,8 @@ i {
       margin-right: 0.625rem; }
   #notifcationPage .container .copy {
     font-family: "Helvetica Neue Light";
-    margin-top: 2.1875rem; }
+    margin-top: 2.1875rem;
+    word-break: break-all; }
   #notifcationPage .container .fa-link {
     color: #5b8ec5;
     width: 100%;

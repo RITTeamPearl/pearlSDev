@@ -36,6 +36,11 @@
             bottom: pxToRem(80);
             font-size: ptToEm(20);
             padding: 0 pxToRem(60);
+            text-overflow: ellipsis;
+            max-width: -webkit-fill-available;
+            max-width: fill-available;
+            max-width: -moz-available;
+            overflow: hidden;
         }
         
         .subtitle {

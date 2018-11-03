@@ -196,7 +196,12 @@ i {
     position: absolute;
     bottom: 2.5rem;
     font-size: 1.25em;
-    padding: 0 1.875rem; }
+    padding: 0 1.875rem;
+    text-overflow: ellipsis;
+    max-width: -webkit-fill-available;
+    max-width: fill-available;
+    max-width: -moz-available;
+    overflow: hidden; }
   #newsPage .notifContainer .subtitle {
     position: absolute;
     bottom: 1.25rem;
