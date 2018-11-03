@@ -97,7 +97,26 @@ $bizLayer = new business_layer();
                             <input class='block' type='file' name='attachment'/>
                             <i class="fas fa-file-upload" aria-hidden='true'></i>
                         </div>
-                        <h2>Notify</h2>
+                        <h2>Departments to Notify</h2>
+
+                        <div class='checkBox deptChecks'>
+                            <input name= 'hr' id='cbHr' type='checkbox'>
+                            <label for='cbHr' class='checkBoxContainer'>HR</label>
+                            <input name='admin' id='cbAdmin' type='checkbox'>
+                            <label for='cbAdmin' class='checkBoxContainer'>Admin</label>
+                            <input name ='sales' id='cbSales' type='checkbox'>
+                            <label for='cbSales' class='checkBoxContainer'>Sales</label>
+                            <input name ='production' id='cbProduction' type='checkbox'>
+                            <label for='cbProduction' class='checkBoxContainer'>Production</label>
+                            <input name ='operations' id='cbOperations' type='checkbox'>
+                            <label for='cbOperations' class='checkBoxContainer'>Operations</label>
+                            <input name ='food' id='cbFood' type='checkbox'>
+                            <label for='cbFood' class='checkBoxContainer'>Food and Beverages</label>
+                            <input name ='garage' id='cbGarage' type='checkbox'>
+                            <label for='cbGarage' class='checkBoxContainer'>Garage</label>
+                        </div>
+                        
+                        <h2>Notify Via</h2>
                         <div class='checkBox'>
                             <input name= 'phoneCheck' id='cbPhone' type='checkbox'>
                             <label for='cbPhone' class='checkBoxContainer'>Phone</label>

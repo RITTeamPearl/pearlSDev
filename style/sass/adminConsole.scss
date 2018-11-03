@@ -306,6 +306,17 @@
                     }
                 }
                 
+                //Check boxes for departments
+                .deptChecks {
+                    display: block;
+                    
+                    label {
+                        display: block;
+                        margin-top: pxToRem(20);
+                    } 
+                }
+                
+                
                 //Input icons
                 .inputWithIcon {
                     i {

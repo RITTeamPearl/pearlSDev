@@ -361,6 +361,11 @@ i {
             text-align: center; }
           #adminConsole table .un-collapsed .addNewForm .checkBox input[type="checkbox"]:focus + label::before {
             outline: #3b99fc auto 5px; }
+        #adminConsole table .un-collapsed .addNewForm .deptChecks {
+          display: block; }
+          #adminConsole table .un-collapsed .addNewForm .deptChecks label {
+            display: block;
+            margin-top: 0.625rem; }
         #adminConsole table .un-collapsed .addNewForm .inputWithIcon i {
           color: #5b8ec5; }
         #adminConsole table .un-collapsed .addNewForm .addSubmit {
