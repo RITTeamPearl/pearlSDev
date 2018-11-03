@@ -173,6 +173,8 @@ END;
                 <td colspan='5' class='full'>
                     <h2>Body</h2>
                     <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
+                    <h2>Survey Link</h2>
+                    <input type="text" class='block inputNoIcon' disabled name="body">
                     <h2>Attachment</h2>
                     <button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>
                     <span>{$currAttachmentName}</span>
