@@ -268,7 +268,8 @@ i {
           box-sizing: border-box;
           height: 2.5rem;
           padding-left: 0.46875rem;
-          font-family: "Helvetica Neue Light"; }
+          font-family: "Helvetica Neue Light";
+          background-color: transparent; }
         #adminConsole table .collapsed td input[disabled] {
           box-shadow: none;
           padding: 0; }
@@ -293,7 +294,8 @@ i {
         box-shadow: inset 0 0 1px #666;
         border: none;
         box-sizing: border-box;
-        height: 2.5rem; }
+        height: 2.5rem;
+        background-color: transparent; }
       #adminConsole table .un-collapsed select:disabled, #adminConsole table .un-collapsed input:disabled {
         margin-left: -4px;
         box-shadow: none;
@@ -318,12 +320,17 @@ i {
         box-sizing: border-box;
         font-size: 0.75em;
         white-space: pre-line;
-        padding: 0.625rem; }
+        padding: 0.625rem;
+        font-size: 0.875em;
+        font-family: "Helvetica Neue Light"; }
       #adminConsole table .un-collapsed textarea:disabled {
         box-shadow: none;
         border: none;
         box-sizing: border-box;
-        padding: 0; }
+        padding: 0;
+        background-color: transparent;
+        font-size: 0.875em;
+        font-family: "Helvetica Neue Light"; }
       #adminConsole table .un-collapsed .fa-times-circle {
         color: #f24949;
         margin-right: 0.625rem; }

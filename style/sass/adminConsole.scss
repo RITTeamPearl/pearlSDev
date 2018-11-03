@@ -147,6 +147,7 @@
                     height: pxToRem(80);
                     padding-left: pxToRem(15);
                     font-family: $lighterFont;
+                    background-color: transparent;
                 }
                 
                 //Input  when disabled
@@ -192,6 +193,7 @@
                 border: none;
                 box-sizing: border-box;
                 height: pxToRem(80);
+                background-color: transparent;
             }
             
             select:disabled, input:disabled {
@@ -229,6 +231,8 @@
                 font-size: ptToEm(12);
                 white-space: pre-line;
                 padding: pxToRem(20);
+                font-size: 0.875em;
+                font-family: "Helvetica Neue Light";
             }
             
             textarea:disabled {
@@ -236,6 +240,9 @@
                 border: none;
                 box-sizing: border-box;
                 padding: 0;
+                background-color: transparent;
+                font-size: 0.875em;
+                font-family: "Helvetica Neue Light";
             }
             
             .fa-times-circle {
