@@ -130,6 +130,7 @@ class business_layer{
         foreach ($notificationArray as $rowArray) {
             $currNotiID = $rowArray['notificationID'];
             $currTitle = $rowArray['title'];
+            $currSurvey = $rowArray['surveyLink'];
             $currBody = $rowArray['body'];
             //split file path using /
             //Take the end of the array becuse it is the name of the file
@@ -174,7 +175,7 @@ END;
                     <h2>Body</h2>
                     <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
                     <h2>Survey Link</h2>
-                    <input type="text" class='block inputNoIcon' disabled name="body">
+                    <input type="text" class='block inputNoIcon' value="{$currSurvey}" disabled name="surveyLink">
                     <h2>Attachment</h2>
                     <button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>
                     <span>{$currAttachmentName}</span>
