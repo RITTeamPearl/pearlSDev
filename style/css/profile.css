@@ -399,25 +399,21 @@ i {
 #createAcctPage #formStep2, #profilePage #formStep2 {
   display: none; }
 
-#profilePage {
-  background-color: #eaeaea; }
-  #profilePage .container {
-    padding-bottom: 4.375rem; }
-  #profilePage h1, #profilePage h2 {
-    color: black !important; }
-  #profilePage .subtitle {
-    padding: 0 1.25rem; }
-  #profilePage #screenIdentifier {
-    color: #5b8ec5; }
-    #profilePage #screenIdentifier .whiteLine {
-      background-color: #5b8ec5 !important; }
-  #profilePage .logoutContainer {
-    padding: 0 3.75rem;
-    width: auto; }
-    #profilePage .logoutContainer #logout {
-      background-color: #f24949;
-      height: 2.8125rem;
-      margin-top: 1.875rem;
-      width: 100%; }
+#profilePage .container {
+  padding-bottom: 4.375rem; }
+#profilePage .subtitle {
+  padding: 0 1.25rem; }
+#profilePage #password {
+  text-align: left; }
+#profilePage #save {
+  background-color: #2ac656; }
+#profilePage .logoutContainer {
+  padding: 0 3.75rem;
+  width: auto; }
+  #profilePage .logoutContainer #logout {
+    background-color: #f24949;
+    height: 2.8125rem;
+    margin-top: 0.9375rem;
+    width: 100%; }
 
 /*# sourceMappingURL=profile.css.map */

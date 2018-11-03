@@ -23,9 +23,10 @@ if (isset($_POST['logout'])) {
     <meta name='viewport' content='width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 5.0' />
     <link rel='stylesheet' type='text/css' media='screen' href='/style/css/profile.css'>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
+    <script type='text/javascript' src='/js/scripts.js'></script>
 </head>
 
-<body id='profilePage'>
+<body id='profilePage' class='backgroundImage'>
 
     <div class='container'>
         <!-- Landing Section -->
@@ -36,61 +37,45 @@ if (isset($_POST['logout'])) {
                 <h2 class='subtitle centered'>You may view/update any account<br/>information here</h2>
             </div>
 
-            <!-- Screen Identifier Visual Graphic -->
-            <div id='screenIdentifier' class='block centered'>
-                <div id='screenContainer'>
-                    <div class='dotCont' id='dotCont1'>
-                        <i class='fas fa-circle inline' id='dot1'></i>
-                        <i class='far fa-dot-circle inline' id='circle1'></i>
-                        <hr class='whiteLine inline'>
-                    </div>
-
-                    <div class='dotCont' id='dotCont2'>
-                        <i class='fas fa-circle inline' id='dot2'></i>
-                        <i class='far fa-dot-circle inline' id='circle2'></i>
-                        <hr class='whiteLine inline'>
-                    </div>
-
-                    <div class='dotCont' id='dotCont3'>
-                        <i class='fas fa-circle inline' id='dot3'></i>
-                        <i class='far fa-dot-circle inline' id='circle3'></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Send Password Form -->
+            <!-- User Input -->
             <form class='formContainer' action='profile.php' method='POST'>
 
-                <!-- Create Screen 1. Outer div is for JS -->
                 <div class="formStep" id="formStep1">
                     <div class='inputWithIcon'>
-                        <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' required="required">
+                        <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' autofocus>
                         <i class='fas fa-phone' aria-hidden='true'></i>
                     </div>
-
+                    
                     <div class='inputWithIcon'>
-                        <input onkeyup="confirmPassword()" class='block' id='password' type = 'password' placeholder= 'Password' name='password' required="required">
-                        <i class='fas fa-key pwIcon' aria-hidden='true'></i>
-                    </div>
-
-                    <div class='inputWithIcon'>
-                        <input onkeyup="confirmPassword()" class='block' id='passwordConfirm' type = 'password' placeholder= 'Confirm Password' name='passwordConfirm' required="required">
-                        <i class='fas fa-lock pwIcon' aria-hidden='true'></i>
-                    </div>
-                    <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep(1)"/>
-                </div>
-
-                <div class="formStep" id="formStep3" style="display: none;">
-                    <div class='inputWithIcon'>
-                        <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
+                        <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email'  autofocus>
                         <i class='fas fa-user' aria-hidden='true'></i>
                     </div>
 
-                    <input class='block submit centered' id='submit' type = 'submit' value= 'Send Request'/>
+                    <div class='inputWithIcon'>
+                        <input class='block' id='password' type = 'button' value="Click to Reset Password">
+                        <i class='fas fa-key pwIcon' aria-hidden='true'></i>
+                    </div>
+
+                    <input class='block submit centered' id='save' type = 'button' value= 'Save Changes' onclick=""/>
                 </div>
             </form>
+            
+            <form class='formContainer hidden' action='profile.php' method='POST'>
+                <div class='inputWithIcon'>
+                    <input class='block' id='password' type ='text' value="New Password">
+                    <i class='fas fa-key pwIcon' aria-hidden='true'></i>
+                </div>
+                
+                <div class='inputWithIcon'>
+                    <input class='block' id='password' type ='text' value="Confirm Password">
+                    <i class='fas fa-key pwIcon' aria-hidden='true'></i>
+                </div>
+                
+                <input class='block submit centered' id='save' type = 'button' value= 'Save Changes' onclick=""/>
+            </form>
 
-            <form class="" action="profile.php" method="post">
+            <!-- Logout -->
+            <form action="profile.php" method="post">
                 <div class='logoutContainer'>
                     <button type= 'submit' class='block submit centered' name= "logout" id='logout'>Logout</button>
                 </div>
