@@ -178,8 +178,7 @@ i {
     color: #5b8ec5; }
 
 #videosPage .bodyContainer {
-  padding-bottom: 1.65625rem;
-  position: relative; }
+  padding-bottom: 1.65625rem; }
   #videosPage .bodyContainer .addVideo, #videosPage .bodyContainer .editVideo {
     position: fixed;
     width: 80vw;
