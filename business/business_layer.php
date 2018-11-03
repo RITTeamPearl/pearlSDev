@@ -439,6 +439,7 @@ END;
         $currTitle = $notiArray[0]['title'];
         $currNotiID = $notiArray[0]['notificationID'];
         $currBody = $notiArray[0]['body'];
+        $currSurvey = $notiArray[0]['surveyLink'];
         $timeStamp = $notiArray[0]['postDate'];
         $currAttachmentName = end(explode("/",$notiArray[0]['attachment']));
         //echo "Attachment: $currAttachmentName";
@@ -485,7 +486,7 @@ END;
                 <span class='inline'>{$timesig}</span>
             </div>
             <span class='copy block'>{$currBody}</span>
-            <i class='fas fa-link'><a href=''> Survey Link</a></i>
+            <a href='{$currSurvey}'><i class='fas fa-link'></i>Survey Link</a>
             <form action="notiAck.php?id={$currNotiID}&img={$imgNum}" method="post">
                 <button type="submit">I Acknowledge</button>
             </form>
