@@ -22,39 +22,66 @@ $bizLayer = new business_layer();
 
 <body id='videosPage'>
 
-    <!-- News -->
+    <!-- Videos -->
     <div class='bodyContainer'>
         
+        <!-- Section to add a video (Admin Only) -->
+        <div class='addVideo hidden'>
+            <form>
+                <i class="fas fa-times"></i>
+                <h2>Create New Video</h2>
+                <div class='inputWithIcon'>
+                    <input class='block' type="text" name="link" placeholder='Embeded URL'/>
+                    <i class="fab fa-youtube" aria-hidden="true"></i>
+                </div>
+                <input type="submit" class='block addSubmit inputNoIcon' name="addVid" value="Add New Video">
+            </form>
+            
+        </div>
+        
         <div class='videoContainer' id=''>
+            <!-- Admin Feature only -->
+            <button type="button" class="button"><i class="far fa-edit"></i></button>
+            <div class='buttonOptions' style="display:none" >
+                <ul class='spaced'>
+                    <li>Create New<i class="fas fa-plus-circle"></i></li>
+                    <li>Edit Link<i class='fas fa-pencil-alt'></i></li>
+                    <li>Delete<i class="fas fa-trash-alt"></i></li>
+                </ul>
+            </div>
             <div class='overlay'>
                 <iframe src="https://www.youtube.com/embed/P0Qky8WQN6o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
             
         <div class='videoContainer' id=''>
+            <button type="button" class="button"><i class="far fa-edit"></i></button>
+            <div class='buttonOptions' style="display:none" >
+                <ul class='spaced'>
+                    <li>Create New<i class="fas fa-plus-circle"></i></li>
+                    <li>Edit Link<i class='fas fa-pencil-alt'></i></li>
+                    <li>Delete<i class="fas fa-trash-alt"></i></li>
+                </ul>
+            </div>
             <div class='overlay'>
                 <iframe src="https://www.youtube.com/embed/klWdjUZkCvE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
         
         <div class='videoContainer' id=''>
+            <button type="button" class="button"><i class="far fa-edit"></i></button>
+            <div class='buttonOptions' style="display:none" >
+                <ul class='spaced'>
+                    <li>Create New<i class="fas fa-plus-circle"></i></li>
+                    <li>Edit Link<i class='fas fa-pencil-alt'></i></li>
+                    <li>Delete<i class="fas fa-trash-alt"></i></li>
+                </ul>
+            </div>
             <div class='overlay'>
                 <iframe src="https://www.youtube.com/embed/9Gbl-IDp1qc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
 
-            
-
-            <!-- Admin Feature only -->
-            <button type="button" class="button"><i class="far fa-edit"></i></button>
-            <div class='buttonOptions' style="display:none" >
-                <ul class='spaced'>
-                    <li>Modify<i class='fas fa-pencil-alt'></i></li>
-                    <li>Delete<i class="fas fa-trash-alt"></i></li>
-                </ul>
-            </div>
-        
-        
         <!-- Footer -->
         <div class='footer block'>
             <ul class='iconContainer'>

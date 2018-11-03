@@ -8,6 +8,40 @@
     //Container for all content
     .bodyContainer {
         padding-bottom: pxToRem(53);
+        position: relative;
+        
+        .addVideo {
+            position: fixed;
+            width: 80vw;
+            height:30vh;
+            margin:30vh 5vw;
+            z-index: 1;
+            background-color: white;
+            padding: pxToRem(30);
+            
+            .fa-times {
+                position: absolute;
+                top: pxToRem(20);
+                right: pxToRem(30);
+                font-size: ptToEm(25);
+            }
+            
+            .fa-youtube {
+                color: $red;
+            }
+            
+            .addSubmit {
+                margin-top: pxToRem(40);
+                background-color: $green;
+                color: white;
+            }
+            
+            .cancel {
+                margin-top: pxToRem(40);
+                background-color: $red;
+                color: white;
+            }
+        }
     }
     
     //Container of a notification
@@ -46,7 +80,7 @@
         .button {
             position: absolute;
             color: white;
-            top: pxToRem(50);
+            bottom: pxToRem(50);
             right: pxToRem(50);
             font-size: ptToEm(18);
         }
@@ -55,10 +89,10 @@
         .buttonOptions {
             background-color: white;
             position: absolute;
-            top: pxToRem(60);
+            bottom: pxToRem(60);
             right: pxToRem(150);
             font-size: ptToEm(14);
-            width: pxToRem(170);
+            width: pxToRem(230);
             height: pxToRem(140);
             
             ul {
@@ -92,6 +126,12 @@
             .fa-trash-alt {
                 color: $red;
                 right: 7px;
+                position: absolute;
+            }
+            
+            .fa-plus-circle {
+                color: $green;
+                right: 5px;
                 position: absolute;
             }
         }

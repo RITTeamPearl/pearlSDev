@@ -178,7 +178,31 @@ i {
     color: #5b8ec5; }
 
 #videosPage .bodyContainer {
-  padding-bottom: 1.65625rem; }
+  padding-bottom: 1.65625rem;
+  position: relative; }
+  #videosPage .bodyContainer .addVideo {
+    position: fixed;
+    width: 80vw;
+    height: 30vh;
+    margin: 30vh 5vw;
+    z-index: 1;
+    background-color: white;
+    padding: 0.9375rem; }
+    #videosPage .bodyContainer .addVideo .fa-times {
+      position: absolute;
+      top: 0.625rem;
+      right: 0.9375rem;
+      font-size: 1.5625em; }
+    #videosPage .bodyContainer .addVideo .fa-youtube {
+      color: #f24949; }
+    #videosPage .bodyContainer .addVideo .addSubmit {
+      margin-top: 1.25rem;
+      background-color: #2ac656;
+      color: white; }
+    #videosPage .bodyContainer .addVideo .cancel {
+      margin-top: 1.25rem;
+      background-color: #f24949;
+      color: white; }
 #videosPage .videoContainer {
   width: 100%;
   height: 17.5rem;
@@ -205,16 +229,16 @@ i {
   #videosPage .videoContainer .button {
     position: absolute;
     color: white;
-    top: 1.5625rem;
+    bottom: 1.5625rem;
     right: 1.5625rem;
     font-size: 1.125em; }
   #videosPage .videoContainer .buttonOptions {
     background-color: white;
     position: absolute;
-    top: 1.875rem;
+    bottom: 1.875rem;
     right: 4.6875rem;
     font-size: 0.875em;
-    width: 5.3125rem;
+    width: 7.1875rem;
     height: 4.375rem; }
     #videosPage .videoContainer .buttonOptions ul {
       padding: 0;
@@ -239,6 +263,10 @@ i {
     #videosPage .videoContainer .buttonOptions .fa-trash-alt {
       color: #f24949;
       right: 7px;
+      position: absolute; }
+    #videosPage .videoContainer .buttonOptions .fa-plus-circle {
+      color: #2ac656;
+      right: 5px;
       position: absolute; }
 
 /*# sourceMappingURL=videos.css.map */
