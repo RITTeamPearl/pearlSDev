@@ -180,7 +180,7 @@ END;
                     <button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>
                     <span>{$currAttachmentName}</span>
                     <h2>User Ack. Report</h2>
-                    <i class="fas fa-download"></i><span>user_report.csv</span>
+                    <i onclick="location.href='downloadAckReport.php?id={$currNotiID}'" class="fas fa-download"></i><span>user_report.csv</span>
                 </td>
             </tr>
             <tr class='spacer'><td></td></tr>

@@ -287,4 +287,20 @@ class data_layer{
             }
         }
     }
+
+    function getAckUserData($notificationID){
+        $query = "select U.fName,U.lName,U.email,A.phone,A.ackDate from acknowledgement A join user U on A.phone = U.phone where A.notificationID = ?";
+        if ($stmt = $this->connection->prepare($query)){
+            $stmt->bind_param("i",$notificationID);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($fName,$lName,$email,$phone,$ackDate);
+            $returnArray = array();
+            while ($stmt->fetch()) {
+                $currRowArray = array('fName' => $fName, 'lName' => $lName, 'email'=> $email,'phone' => $phone,'ackDate' => $ackDate);
+                array_push($returnArray,$currRowArray);
+            }
+            return $returnArray;
+        }
+    }
 }

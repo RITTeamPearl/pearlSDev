@@ -26,6 +26,7 @@ CREATE TABLE `acknowledgement` (
   `notificationID` int(15) NOT NULL,
   `phone` varchar(11) NOT NULL,
   `viewedYN` tinyint(4) DEFAULT '0',
+  `ackDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`notificationID`,`phone`),
   KEY `ack_phone_fk_idx` (`phone`),
   CONSTRAINT `ackNotiID_notiNotiID` FOREIGN KEY (`notificationID`) REFERENCES `notification` (`notificationID`) ON DELETE CASCADE ON UPDATE NO ACTION,
