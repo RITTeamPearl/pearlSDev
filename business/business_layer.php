@@ -486,7 +486,11 @@ END;
                 <span class='inline'>{$timesig}</span>
             </div>
             <span class='copy block'>{$currBody}</span>
-            <a href='{$currSurvey}'><i class='fas fa-link'></i>Survey Link</a>
+END;
+        if (strlen($currSurvey) > 2){;
+            $string .= "<a href='{$currSurvey}'><i class='fas fa-link'></i>Survey Link</a>";
+        }
+            $string .= <<<END
             <form action="notiAck.php?id={$currNotiID}&img={$imgNum}" method="post">
                 <button type="submit">I Acknowledge</button>
             </form>
