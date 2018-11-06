@@ -5,7 +5,7 @@ $dataLayer = new data_layer();
 $bizLayer = new business_layer();
 
 
-function handlePasswordResetForm(){
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     //validate and sanitize input
     //check if email exists
@@ -13,6 +13,7 @@ function handlePasswordResetForm(){
     if($dataLayer->checkEmailExists($inputEmail)){
         //Yes
             //redirect to resetConfirm.php ignore the rest of code, it'll be done on resetConfirm.php
+            $_SERVER["ForgotPwdEmail"] = $inputEmail;
             header("Location: resetConfirm.php");
 
 
@@ -58,7 +59,7 @@ function handlePasswordResetForm(){
             </div>
 
             <!-- Send Password Form -->
-            <form class='formContainer' action='handlePasswordResetForm().php' method='POST'>
+            <form class='formContainer' method='POST'>
                 <div class='inputWithIcon'>
                     <input class='block' id='email' type = 'email' placeholder= 'E-mail Address' name='email' required="required" autofocus>
                     <i class='fas fa-user' aria-hidden='true'></i>

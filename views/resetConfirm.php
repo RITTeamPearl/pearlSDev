@@ -21,17 +21,18 @@ $bizLayer = new business_layer();
 <body id='forgotPwdPage'>
 
         <?php
-        if (isset($_POST['email'])) {
-            //check if the hashed email that was passed into the url is the same as the user input
-            if(password_verify($_POST['email'],$_GET['email'])){
-                //actually reset the password.
-                $bizLayer->sendPasswordResetEmail("email");
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST['email'])) {
+                //check if the hashed email that was passed into the url is the same as the user input
+                if(password_verify($_POST['email'],$_GET['email'])){
+                    //actually reset the password.
+                    $bizLayer->sendPasswordResetEmail("email");
+                }
             }
         }
-
         ?>
 
-        <form class='' action="demoHomepage.php?{$_GET['email']}" method='POST'>
+        <form class='formContainer' method='POST'>
                 <input style="width: 20%; margin-left: 40%"; class='block' id='email'  placeholder= 'Email Address' name='email'>
                 <i class='fas fa-mail' aria-hidden='true'></i>
                 <input class='block submit centered' id='confirmEmail' type = 'submit' value= 'Confirm Email'/>
