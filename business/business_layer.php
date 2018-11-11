@@ -93,11 +93,12 @@ class business_layer{
     }
 
     function sendPasswordResetEmail($email){
-        $hashedEmail = password_hash($email,PASSWORD_DEFAULT);
+        //$hashedEmail = password_hash($email,PASSWORD_DEFAULT);
 
-        $subject = "RRCC Account Password Reset";
-        $body = "<h1>Please click the link below to reset your password</h1>";
-        $body .= "<h2 href='localhost/views/resetConfirm.php?email=$hashedEmail' >Reset</h2>";
+        //$subject = "RRCC Account Password Reset";
+        //$body = "<h1>Please click the link below to reset your password</h1>";
+        //$body .= "<h2 href='localhost/views/resetConfirm.php?email=$hashedEmail' >Reset</h2>";
+
         //generate url to send in email. ../resetPassword.php?emailToReset
         //send email
         //confirm email that is being reset
@@ -112,7 +113,7 @@ class business_layer{
         // echo "your new password is $genPass";
 
         //address , subject line, body
-        if($bizLayer->sendEmail($_POST['email'], 'Password Reset test', "Your New Password is $genPass")){
+        if($bizLayer->sendEmail($email, 'New Temporary Password', "Your New Password is $genPass. Please log in and replace it as soon as possible.")){
         };
     }
 

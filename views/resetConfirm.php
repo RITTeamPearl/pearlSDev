@@ -18,24 +18,24 @@ $bizLayer = new business_layer();
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='forgotPwdPage'>
+<body id='forgotPwdPage' class='backgroundImage'>
 
         <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST['email'])) {
-                //check if the hashed email that was passed into the url is the same as the user input
-                if(password_verify($_POST['email'],$_GET['email'])){
-                    //actually reset the password.
-                    $bizLayer->sendPasswordResetEmail("email");
-                }
-            }
+        $email = $_GET['email'];
+
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+             //actually reset the password.
+             $bizLayer->sendPasswordResetEmail($email);
         }
         ?>
-
-        <form class='formContainer' method='POST'>
-                <input style="width: 20%; margin-left: 40%"; class='block' id='email'  placeholder= 'Email Address' name='email'>
-                <i class='fas fa-mail' aria-hidden='true'></i>
-                <input class='block submit centered' id='confirmEmail' type = 'submit' value= 'Confirm Email'/>
-        </form>
+        <div class='container'>
+            <section id='reset-confirm'>
+                 <form class='formContainer' method='POST'>
+                    <h3>Click below to confirm that you want your password reset.</h3>
+                    <i class='fas fa-mail' aria-hidden='true'></i>
+                    <input class='block submit centered' id='confirmEmail' type = 'submit' value= 'Confirm Email'/>
+                </form>
+            </section>
+        </div>
 </body>
 </html>

@@ -5,29 +5,32 @@ $dataLayer = new data_layer();
 $bizLayer = new business_layer();
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     //validate and sanitize input
     //check if email exists
-    $inputEmail = $_POST["email"];
-    if($dataLayer->checkEmailExists($inputEmail)){
+   $inputEmail = $_POST["email"];
+   if($dataLayer->checkEmailExists($inputEmail)){
         //Yes
-            //redirect to resetConfirm.php ignore the rest of code, it'll be done on resetConfirm.php
-            $_SERVER["ForgotPwdEmail"] = $inputEmail;
-            header("Location: resetConfirm.php");
+            //$_SERVER["ForgotPwdEmail"] = $inputEmail;
+            //$hashedEmail = password_hash($email,PASSWORD_DEFAULT);
+            $link = 'localhost/views/resetConfirm.php?email=' . $inputEmail;
+            $subject = "RRCC Account Password Reset";
+            $body = "<h1>Please click the link below to reset your password</h1>";
+            $body .= "<a href=$link >Reset my password</a>";
 
 
-            //Set DB Flag to temp pass
-            //Send email with temp pass (also create temp password)
-            //$bizLayer->passwordReset($inputEmail);
+            $bizLayer->sendEmail($inputEmail, $subject, $body);
             //$bizLayer->sendPasswordResetEmail("email");
             //route to send page
-            //echo "<script type='text/javascript'>
-            //var landing = document.getElementById('section-landing');
-            //var success = document.getElementById('seciton-success');
-            //landing.style.display == 'none';
-            //success.style.display == 'block';
-            //</script>";
+
+
+            echo "<script type='text/javascript'>
+            var landing = document.getElementById('section-landing');
+            var success = document.getElementById('section-success');
+            landing.style.display == 'none';
+            success.style.display == 'block';
+            </script>";
 
     }   else { //NO
             //Put error message on screen saying email could not be found
@@ -35,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             echo "<script type='text/javascript'>alert('$emailError');</script>";
     }
 }
- ?>
+?>
 
 <!DOCTYPE html>
 <html>
