@@ -52,7 +52,7 @@ class data_layer{
     function createNewUser($postData, $tempPassYN = 0, $authID = 1, $activeYN = 1){
         $hashedPassword = password_hash($postData["password"],PASSWORD_DEFAULT);
         if ($stmt = $this->connection->prepare("INSERT INTO user (phone,fname,lname,tempPassYN,password,email,deptID,authID,activeYN) VALUES (?,?,?,$tempPassYN,?,?,?,$authID,$activeYN)")){
-            $stmt->bind_param("sssssi",str_replace("-","", $postData["phoneNumber"]),$postData["fName"],$postData["lName"],$hashedPassword,$postData["email"],intval($postData["deptID"]));
+            $stmt->bind_param("sssssi",$postData["phoneNumber"],$postData["fName"],$postData["lName"],$hashedPassword,$postData["email"],intval($postData["deptID"]));
             $stmt->execute();
             //echo $stmt->affected_rows . " rows inserted";
         }
@@ -188,7 +188,6 @@ class data_layer{
             $stmt->execute();
             $stmt->store_result();
             if ($stmt->affected_rows > 0){
-                //echo "it worked";
                 return true;
             }
         }

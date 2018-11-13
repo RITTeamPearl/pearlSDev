@@ -24,11 +24,12 @@ $bizLayer = new business_layer();
     <meta name='viewport' content='width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 5.0' />
     <link rel='stylesheet' type='text/css' media='screen' href='/style/css/adminConsole.css'>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script type='text/javascript' src='/js/scripts.js'></script>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='adminConsole' onload="setNavBar();initCsvListener();">
+<body id='adminConsole' onload="setNavBar();initCsvListener();addMask();">
     <!-- Header -->
     <div class='header'>
         <h1 id='title' class='centered'>Administrator Console</h1>

@@ -78,9 +78,15 @@ if (isset($_POST['addEmp'])){
     //Generate a random 10 character password
     $genPass = substr(md5(microtime()),rand(0,26),10);
     $_POST['password'] = $genPass;
+    //fix the phone number so it works in the DB
+    $_POST["phoneNumber"] = str_replace("-","",$_POST["phoneNumber"]);
     //pass in 1 becaue it is a temp pass.
     //Also pass in the auth value individually to make things easier
     $dataLayer->createNewUser($_POST, 1, $_POST['authID'], $_POST['activeYN']);
+
+    //after successfully creating the user send them their password
+    //address, subject, body
+    $businessLayer->sendEmail($_POST['email'], "RRCC Account Created For You", "You can sign in with the password $genPass and the email address this was sent to");
     header("Location: adminConsole.php?#e");
 
 }
@@ -97,6 +103,8 @@ if (isset($_POST['modifyEmp'])) {
     //During validation and sanitization the button value should be removed from post data
     //Im going to set it to null for now
     $_POST['modifyEmp'] = null;
+    //fix the phone number so it works in the DB
+    $_POST["phone"] = str_replace("-","",$_POST["phone"]);
     $dataLayer->updateUser($_POST,'userID',$_GET['id']);
     header("Location: adminConsole.php?#e");
     //var_dump($_POST);

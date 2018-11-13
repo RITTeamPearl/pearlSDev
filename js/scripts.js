@@ -40,6 +40,8 @@ function confirmPassword(){
 
 function addMask(){
     $("#phoneNumber").mask("000-000-0000");//.addClass('className');
+    $("#phone").mask("000-000-0000");//.addClass('className');
+    $(".phoneMask").mask("000-000-0000");//.addClass('className');
 }
 
 function dropDownToggle(ele){
@@ -99,7 +101,7 @@ function dropDownModify(ele,page){
 function updateAdminView(ele){
     var whichButton = $(ele).attr("id").valueOf().split("_")[0];
     //find current active and remove it
-    $(".active").removeClass("active");
+    $("#navigation .active").removeClass("active");
     //add it to the clicked button
     $(ele).addClass("active");
 

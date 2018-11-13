@@ -140,6 +140,9 @@ class business_layer{
             if ($currAttachmentName == ""){
                 $currAttachmentName = "No Attachment";
             }
+            if ($currSurvey == ""){
+                $currSurvey = "No Survey";
+            }
             $currActiveYN = (intval($rowArray['active']));
 
             $string .= <<<END
@@ -178,7 +181,9 @@ END;
                     <h2>Survey Link</h2>
                     <input type="text" class='block inputNoIcon' value="{$currSurvey}" disabled name="surveyLink">
                     <h2>Attachment</h2>
-                    <button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>
+END;
+                    if ($currAttachmentName != "No Attachment") $string .= '<button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>';
+                    $string .= <<<END
                     <span>{$currAttachmentName}</span>
                     <h2>User Ack. Report</h2>
                     <i onclick="location.href='downloadAckReport.php?id={$currNotiID}'" class="fas fa-download"></i><span>user_report.csv</span>
@@ -303,7 +308,7 @@ END;
                         </select>
 
                         <h2>Phone Number</h2>
-                        <input type="text" name="phone" disabled value="{$currPhone}">
+                        <input class="phoneMask" type="text" name="phone" disabled value="{$currPhone}">
                     </td>
                 </tr>
             </form>
@@ -393,7 +398,7 @@ END;
                 $timesig = ($days%7)."w ago";
             }
 
-            if ($imgNum  <= 6){
+            if ($imgNum  <= 7){
                 $imgNum++;
             }
             else {
