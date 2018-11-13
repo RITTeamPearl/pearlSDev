@@ -13,8 +13,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
    if($dataLayer->checkEmailExists($inputEmail)){
         //Yes
             //$_SERVER["ForgotPwdEmail"] = $inputEmail;
-            //$hashedEmail = password_hash($email,PASSWORD_DEFAULT);
-            $link = 'localhost/views/resetConfirm.php?email=' . $inputEmail;
+            $hashedEmail = password_hash($email,PASSWORD_DEFAULT);
+            $link = 'localhost/views/resetConfirm.php?email=' . $hashedEmail;
             $subject = "RRCC Account Password Reset";
             $body = "<h1>Please click the link below to reset your password</h1>";
             $body .= "<a href=$link >Reset my password</a>";

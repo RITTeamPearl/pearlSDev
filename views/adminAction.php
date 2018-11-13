@@ -84,9 +84,11 @@ if (isset($_POST['addEmp'])){
     //Also pass in the auth value individually to make things easier
     $dataLayer->createNewUser($_POST, 1, $_POST['authID'], $_POST['activeYN']);
 
+    $phone = $_POST["phoneNumber"];
+
     //after successfully creating the user send them their password
     //address, subject, body
-    $businessLayer->sendEmail($_POST['email'], "RRCC Account Created For You", "You can sign in with the password $genPass and the email address this was sent to");
+    $businessLayer->sendEmail($_POST['email'], "RRCC Account Created For You", "You can sign in with the phoneNumber $phone and password $genPass");
     header("Location: adminConsole.php?#e");
 
 }
