@@ -40,6 +40,37 @@ function confirmPassword(){
 
 function addMask(){
     $("#phoneNumber").mask("000-000-0000");//.addClass('className');
+    $("#phone").mask("000-000-0000");//.addClass('className');
+    $(".phoneMask").mask("000-000-0000");//.addClass('className');
+}
+
+/**
+ * used for showing second buttons when admin clicks edit button for notification on news page
+ */
+function displayOptions(ele){
+    console.log($(ele).parent().find(".buttonOptions").toggle());
+}
+/**
+ * Used to transfer page to admin console and open up current notification as modify
+ */
+function jumpToNotiMod(notiID){
+    window.location.href = "adminConsole.php#M_"+notiID;
+}
+
+function checkNotifcationModify(){
+    var url = window.location.href;
+    if (url.indexOf('M') > -1) {
+        notiID = url.split("_")[1];
+        console.log("NotiID is: " + notiID);
+    }
+
+    $("#news").find("form").each(function(ind,ele){
+        if (notiID == ele.action.split("=")[1]) {
+            $(ele).next().find("#notiEditButton").trigger('onclick');
+        }
+
+        $("body").scrollTop(1000);
+    });
 }
 
 function dropDownToggle(ele){
@@ -99,7 +130,7 @@ function dropDownModify(ele,page){
 function updateAdminView(ele){
     var whichButton = $(ele).attr("id").valueOf().split("_")[0];
     //find current active and remove it
-    $(".active").removeClass("active");
+    $("#navigation .active").removeClass("active");
     //add it to the clicked button
     $(ele).addClass("active");
 

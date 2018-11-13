@@ -5,6 +5,7 @@
     $businessLayer = new business_layer();
     $dataLayer = new data_layer();
 
+    $_POST["phone"] = str_replace("-","",$_POST["phone"]);
     $validatedPOST = $businessLayer->validateAndSanitize($_POST);
     //$loginSuccess = $dataLayer->checkLogin($validatedPOST['phone'],$validatedPOST['password']);
     $loginSuccess = $dataLayer->checkLogin($_POST['phone'],$_POST['password']);

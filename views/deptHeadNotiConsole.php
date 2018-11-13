@@ -29,25 +29,12 @@ $bizLayer = new business_layer();
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='adminConsole' onload="setNavBar();initCsvListener();addMask();checkNotifcationModify();">
+<body id='adminConsole' onload="setNavBar();initCsvListener();addMask();">
     <!-- Header -->
     <div class='header'>
-        <h1 id='title' class='centered'>Administrator Console</h1>
+        <h1 id='title' class='centered'>Notification Console</h1>
     </div>
 
-    <!-- Navigation -->
-    <ul class='block' id='navigation'>
-        <!-- 1. Add Total amount of entries to these 3 top li elements
-             2. Onclick show/hide other sections
-             3. Currently displayed section navigation title should be active
-             4. Disable Compare on mobile, Enable on desktop
-        -->
-            <a href="#n"><li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News</li></a>
-            <a href="#e"><li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees</li></a>
-            <a href="#p"><li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending</li></a>
-            <a href="#c"><li onclick="updateAdminView(this)" id="compare_Button" class='inline'>Compare Employee Lists</li></a>
-        <hr>
-    </ul>
 
     <!-- News Section of Admin Console -->
     <section id='news'>
@@ -274,134 +261,8 @@ $bizLayer = new business_layer();
     </section>
 
     <!-- Pending Users waiting for authorization -->
-    <section id='pending' class='hidden'>
-
-        <!-- Search Bar -->
-        <div class='searchBar inputWithIcon'>
-            <input type='text' placeholder='Search'>
-            <i class="fas fa-search"></i>
-        </div>
-
-        <!-- Table that appends database entries of unauthorized employees into rows -->
-        <table>
-            <tr>
-                <th></th>
-                <th>First</th>
-                <th>Last</th>
-                <th>Action</th>
-            </tr>
-
-            <?php
-            //getData($table, $fields, $idField="" ,$id= 0)
-            echo $bizLayer->createPendingUserTable($dataLayer->getData('user',array('*'),'authID',1));
-            ?>
-            <!-- Begin PHP Iterative process to dynamically create employees -->
-
-            <!-- Spacer puts padding in-between table rows -->
-
-
-
-        </table>
-
-        <!-- Pagination -->
-        <div class='pagination block'>
-            <div class='number inline'>
-                <span>1-5 of 13</span>
-            </div>
-
-            <div class='back inline'>
-                <i class='fas fa-chevron-left'></i><span>Back</span>
-            </div>
-
-            <div class='next inline'>
-                <span>Next</span><i class='fas fa-chevron-right'></i>
-            </div>
-        </div>
-
-    </section>
 
     <!-- Compare Employees to Payroll section -->
-    <section id='compare' class='hidden'>
-        <div class='centered'>
-            <h2 class='title'>Upload CSV file to compare Active Employee List<br>with the Payroll Employee List</h2>
-                <form class="" action="adminAction.php" method="post" enctype="multipart/form-data">
-                    <div class='uploadContainer'>
-                        <!--
-                            this uses the javascript, but it doesnt pass any data when it submits.
-                        <i class='fas fa-upload' id="csvFileUploadButton"></i><span class='fileName' accept='.csv'>No file selected</span>
-                        <input type='file' id='fileUpload' class='hidden'>
-                        -->
-                        <div class='inputWithIcon addAttachment'>
-                            <input class='block' type='file' name='attachment'/>
-                            <i class="fas fa-file-upload" aria-hidden='true'></i>
-                        </div>
-
-                        <button id='csvUpload' type="submit" name="csvUpload" value="csvUpload">Submit</button>
-                    </div>
-                </form>
-
-            <h2 class='title hidden' id='csvSuccess'>No discrepencies found</h2>
-
-            <div id='csvFailedListContainer' class='hidden'>
-                <h2 class='title' id='csvFailed'>Discrepencies found</h2>
-
-                <table>
-                <tr>
-                    <th></th>
-                    <th>First</th>
-                    <th>Last</th>
-                </tr>
-
-                <form class="" action="" method="post">
-                    <tr id = "row-96"class='collapsed'>
-                        <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
-                        <td><input type="text" name="fName" disabled value="Mason"></td>
-                        <td><input type="text" name="lName" disabled value="Santora"></td>
-                    </tr>
-
-                    <tr class='spacer'><td></td></tr>
-
-                    <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
-
-                    <tr id = "row-97" class='un-collapsed'>
-                        <td colspan='2' class='leftUnCollapsed'>
-                            <h2>Active</h2>
-                            <span>Yes</span>
-
-                            <h2>Department</h2>
-                            <span>HR</span>
-
-                            <h2>Email</h2>
-                            <span>masonsantora@gmail.com</span>
-                        </td>
-                        <td colspan='1' class='rightUnCollapsed'>
-                            <h2>Authorization</h2>
-                            <span>Employee</span>
-
-                            <h2>Phone Number</h2>
-                            <span>555-555-5555</span>
-                        </td>
-                    </tr>
-                </form>
-                </table>
-
-                <!-- Pagination -->
-                <div class='pagination block'>
-                    <div class='number inline'>
-                        <span>1-5 of 13</span>
-                    </div>
-
-                    <div class='back inline'>
-                        <i class='fas fa-chevron-left'></i><span>Back</span>
-                    </div>
-
-                    <div class='next inline'>
-                        <span>Next</span><i class='fas fa-chevron-right'></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <div class='footer block'>
@@ -409,7 +270,7 @@ $bizLayer = new business_layer();
             <li class='inline'><a href="news.php"><i class="fas fa-newspaper"></i></a></li>
             <li class='inline'><a href="videos.php"><i class="fas fa-video"></i></a></li>
             <li class='inline'><a href="profile.php"><i class="fas fa-user"></i></a></li>
-            <li class='inline active'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
+            <li class='inline active'><a href="deptHeadNotiConsole.php"><i class="fas fa-toolbox"></i></a></li>
         </ul>
     </div>
 

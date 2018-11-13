@@ -7,35 +7,27 @@ $bizLayer = new business_layer();
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    //validate and sanitize input
-    //check if email exists
+
+
    $inputEmail = $_POST["email"];
    if($dataLayer->checkEmailExists($inputEmail)){
         //Yes
             //$_SERVER["ForgotPwdEmail"] = $inputEmail;
-            //$hashedEmail = password_hash($email,PASSWORD_DEFAULT);
-            $link = 'localhost/views/resetConfirm.php?email=' . $inputEmail;
+            $hashedEmail = password_hash($inputEmail,PASSWORD_DEFAULT);
+            $link = 'localhost/views/resetConfirm.php?email=' . $hashedEmail;
             $subject = "RRCC Account Password Reset";
             $body = "<h1>Please click the link below to reset your password</h1>";
             $body .= "<a href=$link >Reset my password</a>";
 
 
             $bizLayer->sendEmail($inputEmail, $subject, $body);
-            //$bizLayer->sendPasswordResetEmail("email");
-            //route to send page
-
-
-            echo "<script type='text/javascript'>
-            var landing = document.getElementById('section-landing');
-            var success = document.getElementById('section-success');
-            landing.style.display == 'none';
-            success.style.display == 'block';
-            </script>";
+            //route to confirm page
+            header("Location: forgotPwdSuccess.php");
 
     }   else { //NO
             //Put error message on screen saying email could not be found
-            $emailError = "<h2 color='red'>Error: Email Address Not Found.</h2>";
-            echo "<script type='text/javascript'>alert('$emailError');</script>";
+            echo "<h2 color='red'>Error: Email Address Not Found.</h2>";
+            //echo "<script type='text/javascript'>alert('..');</script>";
     }
 }
 ?>
@@ -48,6 +40,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name='viewport' content='width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 5.0' />
     <link rel='stylesheet' type='text/css' media='screen' href='/style/css/forgotPwd.css'>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script type='text/javascript' src='../js/scripts.js'></script>
+
 </head>
 
 <body id='forgotPwdPage' class='backgroundImage'>
@@ -57,17 +52,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <!-- Header -->
             <div class='header'>
                 <i class="fas fa-lock" aria-hidden='true'></i>
-                <h1 id='title' class='centered'>Forgot Password?</h1>
-                <h2 class='subtitle centered'>We just need your registered email address to<br/>send you a temporary password</h2>
+                <h1 id='title' class='centered'>Password Reset</h1>
+                <h2 class='subtitle centered'>We just need your registered email address to<br/>assist you in resetting your password</h2>
             </div>
 
             <!-- Send Password Form -->
-            <form class='formContainer' method='POST'>
+            <form action= "forgotPwd.php#clicked" class='formContainer' method='POST'>
                 <div class='inputWithIcon'>
                     <input class='block' id='email' type = 'email' placeholder= 'E-mail Address' name='email' required="required" autofocus>
                     <i class='fas fa-user' aria-hidden='true'></i>
                 </div>
-                <input class='block submit centered' id='login' type = 'submit' value= 'Send password'/>
+                <input class='block submit centered' id='login' type = 'submit' value= 'Send Reset Email'/>
                 <a id='login' href='../index.php'>Log in</a>
             </form>
         </section>
@@ -77,8 +72,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <!-- Header -->
             <div class='header'>
                 <i class="fas fa-check" aria-hidden='true'></i>
-                <h2 id='title' class='centered'>Sent Temporary<br/>Password</h2>
-                <p class='subtitle centered'>You have successfully reset your password.<br/>Please use the new password<br/>sent to your email</p>
+                <h2 id='title' class='centered'>Reset Email<br/>Sent</h2>
+                <p class='subtitle centered'>Reset email has been sent.<br/>Follow email instructions to finish<br/> the reset process</p>
                 <div id='formContainer'>
                     <a class='submit success' href='../index.php'>Log In</a>
                 </div>

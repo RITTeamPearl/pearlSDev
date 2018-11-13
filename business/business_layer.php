@@ -92,31 +92,6 @@ class business_layer{
         }
     }
 
-    function sendPasswordResetEmail($email){
-        //$hashedEmail = password_hash($email,PASSWORD_DEFAULT);
-
-        //$subject = "RRCC Account Password Reset";
-        //$body = "<h1>Please click the link below to reset your password</h1>";
-        //$body .= "<h2 href='localhost/views/resetConfirm.php?email=$hashedEmail' >Reset</h2>";
-
-        //generate url to send in email. ../resetPassword.php?emailToReset
-        //send email
-        //confirm email that is being reset
-        //if input matches $_GET as well as some unique identifier then reset the password
-
-
-        $dataLayer = new data_layer();
-        // generate a random 10 character string.
-        $genPass = substr(md5(microtime()),rand(0,26),10);
-        // database call to set new password and update temp password flag
-        $dataLayer->setUserTempPass($email,$genPass);
-        // echo "your new password is $genPass";
-
-        //address , subject line, body
-        if($bizLayer->sendEmail($email, 'New Temporary Password', "Your New Password is $genPass. Please log in and replace it as soon as possible.")){
-        };
-    }
-
     function validateAndSanitize($postData){
 
         //$validatedPOST = array();
@@ -139,6 +114,9 @@ class business_layer{
             //echo "Attachment: $currAttachmentName";
             if ($currAttachmentName == ""){
                 $currAttachmentName = "No Attachment";
+            }
+            if ($currSurvey == ""){
+                $currSurvey = "No Survey";
             }
             $currActiveYN = (intval($rowArray['active']));
 
@@ -178,7 +156,9 @@ END;
                     <h2>Survey Link</h2>
                     <input type="text" class='block inputNoIcon' value="{$currSurvey}" disabled name="surveyLink">
                     <h2>Attachment</h2>
-                    <button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>
+END;
+                    if ($currAttachmentName != "No Attachment") $string .= '<button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>';
+                    $string .= <<<END
                     <span>{$currAttachmentName}</span>
                     <h2>User Ack. Report</h2>
                     <i onclick="location.href='downloadAckReport.php?id={$currNotiID}'" class="fas fa-download"></i><span>user_report.csv</span>
@@ -303,7 +283,7 @@ END;
                         </select>
 
                         <h2>Phone Number</h2>
-                        <input type="text" name="phone" disabled value="{$currPhone}">
+                        <input class="phoneMask" type="text" name="phone" disabled value="{$currPhone}">
                     </td>
                 </tr>
             </form>
@@ -393,7 +373,7 @@ END;
                 $timesig = ($days%7)."w ago";
             }
 
-            if ($imgNum  <= 6){
+            if ($imgNum  <= 7){
                 $imgNum++;
             }
             else {
@@ -417,14 +397,14 @@ $string .= <<<END
                         </div>
 
                         <!-- Admin Feature only -->
-                        <button type="button" class="button
+                        <button onclick="displayOptions(this);" type="button" class="button
 END;
 if ($_SESSION['authID'] < 4) $string .= " hidden";
 $string .= <<<END
 "><i class="far fa-edit"></i></button>
                         <div class='buttonOptions' style="display:none" >
                             <ul class='spaced'>
-                                <li>Modify<i class='fas fa-pencil-alt'></i></li>
+                                <li onclick="jumpToNotiMod({$currNotiID})">Modify<i class='fas fa-pencil-alt'></i></li>
                                 <li>Delete<i class="fas fa-trash-alt"></i></li>
                             </ul>
                         </div>
