@@ -119,6 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                             <option value="6">Food and Beverage</option>
                             <option value="7">Garage</option>
                         </select>
+                            <span class='error' id='deptSpan'></span>
                         <i class='fas fa-building' aria-hidden='true'></i>
                     </div>
                     <input class='block submit centered' id='submit' type = 'submit' value= 'Send Request'/>

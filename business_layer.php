@@ -159,17 +159,19 @@ class business_layer{
             //turns $_POST string into usable array called formArrary
             $formArray = array();
             $json = $_POST['formData'];
+            //Gets json data
             $jsonIterator = new RecursiveIteratorIterator(
                 new RecursiveArrayIterator(json_decode($json, TRUE)),
                 RecursiveIteratorIterator::SELF_FIRST);
             foreach ($jsonIterator as $key => $val) {
                 if(is_array($val)) {
                     //echo "$key:\n";
-                    $formArray[$val[0]] = $val[1];     
+                    $formArray[$val[0]] = $val[1]; //contains form data in k-v pair
                 } else {                    
                 }
             }
 
+            //If it's empty
             if(empty($formArray['phoneNumber'])){
                 $phoneErr = "Phone Number is required";
                 array_push($formErrors, [
@@ -256,7 +258,7 @@ class business_layer{
             }//end of password and passwordConfirm check...this works
         }//end of checks for screen 1 on the create account page
         
-        //turns $_POST string into usable array called formArrary
+        //turns $_POST string into usable array called formArray
         if($_POST['formSection'] == 'screen2'){
             
             $formArray = array();
@@ -268,7 +270,6 @@ class business_layer{
                 if(is_array($val)) {
                     //echo "$key:\n";
                     $formArray[$val[0]] = $val[1];     
-                } else {                    
                 }
             }
 
