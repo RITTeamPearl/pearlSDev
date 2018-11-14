@@ -1,18 +1,15 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST) {
     require_once '../database/data_layer.php';
-    require_once '../business/business_layer.php';
-    $businessLayer = new business_layer();
     $dataLayer = new data_layer();
 
     if (count($_POST) == 7) {
         //business layer validation / sanitization of $_POST
-        $businessLayer->validateAndSanitize();
         $dataLayer->createNewUser($_POST);
         header('location: ../index.php');
     }
 }
- ?>
+?>
 
 <!DOCTYPE html>
 <html>
@@ -60,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
             </div>
 
             <!-- Send Password Form -->
-            <form class='formContainer' action='createAcct.php' method='POST'>
+            <form class='formContainer' name= 'createAcctForm' action='createAcct.php' method='POST'>
 
                 <!-- Create Screen 1. Outer div is for JS -->
                 <div class="formStep" id="formStep1">
@@ -120,8 +117,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                             <option value="7">Garage</option>
                         </select>
                         <i class='fas fa-building' aria-hidden='true'></i>
+                        <span class='error' id='deptSpan'></span>
                     </div>
-                    <input class='block submit centered' id='submit' type = 'submit' value= 'Send Request'/>
+                    <input class='block submit centered' id='submit' type = 'button' name= 'submitCreateAcct' value= 'Send Request' onclick="nextStepTwo(3)"/>
                     <a id='login' href='../index.php'>Log In</a>
                 </div>
 
