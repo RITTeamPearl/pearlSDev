@@ -35,11 +35,19 @@ body {
     }
     
     #forgot {
-        font-family: 'HelveticaNeue-Light';
+        font-family: $lighterFont;
         font-size: pxToEm(25);
-        margin-top: pxToRem(40);
         text-align: right;
         letter-spacing: .25px;
+        display: inline-block;
+        float: right;
+    }
+    
+    #support {
+        display: block;
+        overflow: auto;
+        margin-top: pxToRem(40);
+        margin-bottom: pxToRem(60);
     }
     
     #login {
@@ -51,5 +59,14 @@ body {
     #signup {
         margin-top: pxToRem(40);
         text-align: center;
+    }
+    
+    #help {
+        color: white;
+        font-family: $lighterFont;
+        font-size: pxToEm(25);
+        display: inline-block;
+        letter-spacing: .25px;
+        float: left;
     }
 }

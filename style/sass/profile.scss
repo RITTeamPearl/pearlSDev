@@ -11,6 +11,20 @@
     
     .subtitle {
         padding: 0 pxToRem(40);
+        margin-bottom: pxToRem(20);
+    }
+    
+    #help {
+        color: white;
+        text-align: center;
+        display: block;
+        font-family: $lighterFont;
+        font-size: ptToEm(14);
+        margin-bottom: pxToRem(80);
+    }
+    
+    .formContainer {
+        margin-top: pxToRem(130);
     }
     
     #password {

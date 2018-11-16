@@ -35,6 +35,7 @@ if (isset($_POST['logout'])) {
             <div class='header'>
                 <h1 class='title centered'>Hello, <?php echo $_SESSION['name'] ?></h1>
                 <h2 class='subtitle centered'>You may view/update any account<br/>information here</h2>
+                <a id='help' href=''>Need Help?</a>
             </div>
 
             <!-- User Input -->

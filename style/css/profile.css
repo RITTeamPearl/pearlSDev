@@ -402,7 +402,17 @@ i {
 #profilePage .container {
   padding-bottom: 4.375rem; }
 #profilePage .subtitle {
-  padding: 0 1.25rem; }
+  padding: 0 1.25rem;
+  margin-bottom: 0.625rem; }
+#profilePage #help {
+  color: white;
+  text-align: center;
+  display: block;
+  font-family: "Helvetica Neue Light";
+  font-size: 0.875em;
+  margin-bottom: 2.5rem; }
+#profilePage .formContainer {
+  margin-top: 4.0625rem; }
 #profilePage #password {
   text-align: left; }
 #profilePage #save {
