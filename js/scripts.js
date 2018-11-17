@@ -51,7 +51,7 @@ function displayOptions(ele){
     console.log($(ele).parent().find(".buttonOptions").toggle());
 }
 /**
- * Used to transfer page to admin console and open up current notification as modify
+ * Used to transfer page to admin console with tag in url showing which notification to open
  */
 function jumpToNotiMod(notiID){
     window.location.href = "adminConsole.php#M_"+notiID;
@@ -59,18 +59,20 @@ function jumpToNotiMod(notiID){
 
 function checkNotifcationModify(){
     var url = window.location.href;
-    if (url.indexOf('M') > -1) {
+    if (url.indexOf('#M') > -1) {
         notiID = url.split("_")[1];
         console.log("NotiID is: " + notiID);
+
+        $("#news").find("form").each(function(ind,ele){
+            //Find which form is being used to modify the notification ID
+            if (notiID == ele.action.split("=")[1]) {
+                //get the tr using next and trigger clicking the edit button
+                $(ele).next().find("#notiEditButton").trigger('onclick');
+            }
+
+            $("body").scrollTop(1000);
+        });
     }
-
-    $("#news").find("form").each(function(ind,ele){
-        if (notiID == ele.action.split("=")[1]) {
-            $(ele).next().find("#notiEditButton").trigger('onclick');
-        }
-
-        $("body").scrollTop(1000);
-    });
 }
 
 function dropDownToggle(ele){

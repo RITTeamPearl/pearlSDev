@@ -24,7 +24,7 @@ $bizLayer = new business_layer();
 
     <!-- Videos -->
     <div class='bodyContainer'>
-        
+
         <!-- Section to add a video (Admin Only) -->
         <div class='addVideo hidden'>
             <form>
@@ -36,9 +36,9 @@ $bizLayer = new business_layer();
                 </div>
                 <input type="submit" class='block addSubmit inputNoIcon' name="addVid" value="Add New Video">
             </form>
-            
+
         </div>
-        
+
         <!-- Section to edit a video (Admin Only) -->
         <div class='editVideo hidden'>
             <form>
@@ -50,9 +50,9 @@ $bizLayer = new business_layer();
                 </div>
                 <input type="submit" class='block addSubmit inputNoIcon' name="addVid" value="Save Changes">
             </form>
-            
+
         </div>
-        
+
         <div class='videoContainer' id=''>
             <!-- Admin Feature only -->
             <button type="button" class="button"><i class="far fa-edit"></i></button>
@@ -67,7 +67,7 @@ $bizLayer = new business_layer();
                 <iframe src="https://www.youtube.com/embed/P0Qky8WQN6o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
-            
+
         <div class='videoContainer' id=''>
             <button type="button" class="button"><i class="far fa-edit"></i></button>
             <div class='buttonOptions' style="display:none" >
@@ -81,7 +81,7 @@ $bizLayer = new business_layer();
                 <iframe src="https://www.youtube.com/embed/klWdjUZkCvE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
-        
+
         <div class='videoContainer' id=''>
             <button type="button" class="button"><i class="far fa-edit"></i></button>
             <div class='buttonOptions' style="display:none" >
@@ -105,6 +105,9 @@ $bizLayer = new business_layer();
                 <?php
                 if ($_SESSION['authID'] == 4) {
                     echo '<li class="inline"><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>';
+                }
+                if ($_SESSION['authID'] == 3) {
+                    echo '<li class="inline"><a href="deptHeadNotiConsole.php"><i class="fas fa-toolbox"></i></a></li>';
                 }
                  ?>
             </ul>

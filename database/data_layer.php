@@ -67,7 +67,7 @@ class data_layer{
             while ($stmt->fetch()) {
                 $currRowArray = array('notificationID' => $notificationID, 'title' => $title,
                 'body'=> $body, 'attachment'=> $attachment, 'active'=>$active,'webAppYN'=>$webAppYN,
-                'time'=>$timestamp,'time'=>$timestamp,'surveyLink'=>$surveyLink,'viewableBy'=>$viewableBy);
+                'time'=>$timestamp,'time'=>$timestamp,'surveyLink'=>$surveyLink,'sentBy'=>$sentBy,'viewableBy'=>$viewableBy);
                 array_push($returnArray,$currRowArray);
             }
             return $returnArray;

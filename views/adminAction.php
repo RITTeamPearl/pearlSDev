@@ -9,17 +9,27 @@ $dataLayer = new data_layer();
 
 //Sending a new notification was clicked
 if (isset($_POST['sendNoti'])){
-    //create viewableBy string using deptIDs
+    //first make a string of deptIDs for the DB
     $viewableBy = "";
-    foreach ($_POST as $key => $value) {
-        if(explode("_",$key)[0] == "dept"){
-            $viewableBy .= strval($value);
+    //if its a dept head only their dept can view it.
+    if ($_SESSION['authID'] == 3){
+        $viewableBy = $_SESSION['deptID'];
+    }
+    //if its an admin then check which boxes were checked to send to
+    if ($_SESSION['authID'] == 4){
+        //Loop through $_POST to check which check boxes are chosen
+        foreach ($_POST as $key => $value) {
+            //$_POST names are set as dept_name
+            if(explode("_",$key)[0] == "dept"){
+                //value of the $_POST checkboxes are deptID vals
+                $viewableBy .= strval($value);
+            }
         }
     }
+    //set the post val to pass to DB
     $_POST["viewableBy"] = $viewableBy;
     //store who notification is sent by using session var
     $_POST["sentBy"] = $_SESSION['userID'];
-    //surveyLink, sentBy, viewableBy
     //business layer stuff to deal with the attachment ($_FILES)
     if (isset($_FILES['attachment']) && $_FILES['attachment']['size'] > 0 ){
         if ($businessLayer->uploadFile($_FILES['attachment'],'noti')){
@@ -33,26 +43,42 @@ if (isset($_POST['sendNoti'])){
         }
 
     }
-    // if (isset($_POST['emailCheck'])){
-    //     //business layer email functions
-    //     //loop through each email in the DB to send
-    //     foreach ($dataLayer->getData('user', array('email')) as $key => $value) {
-    //         $currEmail = $value['email'];
-    //         //if it has an attachment send that
-    //         if (isset($_POST['attachment'])) $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body'],$_POST['attachment']);
-    //         //No attachment just send title and body
-    //         else $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body']);
-    //     }
-    // }
-    if (isset($_POST['phoneCheck'])){
-        $fullText = "\n".$_POST['title']."\n\n".$_POST['body'];
-        //$businessLayer->sendText($fullText);
+    //loop through each user to see if they should be sent the notification
+    foreach ($dataLayer->getData('user', array('email','phone','deptID')) as $key => $value) {
+        //only send them the notification if their deptID is in the viewableBy strnig
+        if(in_array($value['deptID'],str_split($viewableBy))){
+            //first send email if it was chosen
+            if (isset($_POST['emailCheck'])){
+                $currEmail = $value['email'];
+                //if it has an attachment send that
+                if (isset($_POST['attachment'])) $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body'],$_POST['attachment']);
+                //No attachment just send title and body
+                else $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body']);
+            }
+
+            //next send the text if it was chosen
+            if (isset($_POST['phoneCheck'])){
+                $fullText = "\n".$_POST['title']."\n\n".$_POST['body'];
+                //$businessLayer->sendText($fullText);
+            }
+        }
+        //users deptID not viewableBy string
+        else{
+
+        }
     }
 
     //if webAppCheck is set make the post val = 1;
     $_POST['webAppYN'] = isset($_POST['webAppCheck']) ? (1) : (0);
     $dataLayer->createNotification($_POST);
-    header("Location: adminConsole.php?#n");
+    if ($_SESSION['authID'] == 3) {
+        //if they are a deptHead send them back to deptHeadNotiConsole
+        header("Location: deptHeadNotiConsole.php");
+    }
+    if ($_SESSION['authID'] == 4) {
+        //if they are an admin send them back to adminConsole
+        header("Location: adminConsole.php?#n");
+    }
 
 }
 
@@ -60,17 +86,39 @@ if (isset($_POST['sendNoti'])){
 if (isset($_POST['deleteNoti'])) {
 
     $dataLayer->deleteNotification($_GET['id']);
-    header("Location: adminConsole.php?#n");
+    if ($_SESSION['authID'] == 3) {
+        //if they are a deptHead send them back to deptHeadNotiConsole
+        header("Location: deptHeadNotiConsole.php");
+    }
+    if ($_SESSION['authID'] == 4) {
+        //if they are an admin send them back to adminConsole
+        header("Location: adminConsole.php?#n");
+    }
 }
 
 //Delete notification button was clicked
 if (isset($_POST['modifyNoti'])) {
     $dataLayer->updateNotification($_GET['id'],$_POST);
-    header("Location: adminConsole.php?p=n");
+    if ($_SESSION['authID'] == 3) {
+        //if they are a deptHead send them back to deptHeadNotiConsole
+        header("Location: deptHeadNotiConsole.php");
+    }
+    if ($_SESSION['authID'] == 4) {
+        //if they are an admin send them back to adminConsole
+        header("Location: adminConsole.php?#n");
+    }
 }
+//Remove the attachment
 if (isset($_POST['removeNotiAttachment'])) {
     $dataLayer->removeNotiAttachment($_GET['id']);
-    header("Location: adminConsole.php?p=n");
+    if ($_SESSION['authID'] == 3) {
+        //if they are a deptHead send them back to deptHeadNotiConsole
+        header("Location: deptHeadNotiConsole.php");
+    }
+    if ($_SESSION['authID'] == 4) {
+        //if they are an admin send them back to adminConsole
+        header("Location: adminConsole.php?#n");
+    }
 }
 
 //add new employee button was clicked

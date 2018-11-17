@@ -46,7 +46,7 @@ if (isset($_POST['logout'])) {
                         <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' autofocus>
                         <i class='fas fa-phone' aria-hidden='true'></i>
                     </div>
-                    
+
                     <div class='inputWithIcon'>
                         <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email'  autofocus>
                         <i class='fas fa-user' aria-hidden='true'></i>
@@ -60,18 +60,18 @@ if (isset($_POST['logout'])) {
                     <input class='block submit centered' id='save' type = 'button' value= 'Save Changes' onclick=""/>
                 </div>
             </form>
-            
+
             <form class='formContainer hidden' action='profile.php' method='POST'>
                 <div class='inputWithIcon'>
                     <input class='block' id='password' type ='text' value="New Password">
                     <i class='fas fa-key pwIcon' aria-hidden='true'></i>
                 </div>
-                
+
                 <div class='inputWithIcon'>
                     <input class='block' id='password' type ='text' value="Confirm Password">
                     <i class='fas fa-key pwIcon' aria-hidden='true'></i>
                 </div>
-                
+
                 <input class='block submit centered' id='save' type = 'button' value= 'Save Changes' onclick=""/>
             </form>
 
@@ -94,6 +94,9 @@ if (isset($_POST['logout'])) {
             <?php
             if ($_SESSION['authID'] == 4) {
                 echo '<li class="inline"><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>';
+            }
+            if ($_SESSION['authID'] == 3) {
+                echo '<li class="inline"><a href="deptHeadNotiConsole.php"><i class="fas fa-toolbox"></i></a></li>';
             }
              ?>
         </ul>

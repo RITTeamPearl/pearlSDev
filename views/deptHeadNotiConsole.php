@@ -6,7 +6,7 @@ if(!isset($_SESSION['phone'])){
     header("Location: ../index.php");
 }
 
-if(isset($_SESSION['authID']) && $_SESSION['authID'] != 4){
+if(isset($_SESSION['authID']) && $_SESSION['authID'] != 3){
     //logged in but dont have correct access send to news page
     header("Location: news.php");
 }
@@ -85,24 +85,6 @@ $bizLayer = new business_layer();
                             <input class='block' type='file' name='attachment'/>
                             <i class="fas fa-file-upload" aria-hidden='true'></i>
                         </div>
-                        <h2>Departments to Notify</h2>
-
-                        <div class='checkBox deptChecks'>
-                            <input name= 'dept_hr' id='cbHr' value="1" type='checkbox'>
-                            <label for='cbHr' class='checkBoxContainer'>HR</label>
-                            <input name='dept_admin' id='cbAdmin'value="2" type='checkbox'>
-                            <label for='cbAdmin' class='checkBoxContainer'>Admin</label>
-                            <input name ='dept_sales' id='cbSales' value="3" type='checkbox'>
-                            <label for='cbSales' class='checkBoxContainer'>Sales</label>
-                            <input name ='dept_production' id='cbProduction' value="4" type='checkbox'>
-                            <label for='cbProduction' class='checkBoxContainer'>Production</label>
-                            <input name ='dept_operations' id='cbOperations' value="5" type='checkbox'>
-                            <label for='cbOperations' class='checkBoxContainer'>Operations</label>
-                            <input name ='dept_food' id='cbFood' value="6" type='checkbox'>
-                            <label for='cbFood' class='checkBoxContainer'>Food and Beverages</label>
-                            <input name ='dept_garage' id='cbGarage' value="7" type='checkbox'>
-                            <label for='cbGarage' class='checkBoxContainer'>Garage</label>
-                        </div>
 
                         <h2>Notify Via</h2>
                         <div class='checkBox'>
@@ -142,127 +124,6 @@ $bizLayer = new business_layer();
         </div>
     </section>
 
-    <!-- Employees section of Admin Console -->
-    <section id='employees' class='hidden'>
-
-        <!-- Search Bar -->
-        <div class='searchBar inputWithIcon'>
-            <input type='text' placeholder='Search'>
-            <i class="fas fa-search"></i>
-        </div>
-
-        <!-- Table that appends database entries of employees into rows -->
-        <table>
-            <tr>
-                <th></th>
-                <th>First</th>
-                <th>Last</th>
-                <th>Action</th>
-            </tr>
-
-            <!-- Begin PHP Iterative process to dynamically create employees -->
-            <?php
-                echo $bizLayer->createUserTable($dataLayer->getAllUsers());
-             ?>
-
-            <!-- Begin next dynamically added rows here -->
-
-            <!-- Add New Employee -->
-            <tr class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-plus-circle'></i></td>
-                <td colspan='6'>Add New Employee</td>
-            </tr>
-
-            <tr class='spacer'><td></td></tr>
-            <tr class='collapsed' style="display:none">
-                <td colspan='6'>
-                    <!-- Form that takes user input to add a new employee
-                        * Make sure to automatically set a temporary password and send via phone # and email
-                    -->
-                    <form class="addNewForm" action="adminAction.php" method="post">
-
-                        <!-- Input Fields -->
-                        <h2>First Name</h2>
-                        <div class='inputWithIcon'>
-                            <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required">
-                            <i class='fas fa-address-card' aria-hidden='true'></i>
-                        </div>
-                        <h2>Last Name</h2>
-                        <div class='inputWithIcon'>
-                            <input class='block' id='fName' type = 'text' placeholder= 'Last Name' name='lName' required="required">
-                            <i class='fas fa-address-card' aria-hidden='true'></i>
-                        </div>
-                        <!-- Add phone mask -->
-                        <h2>Phone</h2>
-                        <div class='inputWithIcon'>
-                            <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' required="required">
-                            <i class='fas fa-phone' aria-hidden='true'></i>
-                        </div>
-                        <h2>Email</h2>
-                        <div class='inputWithIcon'>
-                            <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required">
-                            <i class='fas fa-user' aria-hidden='true'></i>
-                        </div>
-                        <h2>Active</h2>
-                        <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='active' name='activeYN' required="required">
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                            </select>
-                            <i class='fas fa-flag' aria-hidden='true'></i>
-                        </div>
-                        <h2>Authorization</h2>
-                        <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='auth' name='authID' required="required">
-                                <option value="2">Employee</option>
-                                <option value="3">Department Head</option>
-                                <option value="4">Administrator</option>
-                            </select>
-                            <i class='fas fa-users' aria-hidden='true'></i>
-                        </div>
-                        <h2>Department</h2>
-                        <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='dept' name='deptID' required="required">
-                                <option value="" disabled selected>Department</option>
-                                <option value="1">HR</option>
-                                <option value="2">Admin</option>
-                                <option value="3">Sales</option>
-                                <option value="4">Production</option>
-                                <option value="5">Operations</option>
-                                <option value="6">Food and Beverage</option>
-                                <option value="7">Garage</option>
-                            </select>
-                            <i class='fas fa-building' aria-hidden='true'></i>
-                        </div>
-
-                        <!-- Form submit -->
-                        <input type="submit" class='block addSubmit inputNoIcon' name="addEmp" value="Add Employee">
-                    </form>
-                </td>
-            </tr>
-
-        </table>
-
-        <!-- Pagination -->
-        <div class='pagination block'>
-            <div class='number inline'>
-                <span>1-5 of 13</span>
-            </div>
-
-            <div class='back inline'>
-                <i class='fas fa-chevron-left'></i><span>Back</span>
-            </div>
-
-            <div class='next inline'>
-                <span>Next</span><i class='fas fa-chevron-right'></i>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- Pending Users waiting for authorization -->
-
-    <!-- Compare Employees to Payroll section -->
 
     <!-- Footer -->
     <div class='footer block'>

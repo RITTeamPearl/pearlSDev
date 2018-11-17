@@ -40,6 +40,9 @@ $bizLayer = new business_layer();
                 if ($_SESSION['authID'] == 4) {
                     echo '<li class="inline"><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>';
                 }
+                if ($_SESSION['authID'] == 3) {
+                    echo '<li class="inline"><a href="deptHeadNotiConsole.php"><i class="fas fa-toolbox"></i></a></li>';
+                }
                  ?>
             </ul>
         </div>

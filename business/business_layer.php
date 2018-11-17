@@ -104,71 +104,80 @@ class business_layer{
         $rowCount = 1;
         $nextRowCount = 2;
         foreach ($notificationArray as $rowArray) {
-            $currNotiID = $rowArray['notificationID'];
-            $currTitle = $rowArray['title'];
-            $currSurvey = $rowArray['surveyLink'];
-            $currBody = $rowArray['body'];
-            //split file path using /
-            //Take the end of the array becuse it is the name of the file
-            $currAttachmentName = end(explode("/",$rowArray['attachment']));
-            //echo "Attachment: $currAttachmentName";
-            if ($currAttachmentName == ""){
-                $currAttachmentName = "No Attachment";
+            //they are are dept head and they were the one who sent the notifcation. allow it to print
+            $sentByUser=false;
+            if($_SESSION['authID'] == 3 && $rowArray['sentBy'] == $_SESSION['userID']){
+                //only show notifications sent by this user
+                $sentByUser = true;
             }
-            if ($currSurvey == ""){
-                $currSurvey = "No Survey";
+            if ($_SESSION['authID'] == 4 || $sentByUser) {
+                $currNotiID = $rowArray['notificationID'];
+                $currTitle = $rowArray['title'];
+                $currSurvey = $rowArray['surveyLink'];
+                $currBody = $rowArray['body'];
+                //split file path using /
+                //Take the end of the array becuse it is the name of the file
+                $currAttachmentName = end(explode("/",$rowArray['attachment']));
+                //echo "Attachment: $currAttachmentName";
+                if ($currAttachmentName == ""){
+                    $currAttachmentName = "No Attachment";
+                }
+                if ($currSurvey == ""){
+                    $currSurvey = "No Survey";
+                }
+                $currActiveYN = (intval($rowArray['active']));
+
+                $string .= <<<END
+                <form class="" action="adminAction.php?id={$currNotiID}" method="post" enctype="multipart/form-data">
+                <tr class='collapsed'>
+                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
+                    <td>
+                        <input type="text" name="title" disabled value="{$currTitle}">
+                    </td>
+                    <td>
+                        <select disabled name='activeYN' class='disabledDrop'>
+                            <option value='1'>Yes</option>
+                            <option
+END;
+                if (!$currActiveYN) $string .= " selected ";
+                $string .= <<<END
+
+                             value='0'>No</option>
+                        </select>
+                    </td>
+                    <td>
+                        <i id='notiEditButton' onclick="dropDownModify(this,'noti');" class='fas fa-pencil-alt'></i>
+                        <button class="hidden" id='notiSaveEditButton' type= "submit" name="modifyNoti" value="modifyNoti"><i class="fas fa-save"></i></button>
+                    </td>
+                    <td>
+                        <button type="submit" name= "deleteNoti" value="deleteNoti"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+
+                <tr class='spacer'><td></td></tr>
+
+                <tr class='collapsed' style="display: none">
+                    <td colspan='5' class='full'>
+                        <h2>Body</h2>
+                        <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
+                        <h2>Survey Link</h2>
+                        <input type="text" class='block inputNoIcon' value="{$currSurvey}" disabled name="surveyLink">
+                        <h2>Attachment</h2>
+END;
+                        if ($currAttachmentName != "No Attachment") $string .= '<button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>';
+                        $string .= <<<END
+                        <span>{$currAttachmentName}</span>
+                        <h2>User Ack. Report</h2>
+                        <i onclick="location.href='downloadAckReport.php?id={$currNotiID}'" class="fas fa-download"></i><span>user_report.csv</span>
+                    </td>
+                </tr>
+                <tr class='spacer'><td></td></tr>
+            </form>
+END;
+            $rowCount++;
+            $nextRowCount++;
             }
-            $currActiveYN = (intval($rowArray['active']));
 
-            $string .= <<<END
-            <form class="" action="adminAction.php?id={$currNotiID}" method="post" enctype="multipart/form-data">
-            <tr class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-                <td>
-                    <input type="text" name="title" disabled value="{$currTitle}">
-                </td>
-                <td>
-                    <select disabled name='activeYN' class='disabledDrop'>
-                        <option value='1'>Yes</option>
-                        <option
-END;
-            if (!$currActiveYN) $string .= " selected ";
-            $string .= <<<END
-
-                         value='0'>No</option>
-                    </select>
-                </td>
-                <td>
-                    <i id='notiEditButton' onclick="dropDownModify(this,'noti');" class='fas fa-pencil-alt'></i>
-                    <button class="hidden" id='notiSaveEditButton' type= "submit" name="modifyNoti" value="modifyNoti"><i class="fas fa-save"></i></button>
-                </td>
-                <td>
-                    <button type="submit" name= "deleteNoti" value="deleteNoti"><i class="fas fa-trash-alt"></i></button>
-                </td>
-            </tr>
-
-            <tr class='spacer'><td></td></tr>
-
-            <tr class='collapsed' style="display: none">
-                <td colspan='5' class='full'>
-                    <h2>Body</h2>
-                    <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
-                    <h2>Survey Link</h2>
-                    <input type="text" class='block inputNoIcon' value="{$currSurvey}" disabled name="surveyLink">
-                    <h2>Attachment</h2>
-END;
-                    if ($currAttachmentName != "No Attachment") $string .= '<button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>';
-                    $string .= <<<END
-                    <span>{$currAttachmentName}</span>
-                    <h2>User Ack. Report</h2>
-                    <i onclick="location.href='downloadAckReport.php?id={$currNotiID}'" class="fas fa-download"></i><span>user_report.csv</span>
-                </td>
-            </tr>
-            <tr class='spacer'><td></td></tr>
-        </form>
-END;
-        $rowCount++;
-        $nextRowCount++;
         }
 
         return $string;
@@ -347,12 +356,12 @@ END;
             $currNotiID = $currNotiArray['notificationID'];
             $currTitle = $currNotiArray['title'];
             $currBody = $currNotiArray['body'];
-            $timeStamp = $currNotiArray['time'];
+            $timesig = $currNotiArray['time'];
             $webAppYN = $currNotiArray['webAppYN'];
             $activeYN = $currNotiArray['active'];
 
             $now = new DateTime(null, new DateTimeZone('America/New_York'));
-            $dateStamp = new DateTime($timeStamp,new DateTimeZone('America/New_York'));
+            $dateStamp = new DateTime($timesig,new DateTimeZone('America/New_York'));
 
             $mins = $dateStamp->diff($now)->format("%i");
             $hours = $dateStamp->diff($now)->format("%h");
