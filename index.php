@@ -34,10 +34,10 @@ if(isset($_SESSION['phone'])){
             <i class="fas fa-lock" aria-hidden='true'></i>
         </div>
         <div id='support'>
-            <a id='help' href=''>Need Help?</a>
+            <a id='help' href='RRCC_UserDocs.html' target="_blank">Need Help?</a>
             <a id='forgot' href='/views/forgotPwd.php'>Forgot password?</a>
         </div>
-        
+
         <input class='block submit centered' id='login' type = 'submit' value= 'Log in'/>
         <a id='signup' href='/views/createAcct.php'> Sign up</a>
     </form>

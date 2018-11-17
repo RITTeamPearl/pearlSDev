@@ -130,7 +130,7 @@ class business_layer{
                 $string .= <<<END
                 <form class="" action="adminAction.php?id={$currNotiID}" method="post" enctype="multipart/form-data">
                 <tr class='collapsed'>
-                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
+                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                     <td>
                         <input type="text" name="title" disabled value="{$currTitle}">
                     </td>
@@ -353,72 +353,78 @@ END;
         $string = "";
         $imgNum = 1;
         foreach ($notificationArray as $currNotiArray) {
-            $currNotiID = $currNotiArray['notificationID'];
-            $currTitle = $currNotiArray['title'];
-            $currBody = $currNotiArray['body'];
-            $timesig = $currNotiArray['time'];
-            $webAppYN = $currNotiArray['webAppYN'];
-            $activeYN = $currNotiArray['active'];
+            //if they are in the correct dept or admin / HR show the notification
+            if (in_array($_SESSION['deptID'],str_split($currNotiArray['viewableBy'])) || $_SESSION['deptID'] == 1 || $_SESSION['deptID'] == 2) {
+                $currNotiID = $currNotiArray['notificationID'];
+                $currTitle = $currNotiArray['title'];
+                $currBody = $currNotiArray['body'];
+                $timesig = $currNotiArray['time'];
+                $webAppYN = $currNotiArray['webAppYN'];
+                $activeYN = $currNotiArray['active'];
 
-            $now = new DateTime(null, new DateTimeZone('America/New_York'));
-            $dateStamp = new DateTime($timesig,new DateTimeZone('America/New_York'));
+                $now = new DateTime(null, new DateTimeZone('America/New_York'));
+                $dateStamp = new DateTime($timesig,new DateTimeZone('America/New_York'));
 
-            $mins = $dateStamp->diff($now)->format("%i");
-            $hours = $dateStamp->diff($now)->format("%h");
-            $days = $dateStamp->diff($now)->format("%d");
-            if (intval($hours) < 1){
-                $timesig = $mins."m ago";
-            }
-            else if (intval($days) < 1) {
-                //display using hours
-                $timesig = $hours."h ago";
-            }
-            else if (intval($days) >= 1 && intval($days) >= 6) {
-                //display using days
-                $timesig = $days."d ago";
-            }
-            else if (intval($days) >= 7){
-                //display using weeks
-                $timesig = ($days%7)."w ago";
-            }
+                $mins = $dateStamp->diff($now)->format("%i");
+                $hours = $dateStamp->diff($now)->format("%h");
+                $days = $dateStamp->diff($now)->format("%d");
+                if (intval($hours) < 1){
+                    $timesig = $mins."m ago";
+                }
+                else if (intval($days) < 1) {
+                    //display using hours
+                    $timesig = $hours."h ago";
+                }
+                else if (intval($days) >= 1 && intval($days) >= 6) {
+                    //display using days
+                    $timesig = $days."d ago";
+                }
+                else if (intval($days) >= 7){
+                    //display using weeks
+                    $timesig = ($days%7)."w ago";
+                }
 
-            if ($imgNum  <= 7){
-                $imgNum++;
+                if ($imgNum  <= 7){
+                    $imgNum++;
+                }
+                else {
+                    $imgNum = 1;
+                }
+                if($webAppYN && $activeYN){
+    $string .= <<<END
+                        <div class='notifContainer' id='{$currNotiID}'>
+                            <div class='overlay'>
+                                <img src='../assets/images/{$imgNum}.jpg'>
+                            </div>
+
+                            <h2 class='title'>{$currTitle}</h2>
+
+                            <div class='subtitle block'>
+                                <div class='posted inline'>
+                                    <i class="far fa-clock"></i>
+                                    <span class='inline'>{$timesig}</span>
+                                </div>
+                                <a type='submit' class='inline' href='notification.php?id={$currNotiID}&img={$imgNum}'>read more</a>
+                            </div>
+
+                            <!-- Admin Feature only -->
+                            <button onclick="displayOptions(this);" type="button" class="button
+END;
+    if ($_SESSION['authID'] < 4) $string .= " hidden";
+    $string .= <<<END
+    "><i class="far fa-edit"></i></button>
+                            <div class='buttonOptions' style="display:none" >
+                                <ul class='spaced'>
+                                    <li onclick="jumpToNotiMod({$currNotiID})">Modify<i class='fas fa-pencil-alt'></i></li>
+                                    <li>Delete<i class="fas fa-trash-alt"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+END;
+                }
             }
             else {
-                $imgNum = 1;
-            }
-            if($webAppYN && $activeYN){
-$string .= <<<END
-                    <div class='notifContainer' id='{$currNotiID}'>
-                        <div class='overlay'>
-                            <img src='../assets/images/{$imgNum}.jpg'>
-                        </div>
-
-                        <h2 class='title'>{$currTitle}</h2>
-
-                        <div class='subtitle block'>
-                            <div class='posted inline'>
-                                <i class="far fa-clock"></i>
-                                <span class='inline'>{$timesig}</span>
-                            </div>
-                            <a type='submit' class='inline' href='notification.php?id={$currNotiID}&img={$imgNum}'>read more</a>
-                        </div>
-
-                        <!-- Admin Feature only -->
-                        <button onclick="displayOptions(this);" type="button" class="button
-END;
-if ($_SESSION['authID'] < 4) $string .= " hidden";
-$string .= <<<END
-"><i class="far fa-edit"></i></button>
-                        <div class='buttonOptions' style="display:none" >
-                            <ul class='spaced'>
-                                <li onclick="jumpToNotiMod({$currNotiID})">Modify<i class='fas fa-pencil-alt'></i></li>
-                                <li>Delete<i class="fas fa-trash-alt"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-END;
+                // code...
             }
         }
         return $string;

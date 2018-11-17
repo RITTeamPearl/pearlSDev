@@ -56,13 +56,17 @@ function displayOptions(ele){
 function jumpToNotiMod(notiID){
     window.location.href = "adminConsole.php#M_"+notiID;
 }
+/**
+ * Used to transfer page to admin console with tag in url showing which notification to open
+ */
+function jumpToNotiDel(notiID){
+    window.location.href = "adminConsole.php#D_"+notiID;
+}
 
 function checkNotifcationModify(){
     var url = window.location.href;
     if (url.indexOf('#M') > -1) {
         notiID = url.split("_")[1];
-        console.log("NotiID is: " + notiID);
-
         $("#news").find("form").each(function(ind,ele){
             //Find which form is being used to modify the notification ID
             if (notiID == ele.action.split("=")[1]) {

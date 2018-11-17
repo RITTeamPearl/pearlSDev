@@ -35,7 +35,12 @@ if (isset($_POST['logout'])) {
             <div class='header'>
                 <h1 class='title centered'>Hello, <?php echo $_SESSION['name'] ?></h1>
                 <h2 class='subtitle centered'>You may view/update any account<br/>information here</h2>
-                <a id='help' href=''>Need Help?</a>
+                <a id='help' href='<?php
+                if ($_SESSION['authID'] == 2) echo "../RRCC_UserDocs.html";
+                if ($_SESSION['authID'] == 3) echo "../RRCC_DeptHeadDocs.html";
+                if ($_SESSION['authID'] == 4) echo "../RRCC_AdminDocs.html";
+                 ?>' target="_blank">Need Help?</a>
+
             </div>
 
             <!-- User Input -->
