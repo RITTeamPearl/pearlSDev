@@ -99,18 +99,44 @@ class business_layer{
         //return $validatedPOST;
     }
 
-    function createNewsTable($notificationArray){
+    function createNewsTable($notificationArray,$pageNum){
         $string = "";
-        $rowCount = 1;
-        $nextRowCount = 2;
-        foreach ($notificationArray as $rowArray) {
+        $notiCount =0;
+        $checkIndArray = array();
+        $correctIndArray = array();
+
+
+        //pagination stuff to choose which notifiactions to show
+        foreach ($notificationArray as $ind=>$rowArray) {
+            $correctInd = false;
+            if($_SESSION['authID'] == 3 && $rowArray['sentBy'] == $_SESSION['userID']){
+                $correctInd = true;
+            }
+            if ($_SESSION['authID'] == 4 || $correctInd) {
+                array_push($checkIndArray,$ind);
+            }
+        }
+        $maxPages = ceil(count($checkIndArray)/5);
+        if ($maxPages < $pageNum) $pageNum = $maxPages;
+        $minIndex = ($pageNum*5)-5;
+        $maxIndex = ($pageNum*5)-1;
+
+        foreach ($checkIndArray as $arrayInd => $wantedInd) {
+            if ($arrayInd >= $minIndex && $arrayInd <= $maxIndex){
+                array_push($correctIndArray,$wantedInd);
+            }
+        }
+
+
+        //actually create the string for the correct notifications
+        foreach ($notificationArray as $ind => $rowArray) {
             //they are are dept head and they were the one who sent the notifcation. allow it to print
             $sentByUser=false;
             if($_SESSION['authID'] == 3 && $rowArray['sentBy'] == $_SESSION['userID']){
                 //only show notifications sent by this user
                 $sentByUser = true;
             }
-            if ($_SESSION['authID'] == 4 || $sentByUser) {
+            if (($_SESSION['authID'] == 4 || $sentByUser) && (in_array($ind,$correctIndArray))) {
                 $currNotiID = $rowArray['notificationID'];
                 $currTitle = $rowArray['title'];
                 $currSurvey = $rowArray['surveyLink'];
@@ -174,19 +200,69 @@ END;
                 <tr class='spacer'><td></td></tr>
             </form>
 END;
-            $rowCount++;
-            $nextRowCount++;
             }
-
         }
 
         return $string;
     }
 
-    function createUserTable($allUserArray){
-        //$phone,$fName,$lName,$tempPassYN,$password, $email, $deptID, $authID, $userID, $activeYN
+    function makeNewsPaginationLinks($pageNum,$notificationArray){
+        $totalNumNotis = 0;
+        foreach ($notificationArray as $ind=>$rowArray) {
+            $correctInd = false;
+            if($_SESSION['authID'] == 3 && $rowArray['sentBy'] == $_SESSION['userID']){
+                $correctInd = true;
+            }
+            if ($_SESSION['authID'] == 4 || $correctInd) {
+                $totalNumNotis++;
+            }
+        }
+
+        $maxPages = ceil($totalNumNotis/5);
+
+        if ($pageNum <= 1){
+            $prevPage = 1;
+        }
+        else {
+            $prevPage = $pageNum-1;
+        }
+
+        if ($pageNum + 1 > $maxPages){
+            $nextPage = $maxPages;
+        }
+        else {
+            $nextPage = $pageNum+1;
+        }
+
+        //1-5 out of count($checkIndArray)
+        $lowCount = (($pageNum*5)-5) +1;
+        $highCount = ($pageNum*5);
+        if ($highCount > $totalNumNotis) $highCount = $totalNumNotis;
+
+        if($totalNumNotis == 0){
+            $returnString = "<div class='number inline'><span>None</span></div>";
+            $returnString .= "<div class='back inline'><i class='fas fa-chevron-left'></i><span>Back</span></div>";
+            $returnString .= "<div class='next inline'><span>Next</span><i class='fas fa-chevron-right'></i></div>";
+        }
+        else {
+            $returnString = "<div class='number inline'><span>{$lowCount}-{$highCount} of {$totalNumNotis}</span></div>";
+            $returnString .= "<a href='adminConsole.php?page={$prevPage}#n'><div class='back inline'><i class='fas fa-chevron-left'></i><span>Back</span></div></a>";
+            $returnString .= "<a href='adminConsole.php?page={$nextPage}#n'><div class='next inline'><span>Next</span><i class='fas fa-chevron-right'></i></div></a>";
+        }
+        return $returnString;
+
+    }
+
+    function createUserTable($allUserArray,$pageNum){
+        //pagination stuff
+        $maxPages = ceil(count($allUserArray)/5);
+        if ($maxPages < $pageNum) $pageNum = $maxPages;
+        if ($pageNum <= 1) $pageNum = 1;
+        $minIndex = ($pageNum*5)-5;
+        $maxIndex = ($pageNum*5)-1;
+
         $string = '';
-        foreach ($allUserArray as $thisUserArray) {
+        foreach ($allUserArray as $ind => $thisUserArray) {
             $currID = $thisUserArray['userID'];
             $currFName = $thisUserArray['fName'];
             $currLName = $thisUserArray['lName'];
@@ -195,7 +271,7 @@ END;
             $currDeptID = $thisUserArray['deptID'];
             $currAuthID = $thisUserArray['authID'];
             $currPhone = $thisUserArray['phone'];
-            if ($currAuthID != 1) {
+            if ($currAuthID != 1 && ($minIndex <= $ind && $ind <= $maxIndex)) {
 
             $string .= <<<END
             <form class="" action="adminAction.php?id={$currID}" method="post">
@@ -303,7 +379,45 @@ END;
         return $string;
     }
 
-    function createPendingUserTable($allUserArray){
+    function createUserTablePaginationLinks($allUserArray,$pageNum){
+        $pageNum = intval($pageNum);
+        $totalUsers = count($allUserArray);
+        $maxPages = ceil($totalUsers/5);
+
+
+        if ($pageNum <= 1){
+            $prevPage = 1;
+        }
+        else {
+            $prevPage = $pageNum-1;
+        }
+
+        if ($pageNum + 1 > $maxPages){
+            $nextPage = $maxPages;
+        }
+        else {
+            $nextPage = $pageNum+1;
+        }
+
+        //1-5 out of count($checkIndArray)
+        $lowCount = (($pageNum*5)-5) +1;
+        $highCount = ($pageNum*5);
+        if ($highCount > $totalUsers) $highCount = $totalUsers;
+
+        $returnString = "<div class='number inline'><span>{$lowCount}-{$highCount} of {$totalUsers}</span></div>";
+        $returnString .= "<a href='adminConsole.php?page={$prevPage}#e'><div class='back inline'><i class='fas fa-chevron-left'></i><span>Back</span></div></a>";
+        $returnString .= "<a href='adminConsole.php?page={$nextPage}#e'><div class='next inline'><span>Next</span><i class='fas fa-chevron-right'></i></div></a>";
+        return $returnString;
+    }
+
+    function createPendingUserTable($allUserArray,$pageNum){
+        //pagination stuff
+        $maxPages = ceil(count($allUserArray)/5);
+        if ($maxPages < $pageNum) $pageNum = $maxPages;
+        $minIndex = ($pageNum*5)-5;
+        $maxIndex = ($pageNum*5)-1;
+
+
         $string = '';
         foreach ($allUserArray as $thisUserArray) {
             $currID = $thisUserArray['userID'];
@@ -315,38 +429,78 @@ END;
             $currAuthID = $thisUserArray['authID'];
             $currPhone = $thisUserArray['phone'];
 
-            $string .= <<<END
-            <form class="" action="adminAction.php?id={$currID}" method="post">
-                <tr class='collapsed'>
-                    <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
-                    <td>{$currFName}</td>
-                    <td>{$currLName}</td>
-                    <td>
-                        <button type="submit" name= "confirmPendEmp" value="confirmPendEmp"><i class="fas fa-check-circle"></i></button>
-                    </td>
-                    <td>
-                        <button type="submit" name= "denyPendEmp" value="denyPendEmp"><i class="fas fa-minus-circle"></i></button>
-                    </td>
-                </tr>
+            if ($minIndex <= $ind && $ind <= $maxIndex) {
+                $string .= <<<END
+                <form class="" action="adminAction.php?id={$currID}" method="post">
+                    <tr class='collapsed'>
+                        <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
+                        <td>{$currFName}</td>
+                        <td>{$currLName}</td>
+                        <td>
+                            <button type="submit" name= "confirmPendEmp" value="confirmPendEmp"><i class="fas fa-check-circle"></i></button>
+                        </td>
+                        <td>
+                            <button type="submit" name= "denyPendEmp" value="denyPendEmp"><i class="fas fa-minus-circle"></i></button>
+                        </td>
+                    </tr>
 
-                <tr class='spacer'><td></td></tr>
-                <tr class='un-collapsed'>
-                    <td colspan="5">
-                        <h2>Authorization Level</h2>
-                        <select name='pendingAuthID' id='authLevel'>
-                            <option value=2>Employee</option>
-                            <option value=3>Department Head</option>
-                            <option value=4>Admin</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr class='spacer'><td></td></tr>
-            </form>
+                    <tr class='spacer'><td></td></tr>
+                    <tr class='un-collapsed'>
+                        <td colspan="5">
+                            <h2>Authorization Level</h2>
+                            <select name='pendingAuthID' id='authLevel'>
+                                <option value=2>Employee</option>
+                                <option value=3>Department Head</option>
+                                <option value=4>Admin</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class='spacer'><td></td></tr>
+                </form>
 END;
+            }
+
         }
 
         return $string;
 
+    }
+    function createPendingTablePaginationLinks($allUserArray,$pageNum){
+        $pageNum = intval($pageNum);
+        $totalUsers = count($allUserArray);
+        $maxPages = ceil($totalUsers/5);
+
+
+        if ($pageNum <= 1){
+            $prevPage = 1;
+        }
+        else {
+            $prevPage = $pageNum-1;
+        }
+
+        if ($pageNum + 1 > $maxPages){
+            $nextPage = $maxPages;
+        }
+        else {
+            $nextPage = $pageNum+1;
+        }
+
+        //1-5 out of count($checkIndArray)
+        $lowCount = (($pageNum*5)-5) +1;
+        $highCount = ($pageNum*5);
+        if ($highCount > $totalUsers) $highCount = $totalUsers;
+
+        if($totalUsers == 0){
+            $returnString = "<div class='number inline'><span>None</span></div>";
+            $returnString .= "<div class='back inline'><i class='fas fa-chevron-left'></i><span>Back</span></div>";
+            $returnString .= "<div class='next inline'><span>Next</span><i class='fas fa-chevron-right'></i></div>";
+        }
+        else {
+            $returnString = "<div class='number inline'><span>{$lowCount}-{$highCount} of {$totalUsers}</span></div>";
+            $returnString .= "<a href='adminConsole.php?page={$prevPage}#p'><div class='back inline'><i class='fas fa-chevron-left'></i><span>Back</span></div></a>";
+            $returnString .= "<a href='adminConsole.php?page={$nextPage}#p'><div class='next inline'><span>Next</span><i class='fas fa-chevron-right'></i></div></a>";
+        }
+        return $returnString;
     }
 
     function createLandingNewsTable($notificationArray){

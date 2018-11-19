@@ -71,7 +71,14 @@ $bizLayer = new business_layer();
             <!-- Begin PHP Iterative process to dynamically create News -->
 
             <?php
-                echo $bizLayer->createNewsTable(array_reverse($dataLayer->getAllNotifcations()));
+                if (isset($_GET['page'])) {
+                    $pageNum = $_GET['page'];
+                }
+                else {
+                    $pageNum = 1;
+                }
+                echo $bizLayer->createNewsTable(array_reverse($dataLayer->getAllNotifcations()),$pageNum);
+                //echo $bizLayer->createNewsTable(array_reverse($dataLayer->getAllNotifcations()));
              ?>
 
             <!-- Begin next dynamically added rows here -->
@@ -141,17 +148,15 @@ $bizLayer = new business_layer();
         5. If 'Back' or 'Next' is clickable add 'clickable' class to it
         -->
         <div class='pagination block'>
-            <div class='number inline'>
-                <span>1-5 of 13</span>
-            </div>
-
-            <div class='back inline'>
-                <i class='fas fa-chevron-left'></i><span>Back</span>
-            </div>
-
-            <div class='next inline'>
-                <span>Next</span><i class='fas fa-chevron-right'></i>
-            </div>
+            <?php
+            if (isset($_GET['page'])) {
+                $pageNum = $_GET['page'];
+            }
+            else {
+                $pageNum = 1;
+            }
+            echo $bizLayer->makeNewsPaginationLinks($pageNum,$dataLayer->getAllNotifcations());
+             ?>
         </div>
     </section>
 
@@ -175,7 +180,13 @@ $bizLayer = new business_layer();
 
             <!-- Begin PHP Iterative process to dynamically create employees -->
             <?php
-                echo $bizLayer->createUserTable($dataLayer->getAllUsers());
+            if (isset($_GET['page'])) {
+                $pageNum = $_GET['page'];
+            }
+            else {
+                $pageNum = 1;
+            }
+                echo $bizLayer->createUserTable($dataLayer->getAllUsers(),$pageNum);
              ?>
 
             <!-- Begin next dynamically added rows here -->
@@ -258,17 +269,15 @@ $bizLayer = new business_layer();
 
         <!-- Pagination -->
         <div class='pagination block'>
-            <div class='number inline'>
-                <span>1-5 of 13</span>
-            </div>
-
-            <div class='back inline'>
-                <i class='fas fa-chevron-left'></i><span>Back</span>
-            </div>
-
-            <div class='next inline'>
-                <span>Next</span><i class='fas fa-chevron-right'></i>
-            </div>
+            <?php
+            if (isset($_GET['page'])) {
+                $pageNum = $_GET['page'];
+            }
+            else {
+                $pageNum = 1;
+            }
+                echo $bizLayer->createUserTablePaginationLinks($dataLayer->getAllUsers(),$pageNum);
+             ?>
         </div>
 
     </section>
@@ -292,12 +301,15 @@ $bizLayer = new business_layer();
             </tr>
 
             <?php
+            if (isset($_GET['page'])) {
+                $pageNum = $_GET['page'];
+            }
+            else {
+                $pageNum = 1;
+            }
             //getData($table, $fields, $idField="" ,$id= 0)
-            echo $bizLayer->createPendingUserTable($dataLayer->getData('user',array('*'),'authID',1));
+            echo $bizLayer->createPendingUserTable($dataLayer->getData('user',array('*'),'authID',1),$pageNum);
             ?>
-            <!-- Begin PHP Iterative process to dynamically create employees -->
-
-            <!-- Spacer puts padding in-between table rows -->
 
 
 
@@ -305,17 +317,9 @@ $bizLayer = new business_layer();
 
         <!-- Pagination -->
         <div class='pagination block'>
-            <div class='number inline'>
-                <span>1-5 of 13</span>
-            </div>
-
-            <div class='back inline'>
-                <i class='fas fa-chevron-left'></i><span>Back</span>
-            </div>
-
-            <div class='next inline'>
-                <span>Next</span><i class='fas fa-chevron-right'></i>
-            </div>
+            <?php
+            echo $bizLayer->createPendingTablePaginationLinks($dataLayer->getData('user',array('*'),'authID',1),$pageNum);
+             ?>
         </div>
 
     </section>

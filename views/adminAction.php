@@ -77,7 +77,7 @@ if (isset($_POST['sendNoti'])){
     }
     if ($_SESSION['authID'] == 4) {
         //if they are an admin send them back to adminConsole
-        header("Location: adminConsole.php?#n");
+        header("Location: adminConsole.php#n");
     }
 
 }
@@ -92,7 +92,7 @@ if (isset($_POST['deleteNoti'])) {
     }
     if ($_SESSION['authID'] == 4) {
         //if they are an admin send them back to adminConsole
-        header("Location: adminConsole.php?#n");
+        header("Location: adminConsole.php#n");
     }
 }
 
@@ -105,7 +105,7 @@ if (isset($_POST['modifyNoti'])) {
     }
     if ($_SESSION['authID'] == 4) {
         //if they are an admin send them back to adminConsole
-        header("Location: adminConsole.php?#n");
+        header("Location: adminConsole.php#n");
     }
 }
 //Remove the attachment
@@ -117,7 +117,7 @@ if (isset($_POST['removeNotiAttachment'])) {
     }
     if ($_SESSION['authID'] == 4) {
         //if they are an admin send them back to adminConsole
-        header("Location: adminConsole.php?#n");
+        header("Location: adminConsole.php#n");
     }
 }
 
@@ -137,14 +137,14 @@ if (isset($_POST['addEmp'])){
     //after successfully creating the user send them their password
     //address, subject, body
     $businessLayer->sendEmail($_POST['email'], "RRCC Account Created For You", "You can sign in with the phoneNumber $phone and password $genPass");
-    header("Location: adminConsole.php?#e");
+    header("Location: adminConsole.php#e");
 
 }
 
 //delete employee button was clicked
 if (isset($_POST['deleteEmp'])) {
     $dataLayer->deleteUser($_GET['id']);
-    header("Location: adminConsole.php?#e");
+    header("Location: adminConsole.php#e");
     //var_dump($_POST);
 }
 
@@ -156,7 +156,7 @@ if (isset($_POST['modifyEmp'])) {
     //fix the phone number so it works in the DB
     $_POST["phone"] = str_replace("-","",$_POST["phone"]);
     $dataLayer->updateUser($_POST,'userID',$_GET['id']);
-    header("Location: adminConsole.php?#e");
+    header("Location: adminConsole.php#e");
     //var_dump($_POST);
 }
 
@@ -166,7 +166,7 @@ if(isset($_POST['confirmPendEmp'])){
     $dataLayer->updateUser(array('authID' => intval($_POST['pendingAuthID']) ),'userID',$_GET['id']);
     //echo "Confirm User with authID {$_POST['pendingAuthID']}";
     //echo "</br>In progress, go back to admin console via URL";
-    header("Location: adminConsole.php?#p");
+    header("Location: adminConsole.php#p");
 
 }
 
@@ -175,7 +175,7 @@ if(isset($_POST['denyPendEmp'])){
     $dataLayer->deleteData('user','userID',$_GET['id']);
     //echo "Delete user";
     //echo "</br>In progress, go back to admin console via URL";
-    header("Location: adminConsole.php?#p");
+    header("Location: adminConsole.php#p");
 }
 
 if(isset($_POST['csvUpload'])){
@@ -204,7 +204,7 @@ if(isset($_POST['csvUpload'])){
         }
 
     }
-    //header("Location: adminConsole.php?#c");
+    //header("Location: adminConsole.php#c");
 }
 
 
