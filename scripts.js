@@ -66,14 +66,14 @@ function nextStepTwo(num) {
     //checks it screen 1 of the create acct form is valid before going to the next screen
     if (num == 1) {
         formData.push(['pageNumber', num]);
-        console.log('starting ajax request');   
+        console.log('starting ajax request');
 
         $.ajax({
             type: "POST",
             url: '../business/business_layer.php',
             data: {
                 action: 'validateForm',
-                formSection : 'screen1',
+                formSection: 'screen1',
                 formData: JSON.stringify(formData)
             },
             success: function (data) {
@@ -101,8 +101,8 @@ function nextStepTwo(num) {
                 //console.log(JSON.parse(data));
                 //Below may need to be updated. I may not be grabbing the isValidForm
                 //correctly 
-                
-                if (data.includes('isValidForm')){
+
+                if (data.includes('isValidForm')) {
                     //check to make sure names are valid
                     $("#formStep1").hide(1000);
                     $("#formStep2").show(1000);
@@ -110,7 +110,7 @@ function nextStepTwo(num) {
                     $("#circle1").hide();
                     $("#circle2").show();
                     $("#dot1").show();
-                    $("#dot2").hide(); 
+                    $("#dot2").hide();
                     //return;
                 }
                 //lines below prints the error message to the page
@@ -120,12 +120,12 @@ function nextStepTwo(num) {
                 //below 2 lines work (manual)
                 //var phone = JSON.parse(data)[0]['location'];
                 //$(phone).html(JSON.parse(data)[0]['msg']);
-                
+
                 //below line not working
                 //$(data[0]['location']).html(data[0]['msg']);
 
                 //dynamically shows data on page. Works!
-                $.each(JSON.parse(data), function(i){
+                $.each(JSON.parse(data), function (i) {
                     var info = JSON.parse(data)[i]['location']
                     $(info).html(JSON.parse(data)[i]['msg'])
                 });
@@ -136,21 +136,21 @@ function nextStepTwo(num) {
     //checks it screen 2 of the create acct form is valid before going to the next screen
     if (num == 2) {
         formData.push(['pageNumber', num]);
-        console.log('starting ajax request');   
+        console.log('starting ajax request');
 
         $.ajax({
             type: "POST",
             url: '../business/business_layer.php',
             data: {
                 action: 'validateForm',
-                formSection : 'screen2',
+                formSection: 'screen2',
                 formData: JSON.stringify(formData)
             },
             success: function (data) {
                 console.log(data);
                 //console.log(JSON.parse(data));
-                
-                if (data.includes('isValidForm')){
+
+                if (data.includes('isValidForm')) {
                     //check to make sure names are valid
                     $("#formStep2").hide(1000);
                     $("#formStep3").show(1000);
@@ -164,58 +164,107 @@ function nextStepTwo(num) {
                 }
                 //lines below prints the error message to the page
                 //dynamically shows data on page.
-                $.each(JSON.parse(data), function(i){
+                $.each(JSON.parse(data), function (i) {
                     var info = JSON.parse(data)[i]['location']
                     $(info).html(JSON.parse(data)[i]['msg'])
                 });
             }
         });//end of ajax call for screen 2
     }//end of checks for screen 2
+
+    if (num == 3) {
+        formData.push(['pageNumber', num]);
+        console.log('starting ajax request');
+
+        $.ajax({
+            type: "POST",
+            url: '../business/business_layer.php',
+            data: {
+                action: 'validateForm',
+                formSection: 'screen3',
+                formData: JSON.stringify(formData)
+            },
+            success: function (data) {
+                //console.log(data);
+                console.log(JSON.parse(data));
+
+                if (data.includes('isValidForm')) {
+
+                    $("createAcctForm").submit(function (event) {
+                        if (!($("email").val()) == "" && !($("deptID").val()) == "") {
+                            $("span").text("Account Request has been sent!").show();
+                            return;
+                        }
+
+                        //$("span").text("Not valid!").show().fadeOut(1000);
+                        event.preventDefault();
+                    });
+                    //document.createAcctForm.submit();
+                    //check to make sure names are valid
+                    // $("#formStep2").hide(1000);
+                    // $("#formStep3").show(1000);
+
+                    // //Hide current circle-dot, show next
+                    // $("#circle2").hide();
+                    // $("#circle3").show();
+                    // $("#dot2").show();
+                    // $("#dot3").hide();
+                    //return;
+                }
+                //lines below prints the error message to the page
+                //dynamically shows data on page.
+                $.each(JSON.parse(data), function (i) {
+                    var info = JSON.parse(data)[i]['location']
+                    $(info).html(JSON.parse(data)[i]['msg'])
+                });
+            }
+        });//end of ajax call for screen 3
+    }//end of checks for screen 3
 }//end of nextStepTwo...it works
 
-function confirmPassword(){
+function confirmPassword() {
     if ($('#password').val() == $('#passwordConfirm').val()) {
         $(".pwIcon").css('color', 'green');
         return true;
     }
-    else{
+    else {
         $('.pwIcon').css('color', 'red');
         return false;
     }
 }
 
-function addMask(){
+function addMask() {
     $("#phoneNumber").mask("000-000-0000");//.addClass('className');
 }
 
-function dropDownToggle(ele){
+function dropDownToggle(ele) {
     //this row is the parent of the parent (icon -> td -> tr)
     thisRow = $(ele).parent().parent();
     //Use jquery to find the closest tr. Next is a spacer need to do it twice.
     nextRow = $(thisRow).closest('tr').next('tr').next('tr');
 
-    if ($(nextRow).attr('class').valueOf() === 'collapsed'){
+    if ($(nextRow).attr('class').valueOf() === 'collapsed') {
         console.log("here");
         $(ele).removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
         $(nextRow).removeClass('collapsed').addClass('un-collapsed').show();
     }
 
-    else if ($(nextRow).attr('class').valueOf() === 'un-collapsed'){
+    else if ($(nextRow).attr('class').valueOf() === 'un-collapsed') {
         $(ele).removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
         $(nextRow).removeClass('un-collapsed').addClass('collapsed').hide();
     }
-    
+
     //resizeTextArea(thisRow.find('#bodyContent'));
 }
 
-function dropDownModify(ele,page){
+function dropDownModify(ele, page) {
     //this row is the parent of the parent (icon -> td -> tr)
     thisRow = $(ele).parent().parent();
     //Use jquery to find the closest tr. Next is a spacer need to do it twice.
     nextRow = $(thisRow).closest('tr').next('tr').next('tr');
 
     //only toggle the next row if it needs to be
-    if($(nextRow).attr('class').valueOf() === 'collapsed'){
+    if ($(nextRow).attr('class').valueOf() === 'collapsed') {
         //Need to pass in the circle element instead of the pencil so it gets changed
         dropDownToggle($(ele).parent().parent().find('i')[0]);
     }
@@ -232,17 +281,17 @@ function dropDownModify(ele,page){
 
     //find all of the disabled inputs and enable them
     //$(thisRow).find(':disabled').each().attr('disabled',false);
-    $(thisRow).find(':disabled').each(function(i,ele){
+    $(thisRow).find(':disabled').each(function (i, ele) {
         $(ele).attr('disabled', false);
     });
 
-    $(nextRow).find(':disabled').each(function(i,ele){
+    $(nextRow).find(':disabled').each(function (i, ele) {
         $(ele).attr('disabled', false);
     });
 
 }
 
-function updateAdminView(ele){
+function updateAdminView(ele) {
     var whichButton = $(ele).attr("id").valueOf().split("_")[0];
     //find current active and remove it
     $(".active").removeClass("active");
@@ -250,7 +299,7 @@ function updateAdminView(ele){
     $(ele).addClass("active");
 
     //show news hide others
-    if (whichButton === "news"){
+    if (whichButton === "news") {
         $("#employees").hide();
         $("#pending").hide();
         $("#news").show();
@@ -258,7 +307,7 @@ function updateAdminView(ele){
     }
 
     //show employee hide others
-    if (whichButton === "employee"){
+    if (whichButton === "employee") {
         $("#pending").hide();
         $("#news").hide();
         $("#employees").show();
@@ -266,7 +315,7 @@ function updateAdminView(ele){
     }
 
     //show pending hide others
-    if (whichButton === "pending"){
+    if (whichButton === "pending") {
         $("#news").hide();
         $("#employees").hide();
         $("#pending").show();
@@ -274,7 +323,7 @@ function updateAdminView(ele){
     }
 
     //show compare hide others
-    if (whichButton === "compare"){
+    if (whichButton === "compare") {
         $("#news").hide();
         $("#employees").hide();
         $("#pending").hide();
@@ -287,7 +336,7 @@ function resizeTextArea(id) {
 
     console.log(id);
     //Get the JQuery element of the JavaScript Element
-    var textArea = $('#'+String(id.id));
+    var textArea = $('#' + String(id.id));
     console.log(textArea);
     console.log(textArea[0].scrollHeight);
 
@@ -298,32 +347,37 @@ function resizeTextArea(id) {
 //Handles file upload in Admin Console
 function initCsvListener() {
     //make button open file upload
-    $("#csvFileUploadButton").click(function() {
+    $("#csvFileUploadButton").click(function () {
         $('#fileUpload').trigger('click');
     });
 
     //update view to show selected file like file input
-    $("#fileUpload").on('change', function() {
+    $("#fileUpload").on('change', function () {
         var val = $(this).val().split('\\').pop();//get the last one (file name)
-        if(val.length > 0) {
-           $(this).siblings('span').text(val);
+        if (val.length > 0) {
+            $(this).siblings('span').text(val);
         } else {
             $(this).siblings('span').text('No file selected');
         }
     });
 }
 
-function setNavBar(){
-    var numNotifications = (($("#news").find('tr')).length-4)/4;
-    $("#news_Button").html('News('+numNotifications+")");
+function setNavBar() {
+    var numNotifications = (($("#news").find('tr')).length - 4) / 4;
+    $("#news_Button").html('News(' + numNotifications + ")");
+    $("#news").find(".pagination").find('div.number').html(numNotifications ? ("1-" + numNotifications + " out of " + numNotifications) : ("None"));
 
-    var numEmps = (($("#employees").find('tr')).length-4)/3;
-    $("#employee_Button").html('Employees('+numEmps+")");
+    var numEmps = (($("#employees").find('tr')).length - 4) / 3;
+    $("#employee_Button").html('Employees(' + numEmps + ")");
+    $("#employees").find(".pagination").find('div.number').html(numEmps ? ("1-" + numEmps + " out of " + numEmps) : ("None"));
 
-    var numPendEmps = (($("#pending").find('tr')).length-1)/4;
-    $("#pending_Button").html('Pending('+numPendEmps+")");
 
-    if (screen.width < 700){
+    var numPendEmps = (($("#pending").find('tr')).length - 1) / 4;
+    $("#pending_Button").html('Pending(' + numPendEmps + ")");
+    $("#pending").find(".pagination").find('div.number').html(numPendEmps ? ("1-" + numPendEmps + " out of " + numPendEmps) : ("None"));
+
+
+    if (screen.width < 700) {
         $("#compare_Button").hide();
     }
     else {
@@ -332,16 +386,16 @@ function setNavBar(){
     var url = window.location.href;
     if (url.indexOf('#') > -1) {
         var page = url.split("#").pop();
-        if (page == "e"){
+        if (page == "e") {
             $("#employee_Button").trigger('onclick');
         }
-        else if (page == "p"){
+        else if (page == "p") {
             $("#pending_Button").trigger('onclick');
         }
-        else if (page == "c"){
+        else if (page == "c") {
             $("#compare_Button").trigger('onclick');
         }
-        else if (page == "n"){
+        else if (page == "n") {
             $("#news_Button").trigger('onclick');
         }
 

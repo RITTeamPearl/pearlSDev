@@ -1,13 +1,19 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['phone'])){
+    //session var is not set = they are not logged in
+    header("Location: ../index.php");
+}
+
+if(isset($_SESSION['authID']) && $_SESSION['authID'] != 4){
+    //logged in but dont have correct access send to news page
+    header("Location: news.php");
+}
 require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
 $dataLayer = new data_layer();
-$businessLayer = new business_layer();
-if (count($_POST) === 3) {
-    $dataLayer->createNotification($_POST);
-}
-$businessLayer->validateAndSanitize();
+$bizLayer = new business_layer();
 ?>
 
 <!DOCTYPE html>
@@ -18,11 +24,12 @@ $businessLayer->validateAndSanitize();
     <meta name='viewport' content='width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 5.0' />
     <link rel='stylesheet' type='text/css' media='screen' href='/style/css/adminConsole.css'>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script type='text/javascript' src='/js/scripts.js'></script>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='adminConsole' onload="resizeTextArea(bodyContent)">
+<body id='adminConsole' onload="setNavBar();initCsvListener();addMask();">
     <!-- Header -->
     <div class='header'>
         <h1 id='title' class='centered'>Administrator Console</h1>
@@ -35,10 +42,10 @@ $businessLayer->validateAndSanitize();
              3. Currently displayed section navigation title should be active
              4. Disable Compare on mobile, Enable on desktop
         -->
-        <li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News(13)</li>
-        <li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees(231)</li>
-        <li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending(3)</li>
-        <li onclick="updateAdminView(this)" id="compare_Button" class='inline hidden'>Compare</li>
+            <a href="#n"><li onclick="updateAdminView(this)" id="news_Button" class='inline active'>News</li></a>
+            <a href="#e"><li onclick="updateAdminView(this)" id="employee_Button" class='inline'>Employees</li></a>
+            <a href="#p"><li onclick="updateAdminView(this)" id="pending_Button" class='inline'>Pending</li></a>
+            <a href="#c"><li onclick="updateAdminView(this)" id="compare_Button" class='inline'>Compare Employee Lists</li></a>
         <hr>
     </ul>
 
@@ -64,55 +71,8 @@ $businessLayer->validateAndSanitize();
             <!-- Begin PHP Iterative process to dynamically create News -->
 
             <?php
-                echo $bizLayer->createNewsTable($dataLayer->getAllNotifcations())
+                echo $bizLayer->createNewsTable(array_reverse($dataLayer->getAllNotifcations()));
              ?>
-
-
-        <form class="" action="editNotification.php?id=30" method="post">
-            <tr id = "row-10"class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-                <td>
-                    <input type="text" name="title" disabled value="Heavy Rain to delay bla bla bla bla bla">
-                </td>
-                <td>
-                    <select disabled name='active' class='disabledDrop'>
-                        <option value='1'>Yes</option>
-                        <option value='2'>No</option>
-                    </select>
-                </td>
-                <td>
-                    <i id='editButton' onclick="dropDownModify(this);" class='fas fa-pencil-alt'></i>
-
-                    <!--*Make this appear when edit is clicked, hide pencil...vice versa*-->
-                    <button class="hidden" id='saveEditButton' type= "submit" name="modify"><i class="fas fa-save" onclick=''></i></button>
-                </td>
-                <td>
-                    <button type="submit" name= "delete" value="delete"><i class="fas fa-trash-alt"></i></button>
-                </td>
-            </tr>
-
-            <tr class='spacer'><td></td></tr>
-
-            <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
-            <!-- JQUERY Animate function does not work on TR so eventually we might want to convert this to a ul? -->
-            <tr id = "row-11" class='un-collapsed'>
-                <td colspan='5' class='full'>
-                    <h2>Body</h2>
-                    <textarea id='bodyContent' name="body" disabled>Lorem ipsum dolor sit amet, consecteur adiposing elit. Sed autor ligula quis ante pretium lacreet.Nuno semper erat dignissim placerate feugiat.
-
-                    Aenean commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan. commodo risus consequeat ligula aliquet portior. Proin turpis vitae commodo mattis, massa felis accumsan</textarea>
-
-                    <h2>Attachment</h2>
-                    <!-- Make this 'fas fa-file-upload' with blue color, if no file exists and text saying 'No attachment' Create functionality for upload -->
-                    <i class="fas fa-times-circle"></i><span>document.pdf</span>
-
-                    <h2>User Ack. Report</h2>
-                    <i class="fas fa-download"></i><span>user_report.csv</span>
-                </td>
-
-            </tr>
-            <tr class='spacer'><td></td></tr>
-        </form>
 
             <!-- Begin next dynamically added rows here -->
 
@@ -122,29 +82,56 @@ $businessLayer->validateAndSanitize();
                 <td colspan='4'>Add New Notification</td>
             </tr>
             <tr class='spacer'><td></td></tr>
-            <tr id = "row-13" class='un-collapsed'>
+            <tr class='collapsed' style="display:none">
                 <td colspan='5'>
                     <!-- Form that takes user input to add a new notification -->
-                    <form class="addNewForm" action="adminConsole.php" method="post">
+                    <form class="addNewForm" action="adminAction.php" method="post" enctype="multipart/form-data">
                         <h2>Title</h2>
                         <input type="text" class='block inputNoIcon' name="title" required>
+                        <span class='error' id='titleSpan'></span>
                         <h2>Body</h2>
-                        <input type="text" class='block inputNoIcon' name="body" required>
+                        <textarea class='block inputNoIcon' name="body"></textarea>
+                        <span class='error' id='bodySpan'></span>
+                        <!--<input type="text" class='block inputNoIcon' name="body" required>-->
+                        <h2>Survey Link</h2>
+                        <input type="text" class='block inputNoIcon' name="surveyLink">
+                        <span class='error' id='surveySpan'></span>
                         <h2>Attachment</h2>
                         <div class='inputWithIcon addAttachment'>
                             <input class='block' type='file' name='attachment'/>
                             <i class="fas fa-file-upload" aria-hidden='true'></i>
                         </div>
-                        <h2>Notify</h2>
-                        <div class='checkBox'>
-                            <input id='cbPhone' type='checkbox'>
-                            <label for='cbPhone' class='checkBoxContainer'>Phone</label>
-                            <input id='cbEmail' type='checkbox'>
-                            <label for='cbEmail' class='checkBoxContainer'>Email</label>
-                            <input id='cbWebApp' type='checkbox'>
-                            <label for='cbWebApp' class='checkBoxContainer'>Web App</label>
+                        <h2>Departments to Notify</h2>
+
+                        <div class='checkBox deptChecks'>
+                            <input name= 'depts[]' id='cbHr' value="1" type='checkbox'>
+                            <label for='cbHr' class='checkBoxContainer'>HR</label>
+                            <input name='depts[]' id='cbAdmin' value="2" type='checkbox'>
+                            <label for='cbAdmin' class='checkBoxContainer'>Admin</label>
+                            <input name ='depts[]' id='cbSales' value="3" type='checkbox'>
+                            <label for='cbSales' class='checkBoxContainer'>Sales</label>
+                            <input name ='depts[]' id='cbProduction' value="4" type='checkbox'>
+                            <label for='cbProduction' class='checkBoxContainer'>Production</label>
+                            <input name ='depts[]' id='cbOperations' value="5" type='checkbox'>
+                            <label for='cbOperations' class='checkBoxContainer'>Operations</label>
+                            <input name ='depts[]' id='cbFood' value="6" type='checkbox'>
+                            <label for='cbFood' class='checkBoxContainer'>Food and Beverages</label>
+                            <input name ='depts[]' id='cbGarage' value="7" type='checkbox'>
+                            <label for='cbGarage' class='checkBoxContainer'>Garage</label>
+                            <span class='error' id='deptCheckSpan'></span>
                         </div>
-                        <input type="submit" class='block addSubmit inputNoIcon' value="Send Notification">
+
+                        <h2>Notify Via</h2>
+                        <div class='checkBox'>
+                            <input name= 'mediaCheck[]' id='cbPhone' type='checkbox'>
+                            <label for='cbPhone' class='checkBoxContainer'>Phone</label>
+                            <input name='mediaCheck[]' id='cbEmail' type='checkbox'>
+                            <label for='cbEmail' class='checkBoxContainer'>Email</label>
+                            <input name ='mediaCheck[]' id='cbWebApp' type='checkbox' checked>
+                            <label for='cbWebApp' class='checkBoxContainer'>Web App</label>
+                            <span class='error' id='mediaCheckSpan'></span>
+                        </div>
+                        <input type="submit" class='block addSubmit inputNoIcon' name="sendNoti" value="Send Notification" onclick="nextStepTwo(5)">
                     </form>
                 </td>
             </tr>
@@ -192,84 +179,25 @@ $businessLayer->validateAndSanitize();
             </tr>
 
             <!-- Begin PHP Iterative process to dynamically create employees -->
-
-            <!-- Row that is collapsed -->
-            <tr class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td> <!-- Onclick this icon needs to be updated to fas fa-chevron-circle-up -->
-                <td><input type="text" name="fName" disabled value="Amanda"></td>
-                <td><input type="text" name="lName" disabled value="Ho"></td>
-                <td><i class='fas fa-pencil-alt'></i></td>
-                <td><i class='fas fa-trash-alt'></i></td>
-            </tr>
-
-            <!-- Spacer puts padding in-between table rows -->
-
-            <tr class='spacer'><td></td></tr>
-
-            <tr id = "row-12"class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
-                <td><input type="text" name="fName" disabled value="Mason"></td>
-                <td><input type="text" name="lName" disabled value="Santora"></td>
-                <td><i class='fas fa-pencil-alt'></i></td>
-                <td><i class='fas fa-trash-alt'></i></td>
-            </tr>
-
-            <tr class='spacer'><td></td></tr>
-
-            <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
-
-            <tr id = "row-13" class='un-collapsed'>
-                <td colspan='3' class='leftUnCollapsed'>
-                    <h2>Active</h2>
-                    <select disabled name='active' class='disabledDrop'>
-                        <option value='1'>Yes</option>
-                        <option value='2'>No</option>
-                    </select>
-
-                    <h2>Department</h2>
-                    <select disabled name='department' class='disabledDrop'>
-                        <option value='1'>HR</option>
-                        <option value='2'>Admin</option>
-                        <option value="3">Sales</option>
-                        <option value="4">Production</option>
-                        <option value="5">Operations</option>
-                        <option value="6">Food and Beverage</option>
-                        <option value="7">Garage</option>
-                    </select>
-
-                    <h2>Email</h2>
-                    <input type="text" name="email" class='email' disabled value="masonsantora@gmail.com">
-                </td>
-                <td colspan='2' class='rightUnCollapsed'>
-                    <h2>Authorization</h2>
-                    <select disabled name='authorization' class='disabledDrop fullWidth'>
-                        <option value='1'>Employee</option>
-                        <option value='2'>Depart. Head</option>
-                        <option value='2'>Administrator</option>
-                    </select>
-
-                    <h2>Phone Number</h2>
-                    <input type="text" name="phone" disabled value="555-555-5555">
-                </td>
-            </tr>
-
-            <tr class='spacer'><td></td></tr>
+            <?php
+                echo $bizLayer->createUserTable($dataLayer->getAllUsers());
+             ?>
 
             <!-- Begin next dynamically added rows here -->
 
             <!-- Add New Employee -->
             <tr class='collapsed'>
-                <td><i class='fas fa-plus-circle'></i></td>
+                <td><i onclick="dropDownToggle(this)" class='fas fa-plus-circle'></i></td>
                 <td colspan='6'>Add New Employee</td>
             </tr>
 
             <tr class='spacer'><td></td></tr>
-            <tr id = "row-14" class='un-collapsed'>
+            <tr class='collapsed' style="display:none">
                 <td colspan='6'>
                     <!-- Form that takes user input to add a new employee
                         * Make sure to automatically set a temporary password and send via phone # and email
                     -->
-                    <form class="addNewForm" action="adminConsole.php" method="post">
+                    <form class="addNewForm" action="adminAction.php" method="post">
 
                         <!-- Input Fields -->
                         <h2>First Name</h2>
@@ -295,24 +223,24 @@ $businessLayer->validateAndSanitize();
                         </div>
                         <h2>Active</h2>
                         <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='active' name='active' required="required">
+                            <select class='block inputWithIcon' id='active' name='activeYN' required="required">
                                 <option value="1">Yes</option>
-                                <option value="2">No</option>
+                                <option value="0">No</option>
                             </select>
                             <i class='fas fa-flag' aria-hidden='true'></i>
                         </div>
                         <h2>Authorization</h2>
                         <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='active' name='active' required="required">
-                                <option value="1">Employee</option>
-                                <option value="2">Department Head</option>
-                                <option value="3">Administrator</option>
+                            <select class='block inputWithIcon' id='auth' name='authID' required="required">
+                                <option value="2">Employee</option>
+                                <option value="3">Department Head</option>
+                                <option value="4">Administrator</option>
                             </select>
                             <i class='fas fa-users' aria-hidden='true'></i>
                         </div>
                         <h2>Department</h2>
                         <div class='inputWithIcon'>
-                            <select class='block inputWithIcon' id='dept' name='dept' required="required">
+                            <select class='block inputWithIcon' id='dept' name='deptID' required="required">
                                 <option value="" disabled selected>Department</option>
                                 <option value="1">HR</option>
                                 <option value="2">Admin</option>
@@ -326,7 +254,7 @@ $businessLayer->validateAndSanitize();
                         </div>
 
                         <!-- Form submit -->
-                        <input type="submit" class='block addSubmit inputNoIcon' value="Add Employee">
+                        <input type="submit" class='block addSubmit inputNoIcon' name="addEmp" value="Add Employee" onclick="nextStepTwo(5)">
                     </form>
                 </td>
             </tr>
@@ -368,30 +296,15 @@ $businessLayer->validateAndSanitize();
                 <th>Action</th>
             </tr>
 
+            <?php
+            //getData($table, $fields, $idField="" ,$id= 0)
+            echo $bizLayer->createPendingUserTable($dataLayer->getData('user',array('*'),'authID',1));
+            ?>
             <!-- Begin PHP Iterative process to dynamically create employees -->
-
-            <!-- Row that is collapsed -->
-            <tr class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
-                <td>Amanda</td>
-                <td>Ho</td>
-                <td><i class='fas fa-check-circle'></i></td>
-                <td><i class='fas fa-minus-circle'></i></td>
-            </tr>
 
             <!-- Spacer puts padding in-between table rows -->
 
-            <tr class='spacer'><td></td></tr>
 
-            <tr id = "row-12"class='collapsed'>
-                <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
-                <td>Mason</td>
-                <td>Santora</td>
-                <td><i class='fas fa-check-circle'></i></td>
-                <td><i class='fas fa-minus-circle'></i></td>
-            </tr>
-
-            <tr class='spacer'><td></td></tr>
 
         </table>
 
@@ -412,16 +325,98 @@ $businessLayer->validateAndSanitize();
 
     </section>
 
+    <!-- Compare Employees to Payroll section -->
+    <section id='compare' class='hidden'>
+        <div class='centered'>
+            <h2 class='title'>Upload CSV file to compare Active Employee List<br>with the Payroll Employee List</h2>
+                <form class="" action="adminAction.php" method="post" enctype="multipart/form-data">
+                    <div class='uploadContainer'>
+                        <!--
+                            this uses the javascript, but it doesnt pass any data when it submits.
+                        <i class='fas fa-upload' id="csvFileUploadButton"></i><span class='fileName' accept='.csv'>No file selected</span>
+                        <input type='file' id='fileUpload' class='hidden'>
+                        -->
+                        <div class='inputWithIcon addAttachment'>
+                            <input class='block' type='file' name='attachment'/>
+                            <i class="fas fa-file-upload" aria-hidden='true'></i>
+                        </div>
+
+                        <button id='csvUpload' type="submit" name="csvUpload" value="csvUpload">Submit</button>
+                    </div>
+                </form>
+
+            <h2 class='title hidden' id='csvSuccess'>No discrepencies found</h2>
+
+            <div id='csvFailedListContainer' class='hidden'>
+                <h2 class='title' id='csvFailed'>Discrepencies found</h2>
+
+                <table>
+                <tr>
+                    <th></th>
+                    <th>First</th>
+                    <th>Last</th>
+                </tr>
+
+                <form class="" action="" method="post">
+                    <tr id = "row-96"class='collapsed'>
+                        <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
+                        <td><input type="text" name="fName" disabled value="Mason"></td>
+                        <td><input type="text" name="lName" disabled value="Santora"></td>
+                    </tr>
+
+                    <tr class='spacer'><td></td></tr>
+
+                    <!-- Row that is hidden in collapsed row, needs JS to unhide this https://codepen.io/andornagy/pen/gaGBZz -->
+
+                    <tr id = "row-97" class='un-collapsed'>
+                        <td colspan='2' class='leftUnCollapsed'>
+                            <h2>Active</h2>
+                            <span>Yes</span>
+
+                            <h2>Department</h2>
+                            <span>HR</span>
+
+                            <h2>Email</h2>
+                            <span>masonsantora@gmail.com</span>
+                        </td>
+                        <td colspan='1' class='rightUnCollapsed'>
+                            <h2>Authorization</h2>
+                            <span>Employee</span>
+
+                            <h2>Phone Number</h2>
+                            <span>555-555-5555</span>
+                        </td>
+                    </tr>
+                </form>
+                </table>
+
+                <!-- Pagination -->
+                <div class='pagination block'>
+                    <div class='number inline'>
+                        <span>1-5 of 13</span>
+                    </div>
+
+                    <div class='back inline'>
+                        <i class='fas fa-chevron-left'></i><span>Back</span>
+                    </div>
+
+                    <div class='next inline'>
+                        <span>Next</span><i class='fas fa-chevron-right'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <div class='footer block'>
         <ul class='iconContainer'>
-            <li class='inline'><i class="fas fa-newspaper"></i></li>
-            <li class='inline'><i class="fas fa-video"></i></li>
-            <li class='inline'><i class="fas fa-user"></i></li>
-            <li class='inline'><i class="fas fa-bell"></i></li>
-            <li class='inline'><i class="fas fa-toolbox"></i></li>
+            <li class='inline'><a href="news.php"><i class="fas fa-newspaper"></i></a></li>
+            <li class='inline'><a href="videos.php"><i class="fas fa-video"></i></a></li>
+            <li class='inline'><a href="profile.php"><i class="fas fa-user"></i></a></li>
+            <li class='inline active'><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>
         </ul>
-
     </div>
+
 </body>
 </html>
