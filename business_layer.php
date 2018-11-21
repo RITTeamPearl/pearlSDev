@@ -361,8 +361,313 @@ class business_layer
                     header('Location: ../index.php');
                 }
             }
-        }
+        } //end of screen3 check
 
+        if ($_POST['formSection'] == 'screen4') { //profile screen check
+                    //echo $_POST['phoneNumber'];
+                    //check phoneNumber, password, passwordConfirm, and email only if their fields isn't empty
+                    //check phone number
+
+                    //turns $_POST string into usable array called formArrary
+                    $formArray = array();
+                    $json = $_POST['formData'];
+                    $jsonIterator = new RecursiveIteratorIterator(
+                        new RecursiveArrayIterator(json_decode($json, true)),
+                        RecursiveIteratorIterator::SELF_FIRST
+                    );
+                    foreach ($jsonIterator as $key => $val) {
+                        if (is_array($val)) {
+                            //echo "$key:\n";
+                            $formArray[$val[0]] = $val[1];
+                        } else {
+                        }
+                    }
+
+                    if ($formArray['phoneNumber'] != "") {
+                        $input = $formArray['phoneNumber'];
+                        $phone = test_input($input);
+                        //^1?([1-9])(\d{9}) - phone regex
+                        //^\d{3}-\d{3}-\d{4}$ - another phone option
+                        $pattern = '/^\d{3}-\d{3}-\d{4}$/';
+                        if (!preg_match($pattern, $phone)) {
+                            $phoneErr = "Invalid phone number";
+                            array_push($formErrors, [
+                                'location' => '#phoneSpan',
+                                'msg' => $phoneErr
+                            ]);
+                        }
+                        //built in php functions that i think could work as well, if needed
+                        $phone = filter_var($formArray['phoneNumber'], FILTER_SANITIZE_NUMBER_INT);
+                        //filter_var($postData['phone'], FILTER_VALIDATE_INT);
+                    }//end of phone number checks...this works
+
+
+                    if ($formArray['email'] != "") {
+                    $email = test_input($formArray['email']);
+                    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+                    $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+                        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                            $emailErr = "Invalid format for email";
+                            array_push($formErrors, [
+                                'location' => '#emailSpan',
+                                'msg' => $emailErr
+                            ]);
+                        }
+                    }
+
+                        //checks password
+                    if (!(empty($formArray['password'])) && (!(empty($formArray['passwordConfirm'])))) {
+                        $pwd = test_input($formArray['password']);
+                        $pwdConfirm = test_input($formArray['passwordConfirm']);
+                        //check that password and passwordConfirm match
+                        if ($pwdConfirm == $pwd) {
+                            //check for length of at least 8
+                            if (!(strlen($pwd) >= 8)) {
+                                $pwdErr = "Password must contain at least 8 characters";
+                                array_push($formErrors, [
+                                    'location' => '#passwordSpan',
+                                    'msg' => $pwdErr
+                                ]);
+                            }
+                            //check for one upper case
+                            if (!preg_match("/[A-Z]/", $pwd)) {
+                                $pwdErr = "Password must contain at least 1 uppercase letter";
+                                array_push($formErrors, [
+                                    'location' => '#passwordSpan',
+                                    'msg' => $pwdErr
+                                ]);
+                            }
+                            //check for one lower case
+                            if (!preg_match("/[a-z]/", $pwd)) {
+                                $pwdErr = "Password must contain at least one lowercase letter";
+                                array_push($formErrors, [
+                                    'location' => '#passwordSpan',
+                                    'msg' => $pwdErr
+                                ]);
+                            }
+                            //check for one number
+                            if (!preg_match("/[1-9]/", $pwd)) {
+                                $pwdErr = "Password must contain at least one digit";
+                                array_push($formErrors, [
+                                    'location' => '#passwordSpan',
+                                    'msg' => $pwdErr
+                                ]);
+                            }
+                        } else {
+                            $pwdConfirmErr = "Confirmation password must be the same as the above password";
+                            array_push($formErrors, [
+                                'location' => '#passwordConfirmSpan',
+                                'msg' => $pwdConfirmErr
+                            ]);
+                        }
+                    }//end of password and passwordConfirm check
+                }//end of checks for screen 4 on the profile page
+
+            if ($_POST['formSection'] == 'screen5') { //checks the AdminConsole notifications
+                        //check Title, Body, Survey Link.
+                        //check phone number
+
+                        //turns $_POST string into usable array called formArray
+                        $formArray = array();
+                        $json = $_POST['formData'];
+                        $jsonIterator = new RecursiveIteratorIterator(
+                            new RecursiveArrayIterator(json_decode($json, true)),
+                            RecursiveIteratorIterator::SELF_FIRST
+                        );
+                        foreach ($jsonIterator as $key => $val) {
+                            if (is_array($val)) {
+                                //echo "$key:\n";
+                                $formArray[$val[0]] = $val[1];
+                            } else {
+                            }
+                        }
+
+                        if (empty($formArray['title'])) {
+                                        $titleErr = "title is required";
+                                        array_push($formErrors, [
+                                            'location' => '#titleSpan',
+                                            'msg' => $titleErr
+                                        ]);
+                        } else {
+                                        $body = test_input($formArray['title']);
+                                        if (!preg_match("/^[a-zA-Z\s]*$/", $title)) {
+                                            $titleErr = "Title can only contain letters and spaces";
+                                            array_push($formErrors, [
+                                                'location' => '#titleSpan',
+                                                'msg' => $titleErr
+                                            ]);
+                                        }
+                                $title = filter_var($formArray['title'], FILTER_SANITIZE_STRING);
+                        }
+
+                        if (empty($formArray['body'])) {
+                                        $bodyErr = "body is required";
+                                        array_push($formErrors, [
+                                            'location' => '#bodySpan',
+                                            'msg' => $bodyErr
+                                        ]);
+                        } else {
+                                        $body = test_input($formArray['body']);
+                                        if (!preg_match("/^[a-zA-Z\s]*$/", $body)) {
+                                            $bodyErr = "Body can only contain letters and spaces";
+                                            array_push($formErrors, [
+                                                'location' => '#bodySpan',
+                                                'msg' => $bodyErr
+                                            ]);
+                                        }
+                                $body = filter_var($formArray['body'], FILTER_SANITIZE_STRING);
+                        }
+
+                        if (!(empty($formArray['surveyLink']))) {
+                            $survey = test_input($formArray['survey']);
+                            if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $survey)) {
+                            $surveyErr = "Survey is not a URL";
+                                array_push($formErrors, [
+                                'location' => '#surveySpan',
+                                'msg' => $surveyErr
+                                ]);
+                            }
+                        }
+
+                        if (empty($_POST['depts'])) {
+                            $deptsErr = "Needs at least one department checked";
+                            array_push($formErrors, [
+                                                            'location' => '#deptCheckSpan',
+                                                            'msg' => $deptsErr
+                                                            ]);
+                        }
+
+                        if (empty($_POST['mediaCheck']))) {
+                            $mediaErr = "Needs at least one media checked;"
+                            array_push($formErrors, [
+                                                    'location' => '#deptCheckSpan',
+                                                    'msg' => $deptsErr
+                                                    ]);
+                        }
+
+                    }//end of checks for screen 5 on the create account page
+
+            if ($_POST['formSection'] == 'screen6') { //checks the AdminConsole New Employee
+                                    //check First name, last name, email, phone number. Active, Authorization doesn't need additional val/san. Department already has required tag.
+
+                                    //turns $_POST string into usable array called formArray
+                                    $formArray = array();
+                                    $json = $_POST['formData'];
+                                    $jsonIterator = new RecursiveIteratorIterator(
+                                        new RecursiveArrayIterator(json_decode($json, true)),
+                                        RecursiveIteratorIterator::SELF_FIRST
+                                    );
+                                    foreach ($jsonIterator as $key => $val) {
+                                        if (is_array($val)) {
+                                            //echo "$key:\n";
+                                            $formArray[$val[0]] = $val[1];
+                                        } else {
+                                        }
+                                    }
+
+                                    if (empty($formArray['fName'])) {
+                                                    $fNameErr = "First name is required";
+                                                    array_push($formErrors, [
+                                                        'location' => '#empFirstSpan',
+                                                        'msg' => $fNameErr
+                                                    ]);
+                                    } else {
+                                                    $fName = test_input($formArray['fName']);
+                                                    if (!preg_match("/^[a-zA-Z\s]*$/", $fName)) {
+                                                        $fNameErr = "First Name can only contain letters and spaces";
+                                                        array_push($formErrors, [
+                                                            'location' => '#empFirstSpan',
+                                                            'msg' => $fNameErr
+                                                        ]);
+                                                    }
+                                            $fName = filter_var($formArray['fName'], FILTER_SANITIZE_STRING);
+                                    }
+
+                                    if (empty($formArray['lName'])) {
+                                                    $lNameErr = "Last Name is required";
+                                                    array_push($formErrors, [
+                                                        'location' => '#empLastSpan',
+                                                        'msg' => $lNameErr
+                                                    ]);
+                                    } else {
+                                                    $lName = test_input($formArray['lName']);
+                                                    if (!preg_match("/^[a-zA-Z\s]*$/", $lName)) {
+                                                        $lNameErr = "Body can only contain letters and spaces";
+                                                        array_push($formErrors, [
+                                                            'location' => '#empLastSpan',
+                                                            'msg' => $lNameErr
+                                                        ]);
+                                                    }
+                                            $lName = filter_var($formArray['lName'], FILTER_SANITIZE_STRING);
+                                    }
+
+                                    if (empty($formArray['phoneNumber'])) {
+                                        $input = $formArray['phoneNumber'];
+                                                                $phone = test_input($input);
+                                                                $pattern = '/^\d{3}-\d{3}-\d{4}$/';
+                                                                if (!preg_match($pattern, $phone)) {
+                                                                    $phoneErr = "Invalid phone number";
+                                                                    array_push($formErrors, [
+                                                                        'location' => '#empPhoneSpan',
+                                                                        'msg' => $phoneErr
+                                                                    ]);
+                                                                }
+                                                                //built in php functions that i think could work as well, if needed
+                                                                $phone = filter_var($formArray['phoneNumber'], FILTER_SANITIZE_NUMBER_INT);
+                                                                //filter_var($postData['phone'], FILTER_VALIDATE_INT);
+                                    }
+
+                                    if (empty($formArray['email']))) {
+                                                        $emailErr = "Email is required";
+                                                        array_push($formErrors, [
+                                                            'location' => '#empEmailSpan',
+                                                            'msg' => $emailErr
+                                                            ]);
+                                                        } else {
+                                                        $email = test_input($formArray['email']);
+                                                        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+                                                        $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+                                                            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                                                                $emailErr = "Invalid format for email";
+                                                                array_push($formErrors, [
+                                                                    'location' => '#empEmailSpan',
+                                                                    'msg' => $emailErr
+                                                                ]);
+                                                            }
+                                                        }
+
+                                }//end of checks for screen 6 on the create account page
+
+                if ($_POST['formSection'] == 'screen7') { //checks the videos page links
+                                                    //check video url
+                    if (empty($formArray['link']))) {
+                     } else {
+                        $link = test_input($formArray['link']);
+                        if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $survey)) {
+                            $linkErr = "The link is not a valid URL";
+                            array_push($formErrors, [
+                                    'location' => '#linkSpan',
+                                    'msg' => $linkErr
+                                ]);
+                            }
+                     }
+                }//end of checks for screen 7 on videos page
+
+                if ($_POST['formSection'] == 'screen8') { //checks the reset password.
+                                                                    //check email, form already checks if empty
+
+                                                        $email = test_input($formArray['email']);
+                                                        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+                                                        $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+                                                            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                                                                $emailErr = "Invalid format for email";
+                                                                array_push($formErrors, [
+                                                                    'location' => '#emailSpan',
+                                                                    'msg' => $emailErr
+                                                                ]);
+                                                            }
+                                    }
+                }//end of checks for screen 8 on resetPassword
             
 
         //      //checks for adminConsole

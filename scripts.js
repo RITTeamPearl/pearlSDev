@@ -220,6 +220,137 @@ function nextStepTwo(num) {
             }
         });//end of ajax call for screen 3
     }//end of checks for screen 3
+
+    if (num == 4) {
+               formData.push(['pageNumber', num]);
+               console.log('starting ajax request');
+
+               $.ajax({
+                   type: "POST",
+                   url: '../business/business_layer.php',
+                   data: {
+                       action: 'validateForm',
+                       formSection: 'screen4',
+                       formData: JSON.stringify(formData)
+                   },
+                   success: function (data) {
+                       console.log(data);
+                       if (data.includes('isValidForm')) {
+
+                       }
+                       //dynamically shows data on page. Works!
+                       $.each(JSON.parse(data), function (i) {
+                           var info = JSON.parse(data)[i]['location']
+                           $(info).html(JSON.parse(data)[i]['msg'])
+                       });
+                   }
+               });//end of ajax call for screen 4
+    } //checks the form of profile page.
+
+    if (num == 5) {
+               formData.push(['pageNumber', num]);
+               console.log('starting ajax request');
+
+               $.ajax({
+                   type: "POST",
+                   url: '../business/business_layer.php',
+                   data: {
+                       action: 'validateForm',
+                       formSection: 'screen5',
+                       formData: JSON.stringify(formData)
+                   },
+                   success: function (data) {
+                       console.log(data);
+                       if (data.includes('isValidForm')) {
+
+                       }
+                       //dynamically shows data on page. Works!
+                       $.each(JSON.parse(data), function (i) {
+                           var info = JSON.parse(data)[i]['location']
+                           $(info).html(JSON.parse(data)[i]['msg'])
+                       });
+                   }
+               });//end of ajax call for screen 5
+    } //checks the form of Admin Console Notification
+
+    if (num == 6) {
+               formData.push(['pageNumber', num]);
+               console.log('starting ajax request');
+
+               $.ajax({
+                   type: "POST",
+                   url: '../business/business_layer.php',
+                   data: {
+                       action: 'validateForm',
+                       formSection: 'screen6',
+                       formData: JSON.stringify(formData)
+                   },
+                   success: function (data) {
+                       console.log(data);
+                       if (data.includes('isValidForm')) {
+
+                       }
+                       //dynamically shows data on page. Works!
+                       $.each(JSON.parse(data), function (i) {
+                           var info = JSON.parse(data)[i]['location']
+                           $(info).html(JSON.parse(data)[i]['msg'])
+                       });
+                   }
+               });//end of ajax call for screen 6
+    } //checks the form of Admin Console Employee
+
+    if (num == 7) {
+               formData.push(['pageNumber', num]);
+               console.log('starting ajax request');
+
+               $.ajax({
+                   type: "POST",
+                   url: '../business/business_layer.php',
+                   data: {
+                       action: 'validateForm',
+                       formSection: 'screen7',
+                       formData: JSON.stringify(formData)
+                   },
+                   success: function (data) {
+                       console.log(data);
+                       if (data.includes('isValidForm')) {
+
+                       }
+                       //dynamically shows data on page. Works!
+                       $.each(JSON.parse(data), function (i) {
+                           var info = JSON.parse(data)[i]['location']
+                           $(info).html(JSON.parse(data)[i]['msg'])
+                       });
+                   }
+               });//end of ajax call for screen 7
+    } //checks the form of Videos
+
+    if (num == 8) {
+                   formData.push(['pageNumber', num]);
+                   console.log('starting ajax request');
+
+                   $.ajax({
+                       type: "POST",
+                       url: '../business/business_layer.php',
+                       data: {
+                           action: 'validateForm',
+                           formSection: 'screen8',
+                           formData: JSON.stringify(formData)
+                       },
+                       success: function (data) {
+                           console.log(data);
+                           if (data.includes('isValidForm')) {
+
+                           }
+                           //dynamically shows data on page. Works!
+                           $.each(JSON.parse(data), function (i) {
+                               var info = JSON.parse(data)[i]['location']
+                               $(info).html(JSON.parse(data)[i]['msg'])
+                           });
+                       }
+                   });//end of ajax call for screen 7
+        } //checks the form of Videos
+
 }//end of nextStepTwo...it works
 
 function confirmPassword() {

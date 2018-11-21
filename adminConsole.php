@@ -204,22 +204,26 @@ $bizLayer = new business_layer();
                         <div class='inputWithIcon'>
                             <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required">
                             <i class='fas fa-address-card' aria-hidden='true'></i>
+                            <span class='error' id='empFirstSpan'></span>
                         </div>
                         <h2>Last Name</h2>
                         <div class='inputWithIcon'>
-                            <input class='block' id='fName' type = 'text' placeholder= 'Last Name' name='lName' required="required">
+                            <input class='block' id='lName' type = 'text' placeholder= 'Last Name' name='lName' required="required">
                             <i class='fas fa-address-card' aria-hidden='true'></i>
+                            <span class='error' id='empLastSpan'></span>
                         </div>
                         <!-- Add phone mask -->
                         <h2>Phone</h2>
                         <div class='inputWithIcon'>
                             <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' required="required">
                             <i class='fas fa-phone' aria-hidden='true'></i>
+                            <span class='error' id='empPhoneSpan'></span>
                         </div>
                         <h2>Email</h2>
                         <div class='inputWithIcon'>
                             <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required">
                             <i class='fas fa-user' aria-hidden='true'></i>
+                            <span class='error' id='empEmailSpan'></span>
                         </div>
                         <h2>Active</h2>
                         <div class='inputWithIcon'>
@@ -254,7 +258,7 @@ $bizLayer = new business_layer();
                         </div>
 
                         <!-- Form submit -->
-                        <input type="submit" class='block addSubmit inputNoIcon' name="addEmp" value="Add Employee" onclick="nextStepTwo(5)">
+                        <input type="submit" class='block addSubmit inputNoIcon' name="addEmp" value="Add Employee" onclick="nextStepTwo(6)">
                     </form>
                 </td>
             </tr>
