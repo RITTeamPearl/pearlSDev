@@ -417,7 +417,7 @@ END;
             <button class="hidden" id='empSaveEditButton' type= "button" name="modifyEmp" value="modifyEmp"><i class="fas fa-save" onclick='ajaxUpdate({$currID},this)'></i></button>
             </td>
             <td>
-            <button type="button" name= "deleteEmp" onclick='ajaxDelete({$currID},this)' value="deleteEmp"><i class="fas fa-trash-alt"></i></button>
+            <button type="button" name= "deleteEmp" onclick='ajaxDelete({$currID},this,'csv')' value="deleteEmp"><i class="fas fa-trash-alt"></i></button>
             </td>
             </tr>
             <tr class='spacer'><td></td></tr>

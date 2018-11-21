@@ -41,13 +41,30 @@ function ajaxUpdate(userID,ele) {
     });
 }
 
-function ajaxDelete(userID) {
+function ajaxDelete(searchID,ele,page) {
+    if (page == 'csv'){
+        data = {userID:searchID,delete:1,user:1};
+    }
+    if (page == 'news') {
+        data = {notificationID:searchID,delete:1,noti:1};
+    }
     $.ajax({
         type:"POST",
         url: 'csvAjax.php',
-        data: {userID:userID}
+        data: data
     }).done(function(){
-        console.log("it works");
+        if (page == 'csv'){
+            //this row is the parent of the parent of the parent (button -> td -> tr)
+            var thisRow = $(ele).parent().parent();
+            //Use jquery to find the closest tr. Next is a spacer need to do it twice.
+            var nextRow = $(thisRow).closest('tr').next('tr').next('tr');
+            $(thisRow).hide();
+            $(nextRow).hide();
+        }
+        if (page == 'news') {
+            //find the container div that has this id and hide it
+            $("#"+searchID).hide();
+        }
     }).fail(function(){
         console.log("fail");
     });

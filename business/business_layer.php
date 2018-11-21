@@ -592,7 +592,7 @@ END;
                             <div class='buttonOptions' style="display:none" >
                                 <ul class='spaced'>
                                     <li onclick="jumpToNotiMod({$currNotiID})">Modify<i class='fas fa-pencil-alt'></i></li>
-                                    <li>Delete<i class="fas fa-trash-alt"></i></li>
+                                    <li onclick="ajaxDelete({$currNotiID},this,'news')">Delete<i class="fas fa-trash-alt"></i></li>
                                 </ul>
                             </div>
                         </div>

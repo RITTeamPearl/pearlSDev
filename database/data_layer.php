@@ -272,6 +272,10 @@ class data_layer{
                 $stmt->bind_param("s", strval($id));
             }
             $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->affected_rows > 0){
+                return true;
+            }
         }
     }
 
