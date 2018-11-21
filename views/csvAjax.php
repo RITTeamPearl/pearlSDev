@@ -11,7 +11,7 @@
                 //
             }
             if (isset($_POST['noti'])) {
-                $dataLayer->deleteData('notification','notificationID',$_POST['notificationID']);
+                //$dataLayer->deleteData('notification','notificationID',$_POST['notificationID']);
             }
         }
         else {
