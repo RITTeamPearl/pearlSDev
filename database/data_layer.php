@@ -180,14 +180,17 @@ class data_layer{
         $query = substr($query,0,-2);
         //Add where field
         $query .= " WHERE {$idField} = ?";
-
+        echo "$query";
+        print_r($bindParamArray);
         //Execute the query
         if ($stmt = $this->connection->prepare($query)){
             //bind params based on vars in $postData
             $stmt->bind_param($bindParamTypes,...$bindParamArray);
             $stmt->execute();
             $stmt->store_result();
+
             if ($stmt->affected_rows > 0){
+                echo "updated the DB";
                 return true;
             }
         }

@@ -13,6 +13,7 @@ if (isset($_POST['sendNoti'])){
     $viewableBy = "";
     //if its a dept head only their dept can view it.
     if ($_SESSION['authID'] == 3){
+        //this sets the var going into the database to be their department
         $viewableBy = $_SESSION['deptID'];
     }
     //if its an admin then check which boxes were checked to send to
@@ -44,12 +45,12 @@ if (isset($_POST['sendNoti'])){
 
     }
     //loop through each user to see if they should be sent the notification
-    foreach ($dataLayer->getData('user', array('email','phone','deptID')) as $key => $value) {
-        //only send them the notification if their deptID is in the viewableBy strnig
-        if(in_array($value['deptID'],str_split($viewableBy))){
+    foreach ($dataLayer->getData('user', array('email','phone','deptID')) as $ind => $currUser) {
+        //only send them the notification if their deptID is in the viewableBy string
+        if(in_array($currUser['deptID'],str_split($viewableBy))){
             //first send email if it was chosen
             if (isset($_POST['emailCheck'])){
-                $currEmail = $value['email'];
+                $currEmail = $currUser['email'];
                 //if it has an attachment send that
                 if (isset($_POST['attachment'])) $businessLayer->sendEmail($currEmail,$_POST['title'],$_POST['body'],$_POST['attachment']);
                 //No attachment just send title and body
@@ -59,13 +60,12 @@ if (isset($_POST['sendNoti'])){
             //next send the text if it was chosen
             if (isset($_POST['phoneCheck'])){
                 $fullText = "\n".$_POST['title']."\n\n".$_POST['body'];
-                //$businessLayer->sendText($fullText);
+                //$businessLayer->sendText($fullText); defaults to my phone bc twillio
+                //$businessLayer->sendText($fullText,$currUser['phone']);
             }
         }
-        //users deptID not viewableBy string
-        else{
-
-        }
+        //users deptID not in viewableBy string get nothing and like it
+        else{}
     }
 
     //if webAppCheck is set make the post val = 1;
@@ -156,8 +156,8 @@ if (isset($_POST['modifyEmp'])) {
     //fix the phone number so it works in the DB
     $_POST["phone"] = str_replace("-","",$_POST["phone"]);
     $dataLayer->updateUser($_POST,'userID',$_GET['id']);
-    header("Location: adminConsole.php#e");
     //var_dump($_POST);
+    header("Location: adminConsole.php#e");
 }
 
 if(isset($_POST['confirmPendEmp'])){
@@ -196,15 +196,15 @@ if(isset($_POST['csvUpload'])){
                 //push last name, first name, email, phone
                 if ($good)array_push($dataLines,array($currLine[1],$currLine[2],$currLine[4],$currLine[5]));
             }
-            //echo '<pre>', var_dump($dataLines), '</pre>';
-            //echo "it worked";
+            echo '<pre>', var_dump($dataLines), '</pre>';
+            echo "it worked";
         }
         else {
             //echo "Error uploading file";
         }
 
     }
-    //header("Location: adminConsole.php#c");
+    header("Location: adminConsole.php#c");
 }
 
 
