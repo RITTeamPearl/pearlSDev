@@ -148,7 +148,14 @@ i {
   background-color: white;
   border-radius: unset; }
   .disabledDrop:disabled {
-    box-shadow: none; }
+    box-shadow: none;
+    /* for Firefox */
+    -moz-appearance: none;
+    /* for Chrome */
+    -webkit-appearance: none;
+    /* For IE10 */ }
+    .disabledDrop:disabled ::-ms-expand {
+      display: none; }
 
 .footer {
   height: 2.8125rem;
@@ -258,7 +265,8 @@ i {
         font-size: 1.5625em !important;
         color: #5b8ec5; }
       #adminConsole table .collapsed .fa-trash-alt, #adminConsole table .collapsed .fa-minus-circle {
-        color: #f24949; }
+        color: #f24949;
+        font-size: 1.71875em !important; }
       #adminConsole table .collapsed .fa-plus-circle, #adminConsole table .collapsed .fa-check-circle {
         color: #2ac656; }
       #adminConsole table .collapsed td:first-child {
@@ -284,6 +292,10 @@ i {
         #adminConsole table .collapsed td input[disabled] {
           box-shadow: none;
           padding: 0; }
+      #adminConsole table .collapsed button {
+        outline: transparent;
+        background-color: transparent;
+        border: 0; }
     #adminConsole table .un-collapsed {
       background-color: white; }
       #adminConsole table .un-collapsed .leftUnCollapsed {
@@ -306,9 +318,9 @@ i {
         border: none;
         box-sizing: border-box;
         height: 2.5rem;
-        background-color: transparent; }
+        background-color: transparent;
+        color: black; }
       #adminConsole table .un-collapsed select:disabled, #adminConsole table .un-collapsed input:disabled {
-        margin-left: -4px;
         box-shadow: none;
         padding: 0; }
       #adminConsole table .un-collapsed h2 {
@@ -333,7 +345,8 @@ i {
         white-space: pre-line;
         padding: 0.625rem;
         font-size: 0.875em;
-        font-family: "Helvetica Neue Light"; }
+        font-family: "Helvetica Neue Light";
+        color: black; }
       #adminConsole table .un-collapsed textarea:disabled {
         box-shadow: none;
         border: none;
@@ -342,9 +355,11 @@ i {
         background-color: transparent;
         font-size: 0.875em;
         font-family: "Helvetica Neue Light"; }
+      #adminConsole table .un-collapsed button {
+        padding: 0; }
       #adminConsole table .un-collapsed .fa-times-circle {
         color: #f24949;
-        margin-right: 0.625rem; }
+        font-size: 1.5625em; }
       #adminConsole table .un-collapsed .fa-download {
         color: #5b8ec5;
         margin-right: 0.625rem; }
@@ -430,5 +445,12 @@ i {
     margin-top: 2.5rem; }
   #adminConsole .footer {
     background-color: #eaeaea; }
+  @media only screen and (min-width: 1000px) {
+    #adminConsole #news, #adminConsole #employees, #adminConsole #pending, #adminConsole #compare, #adminConsole #navigation {
+      width: 68.75rem;
+      margin-left: auto;
+      margin-right: auto; }
+    #adminConsole #notiEditButton:hover, #adminConsole .fa-trash-alt:hover, #adminConsole .fa-chevron-circle-down:hover, #adminConsole .fa-chevron-circle-up:hover, #adminConsole .fa-times-circle:hover, #adminConsole .fa-plus-circle:hover, #adminConsole .addSubmit:hover, #adminConsole .fa-save {
+      cursor: pointer; } }
 
 /*# sourceMappingURL=adminConsole.css.map */

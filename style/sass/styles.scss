@@ -214,6 +214,17 @@ i {
     //Hide border
     &:disabled {
         box-shadow: none;
+    
+        /* for Firefox */
+        -moz-appearance: none;
+        /* for Chrome */
+        -webkit-appearance: none;
+
+
+        /* For IE10 */
+        ::-ms-expand {
+          display: none;
+        }
     }
 }
 

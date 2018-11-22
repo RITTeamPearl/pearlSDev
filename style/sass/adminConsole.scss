@@ -117,6 +117,7 @@
             
             .fa-trash-alt, .fa-minus-circle {
                 color: $red;
+                font-size: pxToEm(55) !important;
             }
             
             .fa-plus-circle, .fa-check-circle {
@@ -155,8 +156,12 @@
                     box-shadow: none;
                     padding: 0;
                 }
-                                    
-                
+            }
+            
+            button {
+                outline: transparent;
+                background-color: transparent;
+                border: 0;
             }
         }
         
@@ -194,10 +199,11 @@
                 box-sizing: border-box;
                 height: pxToRem(80);
                 background-color: transparent;
+                color: black;
             }
             
             select:disabled, input:disabled {
-                margin-left: -4px;
+                
                 box-shadow: none;
                 padding: 0;
             }
@@ -233,6 +239,7 @@
                 padding: pxToRem(20);
                 font-size: 0.875em;
                 font-family: "Helvetica Neue Light";
+                color: black;
             }
             
             textarea:disabled {
@@ -245,9 +252,14 @@
                 font-family: "Helvetica Neue Light";
             }
             
+            button {
+                padding: 0;
+            }
+            
             .fa-times-circle {
                 color: $red;
-                margin-right: pxToRem(20);
+                
+                font-size: pxToEm(50);
             }
             
             .fa-download {
@@ -422,5 +434,19 @@
     //Footer navigation background
     .footer {
         background-color: #eaeaea;
+    }
+
+    //Desktop
+    @media only screen and (min-width: 1000px) {
+        
+        #news, #employees, #pending, #compare, #navigation {
+            width: pxToRem(2200);
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        #notiEditButton:hover, .fa-trash-alt:hover, .fa-chevron-circle-down:hover, .fa-chevron-circle-up:hover, .fa-times-circle:hover, .fa-plus-circle:hover, .addSubmit:hover, .fa-save {
+            cursor: pointer;
+        }
     }
 }

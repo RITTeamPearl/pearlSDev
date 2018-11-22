@@ -148,7 +148,14 @@ i {
   background-color: white;
   border-radius: unset; }
   .disabledDrop:disabled {
-    box-shadow: none; }
+    box-shadow: none;
+    /* for Firefox */
+    -moz-appearance: none;
+    /* for Chrome */
+    -webkit-appearance: none;
+    /* For IE10 */ }
+    .disabledDrop:disabled ::-ms-expand {
+      display: none; }
 
 .footer {
   height: 2.8125rem;
