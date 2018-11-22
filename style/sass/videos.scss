@@ -82,6 +82,12 @@
             bottom: pxToRem(50);
             right: pxToRem(50);
             font-size: ptToEm(18);
+            background-color: transparent;
+            border: 0;
+        }
+        
+        .button:focus {
+            outline: transparent;
         }
         
         //admin only edit menu
@@ -133,6 +139,28 @@
                 right: 5px;
                 position: absolute;
             }
+        }
+    }
+    
+    //Tablet
+    @media only screen and (min-width: 768px) {
+        .videoContainer {
+            width: 100vw;
+            height: 40vh;
+            margin: 3vh 0vw;   
+        }
+    }
+    
+    
+    //Desktop
+    @media only screen and (min-width: 1000px) {
+        .bodyContainer {
+            width: pxToRem(1200);
+            margin: 0 auto;
+        }
+        .videoContainer {
+            height: pxToRem(700);
+            width: inherit;
         }
     }
 }

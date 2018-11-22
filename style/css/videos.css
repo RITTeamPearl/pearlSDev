@@ -241,7 +241,11 @@ i {
     color: white;
     bottom: 1.5625rem;
     right: 1.5625rem;
-    font-size: 1.125em; }
+    font-size: 1.125em;
+    background-color: transparent;
+    border: 0; }
+  #videosPage .videoContainer .button:focus {
+    outline: transparent; }
   #videosPage .videoContainer .buttonOptions {
     background-color: white;
     position: absolute;
@@ -278,5 +282,17 @@ i {
       color: #2ac656;
       right: 5px;
       position: absolute; }
+@media only screen and (min-width: 768px) {
+  #videosPage .videoContainer {
+    width: 100vw;
+    height: 40vh;
+    margin: 3vh 0vw; } }
+@media only screen and (min-width: 1000px) {
+  #videosPage .bodyContainer {
+    width: 37.5rem;
+    margin: 0 auto; }
+  #videosPage .videoContainer {
+    height: 21.875rem;
+    width: inherit; } }
 
 /*# sourceMappingURL=videos.css.map */
