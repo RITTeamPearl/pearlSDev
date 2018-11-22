@@ -177,6 +177,17 @@ i {
   .footer .active i {
     color: #5b8ec5; }
 
+@media only screen and (min-width: 768px) {
+  .formContainer {
+    padding: 0 7.5rem; } }
+@media only screen and (min-width: 1000px) {
+  .formContainer {
+    position: relative !important;
+    max-width: 31.25rem;
+    padding: 0;
+    margin: 0 auto; }
+    .formContainer .submit {
+      border-radius: 0; } }
 body {
   background: url(../../assets/images/background-image.jpg);
   background-repeat: no-repeat;
@@ -228,5 +239,9 @@ body {
     display: inline-block;
     letter-spacing: .25px;
     float: left; }
+
+@media only screen and (min-width: 1000px) {
+  #title {
+    margin-bottom: 5rem; } }
 
 /*# sourceMappingURL=login.css.map */

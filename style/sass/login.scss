@@ -70,3 +70,11 @@ body {
         float: left;
     }
 }
+
+
+//Desktop
+@media only screen and (min-width: 1000px) {
+    #title {
+        margin-bottom: pxToRem(160);
+    }
+}
