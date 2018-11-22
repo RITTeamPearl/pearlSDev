@@ -95,8 +95,10 @@ $bizLayer = new business_layer();
                 <iframe src="https://www.youtube.com/embed/9Gbl-IDp1qc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
-
-        <!-- Footer -->
+        
+    </div>
+    
+    <!-- Footer -->
         <div class='footer block'>
             <ul class='iconContainer'>
                 <li class='inline'><a href="news.php"><i class="fas fa-newspaper"></i></a></li>
@@ -112,7 +114,6 @@ $bizLayer = new business_layer();
                  ?>
             </ul>
         </div>
-
-    </div>
+    
 </body>
 </html>
