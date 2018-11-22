@@ -570,7 +570,7 @@ END;
     $string .= <<<END
                         <div class='notifContainer' id='{$currNotiID}'>
                             <div class='overlay'>
-                                <img src='../assets/images/{$imgNum}.jpg'>
+                                <img style='background-image:url(../../assets/images/{$imgNum}.jpg);'>
                             </div>
 
                             <h2 class='title'>{$currTitle}</h2>
