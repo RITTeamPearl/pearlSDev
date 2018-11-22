@@ -72,5 +72,23 @@
     #formStep2{
         display: none;
     }
-
+    
+     //Tablet
+    @media only screen and (min-width: 768px) {
+        .container {
+            padding-top: pxToRem(200);
+        }
+    }
+    
+    
+    //Desktop
+    @media only screen and (min-width: 1000px) {
+        .container {
+            padding-top: pxToRem(100);
+            
+            #screenIdentifier {
+                margin-bottom: pxToRem(120);
+            }
+        }
+    }
 }

@@ -420,6 +420,14 @@ i {
   margin-bottom: 1.40625rem; }
 #createAcctPage #formStep2, #profilePage #formStep2 {
   display: none; }
+@media only screen and (min-width: 768px) {
+  #createAcctPage .container, #profilePage .container {
+    padding-top: 6.25rem; } }
+@media only screen and (min-width: 1000px) {
+  #createAcctPage .container, #profilePage .container {
+    padding-top: 3.125rem; }
+    #createAcctPage .container #screenIdentifier, #profilePage .container #screenIdentifier {
+      margin-bottom: 3.75rem; } }
 
 #profilePage .container {
   padding-bottom: 4.375rem; }
