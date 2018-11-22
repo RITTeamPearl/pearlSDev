@@ -67,5 +67,9 @@
                border-radius: 0; 
             }
         }
+        
+        #password:hover, .submit:hover {
+               cursor: pointer; 
+            }
     }
 }

@@ -465,6 +465,8 @@ i {
     padding: 0;
     margin: 0 auto; }
     #profilePage .logoutContainer .submit {
-      border-radius: 0; } }
+      border-radius: 0; }
+  #profilePage #password:hover, #profilePage .submit:hover {
+    cursor: pointer; } }
 
 /*# sourceMappingURL=profile.css.map */

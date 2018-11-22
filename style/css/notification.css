@@ -252,6 +252,10 @@ i {
   #notifcationPage .imageContainer, #notifcationPage .container {
     width: 37.5rem;
     margin: 0 auto;
-    margin-bottom: 1.25rem; } }
+    margin-bottom: 1.25rem; }
+  #notifcationPage .fa-download:hover {
+    cursor: pointer; }
+  #notifcationPage button:hover {
+    cursor: pointer; } }
 
 /*# sourceMappingURL=notification.css.map */

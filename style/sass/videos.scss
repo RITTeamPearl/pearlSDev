@@ -154,10 +154,15 @@
     
     //Desktop
     @media only screen and (min-width: 1000px) {
+        .button:hover {
+            cursor: pointer;
+        }
+        
         .bodyContainer {
             width: pxToRem(1200);
             margin: 0 auto;
         }
+        
         .videoContainer {
             height: pxToRem(700);
             width: inherit;
