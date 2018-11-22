@@ -103,22 +103,6 @@ class data_layer{
         }
     }
 
-    function deleteNotification($id){
-        if ($stmt = $this->connection->prepare("DELETE FROM notification WHERE notificationID = ?")){
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-            //echo $stmt->affected_rows . " rows deleted";
-        }
-    }
-
-    function deleteUser($id){
-        if ($stmt = $this->connection->prepare("DELETE FROM user WHERE userID = ?")){
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-            //echo $stmt->affected_rows . " rows deleted";
-        }
-    }
-
     function setUserTempPass($email, $newPass){
         //hash the new password first
         $hashedPassword = password_hash($newPass,PASSWORD_DEFAULT);

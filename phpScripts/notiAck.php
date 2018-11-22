@@ -11,6 +11,6 @@ $dataLayer->createNotiAck($_SESSION['phone'],$_GET['id']);
 //set vars so they can be passed in the url
 $id = $_GET['id'];
 $img = $_GET['img'];
-header("Location: notification.php?id={$id}&img={$img}");
+header("Location: ../views/notification.php?id={$id}&img={$img}");
 
  ?>

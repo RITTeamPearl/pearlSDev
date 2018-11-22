@@ -19,7 +19,7 @@ function ajaxUpdate(userID,ele) {
     var authID = $(nextRow).find("select[name='authID'] option:selected").val();
     $.ajax({
         type: "POST",
-        url: 'csvAjax.php',
+        url: '../phpScripts/ajaxTarget.php',
         data: {
             userID:userID,
             fName: fName,
@@ -50,7 +50,7 @@ function ajaxDelete(searchID,ele,page) {
     }
     $.ajax({
         type:"POST",
-        url: 'csvAjax.php',
+        url: 'ajaxTarget.php',
         data: data
     }).done(function(){
         if (page == 'csv'){
