@@ -644,7 +644,7 @@ END;
         $string = <<<END
         <div class='imageContainer'>
             <div class='overlay'>
-                <img src='../assets/images/{$imgNum}.jpg'> <!-- Needs to be same image as on landing page -->
+                <img style='background-image:url(../../assets/images/{$imgNum}.jpg);'>
             </div>
         </div>
 
