@@ -272,7 +272,6 @@ class data_layer{
             $stmt->execute();
             $stmt->store_result();
             if ($stmt->affected_rows > 0){
-                echo "it worked";
                 return true;
             }
         }

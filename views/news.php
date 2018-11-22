@@ -5,9 +5,9 @@ if(!isset($_SESSION['phone'])){
     header("Location: ../index.php");
 }
 require_once '../database/data_layer.php';
-require_once '../business/business_layer.php';
+require_once '../business/partialViews.php';
 $dataLayer = new data_layer();
-$bizLayer = new business_layer();
+$partialViews = new partialViews();
  ?>
 
 <!DOCTYPE html>
@@ -28,7 +28,7 @@ $bizLayer = new business_layer();
     <!-- News -->
     <div class='bodyContainer'>
         <?php
-        echo $bizLayer->createLandingNewsTable(array_reverse($dataLayer->getAllNotifcations()));
+        echo $partialViews->createLandingNewsTable(array_reverse($dataLayer->getAllNotifcations()));
         ?>
 
         <!-- Footer -->

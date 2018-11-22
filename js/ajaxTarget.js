@@ -50,7 +50,7 @@ function ajaxDelete(searchID,ele,page) {
     }
     $.ajax({
         type:"POST",
-        url: 'ajaxTarget.php',
+        url: '../phpScripts/ajaxTarget.php',
         data: data
     }).done(function(){
         if (page == 'csv'){

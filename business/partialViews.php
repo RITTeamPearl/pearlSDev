@@ -441,5 +441,86 @@ END;
 END;
     return $string;
     }
+
+    function createLandingNewsTable($notificationArray){
+        $string = "";
+        $imgNum = 1;
+        foreach ($notificationArray as $currNotiArray) {
+            //if they are in the correct dept or admin / HR show the notification
+            if (in_array($_SESSION['deptID'],str_split($currNotiArray['viewableBy'])) || $_SESSION['deptID'] == 1 || $_SESSION['deptID'] == 2) {
+                $currNotiID = $currNotiArray['notificationID'];
+                $currTitle = $currNotiArray['title'];
+                $currBody = $currNotiArray['body'];
+                $timesig = $currNotiArray['time'];
+                $webAppYN = $currNotiArray['webAppYN'];
+                $activeYN = $currNotiArray['active'];
+
+                $now = new DateTime(null, new DateTimeZone('America/New_York'));
+                $dateStamp = new DateTime($timesig,new DateTimeZone('America/New_York'));
+
+                $mins = $dateStamp->diff($now)->format("%i");
+                $hours = $dateStamp->diff($now)->format("%h");
+                $days = $dateStamp->diff($now)->format("%d");
+                if (intval($hours) < 1){
+                    $timesig = $mins."m ago";
+                }
+                else if (intval($days) < 1) {
+                    //display using hours
+                    $timesig = $hours."h ago";
+                }
+                else if (intval($days) >= 1 && intval($days) >= 6) {
+                    //display using days
+                    $timesig = $days."d ago";
+                }
+                else if (intval($days) >= 7){
+                    //display using weeks
+                    $timesig = ($days%7)."w ago";
+                }
+
+                if ($imgNum  <= 5){
+                    $imgNum++;
+                }
+                else {
+                    $imgNum = 1;
+                }
+                if($webAppYN && $activeYN){
+    $string .= <<<END
+                        <div class='notifContainer' id='{$currNotiID}'>
+                            <div class='overlay'>
+                                <img style='background-image:url(../../assets/images/{$imgNum}.jpg);'>
+                            </div>
+
+                            <h2 class='title'>{$currTitle}</h2>
+
+                            <div class='subtitle block'>
+                                <div class='posted inline'>
+                                    <i class="far fa-clock"></i>
+                                    <span class='inline'>{$timesig}</span>
+                                </div>
+                                <a type='submit' class='inline' href='notification.php?id={$currNotiID}&img={$imgNum}'>read more</a>
+                            </div>
+
+                            <!-- Admin Feature only -->
+                            <button onclick="displayOptions(this);" type="button" class="button
+END;
+    if ($_SESSION['authID'] < 4) $string .= " hidden";
+    $string .= <<<END
+    "><i class="far fa-edit"></i></button>
+                            <div class='buttonOptions' style="display:none" >
+                                <ul class='spaced'>
+                                    <li onclick="jumpToNotiMod({$currNotiID})">Modify<i class='fas fa-pencil-alt'></i></li>
+                                    <li onclick="ajaxDelete({$currNotiID},this,'news')">Delete<i class="fas fa-trash-alt"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+END;
+                }
+            }
+            else {
+                // code...
+            }
+        }
+        return $string;
+    }
 }
 ?>
