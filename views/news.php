@@ -20,7 +20,7 @@ $bizLayer = new business_layer();
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type='text/javascript' src='/js/scripts.js'></script>
-    <script type='text/javascript' src='/js/csvAjax.js'></script>
+    <script type='text/javascript' src='/js/ajaxTarget.js'></script>
 </head>
 
 <body id='newsPage'>
@@ -39,7 +39,7 @@ $bizLayer = new business_layer();
                 <li class='inline'><a href="profile.php"><i class="fas fa-user"></i></a></li>
                 <?php
                 if ($_SESSION['authID'] == 4) {
-                    echo '<li class="inline"><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>';
+                    echo '<li class="inline"><a href="adminConsoleNews.php"><i class="fas fa-toolbox"></i></a></li>';
                 }
                 if ($_SESSION['authID'] == 3) {
                     echo '<li class="inline"><a href="deptHeadNotiConsole.php"><i class="fas fa-toolbox"></i></a></li>';

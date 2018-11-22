@@ -17,7 +17,7 @@
         $_SESSION['userID'] = $userData[0]['userID'];
         $_SESSION['phone'] = $userData[0]['phone'];
         $_SESSION['name'] = $userData[0]['fName']. " ". $userData[0]['lName'];
-        header("Location: news.php");
+        header("Location: ../views/news.php");
     }
     else {
         header("Location: ../index.php");

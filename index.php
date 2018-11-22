@@ -24,7 +24,7 @@ if(isset($_SESSION['phone'])){
     <h1 id='title' class='centered'>Rochester Riverside Convention Center</h1>
 
     <!-- Login Form -->
-    <form class='formContainer' action='views/login.php' method='POST'>
+    <form class='formContainer' action='phpScripts/login.php' method='POST'>
         <div class='inputWithIcon'>
             <input class='block' id='phone'  placeholder= 'Phone Number' name='phone' required="required" autofocus>
             <i class='fas fa-phone' aria-hidden='true'></i>

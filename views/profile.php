@@ -58,8 +58,10 @@ if (isset($_POST['logout'])) {
                     </div>
 
                     <div class='inputWithIcon'>
-                        <input class='block' id='password' type = 'button' value="Click to Reset Password">
-                        <i class='fas fa-key pwIcon' aria-hidden='true'></i>
+                        <a href="forgotPwd.php">
+                            <input class='block' id='password' type = 'button' value="Click to Reset Password">
+                            <i class='fas fa-key pwIcon' aria-hidden='true'></i>
+                        </a>
                     </div>
 
                     <input class='block submit centered' id='save' type = 'button' value= 'Save Changes' onclick=""/>
@@ -98,7 +100,7 @@ if (isset($_POST['logout'])) {
             <li class='inline active'><a href="profile.php"><i class="fas fa-user"></i></a></li>
             <?php
             if ($_SESSION['authID'] == 4) {
-                echo '<li class="inline"><a href="adminConsole.php"><i class="fas fa-toolbox"></i></a></li>';
+                echo '<li class="inline"><a href="adminConsoleNews.php"><i class="fas fa-toolbox"></i></a></li>';
             }
             if ($_SESSION['authID'] == 3) {
                 echo '<li class="inline"><a href="deptHeadNotiConsole.php"><i class="fas fa-toolbox"></i></a></li>';
