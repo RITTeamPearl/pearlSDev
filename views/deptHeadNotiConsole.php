@@ -11,9 +11,9 @@ if(isset($_SESSION['authID']) && $_SESSION['authID'] != 3){
     header("Location: news.php");
 }
 require_once '../database/data_layer.php';
-require_once '../business/business_layer.php';
+require_once '../business/partialViews.php';
 $dataLayer = new data_layer();
-$bizLayer = new business_layer();
+$partialViews = new partialViews();
 ?>
 
 <!DOCTYPE html>
@@ -29,13 +29,11 @@ $bizLayer = new business_layer();
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='adminConsole' onload="setNavBar();initCsvListener();addMask();">
+<body id='adminConsole' onload="addMask();">
     <!-- Header -->
     <div class='header'>
         <h1 id='title' class='centered'>Notification Console</h1>
     </div>
-
-
     <!-- News Section of Admin Console -->
     <section id='news'>
 
@@ -58,13 +56,14 @@ $bizLayer = new business_layer();
             <!-- Begin PHP Iterative process to dynamically create News -->
 
             <?php
-                echo $bizLayer->createNewsTable(array_reverse($dataLayer->getAllNotifcations()));
+                $pageNum = (isset($_GET['page'])) ? ($_GET['page']) : (1);
+                echo $partialViews->createAdminConsoleNewsTable(array_reverse($dataLayer->getAllNotifcations()),$pageNum);
              ?>
 
             <!-- Begin next dynamically added rows here -->
 
             <!-- Add New Notification -->
-            <tr id = "row-12" class='collapsed'>
+            <tr class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-plus-circle'></i></td>
                 <td colspan='4'>Add New Notification</td>
             </tr>
@@ -72,7 +71,7 @@ $bizLayer = new business_layer();
             <tr class='collapsed' style="display:none">
                 <td colspan='5'>
                     <!-- Form that takes user input to add a new notification -->
-                    <form class="addNewForm" action="adminAction.php" method="post" enctype="multipart/form-data">
+                    <form class="addNewForm" action="../phpScripts/formActions/newsAction.php" method="post" enctype="multipart/form-data">
                         <h2>Title</h2>
                         <input type="text" class='block inputNoIcon' name="title" required>
                         <h2>Body</h2>
@@ -99,28 +98,13 @@ $bizLayer = new business_layer();
                     </form>
                 </td>
             </tr>
-
         </table>
-
-        <!-- Pagination
-        1. Counts Entries on screen (max 5, but could be less)
-        2. Count Total Number of Entries
-        3. Shows previous page of entries, disable when none to show
-        4. Shows next page of entries, disable when none to show
-        5. If 'Back' or 'Next' is clickable add 'clickable' class to it
-        -->
         <div class='pagination block'>
-            <div class='number inline'>
-                <span>1-5 of 13</span>
-            </div>
-
-            <div class='back inline'>
-                <i class='fas fa-chevron-left'></i><span>Back</span>
-            </div>
-
-            <div class='next inline'>
-                <span>Next</span><i class='fas fa-chevron-right'></i>
-            </div>
+            <?php
+                //set the page number. If the get var is set then use that, if not 1
+                $pageNum = (isset($_GET['page'])) ? ($_GET['page']) : (1);
+                echo $partialViews->makeAdminConsoleNewsPaginationLinks($pageNum,$dataLayer->getAllNotifcations());
+            ?>
         </div>
     </section>
 

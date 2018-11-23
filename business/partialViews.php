@@ -1,4 +1,5 @@
 <?php
+session_start();
 class partialViews{
 
     /**
@@ -138,6 +139,8 @@ END;
         //if the high index is too high set it equal to max
         if ($highCount > $totalNumNotis) $highCount = $totalNumNotis;
 
+        $linkPage = ($_SESSION['authID'] == 4) ? ('adminConsoleNews.php') : ('deptHeadNotiConsole.php');
+        
         if($totalNumNotis == 0){
             $returnString = "<div class='number inline'><span>None</span></div>";
             $returnString .= "<div class='back inline'><i class='fas fa-chevron-left'></i><span>Back</span></div>";
@@ -145,8 +148,8 @@ END;
         }
         else {
             $returnString = "<div class='number inline'><span>{$lowCount}-{$highCount} of {$totalNumNotis}</span></div>";
-            $returnString .= "<a href='adminConsoleNews.php?page={$prevPage}'><div class='back inline'><i class='fas fa-chevron-left'></i><span>Back</span></div></a>";
-            $returnString .= "<a href='adminConsoleNews.php?page={$nextPage}'><div class='next inline'><span>Next</span><i class='fas fa-chevron-right'></i></div></a>";
+            $returnString .= "<a href='$linkPage?page={$prevPage}'><div class='back inline'><i class='fas fa-chevron-left'></i><span>Back</span></div></a>";
+            $returnString .= "<a href='$linkPage?page={$nextPage}'><div class='next inline'><span>Next</span><i class='fas fa-chevron-right'></i></div></a>";
         }
         return $returnString;
     }//end admin console news table pagination links
