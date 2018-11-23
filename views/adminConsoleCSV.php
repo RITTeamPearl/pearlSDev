@@ -232,25 +232,6 @@ $tableString .= "</table>";
             echo $tableString;
         }
         ?>
-
-
-
-
-
-                <!-- Pagination -->
-                <div class='pagination block'>
-                    <div class='number inline'>
-                        <span>1-5 of 13</span>
-                    </div>
-
-                    <div class='back inline'>
-                        <i class='fas fa-chevron-left'></i><span>Back</span>
-                    </div>
-
-                    <div class='next inline'>
-                        <span>Next</span><i class='fas fa-chevron-right'></i>
-                    </div>
-                </div>
             </div>
         </div>
     </section>

@@ -48,35 +48,7 @@ function addMask(){
  * used for showing second buttons when admin clicks edit button for notification on news page
  */
 function displayOptions(ele){
-    console.log($(ele).parent().find(".buttonOptions").toggle());
-}
-/**
- * Used to transfer page to admin console with tag in url showing which notification to open
- */
-function jumpToNotiMod(notiID){
-    window.location.href = "adminConsole.php#M_"+notiID;
-}
-/**
- * Used to transfer page to admin console with tag in url showing which notification to open
- */
-function jumpToNotiDel(notiID){
-    window.location.href = "adminConsole.php#D_"+notiID;
-}
-
-function checkNotifcationModify(){
-    var url = window.location.href;
-    if (url.indexOf('#M') > -1) {
-        notiID = url.split("_")[1];
-        $("#news").find("form").each(function(ind,ele){
-            //Find which form is being used to modify the notification ID
-            if (notiID == ele.action.split("=")[1]) {
-                //get the tr using next and trigger clicking the edit button
-                $(ele).next().find("#notiEditButton").trigger('onclick');
-            }
-
-            $("body").scrollTop(1000);
-        });
-    }
+    $(ele).parent().find(".buttonOptions").toggle();
 }
 
 function dropDownToggle(ele){
@@ -133,46 +105,6 @@ function dropDownModify(ele,page){
 
 }
 
-function updateAdminView(ele){
-    var whichButton = $(ele).attr("id").valueOf().split("_")[0];
-    //find current active and remove it
-    $("#navigation .active").removeClass("active");
-    //add it to the clicked button
-    $(ele).addClass("active");
-
-    //show news hide others
-    if (whichButton === "news"){
-        $("#employees").hide();
-        $("#pending").hide();
-        $("#news").show();
-        $("#compare").hide();
-    }
-
-    //show employee hide others
-    if (whichButton === "employee"){
-        $("#pending").hide();
-        $("#news").hide();
-        $("#employees").show();
-        $("#compare").hide();
-    }
-
-    //show pending hide others
-    if (whichButton === "pending"){
-        $("#news").hide();
-        $("#employees").hide();
-        $("#pending").show();
-        $("#compare").hide();
-    }
-
-    //show compare hide others
-    if (whichButton === "compare"){
-        $("#news").hide();
-        $("#employees").hide();
-        $("#pending").hide();
-        $("#compare").show();
-    }
-}
-
 //Resizes the text area to fit content
 function resizeTextArea(id) {
 
@@ -204,42 +136,19 @@ function initCsvListener() {
     });
 }
 
-function setNavBar(){
-    // var numNotifications = (($("#news").find('tr')).length-4)/4;
-    // $("#news_Button").html('News('+numNotifications+")");
-    // $("#news").find(".pagination").find('div.number').html(numNotifications ? ("1-"+numNotifications+" out of " + numNotifications) : ("None"));
+function addNewVid(){
+    //when this is clicked display the box to add a new video
+    $('.addVideo').show();
+}
 
-    // var numEmps = (($("#employees").find('tr')).length-4)/3;
-    // $("#employee_Button").html('Employees('+numEmps+")");
-    // $("#employees").find(".pagination").find('div.number').html(numEmps ? ("1-"+numEmps+" out of " + numEmps) : ("None"));
+function updateVid(videoID){
+    //first find the edit form and append the videoID to the action
+    $('.editVideo').find('form').attr('action',function(i,currVal){
+        return currVal + videoID;
+    });
+    $('.editVideo').show();
+}
 
-
-    // var numPendEmps = (($("#pending").find('tr')).length-1)/4;
-    // $("#pending_Button").html('Pending('+numPendEmps+")");
-    //$("#pending").find(".pagination").find('div.number').html(numPendEmps ? ("1-"+numPendEmps+" out of " + numPendEmps) : ("None"));
-
-
-    if (screen.width < 700){
-        $("#compare_Button").hide();
-    }
-    else {
-        $("#compare_Button").show();
-    }
-    var url = window.location.href;
-    if (url.indexOf('#') > -1) {
-        var page = url.split("#").pop();
-        if (page == "e"){
-            $("#employee_Button").trigger('onclick');
-        }
-        else if (page == "p"){
-            $("#pending_Button").trigger('onclick');
-        }
-        else if (page == "c"){
-            $("#compare_Button").trigger('onclick');
-        }
-        else if (page == "n"){
-            $("#news_Button").trigger('onclick');
-        }
-
-    }
+function deleteVid(videoID){
+    $("#delform_"+videoID).submit();
 }

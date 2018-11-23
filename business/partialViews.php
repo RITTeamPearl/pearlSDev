@@ -415,7 +415,7 @@ END;
         $string = <<<END
         <div class='imageContainer'>
             <div class='overlay'>
-                <img src='../assets/images/{$imgNum}.jpg'> <!-- Needs to be same image as on landing page -->
+                <img src='../assets/images/{$imgNum}.jpg'>
             </div>
         </div>
 
@@ -431,9 +431,9 @@ END;
             <span class='copy block'>{$currBody}</span>
 END;
         if (strlen($currSurvey) > 2){;
-            $string .= "<a href='{$currSurvey}'><i class='fas fa-link'></i>Survey Link</a>";
+            $string .= "<a href='{$currSurvey}' target='_blank'><i class='fas fa-link'></i>Survey Link</a>";
         }
-            $string .= <<<END
+$string .= <<<END
             <form action="../phpScripts/notiAck.php?id={$currNotiID}&img={$imgNum}" method="post">
                 <button type="submit">I Acknowledge</button>
             </form>
@@ -522,5 +522,37 @@ END;
         }
         return $string;
     }
+
+    function createVideoPage($videoArray){
+
+        $tableString = "";
+        foreach ($videoArray as $ind => $currVid) {
+            $currID = $currVid['videoID'];
+            $currLink = $currVid['link'];
+            $tableString .= "<div class='videoContainer' id='$currID'>";
+            if ($_SESSION['authID'] == 4){
+                     $tableString .=<<<END
+                     <button onclick="displayOptions(this)" type="button" class="button"><i class="far fa-edit"></i></button>
+                     <div class='buttonOptions' style="display:none" >
+                         <ul class='spaced'>
+                             <li onclick="addNewVid()">Create New<i class="fas fa-plus-circle"></i></li>
+                             <li onclick="updateVid($currID)">Edit Link<i class='fas fa-pencil-alt'></i></li>
+                             <form id="delform_$currID" method="POST" action="../phpScripts/formActions/videoAction.php?delete=$currID">
+                                <li onclick="deleteVid($currID)">Delete<i class="fas fa-trash-alt"></i></li>
+                             </form>
+                         </ul>
+                     </div>
+END;
+            }
+            $tableString .=<<<END
+            <div class='overlay'>
+                <iframe src="$currLink" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+END;
+        }
+        return $tableString;
+    }
+
 }
 ?>

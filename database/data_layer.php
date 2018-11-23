@@ -289,4 +289,31 @@ class data_layer{
             return $returnArray;
         }
     }
+
+    function addVideo($link){
+        //get ready to update the table
+        $query = "INSERT INTO video (link) VALUES (?)";
+        if ($stmt = $this->connection->prepare($query)){
+            //bind the phone. may have to add 1?
+            $stmt->bind_param("s",$link);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->affected_rows > 0){
+                return true;
+            }
+        }
+    }
+    function updateVideo($link,$videoID){
+        //get ready to update the table
+        $query = "UPDATE video SET link=? WHERE videoID = ?";
+        if ($stmt = $this->connection->prepare($query)){
+            //bind the phone. may have to add 1?
+            $stmt->bind_param("si",$link,$videoID);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->affected_rows > 0){
+                return true;
+            }
+        }
+    }
 }
