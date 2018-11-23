@@ -2,10 +2,8 @@
 session_start();
 require_once '../database/data_layer.php';
 require_once '../business/business_layer.php';
-require_once '../business/partialViews.php';
 $dataLayer = new data_layer();
 $bizLayer = new business_layer();
-$partialViews = new partialViews();
 if(!isset($_SESSION['phone'])){
     //session var is not set = they are not logged in
     header("Location: ../index.php");
@@ -48,16 +46,15 @@ if (isset($_POST['logout'])) {
             </div>
 
             <!-- User Input -->
-            <form class='formContainer' action='profile.php' method='POST'>
-
-                <div class="formStep" id="formStep1">
+            <form class='formContainer' action='../phpScripts/formActions/profileAction.php' method='POST'>
+                <div class="formStep">
                     <div class='inputWithIcon'>
-                        <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phoneNumber' autofocus>
+                        <input class='block' id='phoneNumber' type = 'text' placeholder= 'Phone Number' name='phone' value="<?php echo $dataLayer->getData('user',array('phone'),'userID',$_SESSION['userID'])[0]['phone'];?>" autofocus>
                         <i class='fas fa-phone' aria-hidden='true'></i>
                     </div>
 
                     <div class='inputWithIcon'>
-                        <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email'  autofocus>
+                        <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' value="<?php echo $dataLayer->getData('user',array('email'),'userID',$_SESSION['userID'])[0]['email'];?>"  autofocus>
                         <i class='fas fa-user' aria-hidden='true'></i>
                     </div>
 
@@ -67,23 +64,8 @@ if (isset($_POST['logout'])) {
                             <i class='fas fa-key pwIcon' aria-hidden='true'></i>
                         </a>
                     </div>
-
-                    <input class='block submit centered' id='save' type = 'button' value= 'Save Changes' onclick=""/>
+                    <input class='block submit centered' id='save' type = 'submit' value= 'Save Changes' onclick=""/>
                 </div>
-            </form>
-
-            <form class='formContainer hidden' action='profile.php' method='POST'>
-                <div class='inputWithIcon'>
-                    <input class='block' id='password' type ='text' value="New Password">
-                    <i class='fas fa-key pwIcon' aria-hidden='true'></i>
-                </div>
-
-                <div class='inputWithIcon'>
-                    <input class='block' id='password' type ='text' value="Confirm Password">
-                    <i class='fas fa-key pwIcon' aria-hidden='true'></i>
-                </div>
-
-                <input class='block submit centered' id='save' type = 'button' value= 'Save Changes' onclick=""/>
             </form>
 
             <!-- Logout -->
