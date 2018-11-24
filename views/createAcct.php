@@ -19,9 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
     <meta charset='utf-8'/>
     <meta name='viewport' content='width=device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 5.0' />
     <link rel='stylesheet' type='text/css' media='screen' href='/style/css/createAcct.css'>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script type='text/javascript' src='/js/scripts.js'></script>
+    <script type='text/javascript' src='/js/createAccount.js'></script>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
@@ -83,11 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                 <!-- Create Screen 2 -->
                 <div class="formStep" id="formStep2" style="display: none;">
                     <div class='inputWithIcon'>
-                        <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required" autofocus>
+                        <input class='block' id='fName' type = 'text' placeholder= 'First Name' name='fName' required="required" >
                         <i class='fas fa-address-card' aria-hidden='true'></i>
                     </div>
                     <div class='inputWithIcon'>
-                        <input class='block' id='lName' type = 'text' placeholder= 'Last Name' name='lName' required="required" autofocus>
+                        <input class='block' id='lName' type = 'text' placeholder= 'Last Name' name='lName' required="required">
                         <i class='fas fa-address-card' aria-hidden='true'></i>
                     </div>
                     <input class='block submit centered' id='next' type = 'button' value= 'Continue' onclick="nextStep(2)"/>
@@ -96,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
 
                 <div class="formStep" id="formStep3" style="display: none;">
                     <div class='inputWithIcon'>
-                        <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required" autofocus>
+                        <input class='block' id='email' type = 'text' placeholder= 'E-mail Address' name='email' required="required">
                         <i class='fas fa-user' aria-hidden='true'></i>
                     </div>
 
@@ -113,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
                         </select>
                         <i class='fas fa-building' aria-hidden='true'></i>
                     </div>
-                    <input class='block submit centered' id='submit' type = 'submit' value= 'Send Request'/>
+                    <input class='block submit centered' id='submit' type = 'button' onclick="validateLastStep()" value= 'Send Request'/>
                     <a id='login' href='../index.php'>Log In</a>
                 </div>
 
