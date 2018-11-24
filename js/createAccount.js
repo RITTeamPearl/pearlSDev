@@ -89,6 +89,22 @@ function validateLastStep(){
     var deptID = $("select[name='deptID'] option:selected").val();
     var deptIDCorrect = (deptID != "");
 
+    //email made it past regex check. Check against db
+    if (emailCorrect){
+        $.ajax({
+            type: "GET",
+            url: '../phpScripts/createAccountAjax.php',
+            data: {
+                email:$("#email").val()
+            },
+            async: false
+        }).done(function(emailTaken){
+            if (parseInt(emailTaken)){
+                emailCorrect = false;
+            }
+        });
+    }
+
     emailColor = (emailCorrect) ? ('green') : ('red');
     $(".fa-user").css('color',emailColor);
 
@@ -101,6 +117,30 @@ function validateLastStep(){
 }
 
 function submitForm(){
-    console.log("submit that shit");
-    console.log($("#phoneNumber").val());
+    //console.log("submit that shit");
+    //console.log($("#phoneNumber").val());
+
+    var subPhone;
+    var subPassword;
+    var subFName;
+    var subLName;
+    var subEmail;
+    var subDeptID;
+
+    $.ajax({
+        type: "POST",
+        url: '../phpScripts/createAccountAjax.php',
+        data: {
+            phone:subPhone,
+            password:subPassword,
+            fName: subFName,
+            lName: subLName,
+            email:subEmail,
+            deptID: subDeptID
+        }
+    }).done(function(){
+        console.log("it works");
+    }).fail(function(data){
+        console.log("fail");
+    });
 }
