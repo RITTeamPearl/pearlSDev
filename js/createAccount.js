@@ -117,9 +117,7 @@ function validateLastStep(){
 }
 
 function submitForm(){
-    //console.log("submit that shit");
-    //console.log($("#phoneNumber").val());
-
+    //DONT FORGET TO REMOVE HYPHENS FROM PHONE NUMBER
     var subPhone;
     var subPassword;
     var subFName;

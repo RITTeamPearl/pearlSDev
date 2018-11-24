@@ -21,10 +21,10 @@ if (count($_GET)){
     echo count($checkArray);
 }
 
-//post is not set so check get for phone or email
+//Post is set. create the user..
 else{
+    //$dataLayer->createNewUser($_POST);
     echo "THIS IS POST";
-
 }
 
  ?>
