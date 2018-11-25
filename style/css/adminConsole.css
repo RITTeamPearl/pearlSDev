@@ -194,7 +194,9 @@ i {
     padding: 0;
     margin: 0 auto; }
     .formContainer .submit {
-      border-radius: 0; } }
+      border-radius: 0; }
+    .formContainer .submit:hover {
+      cursor: pointer; } }
 #adminConsole {
   background-color: #eaeaea; }
   #adminConsole .header {
@@ -451,6 +453,8 @@ i {
       margin-left: auto;
       margin-right: auto; }
     #adminConsole #notiEditButton:hover, #adminConsole .fa-trash-alt:hover, #adminConsole .fa-chevron-circle-down:hover, #adminConsole .fa-chevron-circle-up:hover, #adminConsole .fa-times-circle:hover, #adminConsole .fa-plus-circle:hover, #adminConsole .addSubmit:hover, #adminConsole .fa-save {
-      cursor: pointer; } }
+      cursor: pointer; }
+    #adminConsole .un-collapsed .inputWithIcon select {
+      text-indent: 2.5rem; } }
 
 /*# sourceMappingURL=adminConsole.css.map */

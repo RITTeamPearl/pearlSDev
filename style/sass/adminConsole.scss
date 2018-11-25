@@ -203,7 +203,6 @@
             }
             
             select:disabled, input:disabled {
-                
                 box-shadow: none;
                 padding: 0;
             }
@@ -334,8 +333,7 @@
                         margin-top: pxToRem(20);
                     } 
                 }
-                
-                
+                      
                 //Input icons
                 .inputWithIcon {
                     i {
@@ -448,5 +446,14 @@
         #notiEditButton:hover, .fa-trash-alt:hover, .fa-chevron-circle-down:hover, .fa-chevron-circle-up:hover, .fa-times-circle:hover, .fa-plus-circle:hover, .addSubmit:hover, .fa-save {
             cursor: pointer;
         }
+        
+        .un-collapsed {
+            .inputWithIcon {
+                select {
+                    text-indent: pxToRem(80);
+                }
+            }
+        }
+        
     }
 }

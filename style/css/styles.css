@@ -194,6 +194,8 @@ i {
     padding: 0;
     margin: 0 auto; }
     .formContainer .submit {
-      border-radius: 0; } }
+      border-radius: 0; }
+    .formContainer .submit:hover {
+      cursor: pointer; } }
 
 /*# sourceMappingURL=styles.css.map */
