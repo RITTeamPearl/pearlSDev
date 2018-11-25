@@ -117,63 +117,96 @@ class business_layer{
     }
 
     function valAndSanUser($postData){
-        $validatedPOST = array();
-        foreach ($postData as $key => $value) {
-            //if key = phoneNumber check to make sure it is a string of digits
-                //ctype_digit($value)
-            //if key = email
-                //filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-                //filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-            //if key fname, lName check to make sure its more than 2 chars
-                //filter_var($_POST['l/fname'], FILTER_VALIDATE_STRING);
-            //if key contains ID make sure its an int
-                //if( strpos( $key, "ID" ) !== false) {
-                    //filter_var($int, FILTER_VALIDATE_INT) === 0 || filter_var($int, FILTER_VALIDATE_INT)
-                //}
-            //if key contains YN make sure its binary
-                //if( strpos( $key, "YN" ) !== false) {
-                    //binary regex
-                    //preg_match('~^[01]+$~', $value)
-                //}
-            //if key = password regex check the password
+        $error = array();
+        foreach ($postData as $key => $val) {
+
+            if ($key == "phoneNumber"){
+                //regex to sanitize make sure its only digits
+                $val = preg_replace("/[^0-9]+/", "", $val);
+                //make sure it is a string of only digits. if not add to the error array
+                if (!ctype_digit($val)) $error[] = $key;
+            }
+
+            if ($key == "email"){
+                //sanitize email
+                $val = filter_var($val,FILTER_SANITIZE_EMAIL);
+                //make sure its a valid email. if not add to the error array
+                if (!filter_var($val,FILTER_VALIDATE_EMAIL)) $error[] = $key;
+            }
+            if ($key == "fName" || $key == "lName"){
+                //regex to sanitize string
+                $val = preg_replace("/[^a-zA-Z]+/", "", $val);
+                //check to make sure its between 2-26 chars. uf not add to error
+                if (!preg_match('/[a-zA-Z]{2,26}/', $val)) $error[] = $key;
+            }
+            //if the key has ID in it they work the same way
+            if (strpos($key,"ID") !== false) {
+                //santize to make sure its only digits
+                $val = preg_replace("/[^0-9]+/","",$val);
+                //assure its an int
+                $val = intval($val);
+                //if its not an int add it to the error array
+                if (!filter_var($val, FILTER_VALIDATE_INT)) $error[] = $key;
+            }
+            //if key contains YN its a binary flag
+            if( strpos($key,"YN") !== false) {
+                //binary regex for sanitization
+                $val = preg_replace("/[^0-1]+/","",$val);
+                $val = intval($val);
+                //if it is not binary add it to the error array
+                if (preg_match('/[^0-1]+/', $val)) $error[] = $key;
+            }
+            if ($key == "password"){
                 // lower case, upper case, number, 6 characters min
-                //preg_match('^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$', $value)
+                if (!preg_match('/^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', $val)) $error[] = $key;
+            }
+            //put the value back into the array for returning purposes
+            $postData[$key] = $val;
         }
-        //return $validatedPOST;
+        //if error array is empty return the updated $postData
+        return (count($error) == 0) ? ($postData) : (false);
     }
     function valAndSanNoti($postData){
-        $validatedPOST = array();
+        //There are filters for pretty much anything
+        //https://www.w3schools.com/php/php_ref_filter.asp
+        //regex tends to work better for sanitizing these, these ones are helpful:
+        //preg_replace("/[^0-9]+/","",$val); get rid of anything other than 0-9
+        //preg_replace("/[^a-zA-Z]+/", "", $val); get rid of anything other than A-Z
+        $error = array();
         foreach ($postData as $key => $value) {
             //if key = viewableBy check to make sure it is a string of digits
-                //ctype_digit($value)
+                //this one is similar to phoneNumber
             //if key = surveyLink
                 //regex to make sure it is a correct url
                 //FILTER_VALIDATE_URL
             //if key title, body check to make sure its more than 2 chars
-                //filter_var($_POST['l/fname'], FILTER_VALIDATE_STRING);
+                    //this one is similar to fName and lName
             //if key = sentBy
-                //make sure its an int
-                //filter_var($int, FILTER_VALIDATE_INT)
-            //if key contains YN make sure its binary
-                //make sure its an int
-                //if( strpos( $key, "YN" ) !== false) {
-                    //binary regex
-                    //preg_match('~^[01]+$~', $value)
-                //}
+                //this one is similar to id
+            //if key contains YN make sure its binary.
+            //This one is directly from above...
+                // if( strpos($key,"YN") !== false) {
+                //     //binary regex for sanitization
+                //     $val = preg_replace("/[^0-1]+/","",$val);
+                //     $val = intval($val);
+                //     //if it is not binary add it to the error array
+                //     if (preg_match('/[^0-1]+/', $val)) $error[] = $key;
+                // }
             //if key contains dept it is a checkbox, make sure its a string of digits
-                //sanitize string first
-                    //if( strpos( $key, "dept" ) !== false) {
-                        //ctype_digit($value)
-                    //}
+                //this one is similar to phoneNumber
+                //if( strpos( $key, "dept" ) !== false) {
+                //ctype_digit($value)
+                //}
             //if key = attachment
                 //regex to make sure it is a correct attacment: ../../file.type
             //if key = sendNoti,deleteNoti,modifyNoti,removeNotiAttachment
                 //these are just to tell what button was pressed. set it = ""
             //if key = contains Check it is another checkbox.
                 //these are a string of a single digit
-                //ctype_digit($value)
+                //make sure it is a single number 1-9
         }
-        //return $validatedPOST;
+        return (count($error) == 0) ? ($postData) : (false);
+
     }
 
 
