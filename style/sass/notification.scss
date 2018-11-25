@@ -34,7 +34,6 @@
         .title {
             font-family: $baseFont;
             margin-bottom: pxToRem(35);
-            word-break: break-all;
         }
         
         .subtitle {
@@ -56,7 +55,6 @@
         .copy {
             font-family: $lighterFont;
             margin-top: pxToRem(70);
-            word-break: break-all;
             white-space: pre-line;
         }
         

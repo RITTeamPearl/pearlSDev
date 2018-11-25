@@ -119,6 +119,14 @@ CREATE TABLE `notification` (
 
 LOCK TABLES `notification` WRITE;
 /*!40000 ALTER TABLE `notification` DISABLE KEYS */;
+INSERT INTO `notification` VALUES
+(1, 'Convention Center will be closed on August 24, 2018', 'Due to incoming weather in the Rochester region, the convention center will be closed to ensure the safety of its workers.
+ 
+ The convention center expects to be open again on August 25, 2018 at its regular working hours. If you have any questions or concerns please refer to the department head of your department.', NULL, 1, 1, CURRENT_TIMESTAMP, NULL, 1, NULL);
+ INSERT INTO `notification` VALUES
+(2, 'New policy to take effect  on November 2, 2018', 'The new policy regarding all workers to wear mandatory company outfits will take place on this date. To ensure your name is on the roster to receive the new uniform please check the document attached.
+ 
+ Also included is a survey link that addresses your opinions on the new company outfits, any feedback will further help us with the continuation of this policy.', 'TEST.txt', 1, 1, CURRENT_TIMESTAMP, 'https://goo.gl/forms/KWvKttAvOhu3ob143', 1, NULL);
 /*!40000 ALTER TABLE `notification` ENABLE KEYS */;
 UNLOCK TABLES;
 
