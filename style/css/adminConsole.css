@@ -445,6 +445,15 @@ i {
     margin-top: 3.125rem; }
   #adminConsole #compare table {
     margin-top: 2.5rem; }
+  #adminConsole #compare #csvUpload {
+    background-color: #2ac656;
+    border-width: 0;
+    color: white;
+    font-size: 1em;
+    letter-spacing: 1px;
+    margin-top: 1.25rem;
+    width: 6.25rem;
+    height: 1.875rem; }
   #adminConsole .footer {
     background-color: #eaeaea; }
   @media only screen and (min-width: 1000px) {
@@ -452,7 +461,7 @@ i {
       width: 68.75rem;
       margin-left: auto;
       margin-right: auto; }
-    #adminConsole #notiEditButton:hover, #adminConsole .fa-trash-alt:hover, #adminConsole .fa-chevron-circle-down:hover, #adminConsole .fa-chevron-circle-up:hover, #adminConsole .fa-times-circle:hover, #adminConsole .fa-plus-circle:hover, #adminConsole .addSubmit:hover, #adminConsole .fa-save {
+    #adminConsole #notiEditButton:hover, #adminConsole .fa-trash-alt:hover, #adminConsole .fa-chevron-circle-down:hover, #adminConsole .fa-chevron-circle-up:hover, #adminConsole .fa-times-circle:hover, #adminConsole .fa-plus-circle:hover, #adminConsole .addSubmit:hover, #adminConsole .fa-save, #adminConsole #csvUpload {
       cursor: pointer; }
     #adminConsole .un-collapsed .inputWithIcon select {
       text-indent: 2.5rem; } }

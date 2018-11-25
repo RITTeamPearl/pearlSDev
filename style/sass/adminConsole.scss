@@ -427,6 +427,17 @@
         table {
             margin-top: pxToRem(80);
         }
+        
+        #csvUpload {
+            background-color: $green;
+            border-width: 0;
+            color: white;
+            font-size: 1em;
+            letter-spacing: 1px;
+            margin-top: pxToRem(40);
+            width: pxToRem(200);
+            height: pxToRem(60);
+        }
     }
     
     //Footer navigation background
@@ -443,7 +454,7 @@
             margin-right: auto;
         }
         
-        #notiEditButton:hover, .fa-trash-alt:hover, .fa-chevron-circle-down:hover, .fa-chevron-circle-up:hover, .fa-times-circle:hover, .fa-plus-circle:hover, .addSubmit:hover, .fa-save {
+        #notiEditButton:hover, .fa-trash-alt:hover, .fa-chevron-circle-down:hover, .fa-chevron-circle-up:hover, .fa-times-circle:hover, .fa-plus-circle:hover, .addSubmit:hover, .fa-save, #csvUpload {
             cursor: pointer;
         }
         
