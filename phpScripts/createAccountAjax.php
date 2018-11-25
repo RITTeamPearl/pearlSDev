@@ -23,8 +23,7 @@ if (count($_GET)){
 
 //Post is set. create the user..
 else{
-    //$dataLayer->createNewUser($_POST);
-    echo "THIS IS POST";
+    $dataLayer->createNewUser($_POST);
 }
 
  ?>

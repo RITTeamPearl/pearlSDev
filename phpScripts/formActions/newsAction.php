@@ -44,7 +44,7 @@ if (isset($_POST['sendNoti'])){
     foreach ($dataLayer->getData('user', array('email','phone','deptID')) as $ind => $currUser) {
         //only send them the notification if their deptID is in the viewableBy string
         if(in_array($currUser['deptID'],str_split($viewableBy))){
-            //first send email if it was chosen
+            //first send email if it was chosen in the check box
             if (isset($_POST['emailCheck'])){
                 $currEmail = $currUser['email'];
                 //if it has an attachment send that

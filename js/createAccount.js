@@ -118,18 +118,19 @@ function validateLastStep(){
 
 function submitForm(){
     //DONT FORGET TO REMOVE HYPHENS FROM PHONE NUMBER
-    var subPhone;
-    var subPassword;
-    var subFName;
-    var subLName;
-    var subEmail;
-    var subDeptID;
+    var subPhone = $("#phoneNumber").val();
+    subPhone = subPhone.replace(/-/g,'');
+    var subPassword = $('#password').val();
+    var subFName = $("#fName").val();
+    var subLName = $("#lName").val();
+    var subEmail = $("#email").val();
+    var subDeptID = $("select[name='deptID'] option:selected").val();
 
     $.ajax({
         type: "POST",
         url: '../phpScripts/createAccountAjax.php',
         data: {
-            phone:subPhone,
+            phoneNumber:subPhone,
             password:subPassword,
             fName: subFName,
             lName: subLName,

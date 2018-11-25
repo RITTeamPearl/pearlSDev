@@ -3,6 +3,7 @@
     $dataLayer = new data_layer();
 
     if (!isset($_GET)){
+        //validate and sanitize the link right here..
         //they did not pass in an id, add a new one
         $dataLayer->addVideo($_POST['link']);
 

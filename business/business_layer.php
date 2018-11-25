@@ -116,9 +116,67 @@ class business_layer{
         }
     }
 
-    function validateAndSanitize($postData){
-        //$validatedPOST = array();
-        //$validatedPOST['phone'] = $postData['phone'];// this should be validated and sanitized
+    function valAndSanUser($postData){
+        $validatedPOST = array();
+        foreach ($postData as $key => $value) {
+            //if key = phoneNumber check to make sure it is a string of digits
+                //ctype_digit($value)
+            //if key = email
+                //filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+                //filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+            //if key fname, lName check to make sure its more than 2 chars
+                //filter_var($_POST['l/fname'], FILTER_VALIDATE_STRING);
+            //if key contains ID make sure its an int
+                //if( strpos( $key, "ID" ) !== false) {
+                    //filter_var($int, FILTER_VALIDATE_INT) === 0 || filter_var($int, FILTER_VALIDATE_INT)
+                //}
+            //if key contains YN make sure its binary
+                //if( strpos( $key, "YN" ) !== false) {
+                    //binary regex
+                    //preg_match('~^[01]+$~', $value)
+                //}
+            //if key = password regex check the password
+                // lower case, upper case, number, 6 characters min
+                //preg_match('^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$', $value)
+        }
         //return $validatedPOST;
     }
+    function valAndSanNoti($postData){
+        $validatedPOST = array();
+        foreach ($postData as $key => $value) {
+            //if key = viewableBy check to make sure it is a string of digits
+                //ctype_digit($value)
+            //if key = surveyLink
+                //regex to make sure it is a correct url
+                //FILTER_VALIDATE_URL
+            //if key title, body check to make sure its more than 2 chars
+                //filter_var($_POST['l/fname'], FILTER_VALIDATE_STRING);
+            //if key = sentBy
+                //make sure its an int
+                //filter_var($int, FILTER_VALIDATE_INT)
+            //if key contains YN make sure its binary
+                //make sure its an int
+                //if( strpos( $key, "YN" ) !== false) {
+                    //binary regex
+                    //preg_match('~^[01]+$~', $value)
+                //}
+            //if key contains dept it is a checkbox, make sure its a string of digits
+                //sanitize string first
+                    //if( strpos( $key, "dept" ) !== false) {
+                        //ctype_digit($value)
+                    //}
+            //if key = attachment
+                //regex to make sure it is a correct attacment: ../../file.type
+            //if key = sendNoti,deleteNoti,modifyNoti,removeNotiAttachment
+                //these are just to tell what button was pressed. set it = ""
+            //if key = contains Check it is another checkbox.
+                //these are a string of a single digit
+                //ctype_digit($value)
+        }
+        //return $validatedPOST;
+    }
+
+
+
+
 }
