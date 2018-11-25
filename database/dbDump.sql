@@ -181,7 +181,10 @@ CREATE TABLE `video` (
 
 LOCK TABLES `video` WRITE;
 /*!40000 ALTER TABLE `video` DISABLE KEYS */;
-INSERT INTO `video` VALUES (1,'https://www.youtube.com/embed/9Gbl-IDp1qc');
+INSERT INTO `video` VALUES (1,'https://www.youtube.com/embed/nAAkkexZ9xA');
+INSERT INTO `video` VALUES (2,'https://www.youtube.com/embed/sv87eEc--kk');
+INSERT INTO `video` VALUES (3,'https://www.youtube.com/embed/_WcUqxcWMes');
+INSERT INTO `video` VALUES (4,'https://www.youtube.com/embed/R_mu_kjulD4');
 /*!40000 ALTER TABLE `video` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
