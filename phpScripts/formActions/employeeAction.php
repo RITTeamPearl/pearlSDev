@@ -14,18 +14,18 @@ if (isset($_POST['addEmp'])){
     $validatedPOST = $businessLayer->valAndSanUser($_POST);
     print_r($validatedPOST);
     //Generate a random 10 character password
-    // $genPass = substr(md5(microtime()),rand(0,26),10);
-    // $_POST['password'] = $genPass;
-    // //pass in 1 becaue it is a temp pass.
-    // //Also pass in the auth value individually
-    // $dataLayer->createNewUser($_POST, 1, $_POST['authID'], $_POST['activeYN']);
-    //
-    // $phone = $_POST["phoneNumber"];
-    //
-    // //after successfully creating the user send them their password
-    // //address, subject, body
-    // $businessLayer->sendEmail($_POST['email'], "RRCC Account Created For You", "You can sign in with the Phone Number $phone and password $genPass");
-    // header("Location: ../../views/adminConsoleEmployee.php");
+    $genPass = substr(md5(microtime()),rand(0,26),10);
+    $_POST['password'] = $genPass;
+    //pass in 1 becaue it is a temp pass.
+    //Also pass in the auth value individually
+    $dataLayer->createNewUser($_POST, 1, $_POST['authID'], $_POST['activeYN']);
+
+    $phone = $_POST["phoneNumber"];
+
+    //after successfully creating the user send them their password
+    //address, subject, body
+    $businessLayer->sendEmail($_POST['email'], "RRCC Account Created For You", "You can sign in with the Phone Number $phone and password $genPass");
+    header("Location: ../../views/adminConsoleEmployee.php");
 }
 
 //delete employee button was clicked
