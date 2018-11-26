@@ -424,7 +424,7 @@ END;
         <div class='container'>
             <h2 class='title'>{$currTitle}</h2>
             <div class='subtitle block'>
-                <i class="fas fa-download inline"></i>
+                <i onclick="location.href='../phpScripts/downloadNotiAttachment.php?id={$currNotiID}'" class="fas fa-download inline"></i>
                 <span class='inline'>{$currAttachmentName}</span>
                 <i class="far fa-clock inline"></i>
                 <span class='inline'>{$timesig}</span>
