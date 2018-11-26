@@ -47,7 +47,7 @@ $partialViews = new partialViews();
         <!-- Section to add a video (Admin Only) -->
         <div class='addVideo hidden'>
             <form method="POST" action="../phpScripts/formActions/videoAction.php">
-                <i class="fas fa-times"></i>
+                <i onclick= "closeVideoBox(this)" class="fas fa-times"></i>
                 <h2>Create New Video</h2>
                 <div class='inputWithIcon'>
                     <input class='block' type="text" name="link" placeholder='Embeded URL'/>
@@ -60,7 +60,7 @@ $partialViews = new partialViews();
         <!-- Section to edit a video (Admin Only) -->
         <div class='editVideo hidden'>
             <form method="POST" action="../phpScripts/formActions/videoAction.php?id=">
-                <i class="fas fa-times"></i>
+                <i onclick= "closeVideoBox(this)" class="fas fa-times"></i>
                 <h2>Edit Video</h2>
                 <div class='inputWithIcon'>
                     <input class='block' type="text" name="link" placeholder='Embeded URL'/>

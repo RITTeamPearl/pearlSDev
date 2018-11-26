@@ -108,6 +108,9 @@ function updateVid(videoID){
     $('.editVideo').show();
 }
 
+function closeVideoBox(ele){
+    console.log($(ele).parent().parent().hide());
+}
 function deleteVid(videoID){
     $("#delform_"+videoID).submit();
 }

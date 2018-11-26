@@ -1,5 +1,7 @@
 function confirmPassword(){
-    if (($('#password').val() == $('#passwordConfirm').val()) && $("#password").val() != "") {
+    var passwordRegex = /^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/;
+    var correctPasswordComplexity = passwordRegex.test($("#password").val());
+    if (($('#password').val() == $('#passwordConfirm').val()) && correctPasswordComplexity) {
         $(".pwIcon").css('color', 'green');
         return true;
     }
