@@ -119,7 +119,6 @@ class business_layer{
     function valAndSanUser($postData){
         $error = array();
         foreach ($postData as $key => $val) {
-
             if ($key == "phoneNumber"){
                 //regex to sanitize make sure its only digits
                 $val = preg_replace("/[^0-9]+/", "", $val);

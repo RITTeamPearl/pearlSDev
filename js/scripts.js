@@ -17,13 +17,13 @@ function dropDownToggle(ele){
     //Use jquery to find the closest tr. Next is a spacer need to do it twice.
     nextRow = $(thisRow).closest('tr').next('tr').next('tr');
 
-    if ($(nextRow).attr('class').valueOf() === 'collapsed'){
+    if ($(nextRow).hasClass('collapsed')){
         console.log("here");
         $(ele).removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
         $(nextRow).removeClass('collapsed').addClass('un-collapsed').show();
     }
 
-    else if ($(nextRow).attr('class').valueOf() === 'un-collapsed'){
+    else if ($(nextRow).hasClass('un-collapsed')){
         $(ele).removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
         $(nextRow).removeClass('un-collapsed').addClass('collapsed').hide();
     }

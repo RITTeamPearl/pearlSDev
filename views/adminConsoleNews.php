@@ -29,7 +29,7 @@ $partialViews = new partialViews();
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='adminConsole' onload="setNavBar();initCsvListener();addMask();checkNotifcationModify();">
+<body id='adminConsole' onload="addMask();">
     <!-- Header -->
     <div class='header'>
         <h1 id='title' class='centered'>Administrator Console</h1>
