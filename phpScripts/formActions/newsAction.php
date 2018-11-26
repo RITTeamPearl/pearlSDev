@@ -100,7 +100,7 @@ if (isset($_POST['sendNoti'])){
     }
     if ($_SESSION['authID'] == 4) {
         //if they are an admin send them back to adminConsole
-        //header("Location: ../../views/adminConsoleNews.php");
+        header("Location: ../../views/adminConsoleNews.php");
     }
 
     ?>
