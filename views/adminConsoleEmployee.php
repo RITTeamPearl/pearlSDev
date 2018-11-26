@@ -30,11 +30,10 @@ $dataLayer = new data_layer();
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script type='text/javascript' src='/js/scripts.js'></script>
-    <script type='text/javascript' src='/js/ajaxTarget.js'></script>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
-<body id='adminConsole' onload="addMask();">
+<body id='adminConsole' onload="addMask();checkNotifcationModify();">
     <!-- Header -->
     <div class='header'>
         <h1 id='title' class='centered'>Administrator Console</h1>
@@ -52,13 +51,13 @@ $dataLayer = new data_layer();
     <section id='employees'>
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
-            <input type='text' placeholder='Search' onkeypress="initSearch(event,this)">
+            <input type='text' placeholder='Search'>
             <i class="fas fa-search"></i>
         </div>
 
         <!-- Table that appends database entries of employees into rows -->
         <table>
-            <tr id="headerRow">
+            <tr>
                 <th></th>
                 <th>First</th>
                 <th>Last</th>
@@ -71,6 +70,9 @@ $dataLayer = new data_layer();
             echo $partialViews->createEmployeeTable($dataLayer->getAllUsers(),$pageNum);
 
             ?>
+
+            <!-- Begin next dynamically added rows here -->
+
             <!-- Add New Employee -->
             <tr class='collapsed'>
                 <td><i onclick="dropDownToggle(this)" class='fas fa-plus-circle'></i></td>

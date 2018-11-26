@@ -1,27 +1,8 @@
 <?php
     session_start();
     require_once '../database/data_layer.php';
-    require_once '../business/partialViews.php';
     $dataLayer = new data_layer();
-    $partialViews = new partialViews();
-
-    if (count($_GET)){
-        $searchVal = $_GET['search'];
-        $matchArray = array();
-        foreach ($dataLayer->getData('user',array('userID','fName','lName','activeYN','email','deptID','authID','phone')) as $ind => $currUserArray) {
-            //check phone, email, fName, lName
-            $currPhone = $currUserArray['phone'];
-            $currEmail = $currUserArray['email'];
-            $currFName = $currUserArray['fName'];
-            $currLName = $currUserArray['lName'];
-            if(strpos($currPhone,$searchVal) !== false) $matchArray[] = $currUserArray;
-            else if(strpos($currEmail,$searchVal) !== false) $matchArray[] = $currUserArray;
-            else if(strpos($currFName,$searchVal) !== false) $matchArray[] = $currUserArray;
-            else if(strpos($currLName,$searchVal) !== false) $matchArray[] = $currUserArray;
-        }
-        echo $partialViews->createEmployeeTable($matchArray,1,1);
-    }
-    else if (isset($_POST)){
+    if (isset($_POST)){
         $userID = $_POST['userID'];
         if (isset($_POST['delete'])){
             if (isset($_POST['user'])) {
@@ -39,5 +20,7 @@
             unset($_POST['userID']);
             $dataLayer->updateUser($_POST,'userID',$userID);
         }
+    }else {
+        echo "Here???";
     }
 ?>

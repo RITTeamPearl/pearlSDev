@@ -1,4 +1,5 @@
 <?php
+session_start();
 class partialViews{
 
     /**
@@ -59,8 +60,8 @@ class partialViews{
                 $currActiveYN = (intval($rowArray['active']));
 
 $string .= <<<END
-                <form class="searchBarDelete" action="../phpScripts/formActions/newsAction.php?id={$currNotiID}?p={$pageNum}" method="post" enctype="multipart/form-data">
-                <tr class='collapsed searchBarDelete'>
+                <form class="" action="../phpScripts/formActions/newsAction.php?id={$currNotiID}?p={$pageNum}" method="post" enctype="multipart/form-data">
+                <tr class='collapsed'>
                     <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                     <td>
                         <input type="text" name="title" disabled value="{$currTitle}">
@@ -84,9 +85,9 @@ $string .= <<<END
                     </td>
                 </tr>
 
-                <tr class='spacer searchBarDelete'><td></td></tr>
+                <tr class='spacer'><td></td></tr>
 
-                <tr class='collapsed searchBarDelete' style="display: none">
+                <tr class='collapsed' style="display: none">
                     <td colspan='5' class='full'>
                         <h2>Body</h2>
                         <textarea id='bodyContent' name="body" disabled>{$currBody}</textarea>
@@ -101,7 +102,7 @@ $string .= <<<END
                         <i onclick="location.href='../phpScripts/downloadAckReport.php?id={$currNotiID}'" class="fas fa-download"></i><span>user_report.csv</span>
                     </td>
                 </tr>
-                <tr class='spacer searchBarDelete'><td></td></tr>
+                <tr class='spacer'><td></td></tr>
             </form>
 END;
             }
@@ -139,7 +140,7 @@ END;
         if ($highCount > $totalNumNotis) $highCount = $totalNumNotis;
 
         $linkPage = ($_SESSION['authID'] == 4) ? ('adminConsoleNews.php') : ('deptHeadNotiConsole.php');
-
+        
         if($totalNumNotis == 0){
             $returnString = "<div class='number inline'><span>None</span></div>";
             $returnString .= "<div class='back inline'><i class='fas fa-chevron-left'></i><span>Back</span></div>";
@@ -153,7 +154,7 @@ END;
         return $returnString;
     }//end admin console news table pagination links
 
-    function createEmployeeTable($allUserArray,$pageNum,$search=0){
+    function createEmployeeTable($allUserArray,$pageNum){
         //pagination stuff
         $maxPages = ceil(count($allUserArray)/5);
         if ($maxPages < $pageNum) $pageNum = $maxPages;
@@ -171,11 +172,11 @@ END;
             $currDeptID = $thisUserArray['deptID'];
             $currAuthID = $thisUserArray['authID'];
             $currPhone = $thisUserArray['phone'];
-            if (($currAuthID != 1 && ($minIndex <= $ind && $ind <= $maxIndex)) || $search) {
+            if ($currAuthID != 1 && ($minIndex <= $ind && $ind <= $maxIndex)) {
 
 $string .= <<<END
-            <form class="personForm searchBarDelete" action="../phpScripts/formActions/employeeAction.php?id={$currID}?p={$pageNum}" method="post">
-                <tr class='collapsed searchBarDelete'>
+            <form class="" action="../phpScripts/formActions/employeeAction.php?id={$currID}?p={$pageNum}" method="post">
+                <tr class='collapsed'>
                     <td><i onclick="dropDownToggle(this)" class='fas fa-chevron-circle-down'></i></td>
                     <td><input type="text" name="fName" disabled value="{$currFName}"></td>
                     <td><input type="text" name="lName" disabled value="{$currLName}"></td>
@@ -187,8 +188,8 @@ $string .= <<<END
                         <button type="submit" name= "deleteEmp" value="deleteEmp"><i class="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
-                <tr class='spacer searchBarDelete'><td></td></tr>
-                <tr class='collapsed searchBarDelete' style="display: none">
+                <tr class='spacer'><td></td></tr>
+                <tr class='collapsed' style="display: none">
                     <td colspan='3' class='leftUnCollapsed'>
                         <h2>Active</h2>
                         <select disabled name='activeYN' class='disabledDrop'>
@@ -262,6 +263,7 @@ if ($currAuthID == 4) $string .= " selected ";
 $string .= <<<END
                             value=4>Administrator</option>
                         </select>
+
                         <h2>Phone Number</h2>
                         <input class="phoneMask" type="text" name="phone" disabled value="{$currPhone}">
                     </td>
