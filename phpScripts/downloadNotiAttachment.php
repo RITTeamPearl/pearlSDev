@@ -14,16 +14,18 @@ $fileName = end(explode("/",$file));
 // $file = "../assets/ackReports/AcknowledgementReport_{$timestamp}.csv";
 // //get fil
 $type = filetype($file);
-// // // Send file headers
-header("Content-type: $type");
-header("Content-Disposition: attachment;filename=$fileName");
-header("Content-Transfer-Encoding: binary");
-header('Pragma: no-cache');
-header('Expires: 0');
-header('Expires: 0');
-// Send the file contents.
-set_time_limit(0);
-readfile($file);
+if (file_exists($file)){
+    // // // Send file headers
+    header("Content-type: $type");
+    header("Content-Disposition: attachment;filename=$fileName");
+    header("Content-Transfer-Encoding: binary");
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    header('Expires: 0');
+    // Send the file contents.
+    set_time_limit(0);
+    readfile($file);
+}
 
 
  ?>
