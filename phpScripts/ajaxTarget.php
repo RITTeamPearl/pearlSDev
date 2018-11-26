@@ -8,18 +8,31 @@
     if (count($_GET)){
         $searchVal = $_GET['search'];
         $matchArray = array();
-        foreach ($dataLayer->getData('user',array('userID','fName','lName','activeYN','email','deptID','authID','phone')) as $ind => $currUserArray) {
-            //check phone, email, fName, lName
-            $currPhone = $currUserArray['phone'];
-            $currEmail = $currUserArray['email'];
-            $currFName = $currUserArray['fName'];
-            $currLName = $currUserArray['lName'];
-            if(strpos($currPhone,$searchVal) !== false) $matchArray[] = $currUserArray;
-            else if(strpos($currEmail,$searchVal) !== false) $matchArray[] = $currUserArray;
-            else if(strpos($currFName,$searchVal) !== false) $matchArray[] = $currUserArray;
-            else if(strpos($currLName,$searchVal) !== false) $matchArray[] = $currUserArray;
+        if ($_GET['page'] == 'emp'){
+            foreach ($dataLayer->getData('user',array('userID','fName','lName','activeYN','email','deptID','authID','phone')) as $ind => $currUserArray) {
+                //check phone, email, fName, lName
+                $currPhone = $currUserArray['phone'];
+                $currEmail = $currUserArray['email'];
+                $currFName = $currUserArray['fName'];
+                $currLName = $currUserArray['lName'];
+                if(strpos($currPhone,$searchVal) !== false) $matchArray[] = $currUserArray;
+                else if(strpos($currEmail,$searchVal) !== false) $matchArray[] = $currUserArray;
+                else if(strpos($currFName,$searchVal) !== false) $matchArray[] = $currUserArray;
+                else if(strpos($currLName,$searchVal) !== false) $matchArray[] = $currUserArray;
+            }
+            echo $partialViews->createEmployeeTable($matchArray,1,1);
         }
-        echo $partialViews->createEmployeeTable($matchArray,1,1);
+
+        if($_GET['page'] == 'news'){
+            foreach ($dataLayer->getData('notification',array("*")) as $ind => $currNotiArray) {
+                //check title and body
+                $currTitle = $currNotiArray['title'];
+                $currBody = $currNotiArray['body'];
+                if(strpos($currTitle,$searchVal) !== false) $matchArray[] = $currNotiArray;
+                else if(strpos($currBody,$searchVal) !== false) $matchArray[] = $currNotiArray;
+            }
+            echo $partialViews->createAdminConsoleNewsTable($matchArray,1,1);
+        }
     }
     else if (isset($_POST)){
         $userID = $_POST['userID'];

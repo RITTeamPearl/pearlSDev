@@ -52,7 +52,7 @@ $dataLayer = new data_layer();
     <section id='employees'>
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
-            <input type='text' placeholder='Search' onkeypress="initSearch(event,this)">
+            <input type='text' placeholder='Search' onkeypress="initSearch(event,this,'emp')">
             <i class="fas fa-search"></i>
         </div>
 

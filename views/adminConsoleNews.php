@@ -26,6 +26,7 @@ $partialViews = new partialViews();
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script type='text/javascript' src='/js/scripts.js'></script>
+    <script type='text/javascript' src='/js/ajaxTarget.js'></script>
     <link href='../assets/fonts/fontawesome-free-5.2.0-web/css/all.min.css' rel='stylesheet'>
 </head>
 
@@ -48,13 +49,13 @@ $partialViews = new partialViews();
 
         <!-- Search Bar -->
         <div class='searchBar inputWithIcon'>
-            <input type='text' placeholder='Search'>
+            <input type='text' placeholder='Search' onkeypress="initSearch(event,this,'news')">
             <i class="fas fa-search"></i>
         </div>
 
         <!-- Table that appends database entries of news articles into rows -->
         <table>
-            <tr>
+            <tr id="headerRow">
                 <th></th>
                 <th>Title</th>
                 <th>Active</th>

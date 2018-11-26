@@ -5,7 +5,7 @@ class partialViews{
      * This function is to create the table of notifications of the admin news page
      * Takes in an array of all notifications and a page number for filtering
      */
-    function createAdminConsoleNewsTable($notificationArray,$pageNum){
+    function createAdminConsoleNewsTable($notificationArray,$pageNum,$search=0){
         //initialize vars
         $string = "";
         $notiCount =0;
@@ -41,7 +41,7 @@ class partialViews{
                 //only show notifications sent by this user
                 $sentByUser = true;
             }
-            if (($_SESSION['authID'] == 4 || $sentByUser) && (in_array($ind,$correctIndArray))) {
+            if ((($_SESSION['authID'] == 4 || $sentByUser) && (in_array($ind,$correctIndArray))) || $search) {
                 $currNotiID = $rowArray['notificationID'];
                 $currTitle = $rowArray['title'];
                 $currSurvey = $rowArray['surveyLink'];

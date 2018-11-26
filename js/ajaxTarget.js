@@ -70,7 +70,7 @@ function ajaxDelete(searchID,ele,page) {
     });
 }
 
-function initSearch(event,ele){
+function initSearch(event,ele,page){
     //this function is called on every key press.
     //only trigger search if button is enter
     if(event.which === 13){
@@ -79,7 +79,8 @@ function initSearch(event,ele){
             type: "GET",
             url: '../phpScripts/ajaxTarget.php',
             data: {
-                search:$(ele).val()
+                search:$(ele).val(),
+                page: page
             }
         }).done(function(data){
             $("#headerRow").after('<tr>'+data+'</tr>');
