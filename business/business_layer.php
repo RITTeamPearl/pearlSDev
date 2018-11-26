@@ -119,6 +119,7 @@ class business_layer{
     function valAndSanUser($postData){
         $error = array();
         foreach ($postData as $key => $val) {
+
             if ($key == "phoneNumber"){
                 //regex to sanitize make sure its only digits
                 $val = preg_replace("/[^0-9]+/", "", $val);
@@ -165,58 +166,58 @@ class business_layer{
         //if error array is empty return the updated $postData
         return (count($error) == 0) ? ($postData) : (false);
     }
+
     function valAndSanNoti($postData){
-        $error = array();
-        foreach ($postData as $key => $value) {
-            if ($key == "viewableBy"){
-                //this one is similar to phoneNumber
-                $val = preg_replace("/[^0-9]+/", "", $value);
-                if (!ctype_digit($val)) $error[] = $key;
-            }
-            if ($key == "surveyLink"){
-                $val = preg_replace("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", "", $value);
-                if (!filter_var($val, FILTER_VALIDATE_URL)) $error[] = $key;
-            }
-            if ($key == "title"){
-                    $val = preg_replace("/[^a-zA-Z]+/", "", $value);
-                    if (!preg_match('/[a-zA-Z]{2,}/', $val)) $error[] = $key;
-            }
+           $error = array();
+           foreach ($postData as $key => $value) {
+               if ($key == "viewableBy"){
+                   //this one is similar to phoneNumber
+                   $val = preg_replace("/[^0-9]+/", "", $value);
+                   if (!ctype_digit($val)) $error[] = $key;
+               }
+               //if key = surveyLink
+               if ($key == "surveyLink"){
+                   $val = preg_replace("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", "", $value);
+                   if (!filter_var($val, FILTER_VALIDATE_URL)) $error[] = $key;
+               }
+               if ($key == "title"){
+                       $val = preg_replace("/[^a-zA-Z]+/", "", $value);
+                       if (!preg_match('/[a-zA-Z]{2,}/', $val)) $error[] = $key;
+               }
 
-            if ($key == "sentBy"){
-                $val = preg_replace("/[^0-9]+/","",$value);
-                $val = intval($val);
-                if (!filter_var($val, FILTER_VALIDATE_INT)) $error[] = $key;
-            }
+               if ($key == "sentBy"){
+                   $val = preg_replace("/[^0-9]+/","",$value);
+                   $val = intval($val);
+                   if (!filter_var($val, FILTER_VALIDATE_INT)) $error[] = $key;
+               }
 
-            if( strpos($key,"YN") !== false) {
-                $val = preg_replace("/[^0-1]+/","",$value);
-                $val = intval($val);
-                if (preg_match('/[^0-1]+/', $val)) $error[] = $key;
-            }
-             if( strpos( $key, "dept" ) !== false) {
-                $val = preg_replace("/[^0-9]+/", "", $value);
-                if (!ctype_digit($val)) $error[] = $key;
-             }
+               if( strpos($key,"YN") !== false) {
+                   $val = preg_replace("/[^0-1]+/","",$value);
+                   $val = intval($val);
+                   if (preg_match('/[^0-1]+/', $val)) $error[] = $key;
+               }
+                if( strpos( $key, "dept" ) !== false) {
+                   $val = preg_replace("/[^0-9]+/", "", $value);
+                   if (!ctype_digit($val)) $error[] = $key;
+                }
 
-            if ($key == "attachment"){
-                //regex to make sure it is a correct attacment: ../../file.type
-                if (!preg_match("/[^../../][a-zA-z0-9]+[.](^exe|js|sql|php)$/", $value)) $error[] = $key;
-            }
+               if ($key == "attachment"){
+                   //regex to make sure it is a correct attacment: ../../file.type
+                   if (!preg_match("/[^../../][a-zA-z0-9]+[.](^exe|js|sql|php)$/", $value)) $error[] = $key;
+               }
 
-            if ($key == "sendNoti" || $key == "deleteNoti" || $key == "removeNotiAttachment"){
-                //these are just to tell what button was pressed. set it = ""
-                $value = "";
-            }
+               if ($key == "sendNoti" || $key == "deleteNoti" || $key == "removeNotiAttachment"){
+                   //these are just to tell what button was pressed. set it = ""
+                   $value = "";
+               }
 
-            if( strpos( $key, "contains" ) !== false) {
-                $val = preg_replace("/[^0-9]+/", "", $value);
-                if (!preg_match({'/[^0-9]{1}/', $val})) $error[] = $key;
-            }
-        }
-        return (count($error) == 0) ? ($postData) : (false);
-    }
-
-}
+               if( strpos( $key, "contains" ) !== false) {
+                   $val = preg_replace("/[^0-9]+/", "", $value);
+                   if (!preg_match({'/[^0-9]{1}/', $val})) $error[] = $key;
+               }
+           }
+           return (count($error) == 0) ? ($postData) : (false);
+       }
 
 
 
