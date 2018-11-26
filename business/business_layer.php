@@ -200,7 +200,7 @@ class business_layer{
 
             if ($key == "attachment"){
                 //regex to make sure it is a correct attacment: ../../file.type
-                if (!preg_match("/[^../../][a-zA-z0-9]+[.](pdf|txt)$/", $value)) $error[] = $key;
+                if (!preg_match("/[^../../][a-zA-z0-9]+[.](^exe|js|sql|php)$/", $value)) $error[] = $key;
             }
 
             if ($key == "sendNoti" || $key == "deleteNoti" || $key == "removeNotiAttachment"){
