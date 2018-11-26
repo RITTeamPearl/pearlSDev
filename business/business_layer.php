@@ -167,47 +167,57 @@ class business_layer{
         return (count($error) == 0) ? ($postData) : (false);
     }
     function valAndSanNoti($postData){
-        //There are filters for pretty much anything
-        //https://www.w3schools.com/php/php_ref_filter.asp
-        //regex tends to work better for sanitizing these, these ones are helpful:
-        //preg_replace("/[^0-9]+/","",$val); get rid of anything other than 0-9
-        //preg_replace("/[^a-zA-Z]+/", "", $val); get rid of anything other than A-Z
         $error = array();
         foreach ($postData as $key => $value) {
-            //if key = viewableBy check to make sure it is a string of digits
+            if ($key == "viewableBy"){
                 //this one is similar to phoneNumber
-            //if key = surveyLink
-                //regex to make sure it is a correct url
-                //FILTER_VALIDATE_URL
-            //if key title, body check to make sure its more than 2 chars
-                    //this one is similar to fName and lName
-            //if key = sentBy
-                //this one is similar to id
-            //if key contains YN make sure its binary.
-            //This one is directly from above...
-                // if( strpos($key,"YN") !== false) {
-                //     //binary regex for sanitization
-                //     $val = preg_replace("/[^0-1]+/","",$val);
-                //     $val = intval($val);
-                //     //if it is not binary add it to the error array
-                //     if (preg_match('/[^0-1]+/', $val)) $error[] = $key;
-                // }
-            //if key contains dept it is a checkbox, make sure its a string of digits
-                //this one is similar to phoneNumber
-                //if( strpos( $key, "dept" ) !== false) {
-                //ctype_digit($value)
-                //}
-            //if key = attachment
+                $val = preg_replace("/[^0-9]+/", "", $value);
+                if (!ctype_digit($val)) $error[] = $key;
+            }
+            if ($key == "surveyLink"){
+                $val = preg_replace("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", "", $value);
+                if (!filter_var($val, FILTER_VALIDATE_URL)) $error[] = $key;
+            }
+            if ($key == "title"){
+                    $val = preg_replace("/[^a-zA-Z]+/", "", $value);
+                    if (!preg_match('/[a-zA-Z]{2,}/', $val)) $error[] = $key;
+            }
+
+            if ($key == "sentBy"){
+                $val = preg_replace("/[^0-9]+/","",$value);
+                $val = intval($val);
+                if (!filter_var($val, FILTER_VALIDATE_INT)) $error[] = $key;
+            }
+
+            if( strpos($key,"YN") !== false) {
+                $val = preg_replace("/[^0-1]+/","",$value);
+                $val = intval($val);
+                if (preg_match('/[^0-1]+/', $val)) $error[] = $key;
+            }
+             if( strpos( $key, "dept" ) !== false) {
+                $val = preg_replace("/[^0-9]+/", "", $value);
+                if (!ctype_digit($val)) $error[] = $key;
+             }
+
+            if ($key == "attachment"){
                 //regex to make sure it is a correct attacment: ../../file.type
-            //if key = sendNoti,deleteNoti,modifyNoti,removeNotiAttachment
+                if (!preg_match("/[^../../][a-zA-z0-9]+[.](pdf|txt)$/", $value)) $error[] = $key;
+            }
+
+            if ($key == "sendNoti" || $key == "deleteNoti" || $key == "removeNotiAttachment"){
                 //these are just to tell what button was pressed. set it = ""
-            //if key = contains Check it is another checkbox.
-                //these are a string of a single digit
-                //make sure it is a single number 1-9
+                $value = "";
+            }
+
+            if( strpos( $key, "contains" ) !== false) {
+                $val = preg_replace("/[^0-9]+/", "", $value);
+                if (!preg_match({'/[^0-9]+/{1}', $val})) $error[] = $key;
+            }
         }
         return (count($error) == 0) ? ($postData) : (false);
-
     }
+
+}
 
 
 
