@@ -11,8 +11,7 @@ if (isset($_POST['addEmp'])){
     //fix the phone number so it works in the DB
     $_POST["phoneNumber"] = str_replace("-","",$_POST["phoneNumber"]);
     //val and  san user input
-    $validatedPOST = $businessLayer->valAndSanUser($_POST);
-    print_r($validatedPOST);
+    $_POST = $businessLayer->valAndSanUser($_POST);
     //Generate a random 10 character password
     $genPass = substr(md5(microtime()),rand(0,26),10);
     $_POST['password'] = $genPass;
@@ -36,6 +35,7 @@ if (isset($_POST['deleteEmp'])) {
 
 //Modify employee was clicked
 if (isset($_POST['modifyEmp'])) {
+    $_POST = $businessLayer->valAndSanUser($_POST);
     //During validation and sanitization the button value should be removed from post data
     //Im going to set it to null for now
     $_POST['modifyEmp'] = null;
