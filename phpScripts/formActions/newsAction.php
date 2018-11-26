@@ -5,6 +5,7 @@ $dataLayer = new data_layer();
 $bizLayer = new business_layer();
 
 if (isset($_POST['sendNoti'])){
+    //$bizLayer->valAndSanNoti($_POST);
     //first make a string of deptIDs for the DB
     $viewableBy = "";
     //if its a dept head only their dept can view it.
@@ -66,7 +67,11 @@ if (isset($_POST['sendNoti'])){
 
         //if webAppCheck is set make the post val = 1;
         $_POST['webAppYN'] = isset($_POST['webAppCheck']) ? (1) : (0);
-        $dataLayer->createNotification($_POST);
+        if (strpos($_POST['surveyLink'],"http") === false && $_POST['surveyLink'] != "No Survey"){
+            $_POST['surveyLink'] = "https://".$_POST['surveyLink'];
+        }
+        $dataLayer->createNotification($bizLayer->valAndSanNoti($_POST));
+        //$dataLayer->createNotification($_POST);
     }
 
     //Delete notification button was clicked
@@ -74,9 +79,15 @@ if (isset($_POST['sendNoti'])){
         $dataLayer->deleteData('notification','notificationID',$_GET['id']);
     }
 
-    //Delete notification button was clicked
+    //Modify Notification button was pressed
     if (isset($_POST['modifyNoti'])) {
-        $dataLayer->updateNotification($_GET['id'],$_POST);
+        //if survey link is set
+        if(isset($_POST['surveyLink'])){
+            if (strpos($_POST['surveyLink'],"http") === false && $_POST['surveyLink'] != "No Survey"){
+                $_POST['surveyLink'] = "https://".$_POST['surveyLink'];
+            }
+        }
+        $dataLayer->updateNotification($_GET['id'],$bizLayer->valAndSanNoti($_POST));
     }
     //Remove the attachment
     if (isset($_POST['removeNotiAttachment'])) {
@@ -89,7 +100,7 @@ if (isset($_POST['sendNoti'])){
     }
     if ($_SESSION['authID'] == 4) {
         //if they are an admin send them back to adminConsole
-        header("Location: ../../views/adminConsoleNews.php");
+        //header("Location: ../../views/adminConsoleNews.php");
     }
 
     ?>

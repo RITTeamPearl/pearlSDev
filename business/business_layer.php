@@ -35,7 +35,7 @@ class business_layer{
             $mail->Subject = $subject;
             $mail->Body = $body;
             $mail->IsHTML(true);
-            //default value is zero, so it only adds attachment if passed
+            //default val is zero, so it only adds attachment if passed
             if ($attachmentPath){
                 //make db path relative using ../
                 $mail->addAttachment("../".$attachmentPath);
@@ -160,7 +160,7 @@ class business_layer{
                 // lower case, upper case, number, 6 characters min
                 if (!preg_match('/^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', $val)) $error[] = $key;
             }
-            //put the value back into the array for returning purposes
+            //put the val back into the array for returning purposes
             $postData[$key] = $val;
         }
         //if error array is empty return the updated $postData
@@ -169,53 +169,60 @@ class business_layer{
 
     function valAndSanNoti($postData){
            $error = array();
-           foreach ($postData as $key => $value) {
+           foreach ($postData as $key => $val) {
                if ($key == "viewableBy"){
                    //this one is similar to phoneNumber
-                   $val = preg_replace("/[^0-9]+/", "", $value);
+                   $val = preg_replace("/[^0-9]+/", "", $val);
                    if (!ctype_digit($val)) $error[] = $key;
                }
                //if key = surveyLink
                if ($key == "surveyLink"){
-                   $val = preg_replace("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", "", $value);
-                   if (!filter_var($val, FILTER_VALIDATE_URL)) $error[] = $key;
+                   if ($val == "No Survey") {}
+                   else {
+                       $val = filter_var($val, FILTER_SANITIZE_URL);
+                       echo "$val";
+                       //if its not a valid URL add to error array
+                       if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$val)) $error[] = $key;
+                   }
                }
                if ($key == "title"){
-                       $val = preg_replace("/[^a-zA-Z]+/", "", $value);
-                       if (!preg_match('/[a-zA-Z]{2,}/', $val)) $error[] = $key;
+                       $val = preg_replace("/[^a-zA-Z\b \b]+/", "", $val);
+                       if (!preg_match('/[a-zA-Z\b \b]{2,}/', $val)) $error[] = $key;
                }
 
                if ($key == "sentBy"){
-                   $val = preg_replace("/[^0-9]+/","",$value);
+                   $val = preg_replace("/[^0-9]+/","",$val);
                    $val = intval($val);
                    if (!filter_var($val, FILTER_VALIDATE_INT)) $error[] = $key;
                }
 
                if( strpos($key,"YN") !== false) {
-                   $val = preg_replace("/[^0-1]+/","",$value);
+                   $val = preg_replace("/[^0-1]+/","",$val);
                    $val = intval($val);
                    if (preg_match('/[^0-1]+/', $val)) $error[] = $key;
                }
                 if( strpos( $key, "dept" ) !== false) {
-                   $val = preg_replace("/[^0-9]+/", "", $value);
+                   $val = preg_replace("/[^0-9]+/", "", $val);
                    if (!ctype_digit($val)) $error[] = $key;
                 }
-
                if ($key == "attachment"){
                    //regex to make sure it is a correct attacment: ../../file.type
-                   if (!preg_match("/[^../../][a-zA-z0-9]+[.](^exe|js|sql|php)$/", $value)) $error[] = $key;
+                   if (!preg_match("/[^../../][a-zA-z0-9]+[.](^exe|js|sql|php)$/", $val)) $error[] = $key;
                }
 
                if ($key == "sendNoti" || $key == "deleteNoti" || $key == "removeNotiAttachment"){
                    //these are just to tell what button was pressed. set it = ""
-                   $value = "";
+                   $val = "";
                }
 
                if( strpos( $key, "Check" ) !== false) {
-                   $val = preg_replace("/[^0-9]+/", "", $value);
-                   if (!preg_match("/[^0-9]{1}/", $val)) $error[] = $key;
+                   if ($val !== "on") $error[] = $key;
                }
+
+               $postData[$key] = $val;
            }
+           echo "<br><br><br>";
+           var_dump($error);
            return (count($error) == 0) ? ($postData) : (false);
        }
 

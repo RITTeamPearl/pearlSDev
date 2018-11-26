@@ -400,15 +400,15 @@ END;
         if (intval($hours) < 1){
             $timesig = $mins."m ago";
         }
-        else if (intval($days) < 1) {
+        if (intval($days) < 1) {
             //display using hours
             $timesig = $hours."h ago";
         }
-        else if (intval($days) >= 1 && intval($days) >= 6) {
+        if (intval($days) >= 1 && intval($days) <= 6) {
             //display using days
             $timesig = $days."d ago";
         }
-        else if (intval($days) >= 7){
+        if (intval($days) >= 7){
             //display using weeks
             $timesig = ($days%7)."w ago";
         }
@@ -469,7 +469,7 @@ END;
                     //display using hours
                     $timesig = $hours."h ago";
                 }
-                else if (intval($days) >= 1 && intval($days) >= 6) {
+                else if (intval($days) >= 1 && intval($days) <= 6) {
                     //display using days
                     $timesig = $days."d ago";
                 }

@@ -83,7 +83,6 @@ class data_layer{
     }
 
     function updateNotification($notificationID, $postData){
-        print_r($postData);
         if ($stmt = $this->connection->prepare("UPDATE notification SET title = ?,body = ?, surveyLink = ?,activeYN = ? WHERE notificationID = ?")){
             $stmt->bind_param("sssii",$postData['title'],$postData['body'],$postData['surveyLink'],intval($postData['activeYN']),intval($notificationID));
             $stmt->execute();

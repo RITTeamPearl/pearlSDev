@@ -18,7 +18,6 @@ function dropDownToggle(ele){
     nextRow = $(thisRow).closest('tr').next('tr').next('tr');
 
     if ($(nextRow).hasClass('collapsed')){
-        console.log("here");
         $(ele).removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
         $(nextRow).removeClass('collapsed').addClass('un-collapsed').show();
     }
@@ -38,7 +37,7 @@ function dropDownModify(ele,page){
     nextRow = $(thisRow).closest('tr').next('tr').next('tr');
 
     //only toggle the next row if it needs to be
-    if($(nextRow).attr('class').valueOf() === 'collapsed'){
+    if($(nextRow).hasClass('collapsed')){
         //Need to pass in the circle element instead of the pencil so it gets changed
         dropDownToggle($(ele).parent().parent().find('i')[0]);
     }
