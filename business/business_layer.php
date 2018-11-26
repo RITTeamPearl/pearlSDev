@@ -211,9 +211,9 @@ class business_layer{
                    $value = "";
                }
 
-               if( strpos( $key, "contains" ) !== false) {
+               if( strpos( $key, "Check" ) !== false) {
                    $val = preg_replace("/[^0-9]+/", "", $value);
-                   if (!preg_match({'/[^0-9]{1}/', $val})) $error[] = $key;
+                   if (!preg_match("/[^0-9]{1}/", $val)) $error[] = $key;
                }
            }
            return (count($error) == 0) ? ($postData) : (false);
