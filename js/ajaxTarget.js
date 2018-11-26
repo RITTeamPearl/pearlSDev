@@ -69,3 +69,20 @@ function ajaxDelete(searchID,ele,page) {
         console.log("fail");
     });
 }
+
+function initSearch(event,ele){
+    //this function is called on every key press.
+    //only trigger search if button is enter
+    if(event.which === 13){
+        $(".searchBarDelete").remove();
+        $.ajax({
+            type: "GET",
+            url: '../phpScripts/ajaxTarget.php',
+            data: {
+                search:$(ele).val()
+            }
+        }).done(function(data){
+            $("#headerRow").after('<tr>'+data+'</tr>');
+        });
+    }
+}
