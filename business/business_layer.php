@@ -180,7 +180,6 @@ class business_layer{
                    if ($val == "No Survey") {}
                    else {
                        $val = filter_var($val, FILTER_SANITIZE_URL);
-                       echo "$val";
                        //if its not a valid URL add to error array
                        if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$val)) $error[] = $key;
                    }
