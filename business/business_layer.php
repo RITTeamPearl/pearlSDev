@@ -177,7 +177,7 @@ class business_layer{
                }
                //if key = surveyLink
                if ($key == "surveyLink"){
-                   if ($val == "No Survey") {}
+                   if ($val == "No Survey" || "https://") {}
                    else {
                        $val = filter_var($val, FILTER_SANITIZE_URL);
                        //if its not a valid URL add to error array
