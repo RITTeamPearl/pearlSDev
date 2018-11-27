@@ -71,7 +71,6 @@ if (isset($_POST['sendNoti'])){
             $_POST['surveyLink'] = "https://".$_POST['surveyLink'];
         }
         $dataLayer->createNotification($bizLayer->valAndSanNoti($_POST));
-        //$dataLayer->createNotification($_POST);
     }
 
     //Delete notification button was clicked
@@ -87,7 +86,22 @@ if (isset($_POST['sendNoti'])){
                 $_POST['surveyLink'] = "https://".$_POST['surveyLink'];
             }
         }
-        $dataLayer->updateNotification($_GET['id'],$bizLayer->valAndSanNoti($_POST));
+        //if files is set upload it then add it to post
+        if (isset($_FILES['addNotiAttachment']) && $_FILES['addNotiAttachment']['size'] > 0 ){
+            if ($bizLayer->uploadFile($_FILES['addNotiAttachment'],'noti')){
+                //file was uploaded. set a relative path for the DB
+                $_POST['attachment'] = "assets/uploads/".$_FILES['addNotiAttachment']['name'];
+                //call update including file
+                $dataLayer->updateNotification($_GET['id'],$bizLayer->valAndSanNoti($_POST),1);
+            }
+            else {
+                //echo "Error uploading file";
+            }
+        }
+        else{
+            //call update without attachment
+            $dataLayer->updateNotification($_GET['id'],$bizLayer->valAndSanNoti($_POST));
+        }
     }
     //Remove the attachment
     if (isset($_POST['removeNotiAttachment'])) {

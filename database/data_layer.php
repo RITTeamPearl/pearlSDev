@@ -82,15 +82,28 @@ class data_layer{
         }
     }
 
-    function updateNotification($notificationID, $postData){
-        if ($stmt = $this->connection->prepare("UPDATE notification SET title = ?,body = ?, surveyLink = ?,activeYN = ? WHERE notificationID = ?")){
-            $stmt->bind_param("sssii",$postData['title'],$postData['body'],$postData['surveyLink'],intval($postData['activeYN']),intval($notificationID));
-            $stmt->execute();
-            $stmt->store_result();
-            if ($stmt->num_rows > 0){
-                return true;
+    function updateNotification($notificationID, $postData, $attachment = 0){
+        if($attachment){
+            if ($stmt = $this->connection->prepare("UPDATE notification SET title = ?,body = ?, surveyLink = ?,activeYN = ?,attachment = ? WHERE notificationID = ?")){
+                $stmt->bind_param("sssisi",$postData['title'],$postData['body'],$postData['surveyLink'],intval($postData['activeYN']),$postData['attachment'],intval($notificationID));
+                $stmt->execute();
+                $stmt->store_result();
+                if ($stmt->num_rows > 0){
+                    return true;
+                }
             }
         }
+        else{
+            if ($stmt = $this->connection->prepare("UPDATE notification SET title = ?,body = ?, surveyLink = ?,activeYN = ? WHERE notificationID = ?")){
+                $stmt->bind_param("sssii",$postData['title'],$postData['body'],$postData['surveyLink'],intval($postData['activeYN']),intval($notificationID));
+                $stmt->execute();
+                $stmt->store_result();
+                if ($stmt->num_rows > 0){
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 

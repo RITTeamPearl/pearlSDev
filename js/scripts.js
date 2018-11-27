@@ -62,6 +62,10 @@ function dropDownModify(ele,page){
         $(ele).attr('disabled', false);
     });
 
+    if (page == 'noti'){
+        $(nextRow).find("input[name=addNotiAttachment]").show();
+    }
+
 }
 
 //Resizes the text area to fit content

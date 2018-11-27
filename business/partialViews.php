@@ -95,6 +95,7 @@ $string .= <<<END
                         <h2>Attachment</h2>
 END;
 if ($currAttachmentName != "No Attachment") $string .= '<button type="submit" name= "removeNotiAttachment" value="removeNotiAttachment"><i class="fas fa-times-circle"></i></button>';
+else $string .= '<input class="hidden" type="file" name= "addNotiAttachment" value="addNotiAttachment"><i class="fas fa-file-upload"></i>';
 $string .= <<<END
                         <span>{$currAttachmentName}</span>
                         <h2>User Ack. Report</h2>
