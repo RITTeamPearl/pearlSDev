@@ -117,7 +117,7 @@ $bizLayer = new business_layer();
                 $tableString =<<<END
                 <div id='csvFailedListContainer'>
                 <h2 class='title' id='csvFailed'>Discrepencies found</h2>
-                <table><tr><th></th><th>Firyst</th><th>Last</th><th>Action</th></tr>
+                <table><tr><th></th><th>First</th><th>Last</th><th>Action</th></tr>
 END;
 
 foreach ($csvDiff as $ind => $thisUserArray) {
