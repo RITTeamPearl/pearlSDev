@@ -47,7 +47,7 @@ class business_layer{
         catch (\Exception $e)//Slash is for generic exception class
         {
             //something went wrong
-            echo $e->getMessage();
+            //echo $e->getMessage();
             return false;
         }
     }
