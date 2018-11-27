@@ -64,6 +64,7 @@ function dropDownModify(ele,page){
 
     if (page == 'noti'){
         $(nextRow).find("input[name=addNotiAttachment]").show();
+        $(nextRow).find('#attcName').hide();
     }
 
 }

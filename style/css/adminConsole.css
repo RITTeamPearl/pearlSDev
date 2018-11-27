@@ -362,7 +362,7 @@ i {
       #adminConsole table .un-collapsed .fa-times-circle {
         color: #f24949;
         font-size: 1.5625em; }
-      #adminConsole table .un-collapsed .fa-download {
+      #adminConsole table .un-collapsed .fa-download, #adminConsole table .un-collapsed .fa-file-upload {
         color: #5b8ec5;
         margin-right: 0.625rem; }
       #adminConsole table .un-collapsed .addNewForm {
