@@ -140,7 +140,7 @@ function submitForm(){
             deptID: subDeptID
         }
     }).done(function(){
-        console.log("it works");
+        window.location.href = "../index.php"
     }).fail(function(data){
         console.log("fail");
     });
