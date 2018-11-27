@@ -167,5 +167,16 @@
             height: pxToRem(700);
             width: inherit;
         }
+        
+        .editVideo, .addVideo  {
+            position: absolute !important;
+            width: 350px !important;
+            height: 200px !important;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1 !important;
+            margin: 0 !important;
+        }
     }
 }

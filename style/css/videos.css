@@ -304,6 +304,15 @@ i {
     margin: 0 auto; }
   #videosPage .videoContainer {
     height: 21.875rem;
-    width: inherit; } }
+    width: inherit; }
+  #videosPage .editVideo, #videosPage .addVideo {
+    position: absolute !important;
+    width: 350px !important;
+    height: 200px !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1 !important;
+    margin: 0 !important; } }
 
 /*# sourceMappingURL=videos.css.map */
