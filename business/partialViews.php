@@ -437,7 +437,7 @@ END;
             </div>
             <span class='copy block'>{$currBody}</span>
 END;
-        if (strlen($currSurvey) > 2){;
+        if (strlen($currSurvey) > 2 && $currSurvey != "https://"){;
             $string .= "<a href='{$currSurvey}' target='_blank'><i class='fas fa-link'></i>Survey Link</a>";
         }
 $string .= <<<END

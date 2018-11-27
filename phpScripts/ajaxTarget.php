@@ -39,11 +39,11 @@
         if (isset($_POST['delete'])){
             if (isset($_POST['user'])) {
                 // code...
-                //$dataLayer->deleteData('user','userID',$_POST['userID']);
+                $dataLayer->deleteData('user','userID',$_POST['userID']);
                 //
             }
             if (isset($_POST['noti'])) {
-                //$dataLayer->deleteData('notification','notificationID',$_POST['notificationID']);
+                $dataLayer->deleteData('notification','notificationID',$_POST['notificationID']);
             }
         }
         else {
