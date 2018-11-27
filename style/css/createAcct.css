@@ -205,7 +205,7 @@ i {
   line-height: 1.40625em;
   color: white;
   margin-top: 1.875rem;
-  margin-bottom: 3.125rem; }
+  margin-bottom: 1.875rem; }
 #createAcctPage #screenIdentifier, #profilePage #screenIdentifier {
   position: relative;
   color: white; }
@@ -235,6 +235,8 @@ i {
       margin-left: 1.25rem; }
     #createAcctPage #screenIdentifier #screenContainer #dotCont1, #profilePage #screenIdentifier #screenContainer #dotCont1 {
       margin-left: -0.75rem; }
+#createAcctPage .formContainer, #profilePage .formContainer {
+  margin-top: 2.5rem; }
 #createAcctPage .inputWithIcon, #profilePage .inputWithIcon {
   margin-bottom: 1.40625rem; }
 #createAcctPage #formStep2, #profilePage #formStep2 {

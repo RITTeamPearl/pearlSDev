@@ -14,7 +14,7 @@
         line-height: pxToEm(45);
         color: white;
         margin-top: pxToRem(60);
-        margin-bottom: pxToRem(100);
+        margin-bottom: pxToRem(60);
     }
     
     #screenIdentifier {
@@ -63,6 +63,10 @@
                 margin-left: pxToRem(-24);
             }
         }
+    }
+    
+    .formContainer {
+        margin-top: pxToRem(80);
     }
 
     .inputWithIcon {

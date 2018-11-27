@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST){
             <!-- Header -->
             <div class='header'>
                 <h1 class='title centered'>Create Account</h1>
-                <h2 class='subtitle centered'>We just need a little information for the<br/>HR department to activate your account.</h2>
+                <h2 class='subtitle centered'>We just need a little information for the<br/>HR department to activate your account.<br><br>Password must contain 6 or more characters<br> with a number and uppercase letter.</h2>
             </div>
 
             <!-- Screen Identifier Visual Graphic -->
