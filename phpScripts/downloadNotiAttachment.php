@@ -26,6 +26,10 @@ if (file_exists($file)){
     set_time_limit(0);
     readfile($file);
 }
+else{
+    $url = $_SERVER['HTTP_REFERER'];
+    header("Location: $url");
+}
 
 
  ?>

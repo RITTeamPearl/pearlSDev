@@ -400,15 +400,15 @@ END;
         if (intval($hours) < 1){
             $timesig = $mins."m ago";
         }
-        if (intval($days) < 1) {
+        else if (intval($days) < 1) {
             //display using hours
             $timesig = $hours."h ago";
         }
-        if (intval($days) >= 1 && intval($days) <= 6) {
+        else if (intval($days) >= 1 && intval($days) <= 6) {
             //display using days
             $timesig = $days."d ago";
         }
-        if (intval($days) >= 7){
+        else if (intval($days) >= 7){
             //display using weeks
             $timesig = ($days%7)."w ago";
         }
@@ -424,8 +424,14 @@ END;
         <div class='container'>
             <h2 class='title'>{$currTitle}</h2>
             <div class='subtitle block'>
-                <i onclick="location.href='../phpScripts/downloadNotiAttachment.php?id={$currNotiID}'" class="fas fa-download inline"></i>
-                <span class='inline'>{$currAttachmentName}</span>
+END;
+        if ($currAttachmentName != "No Attachment"){
+            $string .=<<<END
+            <i onclick="location.href='../phpScripts/downloadNotiAttachment.php?id={$currNotiID}'" class="fas fa-download inline"></i>
+            <span class='inline'>{$currAttachmentName}</span>
+END;
+        }
+        $string .=<<<END
                 <i class="far fa-clock inline"></i>
                 <span class='inline'>{$timesig}</span>
             </div>
