@@ -447,7 +447,9 @@ i {
   #createAcctPage .container, #profilePage .container {
     padding-top: 3.125rem; }
     #createAcctPage .container #screenIdentifier, #profilePage .container #screenIdentifier {
-      margin-bottom: 3.75rem; } }
+      margin-bottom: 3.75rem; }
+    #createAcctPage .container .formContainer select, #profilePage .container .formContainer select {
+      text-indent: 2.1875rem; } }
 
 #profilePage .container {
   padding-bottom: 4.375rem; }

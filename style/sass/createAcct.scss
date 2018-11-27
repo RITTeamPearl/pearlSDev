@@ -20,7 +20,6 @@
     #screenIdentifier {
         position: relative;
         color: white;
-        //padding: 0 pxToRem(120);
         
         #screenContainer {
             position: relative;
@@ -92,6 +91,12 @@
             
             #screenIdentifier {
                 margin-bottom: pxToRem(120);
+            }
+            
+            .formContainer {
+                select {
+                    text-indent: pxToRem(70);
+                }
             }
         }
     }

@@ -223,6 +223,15 @@ i {
   #forgotPwdPage .container .success {
     display: block;
     line-height: 2.8125em; }
+#forgotPwdPage #reset-confirm .formContainer {
+  margin-top: 0; }
+#forgotPwdPage #reset-confirm h3 {
+  color: white;
+  text-align: center;
+  margin-bottom: 2.1875rem;
+  line-height: 1.875rem; }
+#forgotPwdPage #reset-confirm .inputWithIcon {
+  margin-top: 1.25rem; }
 @media only screen and (min-width: 768px) {
   #forgotPwdPage .container {
     padding-top: 16.25rem; } }
