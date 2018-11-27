@@ -14,7 +14,7 @@ if (isset($_POST['addEmp'])){
     $_POST = $businessLayer->valAndSanUser($_POST);
     //Generate a random 10 character password
     $genPass = substr(md5(microtime()),rand(0,26),10);
-    $_POST['password'] = $genPass;
+    $_POST['password'] = "Password1";
     //pass in 1 becaue it is a temp pass.
     //Also pass in the auth value individually
     $dataLayer->createNewUser($_POST, 1, $_POST['authID'], $_POST['activeYN']);
@@ -23,7 +23,7 @@ if (isset($_POST['addEmp'])){
 
     //after successfully creating the user send them their password
     //address, subject, body
-    $businessLayer->sendEmail($_POST['email'], "RRCC Account Created For You", "You can sign in with the Phone Number $phone and password $genPass");
+    $businessLayer->sendEmail($_POST['email'], "RRCC Account Created For You", "You can sign in with the Phone Number $phone and a password of Password1");
     header("Location: ../../views/adminConsoleEmployee.php");
 }
 

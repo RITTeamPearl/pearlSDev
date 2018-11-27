@@ -170,7 +170,6 @@ class data_layer{
             $stmt->execute();
             $stmt->store_result();
             if ($stmt->affected_rows > 0){
-                echo "updated the DB";
                 return true;
             }
         }
