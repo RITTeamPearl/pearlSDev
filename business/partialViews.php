@@ -544,8 +544,8 @@ END;
                          <ul class='spaced'>
                              <li onclick="addNewVid()">Create New<i class="fas fa-plus-circle"></i></li>
                              <li onclick="updateVid($currID)">Edit Link<i class='fas fa-pencil-alt'></i></li>
-                             <form id="delform_$currID" method="POST" action="../phpScripts/formActions/videoAction.php?delete=$currID">
-                                <li onclick="deleteVid($currID)">Delete<i class="fas fa-trash-alt"></i></li>
+                             <li onclick="deleteVid($currID)">Delete<i class="fas fa-trash-alt"></i>
+                             <form id="delform_$currID" method="POST" action="../phpScripts/formActions/videoAction.php?delete=$currID"></li>
                              </form>
                          </ul>
                      </div>

@@ -313,6 +313,8 @@ i {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1 !important;
-    margin: 0 !important; } }
+    margin: 0 !important; }
+  #videosPage .buttonOptions li:hover {
+    cursor: pointer; } }
 
 /*# sourceMappingURL=videos.css.map */

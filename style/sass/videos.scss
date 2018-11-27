@@ -178,5 +178,11 @@
             z-index: 1 !important;
             margin: 0 !important;
         }
+        
+        .buttonOptions {
+            li:hover {
+                cursor: pointer;
+            }
+        }
     }
 }
