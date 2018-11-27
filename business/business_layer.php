@@ -86,7 +86,7 @@ class business_layer{
         //Temp file stored from upload. Full path
         $tempFile = $fileArray['tmp_name'];
         //targetFile
-        $targetFile = "../assets/uploads/" . $name;
+        $targetFile = "../../assets/uploads/" . $name;
 
 
         $notAllowedTypes = array("exe", "js", "sql", "php");

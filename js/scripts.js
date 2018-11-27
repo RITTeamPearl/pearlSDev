@@ -114,3 +114,9 @@ function closeVideoBox(ele){
 function deleteVid(videoID){
     $("#delform_"+videoID).submit();
 }
+
+function checkDesktop(){
+    if (screen.width < 768){
+        $("#compare_Button").hide();
+    }
+}
