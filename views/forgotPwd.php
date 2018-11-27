@@ -14,7 +14,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         //Yes
             //$_SERVER["ForgotPwdEmail"] = $inputEmail;
             $hashedEmail = password_hash($inputEmail,PASSWORD_DEFAULT);
-            $link = 'localhost/views/resetConfirm.php?email=' . $hashedEmail;
+            //$link = 'localhost/views/resetConfirm.php?email=' . $hashedEmail;
+            //This link should be made relative to the IP Address
+            $link = 'local.pearl.com/views/resetConfirm.php?email=' . $hashedEmail;
             $subject = "RRCC Account Password Reset";
             $body = "<h1>Please click the link below to reset your password</h1>";
             $body .= "<a href=$link >Reset my password</a>";
