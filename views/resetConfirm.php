@@ -24,7 +24,7 @@ $bizLayer = new business_layer();
         ?>
         <div class='container'>
             <section id='reset-confirm'>
-                 <form class='formContainer' method='POST' action="resetPassword.php?e=<?php echo $hashedEmail?>">
+                 <form class='formContainer' method='POST' action="../phpScripts/resetPassword.php?e=<?php echo $hashedEmail?>">
                     <h3>Type in your email and new password below to confirm password reset</h3>
                     <div class='inputWithIcon'>
                         <input class='block' id='email' type = 'email'  name='email' placeholder= 'Email Address' required="required" autofocus>

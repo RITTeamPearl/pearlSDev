@@ -221,8 +221,6 @@ class business_layer{
 
                $postData[$key] = $val;
            }
-           echo "<br><br><br>";
-           var_dump($error);
            return (count($error) == 0) ? ($postData) : (false);
        }
 
