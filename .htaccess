@@ -1,5 +1,5 @@
 # supress php errors
-php_flag display_startup_errors on
+php_flag display_startup_errors off
 #
 # you can set display_errors off if you like
 php_flag display_errors off
@@ -12,8 +12,32 @@ php_value error_reporting 32767
 # enable PHP error logging
 #
 
+#Project Root Folder
+SetEnv PROJECT_ROOT localhost
+
+#email address that the emails will send from- This MUST be a gmail account
 SetEnv EMAIL_ADDR teampearlrit@gmail.com
+
+#email address password
 SetEnv EMAIL_PASSWORD T3@mP3@rl!
+
+#Registered Twilio phone number for sending
 SetEnv TWILIO_PHONE +18572145309
+
+#Twilio SID, this can be found on twilio.com/console
 SetEnv TWILIO_SID AC03cb27728fb0055b67a9fe7bd9e2d826
+
+#Twilio Token, this can also be found on twilio.com/console
 SetEnv TWILIO_TOKEN 131fffeed54d706660bd6f36f774c19b
+
+#database host, this will most likely be localhost
+SetEnv DB_HOST localhost
+
+#database username
+SetEnv DB_USER root
+
+#password for above username
+SetEnv DB_PASSWORD student
+
+#Name of DB schema to look for tables
+SetEnv DB_SCHEMA rrcc_pearl_db

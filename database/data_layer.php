@@ -6,6 +6,7 @@ class data_layer{
      * Data Layer Constructor, will automatically connect to DB.
      */
     function __construct(){
+        //$this->connection = new mysqli($_SERVER['DB_HOST'],$_SERVER['DB_USER'], $_SERVER['DB_PASSWORD'], $_SERVER['DB_SCHEMA']);
         $this->connection = new mysqli("127.0.0.1","root", "student", "rrcc_pearl_db");
         if ($this->connection->connect_error){
             //echo "connection failed: ".mysqli_connect_error();

@@ -30,7 +30,7 @@ class business_layer{
 
         try{
             //set attributes to passed in vars
-            $mail->setFrom('team-pearl-rit@gmail.com', 'RIT Team Pearl');
+            $mail->setFrom($_SERVER['EMAIL_ADDR'], 'RRCC Automated Email');
             $mail->addAddress($address);
             $mail->Subject = $subject;
             $mail->Body = $body;

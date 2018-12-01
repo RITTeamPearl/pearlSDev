@@ -6,17 +6,14 @@ $bizLayer = new business_layer();
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-
-
    $inputEmail = $_POST["email"];
    if($dataLayer->checkEmailExists($inputEmail)){
         //Yes
-            //$_SERVER["ForgotPwdEmail"] = $inputEmail;
             $hashedEmail = password_hash($inputEmail,PASSWORD_DEFAULT);
-            //$link = 'localhost/views/resetConfirm.php?email=' . $hashedEmail;
             //This link should be made relative to the IP Address
-            $link = 'local.pearl.com/views/resetConfirm.php?email=' . $hashedEmail;
+            $root = $_SERVER["PROJECT_ROOT"];
+            $link = "$root/views/resetConfirm.php?email=" . $hashedEmail;
+            //$link = 'local.pearl.com/views/resetConfirm.php?email=' . $hashedEmail;
             $subject = "RRCC Account Password Reset";
             $body = "<h1>Please click the link below to reset your password</h1>";
             $body .= "<a href=$link >Reset my password</a>";
@@ -29,7 +26,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }   else { //NO
             //Put error message on screen saying email could not be found
             echo "<h2 color='red'>Error: Email Address Not Found.</h2>";
-            //echo "<script type='text/javascript'>alert('..');</script>";
     }
 }
 ?>
