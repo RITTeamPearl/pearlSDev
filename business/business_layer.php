@@ -57,7 +57,7 @@ class business_layer{
      * @param  [type] $text [text merssage to send]
      * @param  [type] $phoneNumber [defaults to my phone because twillio]
      */
-    function sendText($text,$phoneNumber='15856455810'){
+    function sendText($text,$phoneNumber){
         // Twilio credentials
         $account_sid = $_SERVER['TWILIO_SID'];
         $auth_token = $_SERVER['TWILIO_TOKEN'];
@@ -67,8 +67,7 @@ class business_layer{
         $client = new Client($account_sid, $auth_token);
         //send message
         $client->messages->create(
-            // Where to send a text message (your cell phone?)
-            $phoneNumber,//should be a passed in $phoneNumber but free version doesnt allow it.
+            $phoneNumber,//passed in user phone number
             array(
                 'from' => $twilio_number,
                 'body' => $text

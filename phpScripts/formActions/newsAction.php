@@ -41,24 +41,28 @@ if (isset($_POST['sendNoti'])){
         }
 
     }
+
+    $viewableByArray = str_split($viewableBy);
+    $sendText = isset($_POST['phoneCheck']);
+    $sendEmail = isset($_POST['emailCheck']);
+    $addAttachment = isset($_POST['attachment']);
     //loop through each user to see if they should be sent the notification
     foreach ($dataLayer->getData('user', array('email','phone','deptID')) as $ind => $currUser) {
         //only send them the notification if their deptID is in the viewableBy string
-        if(in_array($currUser['deptID'],str_split($viewableBy))){
+        if(in_array($currUser['deptID'],$viewableByArray)){
             //first send email if it was chosen in the check box
-            if (isset($_POST['emailCheck'])){
+            if ($sendEmail){
                 $currEmail = $currUser['email'];
                 //if it has an attachment send that
-                if (isset($_POST['attachment'])) $bizLayer->sendEmail($currEmail,$_POST['title'],$_POST['body'],$_POST['attachment']);
+                if ($addAttachment) $bizLayer->sendEmail($currEmail,$_POST['title'],$_POST['body'],$_POST['attachment']);
                 //No attachment just send title and body
                 else $bizLayer->sendEmail($currEmail,$_POST['title'],$_POST['body']);
             }
 
             //next send the text if it was chosen
-            if (isset($_POST['phoneCheck'])){
+            if ($sendText){
                 $fullText = "\n".$_POST['title']."\n\n".$_POST['body'];
-                //$bizLayer->sendText($fullText); defaults to my phone bc twillio
-                //$bizLayer->sendText($fullText,$currUser['phone']);
+                $bizLayer->sendText($fullText,"1".$currUser['phone']);
             }
         }
         //users deptID not in viewableBy string get nothing and like it
@@ -66,7 +70,7 @@ if (isset($_POST['sendNoti'])){
         }
 
         //if webAppCheck is set make the post val = 1;
-        $_POST['webAppYN'] = isset($_POST['webAppCheck']) ? (1) : (0);
+        $_POST['webAppYN'] = isset($_POST['webAppCheck']);
         if (strpos($_POST['surveyLink'],"http") === false && $_POST['surveyLink'] != "No Survey"){
             $_POST['surveyLink'] = "https://".$_POST['surveyLink'];
         }
